@@ -11,7 +11,6 @@ public:
 	void Execute() override;
 	bool IsFinished() override;
 	void End(bool interrupted) override;
-	bool RunsWhenDisabled() const override;
 
 private:
 };

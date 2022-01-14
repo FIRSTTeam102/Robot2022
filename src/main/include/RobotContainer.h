@@ -4,6 +4,7 @@
 #include <frc/XboxController.h>
 #include <frc/smartdashboard/SendableChooser.h>
 #include <frc2/command/Command.h>
+#include <frc2/command/button/Button.h>
 
 #include "commands/AutonomousCommand.h"
 #include "commands/Climber/Climb.h"
@@ -51,12 +52,12 @@ private:
 	frc2::Button mDriverButtonB{[&] { return mDriverController.GetBButton(); }};
 	frc2::Button mDriverButtonX{[&] { return mDriverController.GetXButton(); }};
 	frc2::Button mDriverButtonY{[&] { return mDriverController.GetYButton(); }};
-	frc2::Button mDriverButtonLB{[&] { return mDriverController.GetBumper(frc::GenericHID::JoystickHand::kLeftHand); }};
-	frc2::Button mDriverButtonRB{[&] { return mDriverController.GetBumper(frc::GenericHID::JoystickHand::kRightHand); }};
+	frc2::Button mDriverButtonLB{[&] { return mDriverController.GetLeftBumper(); }};
+	frc2::Button mDriverButtonRB{[&] { return mDriverController.GetRightBumper(); }};
 	frc2::Button mDriverButtonLMenu{[&] { return mDriverController.GetBackButton(); }};
 	frc2::Button mDriverButtonRMenu{[&] { return mDriverController.GetStartButton(); }};
-	frc2::Button mDriverLT{[&] { return (mDriverController.GetTriggerAxis(frc::GenericHID::JoystickHand::kLeftHand) > 0.5); }};
-	frc2::Button mDriverRT{[&] { return (mDriverController.GetTriggerAxis(frc::GenericHID::JoystickHand::kRightHand) > 0.5); }};
+	frc2::Button mDriverLT{[&] { return (mDriverController.GetLeftTriggerAxis() > 0.5); }};
+	frc2::Button mDriverRT{[&] { return (mDriverController.GetRightTriggerAxis() > 0.5); }};
 	frc2::Button mDriverUpDPad{[&] { return (mDriverController.GetPOV() == 0); }};
 	frc2::Button mDriverLeftDPad{[&] { return (mDriverController.GetPOV() == 90); }};
 	frc2::Button mDriverDownDPad{[&] { return (mDriverController.GetPOV() == 180); }};
@@ -67,18 +68,18 @@ private:
 	frc2::Button mOperatorButtonB{[&] { return mOperatorController.GetBButton(); }};
 	frc2::Button mOperatorButtonX{[&] { return mOperatorController.GetXButton(); }};
 	frc2::Button mOperatorButtonY{[&] { return mOperatorController.GetYButton(); }};
-	frc2::Button mOperatorButtonLB{[&] { return mOperatorController.GetBumper(frc::GenericHID::JoystickHand::kLeftHand); }};
-	frc2::Button mOperatorButtonRB{[&] { return mOperatorController.GetBumper(frc::GenericHID::JoystickHand::kRightHand); }};
+	frc2::Button mOperatorButtonLB{[&] { return mOperatorController.GetLeftBumper(); }};
+	frc2::Button mOperatorButtonRB{[&] { return mOperatorController.GetRightBumper(); }};
 	frc2::Button mOperatorButtonLMenu{[&] { return mOperatorController.GetBackButton(); }};
 	frc2::Button mOperatorButtonRMenu{[&] { return mOperatorController.GetStartButton(); }};
-	frc2::Button mOperatorLT{[&] { return mOperatorController.GetTriggerAxis(frc::GenericHID::JoystickHand::kLeftHand) > 0.5; }};
-	frc2::Button mOperatorRT{[&] { return mOperatorController.GetTriggerAxis(frc::GenericHID::JoystickHand::kRightHand) > 0.5; }};
+	frc2::Button mOperatorLT{[&] { return mOperatorController.GetLeftTriggerAxis() > 0.5; }};
+	frc2::Button mOperatorRT{[&] { return mOperatorController.GetRightTriggerAxis() > 0.5; }};
 	frc2::Button mOperatorUpDPad{[&] { return (mOperatorController.GetPOV() == 0); }};
 	frc2::Button mOperatorLeftDPad{[&] { return (mOperatorController.GetPOV() == 90); }};
 	frc2::Button mOperatorDownDPad{[&] { return (mOperatorController.GetPOV() == 180); }};
 	frc2::Button mOperatorRightDPad{[&] { return (mOperatorController.GetPOV() == 270); }};
 
-	frc::SendableChooser<frc2::Command*> m_chooser;
+	frc::SendableChooser<frc2::Command*> mChooser;
 
 	AutonomousCommand mAutonomousCommand;
 	static RobotContainer* mRobotContainer;
