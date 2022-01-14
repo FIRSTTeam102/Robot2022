@@ -3,14 +3,15 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
-class AutonomousCommand : public frc2::CommandHelper<frc2::CommandBase, AutonomousCommand> {
+class Backward : public frc2::CommandHelper<frc2::CommandBase, Backward> {
 public:
-	explicit AutonomousCommand();
+	explicit Backward();
 
 	void Initialize() override;
 	void Execute() override;
 	bool IsFinished() override;
 	void End(bool interrupted) override;
+	bool RunsWhenDisabled() const override;
 
 private:
 };

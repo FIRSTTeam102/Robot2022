@@ -1,11 +1,10 @@
 #pragma once
-
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
-class AutonomousCommand : public frc2::CommandHelper<frc2::CommandBase, AutonomousCommand> {
+class StopIndexer : public frc2::CommandHelper<frc2::CommandBase, StopIndexer> {
 public:
-	explicit AutonomousCommand();
+	explicit StopIndexer();
 
 	void Initialize() override;
 	void Execute() override;

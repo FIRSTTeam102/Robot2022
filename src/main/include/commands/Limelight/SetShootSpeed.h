@@ -3,9 +3,9 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
-class AutonomousCommand : public frc2::CommandHelper<frc2::CommandBase, AutonomousCommand> {
+class SetShootSpeed : public frc2::CommandHelper<frc2::CommandBase, SetShootSpeed> {
 public:
-	explicit AutonomousCommand();
+	explicit SetShootSpeed();
 
 	void Initialize() override;
 	void Execute() override;

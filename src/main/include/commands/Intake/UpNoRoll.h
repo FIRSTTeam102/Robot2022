@@ -3,14 +3,15 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
-class AutonomousCommand : public frc2::CommandHelper<frc2::CommandBase, AutonomousCommand> {
+class UpNoRoll : public frc2::CommandHelper<frc2::CommandBase, UpNoRoll> {
 public:
-	explicit AutonomousCommand();
+	explicit UpNoRoll();
 
 	void Initialize() override;
 	void Execute() override;
 	bool IsFinished() override;
 	void End(bool interrupted) override;
+	bool RunsWhenDisabled() const override;
 
 private:
 };

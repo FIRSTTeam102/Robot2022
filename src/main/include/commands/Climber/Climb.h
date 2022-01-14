@@ -3,9 +3,9 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
-class AutonomousCommand : public frc2::CommandHelper<frc2::CommandBase, AutonomousCommand> {
+class Climb : public frc2::CommandHelper<frc2::CommandBase, Climb> {
 public:
-	explicit AutonomousCommand();
+	explicit Climb();
 
 	void Initialize() override;
 	void Execute() override;

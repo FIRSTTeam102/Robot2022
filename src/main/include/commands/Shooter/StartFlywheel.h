@@ -3,9 +3,9 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
-class AutonomousCommand : public frc2::CommandHelper<frc2::CommandBase, AutonomousCommand> {
+class StartFlywheel : public frc2::CommandHelper<frc2::CommandBase, StartFlywheel> {
 public:
-	explicit AutonomousCommand();
+	explicit StartFlywheel();
 
 	void Initialize() override;
 	void Execute() override;
