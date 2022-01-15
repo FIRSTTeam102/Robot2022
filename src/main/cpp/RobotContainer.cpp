@@ -9,8 +9,7 @@ RobotContainer::RobotContainer() : mAutonomousCommand() {
 	// SmartDashboard Buttons
 	frc::SmartDashboard::PutData("SwerveDrive", new SwerveDrive());
 	frc::SmartDashboard::PutData("FlipDrive", new FlipDrive());
-	frc::SmartDashboard::PutData("DownYesRoll", new DownYesRoll(&mIntake));
-	frc::SmartDashboard::PutData("UpNoRoll", new UpNoRoll(&mIntake));
+	frc::SmartDashboard::PutData("ArmControl", new ArmControl(&mIntake));
 	frc::SmartDashboard::PutData("Forward", new Forward());
 	frc::SmartDashboard::PutData("Backward", new Backward());
 	frc::SmartDashboard::PutData("Shoot Sequential", new ShootSequential());
@@ -38,6 +37,7 @@ RobotContainer* RobotContainer::GetInstance() {
 }
 
 void RobotContainer::ConfigureButtonBindings() {
+	mOperatorButtonLB.WhenHeld(&mIntakeControlCommand);
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {

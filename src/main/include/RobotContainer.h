@@ -12,8 +12,7 @@
 #include "commands/Drive/SwerveDrive.h"
 #include "commands/Indexer/Backward.h"
 #include "commands/Indexer/Forward.h"
-#include "commands/Intake/DownYesRoll.h"
-#include "commands/Intake/UpNoRoll.h"
+#include "commands/Intake/ArmControl.h"
 #include "commands/Limelight/AimbotSequential.h"
 #include "commands/Limelight/SetShootSpeed.h"
 #include "commands/Limelight/YawToTarget.h"
@@ -33,14 +32,6 @@ class RobotContainer {
 	public:
 		frc2::Command* GetAutonomousCommand();
 		static RobotContainer* GetInstance();
-
-		// The robot's subsystems
-		Drive mDrive;
-		Intake mIntake;
-		Indexer mIndexer;
-		Shooter mShooter;
-		Climber mClimber;
-		Limelight mLimelight;
 
 		frc::XboxController* GetDriverController() { return &mDriverController; }
 
@@ -79,13 +70,24 @@ class RobotContainer {
 		frc2::Button mOperatorDownDPad{[&] { return (mOperatorController.GetPOV() == 180); }};
 		frc2::Button mOperatorRightDPad{[&] { return (mOperatorController.GetPOV() == 270); }};
 
-		DownYesRoll mIntakeDownCommand{&mIntake};
-		UpNoRoll mIntakeUpCommand{&mIntake};
-
 		frc::SendableChooser<frc2::Command*> mChooser;
 
 		AutonomousCommand mAutonomousCommand;
 		static RobotContainer* mRobotContainer;
+
+		// Subsystems and commands
+		Drive mDrive;
+
+		Intake mIntake;
+		ArmControl mIntakeControlCommand{&mIntake};
+
+		Indexer mIndexer;
+
+		Shooter mShooter;
+
+		Climber mClimber;
+
+		Limelight mLimelight;
 
 		void ConfigureButtonBindings();
 };

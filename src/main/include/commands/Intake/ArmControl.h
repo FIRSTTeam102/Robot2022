@@ -5,9 +5,9 @@
 
 #include "subsystems/Intake.h"
 
-class DownYesRoll : public frc2::CommandHelper<frc2::CommandBase, DownYesRoll> {
+class ArmControl : public frc2::CommandHelper<frc2::CommandBase, ArmControl> {
 	public:
-		explicit DownYesRoll(Intake* pIntake);
+		explicit ArmControl(Intake* pIntake);
 
 		void Initialize() override;
 		void Execute() override;
@@ -16,5 +16,4 @@ class DownYesRoll : public frc2::CommandHelper<frc2::CommandBase, DownYesRoll> {
 
 	private:
 		Intake* mpIntake;
-		int counter;
 };
