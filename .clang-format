@@ -12,6 +12,7 @@ ConstructorInitializerIndentWidth: 4
 IndentAccessModifiers: true
 IndentWidth: 4
 IndentWidth: 4
+NamespaceIndentation: All
 SpaceAfterCStyleCast: false
 SpaceAfterLogicalNot: false
 SpaceBeforeAssignmentOperators: true
