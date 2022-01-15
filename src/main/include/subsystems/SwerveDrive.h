@@ -10,7 +10,7 @@
 #include "subsystems/SwerveWheel.h"
 
 // Use Field Oriented Drive with the Gyro Sensor
-#define GYRO
+// #define GYRO
 
 class SwerveDrive : public frc2::SubsystemBase {
 	public:
