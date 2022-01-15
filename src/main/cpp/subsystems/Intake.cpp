@@ -5,7 +5,7 @@
 #include "Constants.h"
 #include "RobotContainer.h"
 
-Intake::Intake() : mIntakeArmMotor{IntakeConstants::kIntakeArmMotor, frc::Relay::kBothDirections}, mIntakeRollerMotor{IntakeConstants::kIntakeRollerMotor} {
+Intake::Intake() : mRollerMotor{IntakeConstants::kRollerMotor}, mArmSolenoid{frc::PneumaticsModuleType::REVPH, IntakeConstants::kArmSolenoid} {
 	SetName("Intake");
 	SetSubsystem("Intake");
 }
@@ -13,33 +13,33 @@ Intake::Intake() : mIntakeArmMotor{IntakeConstants::kIntakeArmMotor, frc::Relay:
 // lower the intake arm - start the arm motor
 void Intake::lowerIntakeArm() {
 	printf("Deploying intake\n");
-	mIntakeArmMotor.Set(frc::Relay::kReverse);
+    mArmSolenoid.Set(true);
 	// printf("Is arm down - %d\n", isArmDown());
 }
 // raise the intake arm -  start the arm motor
 void Intake::raiseIntakeArm() {
 	printf("Retracting intake\n");
-	mIntakeArmMotor.Set(frc::Relay::kForward);
+    mArmSolenoid.Set(false);
 }
 // stopIntakeArm - stop the intake arm motor by shutting it off
-void Intake::stopIntakeArm() {
-	mIntakeArmMotor.Set(frc::Relay::kOff);
-}
+// void Intake::stopIntakeArm() {
+    // Not doable with pneumatics
+// }
 // startRollers - start the intake arms rollers, to capture power cells
 void Intake::startRollers() {
 	printf("Rollers should be moving\n");
-	mIntakeRollerMotor.Set(-IntakeConstants::kIntakeRollerSpeed);
-	printf("Status: %d\n", mIntakeRollerMotor.IsAlive());
+	mRollerMotor.Set(-IntakeConstants::kRollerSpeed);
+	printf("Status: %d\n", mRollerMotor.IsAlive());
 }
 // startReversRollers - start the intake arm rollers in reverse - this is to
 //   spit out power cells in the event the power cell intake needs to be
 //   cleared
 void Intake::startReverseRollers() {
-	mIntakeRollerMotor.Set(IntakeConstants::kIntakeRollerSpeed);
+	mRollerMotor.Set(IntakeConstants::kRollerSpeed);
 }
 // stopRollers - stop the intake arm roller motors from running
 void Intake::stopRollers() {
-	mIntakeRollerMotor.Set(0);
+	mRollerMotor.Set(0);
 }
 
 void Intake::Periodic() {

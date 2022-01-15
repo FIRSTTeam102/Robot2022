@@ -11,8 +11,9 @@
  */
 
 namespace IntakeConstants {
-	const int kIntakeArmMotor = 0;
-	const int kIntakeRollerMotor = 12;
-
-	const double kIntakeRollerSpeed = 0.5;
+	// ports (NOT FINAL)
+	const int kRollerMotor = 12;
+	const int kArmSolenoid = 0;
+	// speeds
+	const double kRollerSpeed = 0.5;
 } // namespace IntakeConstants

@@ -23,5 +23,5 @@ bool DownYesRoll::IsFinished() {
 
 // Called once after isFinished returns true
 void DownYesRoll::End(bool interrupted) {
-	mpIntake->stopIntakeArm();
+	// mpIntake->stopIntakeArm();
 }

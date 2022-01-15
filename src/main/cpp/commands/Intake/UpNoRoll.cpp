@@ -24,5 +24,5 @@ bool UpNoRoll::IsFinished() {
 
 // Called once after isFinished returns true
 void UpNoRoll::End(bool interrupted) {
-	mpIntake->stopIntakeArm();
+	// mpIntake->stopIntakeArm();
 }
