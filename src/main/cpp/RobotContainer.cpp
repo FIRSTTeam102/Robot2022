@@ -23,6 +23,9 @@ RobotContainer::RobotContainer() : mAutonomousCommand() {
 	frc::SmartDashboard::PutData("SetShootSpeed", new SetShootSpeed());
 	frc::SmartDashboard::PutData("YawToTarget", new YawToTarget());
 
+	mSwerveDrive.SetDefaultCommand(std::move(mRunSwerveDrive));
+	mSwerveDrive.setController(&mDriverController);
+
 	ConfigureButtonBindings();
 
 	mChooser.SetDefaultOption("Autonomous Command", new AutonomousCommand());

@@ -8,8 +8,8 @@
 
 #include "commands/AutonomousCommand.h"
 #include "commands/Climber/Climb.h"
-#include "commands/Drive/FlipDrive.h"
-#include "commands/Drive/SwerveDrive.h"
+#include "commands/SwerveDrive/FlipDrive.h"
+#include "commands/SwerveDrive/RunSwerveDrive.h"
 #include "commands/Indexer/Backward.h"
 #include "commands/Indexer/Forward.h"
 #include "commands/Intake/DownYesRoll.h"
@@ -22,8 +22,8 @@
 #include "commands/Shooter/StartFlywheel.h"
 #include "commands/Shooter/StopFlywheel.h"
 #include "commands/Shooter/StopIndexer.h"
-#include "subsystems//Climber.h"
-#include "subsystems/Drive.h"
+#include "subsystems/Climber.h"
+#include "subsystems/SwerveDrive.h"
 #include "subsystems/Indexer.h"
 #include "subsystems/Intake.h"
 #include "subsystems/Limelight.h"
@@ -33,14 +33,6 @@ class RobotContainer {
 public:
 	frc2::Command* GetAutonomousCommand();
 	static RobotContainer* GetInstance();
-
-	// The robot's subsystems
-	Drive mDrive;
-	Intake mIntake;
-	Indexer mIndexer;
-	Shooter mShooter;
-	Climber mClimber;
-	Limelight mLimelight;
 
 	frc::XboxController* GetDriverController() { return &mDriverController; }
 
@@ -85,4 +77,18 @@ private:
 	static RobotContainer* mRobotContainer;
 
 	void ConfigureButtonBindings();
+
+	// Subsystems and commands
+	SwerveDrive mSwerveDrive;
+	RunSwerveDrive mRunSwerveDrive{&mSwerveDrive};
+
+	Intake mIntake;
+
+	Indexer mIndexer;
+
+	Shooter mShooter;
+
+	Climber mClimber;
+
+	Limelight mLimelight;
 };
