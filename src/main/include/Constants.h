@@ -15,4 +15,4 @@ namespace IntakeConstants {
 	const int kIntakeRollerMotor = 12;
 	
 	const double kIntakeRollerSpeed = 0.5;
-}
+} // namespace IntakeConstants
