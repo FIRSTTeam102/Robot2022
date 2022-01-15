@@ -9,8 +9,8 @@ RobotContainer::RobotContainer() : mAutonomousCommand() {
 	// SmartDashboard Buttons
 	frc::SmartDashboard::PutData("SwerveDrive", new SwerveDrive());
 	frc::SmartDashboard::PutData("FlipDrive", new FlipDrive());
-	frc::SmartDashboard::PutData("DownYesRoll", new DownYesRoll());
-	frc::SmartDashboard::PutData("UpNoRoll", new UpNoRoll());
+	frc::SmartDashboard::PutData("DownYesRoll", new DownYesRoll(&mIntake));
+	frc::SmartDashboard::PutData("UpNoRoll", new UpNoRoll(&mIntake));
 	frc::SmartDashboard::PutData("Forward", new Forward());
 	frc::SmartDashboard::PutData("Backward", new Backward());
 	frc::SmartDashboard::PutData("Shoot Sequential", new ShootSequential());

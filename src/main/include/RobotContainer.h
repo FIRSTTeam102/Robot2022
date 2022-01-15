@@ -79,6 +79,9 @@ class RobotContainer {
 		frc2::Button mOperatorDownDPad{[&] { return (mOperatorController.GetPOV() == 180); }};
 		frc2::Button mOperatorRightDPad{[&] { return (mOperatorController.GetPOV() == 270); }};
 
+		DownYesRoll mIntakeDownCommand{&mIntake};
+		UpNoRoll mIntakeUpCommand{&mIntake};
+
 		frc::SendableChooser<frc2::Command*> mChooser;
 
 		AutonomousCommand mAutonomousCommand;
