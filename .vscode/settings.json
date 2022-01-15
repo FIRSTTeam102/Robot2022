@@ -17,6 +17,5 @@
   "C_Cpp.default.configurationProvider": "vscode-wpilib",
   "files.associations": {
     "new": "cpp"
-  },
-  "C_Cpp.clang_format_fallbackStyle": "{BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0, UseTab: ForIndentation, AccessModifierOffset: -4, IndentWidth: 4, TabWidth: 4}"
+  }
 }
