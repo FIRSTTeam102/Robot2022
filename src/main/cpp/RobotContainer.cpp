@@ -7,7 +7,7 @@ RobotContainer* RobotContainer::mRobotContainer = NULL;
 
 RobotContainer::RobotContainer() : mAutonomousCommand() {
 	// SmartDashboard Buttons
-	frc::SmartDashboard::PutData("SwerveDrive", new SwerveDrive());
+	frc::SmartDashboard::PutData("RunSwerveDrive", new RunSwerveDrive());
 	frc::SmartDashboard::PutData("FlipDrive", new FlipDrive());
 	frc::SmartDashboard::PutData("DownYesRoll", new DownYesRoll());
 	frc::SmartDashboard::PutData("UpNoRoll", new UpNoRoll());
