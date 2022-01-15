@@ -1,14 +1,14 @@
 #pragma once
 
+#include <ctre/Phoenix.h>
 #include <frc/AnalogInput.h>
-#include <frc/motorcontrol/PWMTalonSRX.h>	
 #include <frc2/command/SubsystemBase.h>
 
 #include "Constants.h"
 
 class SwerveWheel : public frc2::SubsystemBase {
 public:
-	SwerveWheel(int drivePort, int turnPort, int encPort, int encOffset, int id);
+	SwerveWheel(int drivePort, int turnPort, int encPort, int encOffset);
 
 	void setAngle(double angle);
 	void setSpeed(double speed);
@@ -17,8 +17,8 @@ public:
 	void Periodic();
 
 private:
-	frc::PWMTalonSRX mDriveMotor;
-	frc::PWMTalonSRX mTurnMotor;
+	TalonSRX mDriveMotor;
+	TalonSRX mTurnMotor;
 	frc::AnalogInput mEnc;
 	int circScale(int i);
 	int mAngleOffset;
@@ -26,5 +26,4 @@ private:
 	int scaledTarg;
 	int scaledPos, posCurrent;
 	bool inverted = false;
-	int mId;
 };

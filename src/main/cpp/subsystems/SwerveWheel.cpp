@@ -1,8 +1,9 @@
 #include "subsystems/SwerveWheel.h"
 
-SwerveWheel::SwerveWheel(int drivePort, int turnPort, int encPort, int encOffset, int id = 0) : mDriveMotor{drivePort}, mTurnMotor{turnPort}, mEnc{encPort}, mAngleOffset{encOffset}, mId{id} {
+SwerveWheel::SwerveWheel(int drivePort, int turnPort, int encPort, int encOffset) : mDriveMotor{drivePort}, mTurnMotor{turnPort}, mEnc{encPort}, mAngleOffset{encOffset} {
 	SetName("SwerveWheel");
 	SetSubsystem("SwerveWheel");
+printf("Creating swerve wheel enc %d", encPort);
 }
 
 void SwerveWheel::setAngle(double angle) {
@@ -11,9 +12,9 @@ void SwerveWheel::setAngle(double angle) {
 
 void SwerveWheel::setSpeed(double speed) {
 	if (!inverted) {
-		mDriveMotor.Set(speed);
+		mDriveMotor.Set(TalonSRXControlMode::PercentOutput, speed);
 	} else {
-		mDriveMotor.Set(-speed);
+		mDriveMotor.Set(TalonSRXControlMode::PercentOutput, -speed);
 	}
 }
 
@@ -36,6 +37,6 @@ void SwerveWheel::Periodic() {
 	if (scaledTarg > 180) {
 		scaledTarg -= 360;
 	}
-	mTurnMotor.Set(SwerveDriveConstants::kMaxSpeed * (double)scaledTarg / 90.0);
-	printf("Wheel #%d Going to: %d   At: %d   Speed: %f\n", mId, target, scaledPos, SwerveDriveConstants::kMaxSpeed * (double)scaledTarg / 90.0);
+	mTurnMotor.Set(TalonSRXControlMode::PercentOutput, SwerveDriveConstants::kMaxSpeed * (double)scaledTarg / 90.0);
+	printf("Wheel Going to: %d   At: %d   Speed: %f\n", target, scaledPos, SwerveDriveConstants::kMaxSpeed * (double)scaledTarg / 90.0);
 }

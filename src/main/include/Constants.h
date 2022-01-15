@@ -11,27 +11,27 @@
  */
 
 namespace SwerveDriveConstants {
-// Motor ports
-const int kFLDrive = 8;
-const int kFLTurn = 1;
-const int kFRDrive = 9;
-const int kFRTurn = 3;
-const int kBRDrive = 7;
-const int kBRTurn = 6;
-const int kBLDrive = 5;
-const int kBLTurn = 4;
+	// Motor ports
+	const int kFLDrive = 1;
+	const int kFLTurn = 2;
+	const int kFRDrive = 3;
+	const int kFRTurn = 4;
+	const int kBRDrive = 5;
+	const int kBRTurn = 6;
+	const int kBLDrive = 7;
+	const int kBLTurn = 8;
 
-// Encoder Ports
-const int kFLEnc = 2;
-const int kFREnc = 3;
-const int kBREnc = 1;
-const int kBLEnc = 0;
+	// Encoder Ports
+	const int kFLEnc = 0;
+	const int kFREnc = 1;
+	const int kBREnc = 2;
+	const int kBLEnc = 3;
 
-// Calibration Values
-const int kFLOffset = 2618;
-const int kFROffset = 3603;
-const int kBROffset = 44;
-const int kBLOffset = 3466;
+	// Calibration Values
+	const int kFLOffset = 2618;
+	const int kFROffset = 3603;
+	const int kBROffset = 44;
+	const int kBLOffset = 3466;
 
-const double kMaxSpeed = 1;
-} // namespace SwerveDriveConstants
+	const double kMaxSpeed = 1.00;
+}
