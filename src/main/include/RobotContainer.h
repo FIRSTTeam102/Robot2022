@@ -34,14 +34,6 @@ class RobotContainer {
 		frc2::Command* GetAutonomousCommand();
 		static RobotContainer* GetInstance();
 
-		// The robot's subsystems
-		Drive mDrive;
-		Intake mIntake;
-		Indexer mIndexer;
-		Shooter mShooter;
-		Climber mClimber;
-		Limelight mLimelight;
-
 		frc::XboxController* GetDriverController() { return &mDriverController; }
 
 	private:
@@ -83,6 +75,19 @@ class RobotContainer {
 
 		AutonomousCommand mAutonomousCommand;
 		static RobotContainer* mRobotContainer;
+
+		// Subsystems and commands
+		SwerveDrive mSwerveDrive;
+
+		Intake mIntake;
+
+		Indexer mIndexer;
+
+		Shooter mShooter;
+
+		Climber mClimber;
+
+		Limelight mLimelight;
 
 		void ConfigureButtonBindings();
 };
