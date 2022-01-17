@@ -76,19 +76,6 @@ class RobotContainer {
 		AutonomousCommand mAutonomousCommand;
 		static RobotContainer* mRobotContainer;
 
-		// Subsystems and commands
-		SwerveDrive mSwerveDrive;
-
-		Intake mIntake;
-
-		Indexer mIndexer;
-
-		Shooter mShooter;
-
-		Climber mClimber;
-
-		Limelight mLimelight;
-
 		void ConfigureButtonBindings();
 
 		// Subsystems and commands
