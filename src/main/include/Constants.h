@@ -34,4 +34,9 @@ namespace SwerveDriveConstants {
 	const int kBLOffset = 1176;
 
 	const double kMaxSpeed = 1.00;
-}
+} // namespace SwerveDriveConstants
+
+namespace ClimberConstants {
+	// Solenoid Ports
+	const int kClimberSelonoid = 7; // Port undecided
+} // namespace ClimberConstants
