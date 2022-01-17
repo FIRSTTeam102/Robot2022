@@ -104,8 +104,8 @@ void SwerveDrive::vectorSwerve() {
 	mDriveVector.x = mpDriverController->GetLeftX();
 	mDriveVector.y = -mpDriverController->GetLeftY();
 	mDriveVector.Rotate(360 - offset); // Factor in gyroscope value (subtract from 360 to go from counterclockwise to clockwise)
-	mTurnVector.x = mpDriverController->GetRightX();
-	mTurnVector.y = mpDriverController->GetRightX();
+	mTurnVector.x = fixInput(mpDriverController->GetRightX());
+	mTurnVector.y = fixInput(mpDriverController->GetRightX());
 	// printf("Turn speed: %f\n",mTurnVector.x);
 	for (int i = 0; i < 4; i++) { // For each wheel:
 #ifdef LIGHTSPEED
