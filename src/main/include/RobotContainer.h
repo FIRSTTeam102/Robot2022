@@ -79,9 +79,8 @@ class RobotContainer {
 		Drive mDrive;
 
 		Intake mIntake;
-		ArmControl mIntakeControlCommand{&mIntake};
-
 		Indexer mIndexer;
+		ArmControl mIntakeControlCommand{&mIntake, &mIndexer};
 
 		Shooter mShooter;
 
