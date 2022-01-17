@@ -5,7 +5,6 @@
 SwerveDrive::SwerveDrive() : mWheelFL{SwerveDriveConstants::kFLDrive, SwerveDriveConstants::kFLTurn, SwerveDriveConstants::kFLEnc, SwerveDriveConstants::kFLOffset}, mWheelFR{SwerveDriveConstants::kFRDrive, SwerveDriveConstants::kFRTurn, SwerveDriveConstants::kFREnc, SwerveDriveConstants::kFROffset}, mWheelBR{SwerveDriveConstants::kBRDrive, SwerveDriveConstants::kBRTurn, SwerveDriveConstants::kBREnc, SwerveDriveConstants::kBROffset}, mWheelBL{SwerveDriveConstants::kBLDrive, SwerveDriveConstants::kBLTurn, SwerveDriveConstants::kBLEnc, SwerveDriveConstants::kBLOffset} {
 	SetName("SwerveDrive");
 	SetSubsystem("SwerveDrive");
-printf("Creating swerve subsystem");
 #ifdef GYRO
 	mSerial.EnableTermination();
 	mSerial.Write("Start\n");
@@ -35,22 +34,22 @@ double SwerveDrive::pythag(double x, double y) {
 	return sqrt(pow(x, 2) + pow(y, 2));
 }
 
-void SwerveDrive::testSwerve() {
-	angle = angleCalc(mpDriverController->GetLeftX(), -mpDriverController->GetLeftY());
-	printf("Set all to angle: %d\n", angle);
-	mWheelFL.setAngle(angle);
-	mWheelFR.setAngle(angle);
-	mWheelBR.setAngle(angle);
-	mWheelBL.setAngle(angle);
+// void SwerveDrive::testSwerve() {
+// 	angle = angleCalc(mpDriverController->GetLeftX(), -mpDriverController->GetLeftY());
+// 	printf("Set all to angle: %d\n", angle);
+// 	mWheelFL.setAngle(angle);
+// 	mWheelFR.setAngle(angle);
+// 	mWheelBR.setAngle(angle);
+// 	mWheelBL.setAngle(angle);
 
-	// speed = kMaxSpeed * pythag(mpDriverController->GetRightTriggerAxis(), -mpDriverController->GetLeftTriggerAxis());
-	speed = SwerveDriveConstants::kMaxSpeed * mpDriverController->GetRightTriggerAxis() - SwerveDriveConstants::kMaxSpeed * mpDriverController->GetLeftTriggerAxis();
-	mWheelFL.setSpeed(speed);
-	mWheelFR.setSpeed(speed);
-	mWheelBR.setSpeed(speed);
-	mWheelBL.setSpeed(speed);
-	printf("Set to speed: %f\n", speed);
-}
+// 	// speed = kMaxSpeed * pythag(mpDriverController->GetRightTriggerAxis(), -mpDriverController->GetLeftTriggerAxis());
+// 	speed = SwerveDriveConstants::kMaxSpeed * mpDriverController->GetRightTriggerAxis() - SwerveDriveConstants::kMaxSpeed * mpDriverController->GetLeftTriggerAxis();
+// 	mWheelFL.setSpeed(speed);
+// 	mWheelFR.setSpeed(speed);
+// 	mWheelBR.setSpeed(speed);
+// 	mWheelBL.setSpeed(speed);
+// 	printf("Set to speed: %f\n", speed);
+// }
 
 #ifdef GYRO
 int SwerveDrive::readOffset() {
@@ -102,11 +101,11 @@ void SwerveDrive::vectorSwerve() {
 #else
 	offset = 0;
 #endif
-	mDriveVector.x = mpDriverController->GetRightX();
-	mDriveVector.y = -mpDriverController->GetRightY();
+	mDriveVector.x = mpDriverController->GetLeftX();
+	mDriveVector.y = -mpDriverController->GetLeftY();
 	mDriveVector.Rotate(360 - offset); // Factor in gyroscope value (subtract from 360 to go from counterclockwise to clockwise)
-	mTurnVector.x = mpDriverController->GetLeftX();
-	mTurnVector.y = mpDriverController->GetLeftX();
+	mTurnVector.x = mpDriverController->GetRightX();
+	mTurnVector.y = mpDriverController->GetRightX();
 	// printf("Turn speed: %f\n",mTurnVector.x);
 	for (int i = 0; i < 4; i++) { // For each wheel:
 #ifdef LIGHTSPEED
@@ -118,7 +117,7 @@ void SwerveDrive::vectorSwerve() {
 #endif
 		targetEncoder[i] = angleCalc(mSumVector.x, mSumVector.y); // Calculate the angle of this vector
 		targetSpeed[i] = mSumVector.Magnitude() * SwerveDriveConstants::kMaxSpeed; // Scale the speed of the wheels
-		// targetSpeed[i] = SwerveDriveConstants::kMaxSpeed * mpDriverController->GetRawAxis(3) - SwerveDriveConstants::kMaxSpeed * mpDriverController->GetRawAxis(2);
+		// targetSpeed[i] = SwerveDriveConstants::kMaxSpeed * mpDriverController->GetRightTriggerAxis() - SwerveDriveConstants::kMaxSpeed * mpDriverController->GetLeftTriggerAxis();
 		mTurnVector.Rotate(-90.0); // Rotate the vector clockwise 90 degrees
 	}
 	mWheelFL.setAngle(targetEncoder[0]);

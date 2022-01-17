@@ -21,6 +21,7 @@ private:
 	TalonSRX mTurnMotor;
 	frc::AnalogInput mEnc;
 	int circScale(int i);
+	int mWheelNum; // for debugging
 	int mAngleOffset;
 	int target = 0;
 	int scaledTarg;
