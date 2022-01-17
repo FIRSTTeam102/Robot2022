@@ -12,12 +12,15 @@ Climber::Climber() : mClimberSolenoid{frc::PneumaticsModuleType::REVPH, ClimberC
 void Climber::armUp() {
 	mClimberSolenoid.Set(true);
 }
+
 void Climber::armDown() {
 	mClimberSolenoid.Set(false);
 }
-void Climber::armToggle() {
+
+void Climber::toggleArm() {
 	mClimberSolenoid.Toggle();
 }
+
 void Climber::Periodic() {
 	// Put code here to be run every loop
 }

@@ -9,8 +9,8 @@ class Climber : public frc2::SubsystemBase {
 
 	public:
 		Climber();
+		void Periodic() override;
 		void armUp();
 		void armDown();
-		void Periodic() override;
-		void armToggle();
+		void toggleArm();
 };

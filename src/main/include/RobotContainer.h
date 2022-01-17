@@ -78,21 +78,6 @@ class RobotContainer {
 
 		// Subsystems and commands
 		SwerveDrive mSwerveDrive;
-
-		Intake mIntake;
-
-		Indexer mIndexer;
-
-		Shooter mShooter;
-
-		Climber mClimber;
-
-		Limelight mLimelight;
-
-		void ConfigureButtonBindings();
-
-		// Subsystems and commands
-		SwerveDrive mSwerveDrive;
 		RunSwerveDrive mRunSwerveDrive{&mSwerveDrive};
 
 		Intake mIntake;
@@ -102,6 +87,9 @@ class RobotContainer {
 		Shooter mShooter;
 
 		Climber mClimber;
+		Climb mClimbCommand{&mClimber};
 
 		Limelight mLimelight;
+
+		void ConfigureButtonBindings();
 };
