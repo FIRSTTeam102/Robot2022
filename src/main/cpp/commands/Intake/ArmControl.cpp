@@ -3,6 +3,7 @@
 ArmControl::ArmControl(Intake* pIntake, Indexer* pIndexer) : mpIntake{pIntake}, mpIndexer{pIndexer} {
 	SetName("ArmControl");
 	AddRequirements(pIntake);
+	AddRequirements(pIndexer);
 }
 
 // Called just before this Command runs the first time
