@@ -6,7 +6,7 @@
 
 class Intake : public frc2::SubsystemBase {
 	private:
-		WPI_TalonSRX mRollerMotor;
+		TalonSRX mRollerMotor;
 		frc::Solenoid mArmSolenoid;
 
 	public:
