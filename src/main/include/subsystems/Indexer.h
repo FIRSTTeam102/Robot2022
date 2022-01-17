@@ -4,6 +4,8 @@
 #include <frc/DigitalInput.h>
 #include <frc2/command/SubsystemBase.h>
 
+#include "Constants.h"
+
 class Indexer : public frc2::SubsystemBase {
 	private:
 		TalonSRX mIndexerMotor;
