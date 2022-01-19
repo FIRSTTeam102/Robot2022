@@ -2,10 +2,12 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
+#include "subsystems/Limelight.h"
+#include "subsystems/SwerveDrive.h"
 
 class YawToTarget : public frc2::CommandHelper<frc2::CommandBase, YawToTarget> {
 public:
-	explicit YawToTarget();
+	explicit YawToTarget(Limelight *pLimelight, SwerveDrive *pSwerveDrive);
 
 	void Initialize() override;
 	void Execute() override;
@@ -13,4 +15,6 @@ public:
 	void End(bool interrupted) override;
 
 private:
+	Limelight *mpLimelight;
+	SwerveDrive *mpSwerveDrive;
 };

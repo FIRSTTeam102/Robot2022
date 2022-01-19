@@ -91,4 +91,6 @@ class RobotContainer {
 		Climber mClimber;
 
 		Limelight mLimelight;
+		AimbotSequential mAimbotSequential{&mLimelight, &ShootSequential, &SwerveDrive};
+		YawToTarget mYawToTarget{&mLimelight, &SwerveDrive};
 };
