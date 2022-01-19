@@ -12,7 +12,7 @@
 class MoveLinearTimed
 	: public frc2::CommandHelper<frc2::CommandBase, MoveLinearTimed> {
 	public:
-		MoveLinearTimed(double speed, int ticks, SwerveDrive* pSwerveDrive);
+		MoveLinearTimed(SwerveDrive* pSwerveDrive, double speed, double time, double angle);
 
 		void Initialize() override;
 
@@ -25,6 +25,7 @@ class MoveLinearTimed
 	private:
 		SwerveDrive* mpSwerveDrive;
 		double mSpeed;
+		double mAngle;
 		int mTicks;
 		int mCounter;
 };

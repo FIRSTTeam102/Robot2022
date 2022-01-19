@@ -27,7 +27,8 @@ class SwerveDrive : public frc2::SubsystemBase {
 				return s;
 		}
 		void testSwerve();
-		void vectorSwerve();
+		void controllerSwerve();
+		void vectorSwerve(double leftX, double leftY, double rightX, int offset);
 		void autoDrive(double angle, double speed);
 		void stopDrive();
 

@@ -1,6 +1,6 @@
 #include "commands/SwerveDrive/MoveLinearTimed.h"
 
-MoveLinearTimed::MoveLinearTimed(double speed, int time, SwerveDrive* pSwerveDrive) : mSpeed{speed}, mTicks{time * 40}, mpSwerveDrive{pSwerveDrive} {
+MoveLinearTimed::MoveLinearTimed(SwerveDrive* pSwerveDrive, double speed, double time, double angle = 90.0) : mpSwerveDrive{pSwerveDrive}, mSpeed{speed}, mAngle{angle}, mTicks{(int) (time * 50.0)} {
 	// Use addRequirements() here to declare subsystem dependencies.
 	AddRequirements(pSwerveDrive);
 	mCounter = 0;
@@ -11,7 +11,7 @@ void MoveLinearTimed::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void MoveLinearTimed::Execute() {
-	mpSwerveDrive->autoDrive(90, mSpeed);
+	mpSwerveDrive->autoDrive(mAngle, mSpeed);
 	mCounter++;
 }
 
