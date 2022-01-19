@@ -25,6 +25,10 @@ void RobotContainer::ConfigureButtonBindings() {
 	mOperatorButtonLB.WhenHeld(&mIntakeControlCommand);
 	mOperatorUpDPad.WhenHeld(&mIndexUpCommand);
 	mOperatorDownDPad.WhenHeld(&mIndexDownCommand);
+	mOperatorButtonA.WhenPressed(&mSlowShooterCommand);
+	mOperatorButtonB.WhenPressed(&mMedShooterCommand);
+	mOperatorButtonY.WhenPressed(&mFastShooterCommand);
+	mOperatorButtonX.WhenPressed(&mStopShooterCommand);
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {

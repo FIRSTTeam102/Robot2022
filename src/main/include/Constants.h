@@ -10,18 +10,31 @@
  * they are needed.
  */
 
-namespace IntakeConstants {
-	// ports (NOT FINAL)
-	const int kRollerMotor = 12;
-	const int kArmSolenoid = 0;
-	// speeds
-	const double kRollerSpeed = 0.5;
-} // namespace IntakeConstants
-
 namespace IndexerConstants {
-	// ports (NOT FINAL)
+	// Ports
 	const int kIndexerMotor = 7;
 	const int kBallSwitch = 5;
-	// speeds
+
+	// Speeds
 	const double kMotorSpeed = 0.4;
+}
+
+namespace IntakeConstants {
+	// Ports
+	const int kRollerMotor = 12;
+	const int kArmSolenoid = 0;
+
+	// Speeds
+	const double kRollerSpeed = 0.5;
+}
+
+namespace ShooterConstants {
+	// Ports
+	const int kShooterMotor = 9;
+	const int kHoodServo = 11;
+
+	// Speeds
+	const float kSlowSpeed = 0.3;
+	const float kMedSpeed = 0.6;
+	const float kFastSpeed = 1.0;
 }

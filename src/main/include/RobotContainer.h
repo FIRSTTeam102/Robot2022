@@ -16,11 +16,9 @@
 #include "commands/Limelight/AimbotSequential.h"
 #include "commands/Limelight/SetShootSpeed.h"
 #include "commands/Limelight/YawToTarget.h"
-#include "commands/Shooter/BallPiston/ExtendRetract.h"
 #include "commands/Shooter/ShootSequential.h"
-#include "commands/Shooter/StartFlywheel.h"
-#include "commands/Shooter/StopFlywheel.h"
-#include "commands/Shooter/StopIndexer.h"
+#include "commands/Shooter/StartShooter.h"
+#include "commands/Shooter/StopShooter.h"
 #include "subsystems//Climber.h"
 #include "subsystems/Drive.h"
 #include "subsystems/Indexer.h"
@@ -86,6 +84,10 @@ class RobotContainer {
 		Backward mIndexDownCommand{&mIndexer};
 
 		Shooter mShooter;
+		StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kSlowSpeed};
+		StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kMedSpeed};
+		StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kFastSpeed};
+		StopShooter mStopShooterCommand{&mShooter};
 
 		Climber mClimber;
 
