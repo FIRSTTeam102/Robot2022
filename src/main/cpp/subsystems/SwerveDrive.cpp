@@ -130,5 +130,23 @@ void SwerveDrive::vectorSwerve() {
 	mWheelBL.setSpeed(targetSpeed[3]);
 }
 
+void SwerveDrive::autoDrive(double angle, double speed) {
+	mWheelFL.setAngle(angle);
+	mWheelFR.setAngle(angle);
+	mWheelBR.setAngle(angle);
+	mWheelBL.setAngle(angle);
+	mWheelFL.setSpeed(speed);
+	mWheelFR.setSpeed(speed);
+	mWheelBR.setSpeed(speed);
+	mWheelBL.setSpeed(speed);
+}
+
+void SwerveDrive::stopDrive() {
+	mWheelFL.setSpeed(0);
+	mWheelFR.setSpeed(0);
+	mWheelBR.setSpeed(0);
+	mWheelBL.setSpeed(0);
+}
+
 // This method will be called once per scheduler run
 void SwerveDrive::Periodic() {}
