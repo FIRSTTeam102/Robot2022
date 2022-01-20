@@ -1,11 +1,13 @@
 #include "commands/Indexer/Forward.h"
 
-Forward::Forward() {
+Forward::Forward(Indexer* pIndexer): mpIndexer{pIndexer} {
 	SetName("Forward");
+	AddRequirements(pIndexer);
 }
 
 // Called just before this Command runs the first time
 void Forward::Initialize() {
+	mpIndexer->indexUp();
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -19,4 +21,5 @@ bool Forward::IsFinished() {
 
 // Called once after isFinished returns true
 void Forward::End(bool interrupted) {
+	mpIndexer->stopIndexer();
 }

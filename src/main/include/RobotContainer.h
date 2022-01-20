@@ -10,16 +10,13 @@
 #include "commands/Climber/Climb.h"
 #include "commands/Indexer/Backward.h"
 #include "commands/Indexer/Forward.h"
-#include "commands/Intake/DownYesRoll.h"
-#include "commands/Intake/UpNoRoll.h"
+#include "commands/Intake/ArmControl.h"
 #include "commands/Limelight/AimbotSequential.h"
 #include "commands/Limelight/SetShootSpeed.h"
 #include "commands/Limelight/YawToTarget.h"
-#include "commands/Shooter/BallPiston/ExtendRetract.h"
 #include "commands/Shooter/ShootSequential.h"
-#include "commands/Shooter/StartFlywheel.h"
-#include "commands/Shooter/StopFlywheel.h"
-#include "commands/Shooter/StopIndexer.h"
+#include "commands/Shooter/StartShooter.h"
+#include "commands/Shooter/StopShooter.h"
 #include "commands/SwerveDrive/FlipDrive.h"
 #include "commands/SwerveDrive/RunSwerveDrive.h"
 #include "subsystems/Climber.h"
@@ -75,6 +72,26 @@ class RobotContainer {
 
 		AutonomousCommand mAutonomousCommand;
 		static RobotContainer* mRobotContainer;
+
+		// Subsystems and commands
+		Drive mDrive;
+
+		Intake mIntake;
+		ArmControl mIntakeControlCommand{&mIntake, &mIndexer};
+
+		Indexer mIndexer;
+		Forward mIndexUpCommand{&mIndexer};
+		Backward mIndexDownCommand{&mIndexer};
+
+		Shooter mShooter;
+		StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kSlowSpeed};
+		StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kMedSpeed};
+		StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kFastSpeed};
+		StopShooter mStopShooterCommand{&mShooter};
+
+		Climber mClimber;
+
+		Limelight mLimelight;
 
 		void ConfigureButtonBindings();
 

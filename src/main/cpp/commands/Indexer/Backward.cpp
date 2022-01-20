@@ -1,11 +1,13 @@
 #include "commands/Indexer/Backward.h"
 
-Backward::Backward() {
+Backward::Backward(Indexer* pIndexer): mpIndexer{pIndexer} {
 	SetName("Backward");
+	AddRequirements(pIndexer);
 }
 
 // Called just before this Command runs the first time
 void Backward::Initialize() {
+	mpIndexer->indexUp();
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -19,4 +21,5 @@ bool Backward::IsFinished() {
 
 // Called once after isFinished returns true
 void Backward::End(bool interrupted) {
+	mpIndexer->stopIndexer();
 }
