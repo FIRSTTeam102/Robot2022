@@ -21,8 +21,8 @@ void Lights::Periodic() {
 
 // Example usage: Lights::GetInstance()->setMode(LightsMode::kOff);
 void Lights::setMode(Mode mode) {
-	char* buffer = (char*)mode;
+	std::string_view buffer = std::to_string(mode);
 
-	mArduino.Write(buffer, 64);
-	printf("Set light mode to: %s\n", buffer);
+	mArduino.Write(buffer);
+	printf("Set light mode to: %s\n", buffer.data());
 }
