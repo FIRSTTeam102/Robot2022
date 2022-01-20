@@ -13,7 +13,7 @@ void MoveVectorTimed::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void MoveVectorTimed::Execute() {
-	mpSwerveDrive->vectorSwerve(mX, mY, 0, 0);
+	mpSwerveDrive->vectorSwerve(mX, mY, 0);
 }
 
 // Called once the command ends or is interrupted.

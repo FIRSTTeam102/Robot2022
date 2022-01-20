@@ -104,7 +104,7 @@ void SwerveDrive::controllerSwerve() {
 	vectorSwerve(mpDriverController->GetLeftX(), -mpDriverController->GetLeftY(), mpDriverController->GetRightX(), offset);
 }
 
-void SwerveDrive::vectorSwerve(double leftX, double leftY, double rightX, int offset = 0) {
+void SwerveDrive::vectorSwerve(double leftX, double leftY, double rightX, int offset) {
 	mDriveVector.x = leftX;
 	mDriveVector.y = leftY;
 	mDriveVector.Rotate(360 - offset); // Factor in gyroscope value (subtract from 360 to go from counterclockwise to clockwise)
