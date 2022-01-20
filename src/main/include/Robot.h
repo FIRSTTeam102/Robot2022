@@ -4,6 +4,7 @@
 #include <frc2/command/Command.h>
 
 #include "RobotContainer.h"
+#include "subsystems/Lights.h"
 
 class Robot : public frc::TimedRobot {
 	public:
