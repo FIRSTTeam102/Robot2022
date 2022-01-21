@@ -94,27 +94,26 @@ int SwerveDrive::readOffset() {
 }
 #endif
 
-void SwerveDrive::vectorSwerve() {
+void SwerveDrive::controllerSwerve() {
 #ifdef GYRO
 	offset = readOffset();
 	// printf("Gyro reading: %d\n", offset);
 #else
 	offset = 0;
 #endif
-	mDriveVector.x = mpDriverController->GetLeftX();
-	mDriveVector.y = -mpDriverController->GetLeftY();
+	vectorSwerve(mpDriverController->GetLeftX(), -mpDriverController->GetLeftY(), mpDriverController->GetRightX(), offset);
+}
+
+void SwerveDrive::vectorSwerve(double leftX, double leftY, double rightX, int offset) {
+	mDriveVector.x = leftX;
+	mDriveVector.y = leftY;
 	mDriveVector.Rotate(360 - offset); // Factor in gyroscope value (subtract from 360 to go from counterclockwise to clockwise)
-	mTurnVector.x = fixInput(mpDriverController->GetRightX());
-	mTurnVector.y = fixInput(mpDriverController->GetRightX());
+	mTurnVector.x = rightX;
+	mTurnVector.y = rightX;
 	// printf("Turn speed: %f\n",mTurnVector.x);
 	for (int i = 0; i < 4; i++) { // For each wheel:
-#ifdef LIGHTSPEED
-		mSumVector.x = mDriveVector.x;
-		mSumVector.y = mDriveVector.y;
-#else
 		mSumVector.x = (mDriveVector.x + mTurnVector.x) / 2; // Add the two vectors to get one final vector
 		mSumVector.y = (mDriveVector.y + mTurnVector.y) / 2;
-#endif
 		targetEncoder[i] = angleCalc(mSumVector.x, mSumVector.y); // Calculate the angle of this vector
 		targetSpeed[i] = mSumVector.Magnitude() * SwerveDriveConstants::kMaxSpeed; // Scale the speed of the wheels
 		// targetSpeed[i] = SwerveDriveConstants::kMaxSpeed * mpDriverController->GetRightTriggerAxis() - SwerveDriveConstants::kMaxSpeed * mpDriverController->GetLeftTriggerAxis();
@@ -128,6 +127,24 @@ void SwerveDrive::vectorSwerve() {
 	mWheelFR.setSpeed(targetSpeed[1]);
 	mWheelBR.setSpeed(targetSpeed[2]);
 	mWheelBL.setSpeed(targetSpeed[3]);
+}
+
+void SwerveDrive::autoDrive(double angle, double speed) {
+	mWheelFL.setAngle(angle);
+	mWheelFR.setAngle(angle);
+	mWheelBR.setAngle(angle);
+	mWheelBL.setAngle(angle);
+	mWheelFL.setSpeed(speed);
+	mWheelFR.setSpeed(speed);
+	mWheelBR.setSpeed(speed);
+	mWheelBL.setSpeed(speed);
+}
+
+void SwerveDrive::stopDrive() {
+	mWheelFL.setSpeed(0);
+	mWheelFR.setSpeed(0);
+	mWheelBR.setSpeed(0);
+	mWheelBL.setSpeed(0);
 }
 
 // This method will be called once per scheduler run
