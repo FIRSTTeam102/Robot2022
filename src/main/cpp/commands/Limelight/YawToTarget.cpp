@@ -12,15 +12,14 @@ void YawToTarget::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void YawToTarget::Execute() {
 	printf("Limelight Move Adjusting \n");
-	mpSwerveDrive->move(mpLimelight->left_command, mpLimelight->right_command);
+	mpSwerveDrive->vectorSwerve(0.0, 0.0, mpLimelight->rotation);
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool YawToTarget::IsFinished() {
-	return Check();
+	return mpLimelight->Check();
 }
 
 // Called once after isFinished returns true
 void YawToTarget::End(bool interrupted) {
-	mpSwerveDrive->stop();
 }

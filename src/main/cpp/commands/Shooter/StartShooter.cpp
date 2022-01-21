@@ -1,6 +1,6 @@
 #include "commands/Shooter/StartShooter.h"
 
-StartShooter::StartShooter(Shooter* pShooter, double speed): mpShooter{pShooter}, mTargetSpeed{speed} {
+StartShooter::StartShooter(Shooter* pShooter, double speed) : mpShooter{pShooter}, mTargetSpeed{speed} {
 	SetName("StartShooter");
 	AddRequirements(pShooter);
 }

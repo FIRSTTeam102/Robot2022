@@ -11,8 +11,7 @@
 #include "commands/Indexer/Backward.h"
 #include "commands/Indexer/Forward.h"
 #include "commands/Intake/ArmControl.h"
-#include "commands/Limelight/AimbotSequential.h"
-#include "commands/Limelight/SetShootSpeed.h"
+#include "commands/Limelight/AimbotParallel.h"
 #include "commands/Limelight/YawToTarget.h"
 #include "commands/Shooter/ShootSequential.h"
 #include "commands/Shooter/StartShooter.h"
@@ -73,8 +72,11 @@ class RobotContainer {
 		AutonomousCommand mAutonomousCommand;
 		static RobotContainer* mRobotContainer;
 
+		void ConfigureButtonBindings();
+
 		// Subsystems and commands
-		Drive mDrive;
+		SwerveDrive mSwerveDrive;
+		RunSwerveDrive mRunSwerveDrive{&mSwerveDrive};
 
 		Intake mIntake;
 		ArmControl mIntakeControlCommand{&mIntake, &mIndexer};
@@ -92,22 +94,6 @@ class RobotContainer {
 		Climber mClimber;
 
 		Limelight mLimelight;
-
-		void ConfigureButtonBindings();
-
-		// Subsystems and commands
-		SwerveDrive mSwerveDrive;
-		RunSwerveDrive mRunSwerveDrive{&mSwerveDrive};
-
-		Intake mIntake;
-
-		Indexer mIndexer;
-
-		Shooter mShooter;
-
-		Climber mClimber;
-
-		Limelight mLimelight;
-		AimbotSequential mAimbotSequential{&mLimelight, &ShootSequential, &SwerveDrive};
-		YawToTarget mYawToTarget{&mLimelight, &SwerveDrive};
+		AimbotParallel mAimbotParallel{&mLimelight, &mShooter, &mSwerveDrive};
+		YawToTarget mYawToTarget{&mLimelight, &mSwerveDrive};
 };
