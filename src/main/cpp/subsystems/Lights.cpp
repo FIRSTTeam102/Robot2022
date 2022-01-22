@@ -2,7 +2,7 @@
 
 Lights* Lights::mpLightsInstance = NULL;
 
-Lights::Lights() : mArduino{9600, frc::SerialPort::kUSB} {
+Lights::Lights() : mArduino{9600, frc::SerialPort::kUSB1} {
 	SetName("Lights");
 	SetSubsystem("Lights");
 
