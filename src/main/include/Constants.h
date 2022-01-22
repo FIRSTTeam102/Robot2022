@@ -17,3 +17,11 @@ namespace IntakeConstants {
 	// speeds
 	const double kRollerSpeed = 0.5;
 } // namespace IntakeConstants
+
+namespace IndexerConstants {
+	// ports (NOT FINAL)
+	const int kIndexerMotor = 7;
+	const int kBallSwitch = 5;
+	// speeds
+	const double kMotorSpeed = 0.4;
+}
