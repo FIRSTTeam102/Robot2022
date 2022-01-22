@@ -8,7 +8,7 @@
 
 class Shooter : public frc2::SubsystemBase {
 	private:
-		TalonSRX mShooterMotor;
+		TalonFX mShooterMotor;
 		frc::Servo mHoodServo;
 
 		float mSpeed;
