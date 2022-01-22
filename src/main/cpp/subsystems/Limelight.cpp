@@ -60,7 +60,8 @@ double Limelight::getShootSpeed() {
 		rpm = 2965;
 	}
 
-	return rpm / ShooterConstants::kMaxRpm; // convert to percent output
+	// return rpm / ShooterConstants::kMaxRpm; // convert to percent output
+	return rpm;
 }
 
 double Limelight::getServoAngle() {

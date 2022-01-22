@@ -17,7 +17,7 @@ void Shooter::setShooter(double speed, bool useRpm = false) {
 		mShooterMotor.Set(ControlMode::PercentOutput, mSpeed);
 	} else {
 		// RPM to velocity
-		double velocity = speed / (2048.0 /* encoder ticks per revolution */ * 600.0 /* 100ms per minute */);
+		double velocity = (2048.0 /* encoder ticks per revolution */ * speed) / (600.0 /* 100ms per minute */);
 		mShooterMotor.Set(ControlMode::Velocity, velocity);
 
 		// RPM to percent output
