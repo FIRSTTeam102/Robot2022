@@ -1,6 +1,6 @@
 #pragma once
 
-#include <frc/SerialPort.h>
+#include <frc/AnalogGyro.h>
 #include <frc/XboxController.h>
 #include <frc/drive/Vector2d.h>
 #include <frc2/command/SubsystemBase.h>
@@ -10,7 +10,6 @@
 #include "subsystems/SwerveWheel.h"
 
 // Use Field Oriented Drive with the Gyro Sensor
-// #define GYRO
 
 class SwerveDrive : public frc2::SubsystemBase {
 	public:
@@ -31,6 +30,9 @@ class SwerveDrive : public frc2::SubsystemBase {
 		void vectorSwerve(double leftX, double leftY, double rightX, int offset = 0);
 		void autoDrive(double angle, double speed);
 		void stopDrive();
+		void changeOrientation();
+		void resetGyro();
+		double getGyroAngle();
 
 		void Periodic() override;
 
@@ -45,17 +47,14 @@ class SwerveDrive : public frc2::SubsystemBase {
 		double pythag(double x, double y);
 		double angleCalc(double x, double y);
 
-#ifdef GYRO
 		int readOffset();
-#endif
 
 		int angle;
 		double speed;
+		bool mIsFieldOriented;
 
 		frc::XboxController *mpDriverController;
-#ifdef GYRO
-		frc::SerialPort mSerial{115200, frc::SerialPort::kUSB};
-#endif
+		frc::AnalogGyro mGyro{SwerveDriveConstants::kGyro};
 
 		SwerveWheel mWheelFL;
 		SwerveWheel mWheelFR;

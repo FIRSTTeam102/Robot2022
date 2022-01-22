@@ -27,6 +27,9 @@ namespace SwerveDriveConstants {
 	const int kBREnc = 2;
 	const int kBLEnc = 3;
 
+	// Gyro Port
+	const int kGyro = 10;
+
 	// Calibration Values
 	const int kFLOffset = 573;
 	const int kFROffset = 412;

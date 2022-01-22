@@ -24,6 +24,8 @@ RobotContainer* RobotContainer::GetInstance() {
 }
 
 void RobotContainer::ConfigureButtonBindings() {
+	mDriverButtonRB.WhenPressed(&mResetGyro);
+	mDriverButtonB.WhenPressed(&mFlipOrientation);
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {

@@ -5,10 +5,6 @@
 SwerveDrive::SwerveDrive() : mWheelFL{SwerveDriveConstants::kFLDrive, SwerveDriveConstants::kFLTurn, SwerveDriveConstants::kFLEnc, SwerveDriveConstants::kFLOffset}, mWheelFR{SwerveDriveConstants::kFRDrive, SwerveDriveConstants::kFRTurn, SwerveDriveConstants::kFREnc, SwerveDriveConstants::kFROffset}, mWheelBR{SwerveDriveConstants::kBRDrive, SwerveDriveConstants::kBRTurn, SwerveDriveConstants::kBREnc, SwerveDriveConstants::kBROffset}, mWheelBL{SwerveDriveConstants::kBLDrive, SwerveDriveConstants::kBLTurn, SwerveDriveConstants::kBLEnc, SwerveDriveConstants::kBLOffset} {
 	SetName("SwerveDrive");
 	SetSubsystem("SwerveDrive");
-#ifdef GYRO
-	mSerial.EnableTermination();
-	mSerial.Write("Start\n");
-#endif
 }
 
 double SwerveDrive::angleCalc(double x, double y) {
@@ -51,56 +47,19 @@ double SwerveDrive::pythag(double x, double y) {
 // 	printf("Set to speed: %f\n", speed);
 // }
 
-#ifdef GYRO
 int SwerveDrive::readOffset() {
-	offset = 0;
-	negativeOffset = false;
-	mSerial.Write("\n");
-	mSerial.Read(rawOffset, 10); // Get initial value
-
-	// Repeat until you get a valid gyro value
-	while (rawOffset[0] != '~') {
-		// mSerial.Write("\n");
-		while (mSerial.GetBytesReceived() == 0) {
-			// mSerial.Write("\n");
-		}
-		// Wait for there to be a gyro value from the arduino
-		while (mSerial.GetBytesReceived() != 0) {
-			// Get the latest value
-			mSerial.Read(rawOffset, 10);
-			printf("%s\n", rawOffset);
-		}
-	}
-	while (mSerial.GetBytesReceived() != 0) {
-		// Get the latest value
-		mSerial.Read(rawOffset, 10);
-	}
-	// printf("Gyro says: %s\n", rawOffset);
-	for (int i = 1; i < 10; i++) {
-		if (rawOffset[i] == '.') {
-			break;
-		} else if (rawOffset[i] == '-') {
-			negativeOffset = true;
-		} else {
-			offset *= 10;
-			offset += rawOffset[i] - '0';
-		}
-	}
-	// The gyro is the opposite direction so we usually have to flip it
-	if (!negativeOffset) {
-		offset = -offset;
-	}
-	return offset;
+	double offset = mGyro.GetAngle();
+	
+	return (int) offset;
 }
-#endif
+
 
 void SwerveDrive::controllerSwerve() {
-#ifdef GYRO
-	offset = readOffset();
-	// printf("Gyro reading: %d\n", offset);
-#else
-	offset = 0;
-#endif
+	if (mIsFieldOriented) {
+		offset = readOffset();
+	} else {
+		offset = 0;
+	}
 	vectorSwerve(mpDriverController->GetLeftX(), -mpDriverController->GetLeftY(), mpDriverController->GetRightX(), offset);
 }
 
@@ -145,6 +104,19 @@ void SwerveDrive::stopDrive() {
 	mWheelFR.setSpeed(0);
 	mWheelBR.setSpeed(0);
 	mWheelBL.setSpeed(0);
+}
+
+void SwerveDrive::changeOrientation() {
+	mGyro.Reset();
+	mIsFieldOriented = !mIsFieldOriented;
+}
+
+void SwerveDrive::resetGyro() {
+	mGyro.Reset();
+}
+
+double SwerveDrive::getGyroAngle() {
+	return mGyro.GetAngle();
 }
 
 // This method will be called once per scheduler run
