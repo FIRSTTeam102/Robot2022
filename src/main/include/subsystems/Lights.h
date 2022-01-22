@@ -1,0 +1,30 @@
+#pragma once
+
+#include <frc/SerialPort.h>
+#include <frc2/command/SubsystemBase.h>
+
+#include <string>
+
+class Lights : public frc2::SubsystemBase {
+	public:
+		enum Mode {
+			kOff = 0,
+			kDefault = 1,
+			kDisabled = 2,
+			kAuto = 3,
+			kIntake = 4,
+			kLimelight = 5,
+			kShooting = 6,
+			kClimb = 7
+		};
+
+		static Lights* GetInstance();
+		void Periodic() override;
+		void setMode(Mode mode);
+
+	private:
+		Lights();
+		static Lights* mpLightsInstance;
+
+		frc::SerialPort mArduino;
+};
