@@ -35,7 +35,7 @@ namespace SwerveDriveConstants {
 
 	const double kMaxSpeed = 1.00;
 
-	const double kMaxMotorSpeed = 6380.0; // this is in RPM
+	const double kMaxMotorSpeed = 5000.0; // this is in RPM
 	// in inches
 	const double kWheelDiameter = 4;
 	const double kDriveDiameter = 23;
