@@ -8,7 +8,6 @@
 class Climb : public frc2::CommandHelper<frc2::CommandBase, Climb> {
 	public:
 		explicit Climb(Climber *pClimber);
-
 		void Initialize() override;
 		void Execute() override;
 		bool IsFinished() override;

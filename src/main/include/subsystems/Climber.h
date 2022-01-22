@@ -3,14 +3,17 @@
 #include <frc/Solenoid.h>
 #include <frc2/command/SubsystemBase.h>
 
+#include "Constants.h"
+
 class Climber : public frc2::SubsystemBase {
 	private:
-		frc::Solenoid mClimberSolenoid;
+		frc::Solenoid mClimberSolenoidRight;
+		frc::Solenoid mClimberSolenoidLeft;
 
 	public:
 		Climber();
 		void Periodic() override;
-		void armUp();
-		void armDown();
-		void toggleArm();
+        void armsUp();
+        void armsDown();
+        void toggleArms();
 };

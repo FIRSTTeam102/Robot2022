@@ -1,24 +1,23 @@
 #include "subsystems/Climber.h"
 
-#include <frc/smartdashboard/SmartDashboard.h>
-
-#include "Constants.h"
-
-Climber::Climber() : mClimberSolenoid{frc::PneumaticsModuleType::REVPH, ClimberConstants::kClimberSelonoid} {
+Climber::Climber() : mClimberSolenoidRight{frc::PneumaticsModuleType::REVPH, ClimberConstants::kClimberSolenoidRight}, mClimberSolenoidLeft{frc::PneumaticsModuleType::REVPH, ClimberConstants::kClimberSolenoidLeft} {
 	SetName("Climber");
 	SetSubsystem("Climber");
 }
 
-void Climber::armUp() {
-	mClimberSolenoid.Set(true);
+void Climber::armsUp() {
+	mClimberSolenoidRight.Set(true);
+	printf("arms have ascended \n");
 }
 
-void Climber::armDown() {
-	mClimberSolenoid.Set(false);
+void Climber::armsDown() {
+	mClimberSolenoidRight.Set(false);
+	printf("arms have descended \n");
 }
 
-void Climber::toggleArm() {
-	mClimberSolenoid.Toggle();
+void Climber::toggleArms() {
+	mClimberSolenoidRight.Toggle();
+	printf("Arms have been toggled \n");
 }
 
 void Climber::Periodic() {
