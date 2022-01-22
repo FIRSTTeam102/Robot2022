@@ -34,4 +34,9 @@ namespace SwerveDriveConstants {
 	const int kBLOffset = 1176;
 
 	const double kMaxSpeed = 1.00;
+
+	const double kMaxMotorSpeed = 6380.0; // this is in RPM
+	// in inches
+	const double kWheelDiameter = 4;
+	const double kDriveDiameter = 23;
 }

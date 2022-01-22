@@ -4,7 +4,7 @@
 #include <frc/XboxController.h>
 #include <frc/drive/Vector2d.h>
 #include <frc2/command/SubsystemBase.h>
-#include <math.h>
+#include <cmath>
 
 #include "Constants.h"
 #include "subsystems/SwerveWheel.h"
@@ -34,6 +34,15 @@ class SwerveDrive : public frc2::SubsystemBase {
 
 		void Periodic() override;
 
+		// Static values 
+
+		static const double wheelCircum = SwerveDriveConstants::kWheelDiameter * M_PI;
+		static const double driveCircum = SwerveDriveConstants::kDriveDiameter * M_PI;
+
+		static const double rotationsPer360 = driveCircum / wheelCircum;
+		static const double maxTurnSpeed = SwerveDriveConstants::kMaxMotorSpeed * 0.70711;
+
+		static const double minutesPer360 = rotationsPer360 / maxTurnSpeed;
 	private:
 		double pythag(double x, double y);
 		double angleCalc(double x, double y);
