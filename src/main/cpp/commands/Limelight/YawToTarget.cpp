@@ -11,7 +11,7 @@ void YawToTarget::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void YawToTarget::Execute() {
-	printf("Limelight Move Adjusting \n");
+	printf("Limelight Rotation Adjusting \n");
 	mpSwerveDrive->vectorSwerve(0.0, 0.0, mpLimelight->rotation);
 }
 

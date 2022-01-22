@@ -9,6 +9,14 @@ class Limelight : public frc2::SubsystemBase {
 	private:
 		bool m_LimelightHasTarget;
 
+		static const double h = 54; // Height between Limelight to the top of the target
+		static const double a1 = 25; // a1 is the degrees of the Limelight. a2 is the fov of the limelight
+		double a; // Angle needed to see the Target
+		double d; // Distance to the target
+
+		double rpm; // RPM of the shooter
+		double hoodangle;  //Angle of the hood
+
 		double tx;
 		double ty;
 		double ta;
@@ -23,7 +31,10 @@ class Limelight : public frc2::SubsystemBase {
 	public:
 		Limelight();
 
+		double calculateShootAngle();
+		double calculateShootDistance();
 		double getShootSpeed();
+		double getServoAngle();
 		bool LimelightHasTarget() { return m_LimelightHasTarget; }
 		bool isClose() { return (ty < 9); }
 

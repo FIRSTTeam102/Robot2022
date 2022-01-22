@@ -16,6 +16,9 @@
   },
   "C_Cpp.default.configurationProvider": "vscode-wpilib",
   "files.associations": {
-    "new": "cpp"
+    "new": "cpp",
+    "jacobi": "cpp",
+    "*.inc": "cpp",
+    "matrixfunctions": "cpp"
   }
 }
