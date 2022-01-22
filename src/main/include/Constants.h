@@ -37,6 +37,9 @@ namespace ShooterConstants {
 	const float kSlowSpeed = 0.3;
 	const float kMedSpeed = 0.6;
 	const float kFastSpeed = 1.0;
+
+	// Motor constants
+	const double kMaxRpm = 6380;
 }
 
 namespace SwerveDriveConstants {

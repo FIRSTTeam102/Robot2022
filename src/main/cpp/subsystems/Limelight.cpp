@@ -59,46 +59,50 @@ double Limelight::getShootSpeed() {
 	} else {
 		rpm = 2965;
 	}
+
+	return rpm / ShooterConstants::kMaxRpm; // convert to percent output
 }
 
 double Limelight::getServoAngle() {
 	if (d >= 250.0) {
-		hoodangle = 72.39;
+		hoodAngle = 72.39;
 	} else if (d >= 240.0) {
-		hoodangle = 73.05;
+		hoodAngle = 73.05;
 	} else if (d >= 230.0) {
-		hoodangle = 73.72;
+		hoodAngle = 73.72;
 	} else if (d >= 220.0) {
-		hoodangle = 74.40;
+		hoodAngle = 74.40;
 	} else if (d >= 210.0) {
-		hoodangle = 75.07;
+		hoodAngle = 75.07;
 	} else if (d >= 200.0) {
-		hoodangle = 75.75;
+		hoodAngle = 75.75;
 	} else if (d >= 190.0) {
-		hoodangle = 76.44;
+		hoodAngle = 76.44;
 	} else if (d >= 180.0) {
-		hoodangle = 77.13;
+		hoodAngle = 77.13;
 	} else if (d >= 170.0) {
-		hoodangle = 77.82;
+		hoodAngle = 77.82;
 	} else if (d >= 160.0) {
-		hoodangle = 78.52;
+		hoodAngle = 78.52;
 	} else if (d >= 150.0) {
-		hoodangle = 79.22;
+		hoodAngle = 79.22;
 	} else if (d >= 140.0) {
-		hoodangle = 79.92;
+		hoodAngle = 79.92;
 	} else if (d >= 130.0) {
-		hoodangle = 80.63;
+		hoodAngle = 80.63;
 	} else if (d >= 120.0) {
-		hoodangle = 81.34;
+		hoodAngle = 81.34;
 	} else if (d >= 110.0) {
-		hoodangle = 82.05;
+		hoodAngle = 82.05;
 	} else if (d >= 100.0) {
-		hoodangle = 82.76;
+		hoodAngle = 82.76;
 	} else if (d >= 90.0) {
-		hoodangle = 83.48;
+		hoodAngle = 83.48;
 	} else {
-		hoodangle = 85.28;
+		hoodAngle = 85.28;
 	}
+
+	return hoodAngle;
 }
 
 bool Limelight::Check() {

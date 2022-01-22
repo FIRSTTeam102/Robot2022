@@ -1,21 +1,22 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
-
 #include "networktables/NetworkTable.h"
 #include "networktables/NetworkTableInstance.h"
+
+#include "Constants.h"
 
 class Limelight : public frc2::SubsystemBase {
 	private:
 		bool m_LimelightHasTarget;
 
-		static const double h = 54; // Height between Limelight to the top of the target
-		static const double a1 = 25; // a1 is the degrees of the Limelight. a2 is the fov of the limelight
+		static constexpr double h = 54; // Height between Limelight to the top of the target
+		static constexpr double a1 = 25; // a1 is the degrees of the Limelight. a2 is the fov of the limelight
 		double a; // Angle needed to see the Target
 		double d; // Distance to the target
 
 		double rpm; // RPM of the shooter
-		double hoodangle;  //Angle of the hood
+		double hoodAngle;  // Angle of the hood
 
 		double tx;
 		double ty;

@@ -1,14 +1,21 @@
 #include "commands/Shooter/StartShooter.h"
 
-StartShooter::StartShooter(Shooter* pShooter, double speed) : mpShooter{pShooter}, mTargetSpeed{speed} {
+StartShooter::StartShooter(Shooter* pShooter, double speed, bool useRpm) : mpShooter{pShooter}, mTargetSpeed{speed}, mUseRpm{useRpm} {
 	SetName("StartShooter");
 	AddRequirements(pShooter);
 }
 
 // Called just before this Command runs the first time
 void StartShooter::Initialize() {
-	// Start at the shooter's current speed
-	mSpeed = mpShooter->getSpeed();
+	mSpeed = mpShooter->getSpeed(mUseRpm);
+
+	if (!mUseRpm) {
+		if (mSpeed < mTargetSpeed) mRamp = -0.2;
+		else mRamp = 0.2;
+	} else {
+		if (mSpeed < mTargetSpeed) mRamp = -100.0;
+		else mRamp = 100.0;
+	}
 
 	printf("Shooting at %f\n", mTargetSpeed);
 }
@@ -16,10 +23,10 @@ void StartShooter::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void StartShooter::Execute() {
 	// Ramp up shooter
-	mSpeed += 0.02;
+	mSpeed += mRamp;
 	if (mSpeed > mTargetSpeed) mSpeed = mTargetSpeed;
 
-	mpShooter->setShooter(mSpeed);
+	mpShooter->setShooter(mSpeed, mUseRpm);
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -29,5 +36,5 @@ bool StartShooter::IsFinished() {
 
 // Called once after isFinished returns true
 void StartShooter::End(bool interrupted) {
-	if (interrupted) mpShooter->setShooter(mTargetSpeed);
+	if (interrupted) mpShooter->setShooter(mTargetSpeed, mUseRpm);
 }
