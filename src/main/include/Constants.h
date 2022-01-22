@@ -31,10 +31,14 @@ namespace IntakeConstants {
 namespace ShooterConstants {
 	// Ports
 	const int kShooterMotor = 9;
-	const int kHoodServo = 11;
+	const int kHoodActuator = 11;
 
 	// Speeds
 	const float kSlowSpeed = 0.3;
 	const float kMedSpeed = 0.6;
 	const float kFastSpeed = 1.0;
+
+	// Hood Angles
+	const double kHoodMaxAngle = 85;
+	const double kHoodMinAngle = 25;
 }

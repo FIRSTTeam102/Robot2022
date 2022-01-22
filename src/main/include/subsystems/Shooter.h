@@ -9,10 +9,14 @@
 class Shooter : public frc2::SubsystemBase {
 	private:
 		TalonSRX mShooterMotor;
-		frc::Servo mHoodServo;
+		frc::Servo mHoodActuator;
 
 		float mSpeed;
 		bool mIsRunning = false;
+
+		double degreesToServo(double deg) {
+			return ( 2 / ( ShooterConstants::kHoodMaxAngle - ShooterConstants::kHoodMinAngle ) ) * ( deg - ( ( ShooterConstants::kHoodMinAngle + ShooterConstants::kHoodMaxAngle ) / 2 ) );
+		}
 
 	public:
 		Shooter();
@@ -22,8 +26,7 @@ class Shooter : public frc2::SubsystemBase {
 		double getSpeed();
 		bool isRunning();
 
-		void setServo(double value);
-		void setServoAngle(double degrees);
+		void setHoodAngle(double degrees);
 
 		void Periodic() override;
 };

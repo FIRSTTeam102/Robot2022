@@ -1,9 +1,12 @@
 #include "subsystems/Shooter.h"
 #include <frc/smartdashboard/SmartDashboard.h>
 
-Shooter::Shooter() : mShooterMotor{ShooterConstants::kShooterMotor}, mHoodServo{ShooterConstants::kHoodServo} {
+Shooter::Shooter() : mShooterMotor{ShooterConstants::kShooterMotor}, mHoodActuator{ShooterConstants::kHoodActuator} {
     SetName("Shooter");
     SetSubsystem("Shooter");
+
+	// Actuator setup
+	mHoodActuator.SetBounds(2.0, 1.8, 1.5, 1.2, 1.0);
 }
 
 void Shooter::Periodic() {
@@ -30,10 +33,17 @@ bool Shooter::isRunning() {
 	return mIsRunning;
 }
 
-void Shooter::setServo(double value) {
-    mHoodServo.Set(value);
+void Shooter::setHoodAngle(double degrees) {
+	double servoSetting;
+
+	if (degrees < ShooterConstants::kHoodMinAngle) {
+		servoSetting = -1.0;
+	} else if ( degrees > ShooterConstants::kHoodMaxAngle ) {
+		servoSetting = 1.0;
+	} else {
+		servoSetting = degreesToServo(degrees);
+	}
+
+	mHoodActuator.SetSpeed(servoSetting);
 }
 
-void Shooter::setServoAngle(double degrees) {
-    mHoodServo.SetAngle(degrees);
-}
