@@ -1,6 +1,6 @@
 #pragma once
 
-#include <frc/AnalogGyro.h>
+#include <AHRS.h>
 #include <frc/XboxController.h>
 #include <frc/drive/Vector2d.h>
 #include <frc2/command/SubsystemBase.h>
@@ -54,7 +54,7 @@ class SwerveDrive : public frc2::SubsystemBase {
 		bool mIsFieldOriented;
 
 		frc::XboxController *mpDriverController;
-		frc::AnalogGyro mGyro{SwerveDriveConstants::kGyro};
+		AHRS mGyro{frc::SPI::Port::kMXP};
 
 		SwerveWheel mWheelFL;
 		SwerveWheel mWheelFR;
