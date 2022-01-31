@@ -24,8 +24,19 @@ RobotContainer* RobotContainer::GetInstance() {
 }
 
 void RobotContainer::ConfigureButtonBindings() {
-	mDriverButtonRB.WhenPressed(&mResetGyro);
+	mDriverButtonA.WhenPressed(&mResetGyro);
 	mDriverButtonB.WhenPressed(&mFlipOrientation);
+
+	mDriverButtonLB.WhenPressed(&mInvertedQuarterTurn);
+	mDriverButtonRB.WhenPressed(&mQuarterTurn);
+	mDriverLT.WhenPressed(&mInvertedHalfTurn);
+	mDriverRT.WhenPressed(&mHalfTurn);
+	mDriverLeftDPad.WhenPressed(&mInvertedFullTurn);
+	mDriverRightDPad.WhenPressed(&mFullTurn);
+	mDriverUpDPad.WhenPressed(&mFunnyTurn);
+
+	mDriverButtonX.WhenPressed(&mBackward);
+	mDriverButtonY.WhenPressed(&mForward);
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {

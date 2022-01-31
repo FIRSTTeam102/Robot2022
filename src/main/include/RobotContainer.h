@@ -23,6 +23,8 @@
 #include "commands/SwerveDrive/FlipDrive.h"
 #include "commands/SwerveDrive/RunSwerveDrive.h"
 #include "commands/SwerveDrive/ResetGyro.h"
+#include "commands/SwerveDrive/TurnDegreesGyro.h"
+#include "commands/SwerveDrive/MoveLinearTimed.h"
 #include "subsystems/Climber.h"
 #include "subsystems/Indexer.h"
 #include "subsystems/Intake.h"
@@ -84,6 +86,17 @@ class RobotContainer {
 		RunSwerveDrive mRunSwerveDrive{&mSwerveDrive};
 		FlipDrive mFlipOrientation{&mSwerveDrive};
 		ResetGyro mResetGyro{&mSwerveDrive};
+
+		TurnDegreesGyro mQuarterTurn{&mSwerveDrive, 0.8, 90};
+		TurnDegreesGyro mInvertedQuarterTurn{&mSwerveDrive, 0.8, -90};
+		TurnDegreesGyro mHalfTurn{&mSwerveDrive, 0.8, 180};
+		TurnDegreesGyro mInvertedHalfTurn{&mSwerveDrive, 0.8, -180};
+		TurnDegreesGyro mFullTurn{&mSwerveDrive, 0.8, 360};
+		TurnDegreesGyro mInvertedFullTurn{&mSwerveDrive, 0.8, -360};
+		TurnDegreesGyro mFunnyTurn{&mSwerveDrive, -0.8, -90};
+
+		MoveLinearTimed mForward{&mSwerveDrive, 0.6, 0.5};
+		MoveLinearTimed mBackward{&mSwerveDrive, -0.6, 0.5};
 
 		Intake mIntake;
 

@@ -12,7 +12,7 @@
 class MoveLinearTimed
 	: public frc2::CommandHelper<frc2::CommandBase, MoveLinearTimed> {
 	public:
-		MoveLinearTimed(SwerveDrive* pSwerveDrive, double speed, double time, double angle);
+		MoveLinearTimed(SwerveDrive* pSwerveDrive, double speed, double time, double angle = 0.0);
 
 		void Initialize() override;
 
