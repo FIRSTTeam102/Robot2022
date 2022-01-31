@@ -38,11 +38,11 @@ class SwerveDrive : public frc2::SubsystemBase {
 
 		// Static values 
 
-		static const double kWheelCircum = SwerveDriveConstants::kWheelDiameter * M_PI;
-		static const double kDriveCircum = SwerveDriveConstants::kDriveDiameter * M_PI;
+		// static const double kWheelCircum = SwerveDriveConstants::kWheelDiameter * M_PI;
+		// static const double kDriveCircum = SwerveDriveConstants::kDriveDiameter * M_PI;
 
-		static const double kRotationsPer360 = kDriveCircum / kWheelCircum;
-		static const double kMaxTurnSpeed = SwerveDriveConstants::kMaxMotorSpeed * 0.70711;
+		// static const double kRotationsPer360 = kDriveCircum / kWheelCircum;
+		// static const double kMaxTurnSpeed = SwerveDriveConstants::kMaxMotorSpeed * 0.70711;
 	private:
 		double pythag(double x, double y);
 		double angleCalc(double x, double y);
