@@ -2,12 +2,19 @@
 
 Lights* Lights::mpLightsInstance = NULL;
 
-Lights::Lights() : mArduino{9600, frc::SerialPort::kUSB1} {
+#ifdef ARDUINO
+Lights::Lights() : mArduino{9600, frc::SerialPort::kUSB1}
+#else
+Lights::Lights()
+#endif
+{
 	SetName("Lights");
 	SetSubsystem("Lights");
 
+#ifdef ARDUINO
 	mArduino.EnableTermination();
 	mArduino.Reset();
+#endif
 }
 
 Lights* Lights::GetInstance() {
@@ -23,6 +30,8 @@ void Lights::Periodic() {
 void Lights::setMode(Mode mode) {
 	std::string_view buffer = std::to_string(mode);
 
+#ifdef ARDUINO
 	mArduino.Write(buffer);
+#endif
 	printf("Set light mode to: %s\n", buffer.data());
 }

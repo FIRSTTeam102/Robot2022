@@ -5,6 +5,10 @@
 
 #include <string>
 
+#include "Constants.h"
+
+// #define ARDUINO
+
 class Lights : public frc2::SubsystemBase {
 	public:
 		enum Mode {
@@ -26,5 +30,7 @@ class Lights : public frc2::SubsystemBase {
 		Lights();
 		static Lights* mpLightsInstance;
 
+#ifdef ARDUINO
 		frc::SerialPort mArduino;
+#endif
 };
