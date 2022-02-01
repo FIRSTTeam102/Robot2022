@@ -120,14 +120,14 @@ void Limelight::Periodic() {
 	tv = table->GetNumber("tv", 0.0);
 
 	if (m_LimelightHasTarget == true) {
-		heading_error = -tx;
+		heading_error = tx;
 		steering_adjust = 0.0f;
 		if (tx > 1.0) {
-			// steering_adjust = 0.25;
-			steering_adjust = Kp * heading_error - min_command;
-		} else if (tx < 1.0) {
 			// steering_adjust = -0.25;
 			steering_adjust = -Kp * heading_error + min_command;
+		} else if (tx < 1.0) {
+			// steering_adjust = 0.25;
+			steering_adjust = Kp * heading_error - min_command;
 		}
 		rotation = steering_adjust;
 		printf("Limelight rotation adjustment %f\n", rotation);
