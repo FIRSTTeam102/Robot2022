@@ -5,7 +5,7 @@
 Limelight::Limelight() : m_LimelightHasTarget(false) {
 	SetName("Limelight");
 	SetSubsystem("Limelight");
-	Kp = -0.1f;
+	Kp = (float) (1 / 27);
 	min_command = 0.05f;
 	table->PutNumber("ledMode", 0);
 	table->PutNumber("pipeline", 0);
@@ -100,7 +100,7 @@ double Limelight::getServoAngle() {
 	} else if (d >= 90.0) {
 		hoodAngle = 83.48;
 	} else {
-		hoodAngle = 85.28;
+		hoodAngle = 85.00;
 	}
 
 	return hoodAngle;
