@@ -10,7 +10,7 @@ ArmControl::ArmControl(Intake* pIntake, Indexer* pIndexer) : mpIntake{pIntake}, 
 void ArmControl::Initialize() {
 	mpIntake->startRollers();
 	mpIntake->lowerIntakeArm();
-	mpIndexer->indexUp();
+	// mpIndexer->indexUp();
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -27,5 +27,5 @@ void ArmControl::End(bool interrupted) {
 	// mpIntake->stopIntakeArm();
 	mpIntake->stopRollers();
 	mpIntake->raiseIntakeArm();
-	mpIndexer->stopIndexer();
+	// mpIndexer->stopIndexer();
 }
