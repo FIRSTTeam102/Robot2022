@@ -40,5 +40,5 @@ namespace ShooterConstants {
 
 	// Hood Angles
 	const double kHoodMaxAngle = 85;
-	const double kHoodMinAngle = 25;
+	const double kHoodMinAngle = 65;
 }

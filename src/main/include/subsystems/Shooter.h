@@ -14,8 +14,12 @@ class Shooter : public frc2::SubsystemBase {
 		float mSpeed;
 		bool mIsRunning = false;
 
-		double degreesToServo(double deg) {
+		double degreesToActuator(double deg) {
 			return ( 2 / ( ShooterConstants::kHoodMaxAngle - ShooterConstants::kHoodMinAngle ) ) * ( deg - ( ( ShooterConstants::kHoodMinAngle + ShooterConstants::kHoodMaxAngle ) / 2 ) );
+		}
+
+		double degreesToServo(double deg) {
+			return ( ( deg - ShooterConstants::kHoodMinAngle ) / ( ShooterConstants::kHoodMaxAngle - ShooterConstants::kHoodMinAngle ) );
 		}
 
 	public:

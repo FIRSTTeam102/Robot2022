@@ -41,7 +41,7 @@ void Shooter::setHoodAngle(double degrees) {
 	} else if ( degrees > ShooterConstants::kHoodMaxAngle ) {
 		servoSetting = 1.0;
 	} else {
-		servoSetting = degreesToServo(degrees);
+		servoSetting = degreesToActuator(degrees);
 	}
 
 	mHoodActuator.SetSpeed(servoSetting);
