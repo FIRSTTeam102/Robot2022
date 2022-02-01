@@ -12,15 +12,15 @@
 
 namespace IntakeConstants {
 	// ports (NOT FINAL)
-	const int kRollerMotor = 12;
-	const int kArmSolenoid = 0;
+	const int kRollerMotor = 11;
+	const int kArmSolenoid = 4;
 	// speeds
 	const double kRollerSpeed = 0.5;
 } // namespace IntakeConstants
 
 namespace IndexerConstants {
 	// ports (NOT FINAL)
-	const int kIndexerMotor = 7;
+	const int kIndexerMotor = 10;
 	const int kBallSwitch = 5;
 	// speeds
 	const double kMotorSpeed = 0.4;
