@@ -6,6 +6,9 @@
 RobotContainer* RobotContainer::mRobotContainer = NULL;
 
 RobotContainer::RobotContainer() : mAutonomousCommand() {
+	// SmartDashboard Buttons
+	mSwerveDrive.setController(&mDriverController);
+	mSwerveDrive.SetDefaultCommand(std::move(mRunSwerveDrive));
 
 	ConfigureButtonBindings();
 
