@@ -10,6 +10,9 @@
  * they are needed.
  */
 
+const int kPneumaticHub = 32;
+const int kPowerDistributionHub = 33;
+
 namespace SwerveDriveConstants {
 	// Motor ports
 	const int kFLDrive = 1;
@@ -21,7 +24,7 @@ namespace SwerveDriveConstants {
 	const int kBLDrive = 7;
 	const int kBLTurn = 8;
 
-	// Encoder Ports
+	// Encoder ports
 	const int kFLEnc = 0;
 	const int kFREnc = 1;
 	const int kBREnc = 2;
@@ -37,17 +40,17 @@ namespace SwerveDriveConstants {
 }
 
 namespace IntakeConstants {
-	// ports (NOT FINAL)
+	// Ports
 	const int kRollerMotor = 11;
 	const int kArmSolenoid = 4;
-	// speeds
+	// Speeds
 	const double kRollerSpeed = 0.5;
-} // namespace IntakeConstants
-namespace IndexerConstants {
+}
 
-	// ports (NOT FINAL)
+namespace IndexerConstants {
+	// Ports
 	const int kIndexerMotor = 10;
 	const int kBallSwitch = 5;
-	// speeds
+	// Speeds
 	const double kMotorSpeed = 0.4;
 }

@@ -75,22 +75,6 @@ class RobotContainer {
 		AutonomousCommand mAutonomousCommand;
 		static RobotContainer* mRobotContainer;
 
-		// Subsystems and commands
-		Drive mDrive;
-
-		Intake mIntake;
-		ArmControl mIntakeControlCommand{&mIntake, &mIndexer};
-
-		Indexer mIndexer;
-		Forward mIndexUpCommand{&mIndexer};
-		Backward mIndexDownCommand{&mIndexer};
-
-		Shooter mShooter;
-
-		Climber mClimber;
-
-		Limelight mLimelight;
-
 		void ConfigureButtonBindings();
 
 		// Subsystems and commands
@@ -98,8 +82,11 @@ class RobotContainer {
 		RunSwerveDrive mRunSwerveDrive{&mSwerveDrive};
 
 		Intake mIntake;
+		ArmControl mIntakeControlCommand{&mIntake, &mIndexer};
 
 		Indexer mIndexer;
+		Forward mIndexUpCommand{&mIndexer};
+		Backward mIndexDownCommand{&mIndexer};
 
 		Shooter mShooter;
 

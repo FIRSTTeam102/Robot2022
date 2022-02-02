@@ -5,9 +5,11 @@
 #include "Constants.h"
 #include "RobotContainer.h"
 
-Intake::Intake() : mRollerMotor{IntakeConstants::kRollerMotor}, mArmSolenoid{frc::PneumaticsModuleType::REVPH, IntakeConstants::kArmSolenoid} {
+Intake::Intake() : mRollerMotor{IntakeConstants::kRollerMotor}, mArmSolenoid{kPneumaticHub, frc::PneumaticsModuleType::REVPH, IntakeConstants::kArmSolenoid} {
 	SetName("Intake");
 	SetSubsystem("Intake");
+
+	mRollerMotor.SetInverted(true);
 }
 
 // lower the intake arm - start the arm motor
