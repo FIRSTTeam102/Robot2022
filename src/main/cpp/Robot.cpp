@@ -3,7 +3,9 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
 
-void Robot::RobotInit() {}
+void Robot::RobotInit() {
+	mCompressor.Start();
+}
 
 /**
  * This function is called every robot packet, no matter the mode. Use
@@ -20,7 +22,9 @@ void Robot::RobotPeriodic() { frc2::CommandScheduler::GetInstance().Run(); }
  * can use it to reset any subsystem information you want to clear when the
  * robot is disabled.
  */
-void Robot::DisabledInit() {}
+void Robot::DisabledInit() {
+	Lights::GetInstance()->setMode(Lights::Mode::kDisabled);
+}
 
 void Robot::DisabledPeriodic() {}
 
@@ -34,6 +38,8 @@ void Robot::AutonomousInit() {
 	if (mAutonomousCommand != nullptr) {
 		mAutonomousCommand->Schedule();
 	}
+
+	Lights::GetInstance()->setMode(Lights::Mode::kAuto);
 }
 
 void Robot::AutonomousPeriodic() {}
@@ -47,6 +53,8 @@ void Robot::TeleopInit() {
 		mAutonomousCommand->Cancel();
 		mAutonomousCommand = nullptr;
 	}
+
+	Lights::GetInstance()->setMode(Lights::Mode::kDefault);
 }
 
 /**
