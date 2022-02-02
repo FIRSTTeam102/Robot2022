@@ -10,6 +10,32 @@
  * they are needed.
  */
 
+namespace SwerveDriveConstants {
+	// Motor ports
+	const int kFLDrive = 1;
+	const int kFLTurn = 2;
+	const int kFRDrive = 3;
+	const int kFRTurn = 4;
+	const int kBRDrive = 5;
+	const int kBRTurn = 6;
+	const int kBLDrive = 7;
+	const int kBLTurn = 8;
+
+	// Encoder Ports
+	const int kFLEnc = 0;
+	const int kFREnc = 1;
+	const int kBREnc = 2;
+	const int kBLEnc = 3;
+
+	// Calibration Values
+	const int kFLOffset = 573;
+	const int kFROffset = 412;
+	const int kBROffset = 2686;
+	const int kBLOffset = 1176;
+
+	const double kMaxSpeed = 1.00;
+}
+
 namespace IntakeConstants {
 	// ports (NOT FINAL)
 	const int kRollerMotor = 11;
@@ -17,8 +43,8 @@ namespace IntakeConstants {
 	// speeds
 	const double kRollerSpeed = 0.5;
 } // namespace IntakeConstants
-
 namespace IndexerConstants {
+
 	// ports (NOT FINAL)
 	const int kIndexerMotor = 10;
 	const int kBallSwitch = 5;
