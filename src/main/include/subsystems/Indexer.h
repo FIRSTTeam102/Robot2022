@@ -13,21 +13,11 @@ class Indexer : public frc2::SubsystemBase {
 
 	public:
 		Indexer();
-		void Indexer::indexDown() {
-			mIndexerMotor.Set(ControlMode::PercentOutput, -IndexerConstants::kMotorSpeed);
-		}
 
-		void Indexer::indexUp() {
-			mIndexerMotor.Set(ControlMode::PercentOutput, IndexerConstants::kMotorSpeed);
-		}
-
-		void Indexer::stopIndexer() {
-			mIndexerMotor.Set(ControlMode::PercentOutput, 0.0);
-		}
-
-		bool Indexer::getSwitch() {
-			return mBallSwitch.Get();
-		}
+		void indexDown();
+		void indexUp();
+		void stopIndexer();
+		bool getSwitch();
 
 		void Periodic() override;
 };
