@@ -24,7 +24,7 @@ RobotContainer* RobotContainer::GetInstance() {
 }
 
 void RobotContainer::ConfigureButtonBindings() {
-	mOperatorLeftDPad.ToggleWhenPressed(&mClimbCommand);
+	mOperatorLeftDPad.WhenHeld(&mClimbCommand);
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {

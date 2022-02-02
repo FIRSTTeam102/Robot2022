@@ -7,16 +7,19 @@ Climber::Climber() : mClimberSolenoidRight{frc::PneumaticsModuleType::REVPH, Cli
 
 void Climber::armsUp() {
 	mClimberSolenoidRight.Set(true);
+	mClimberSolenoidLeft.Set(true);
 	printf("arms have ascended \n");
 }
 
 void Climber::armsDown() {
 	mClimberSolenoidRight.Set(false);
+	mClimberSolenoidLeft.Set(false);
 	printf("arms have descended \n");
 }
 
 void Climber::toggleArms() {
 	mClimberSolenoidRight.Toggle();
+	mClimberSolenoidLeft.Toggle();
 	printf("Arms have been toggled \n");
 }
 
