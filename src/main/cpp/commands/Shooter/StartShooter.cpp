@@ -10,6 +10,9 @@ void StartShooter::Initialize() {
 	// Start at the shooter's current speed
 	mSpeed = mpShooter->getSpeed();
 
+	// If ramping down, just jump
+	if (mSpeed > mTargetSpeed) mpShooter->setShooter(mTargetSpeed);
+
 	printf("Shooting at %f\n", mTargetSpeed);
 }
 
