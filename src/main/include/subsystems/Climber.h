@@ -1,14 +1,14 @@
 #pragma once
 
-#include <frc/Solenoid.h>
 #include <frc2/command/SubsystemBase.h>
+#include <frc/DoubleSolenoid.h>
 
 #include "Constants.h"
 
 class Climber : public frc2::SubsystemBase {
 	private:
-		frc::Solenoid mClimberSolenoidRight;
-		frc::Solenoid mClimberSolenoidLeft;
+		frc::DoubleSolenoid mClimberSolenoidRight;
+		frc::DoubleSolenoid mClimberSolenoidLeft;
 
 	public:
 		Climber();

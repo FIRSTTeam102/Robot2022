@@ -1,26 +1,26 @@
 #include "subsystems/Climber.h"
 
-Climber::Climber() : mClimberSolenoidRight{frc::PneumaticsModuleType::REVPH, ClimberConstants::kClimberSolenoidRight}, mClimberSolenoidLeft{frc::PneumaticsModuleType::REVPH, ClimberConstants::kClimberSolenoidLeft} {
+Climber::Climber() : mClimberSolenoidRight{frc::PneumaticsModuleType::REVPH, ClimberConstants::kClimberSolenoidRightUp, ClimberConstants::kClimberSolenoidRightDown}, mClimberSolenoidLeft{frc::PneumaticsModuleType::REVPH, ClimberConstants::kClimberSolenoidLeftUp, ClimberConstants::kClimberSolenoidLeftDown} {
 	SetName("Climber");
 	SetSubsystem("Climber");
 }
 
 void Climber::armsUp() {
-	mClimberSolenoidRight.Set(true);
-	mClimberSolenoidLeft.Set(true);
-	printf("arms have ascended \n");
+	mClimberSolenoidRight.Set(frc::DoubleSolenoid::kForward);
+	mClimberSolenoidLeft.Set(frc::DoubleSolenoid::kForward);
+	printf("Climber arms raising\n");
 }
 
 void Climber::armsDown() {
-	mClimberSolenoidRight.Set(false);
-	mClimberSolenoidLeft.Set(false);
-	printf("arms have descended \n");
+	mClimberSolenoidRight.Set(frc::DoubleSolenoid::kReverse);
+	mClimberSolenoidLeft.Set(frc::DoubleSolenoid::kReverse);
+	printf("Climber arms descending\n");
 }
 
 void Climber::toggleArms() {
 	mClimberSolenoidRight.Toggle();
 	mClimberSolenoidLeft.Toggle();
-	printf("Arms have been toggled \n");
+	printf("Climber arms toggled\n");
 }
 
 void Climber::Periodic() {

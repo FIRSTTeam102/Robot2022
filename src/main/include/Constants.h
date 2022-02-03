@@ -37,7 +37,9 @@ namespace SwerveDriveConstants {
 }
 
 namespace ClimberConstants {
-	// Solenoid Ports
-	const int kClimberSolenoidLeft = 6; // Port undecided
-	const int kClimberSolenoidRight = 7; //Port also undecided
+	// Ports
+	const int kClimberSolenoidRightUp = 0;
+	const int kClimberSolenoidRightDown = 1;
+	const int kClimberSolenoidLeftUp = 6;
+	const int kClimberSolenoidLeftDown = 7;
 }
