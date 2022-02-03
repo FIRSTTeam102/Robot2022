@@ -5,6 +5,7 @@
 
 #include "subsystems/Indexer.h"
 #include "subsystems/Intake.h"
+#include "subsystems/Lights.h"
 
 class ArmControl : public frc2::CommandHelper<frc2::CommandBase, ArmControl> {
 	public:

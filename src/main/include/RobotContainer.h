@@ -8,8 +8,6 @@
 
 #include "commands/AutonomousCommand.h"
 #include "commands/Climber/Climb.h"
-#include "commands/Drive/FlipDrive.h"
-#include "commands/Drive/SwerveDrive.h"
 #include "commands/Indexer/Backward.h"
 #include "commands/Indexer/Forward.h"
 #include "commands/Intake/ArmControl.h"
@@ -19,12 +17,14 @@
 #include "commands/Shooter/ShootSequential.h"
 #include "commands/Shooter/StartShooter.h"
 #include "commands/Shooter/StopShooter.h"
-#include "subsystems//Climber.h"
-#include "subsystems/Drive.h"
+#include "commands/SwerveDrive/FlipDrive.h"
+#include "commands/SwerveDrive/RunSwerveDrive.h"
+#include "subsystems/Climber.h"
 #include "subsystems/Indexer.h"
 #include "subsystems/Intake.h"
 #include "subsystems/Limelight.h"
 #include "subsystems/Shooter.h"
+#include "subsystems/SwerveDrive.h"
 
 class RobotContainer {
 	public:
@@ -73,8 +73,11 @@ class RobotContainer {
 		AutonomousCommand mAutonomousCommand;
 		static RobotContainer* mRobotContainer;
 
+		void ConfigureButtonBindings();
+
 		// Subsystems and commands
-		Drive mDrive;
+		SwerveDrive mSwerveDrive;
+		RunSwerveDrive mRunSwerveDrive{&mSwerveDrive};
 
 		Intake mIntake;
 		ArmControl mIntakeControlCommand{&mIntake, &mIndexer};
@@ -92,6 +95,4 @@ class RobotContainer {
 		Climber mClimber;
 
 		Limelight mLimelight;
-
-		void ConfigureButtonBindings();
 };

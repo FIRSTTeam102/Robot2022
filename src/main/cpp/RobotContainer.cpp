@@ -6,6 +6,9 @@
 RobotContainer* RobotContainer::mRobotContainer = NULL;
 
 RobotContainer::RobotContainer() : mAutonomousCommand() {
+	// SmartDashboard Buttons
+	mSwerveDrive.setController(&mDriverController);
+	mSwerveDrive.SetDefaultCommand(std::move(mRunSwerveDrive));
 
 	ConfigureButtonBindings();
 
@@ -22,7 +25,7 @@ RobotContainer* RobotContainer::GetInstance() {
 }
 
 void RobotContainer::ConfigureButtonBindings() {
-	mOperatorButtonLB.WhenHeld(&mIntakeControlCommand);
+	mOperatorButtonLB.ToggleWhenPressed(&mIntakeControlCommand);
 	mOperatorUpDPad.WhenHeld(&mIndexUpCommand);
 	mOperatorDownDPad.WhenHeld(&mIndexDownCommand);
 	mOperatorButtonA.WhenPressed(&mSlowShooterCommand);

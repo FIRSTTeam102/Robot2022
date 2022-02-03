@@ -10,7 +10,8 @@ ArmControl::ArmControl(Intake* pIntake, Indexer* pIndexer) : mpIntake{pIntake}, 
 void ArmControl::Initialize() {
 	mpIntake->startRollers();
 	mpIntake->lowerIntakeArm();
-	mpIndexer->indexUp();
+	// mpIndexer->indexUp();
+	Lights::GetInstance()->setMode(Lights::Mode::kIntake);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -25,8 +26,8 @@ bool ArmControl::IsFinished() {
 
 // Called once after isFinished returns true
 void ArmControl::End(bool interrupted) {
-	// mpIntake->stopIntakeArm();
 	mpIntake->stopRollers();
 	mpIntake->raiseIntakeArm();
-	mpIndexer->stopIndexer();
+	// mpIndexer->stopIndexer();
+	Lights::GetInstance()->setMode(Lights::Mode::kDefault);
 }
