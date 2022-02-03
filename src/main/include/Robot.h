@@ -4,7 +4,7 @@
 #include <frc2/command/Command.h>
 #include <frc/Compressor.h>
 
-#include "Constants.h"
+// #include "Constants.h"
 #include "RobotContainer.h"
 #include "subsystems/Lights.h"
 
@@ -23,9 +23,9 @@ class Robot : public frc::TimedRobot {
 	private:
 		// Have it null by default so that if testing teleop it
 		// doesn't have undefined behavior and potentially crash.
-		frc::Compressor mCompressor{kPneumaticHub, frc::PneumaticsModuleType::REVPH};
-
 		frc2::Command* mAutonomousCommand = nullptr;
 
 		RobotContainer* mContainer = RobotContainer::GetInstance();
+		
+		// frc::Compressor mCompressor{kPneumaticHub, frc::PneumaticsModuleType::REVPH};
 };

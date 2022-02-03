@@ -4,7 +4,7 @@
 #include <frc2/command/CommandScheduler.h>
 
 void Robot::RobotInit() {
-	mCompressor.EnableDigital();
+	// mCompressor.EnableDigital();
 }
 
 /**

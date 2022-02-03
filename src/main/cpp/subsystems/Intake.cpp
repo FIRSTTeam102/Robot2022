@@ -5,7 +5,7 @@
 #include "Constants.h"
 #include "RobotContainer.h"
 
-Intake::Intake() : mRollerMotor{IntakeConstants::kRollerMotor}, mArmSolenoid{kPneumaticHub, frc::PneumaticsModuleType::REVPH, IntakeConstants::kArmSolenoid} {
+Intake::Intake() : mRollerMotor{IntakeConstants::kRollerMotor}, mArmSolenoid{frc::PneumaticsModuleType::REVPH, IntakeConstants::kArmSolenoidDown, IntakeConstants::kArmSolenoidUp} {
 	SetName("Intake");
 	SetSubsystem("Intake");
 
@@ -15,13 +15,13 @@ Intake::Intake() : mRollerMotor{IntakeConstants::kRollerMotor}, mArmSolenoid{kPn
 // lower the intake arm - start the arm motor
 void Intake::lowerIntakeArm() {
 	printf("Deploying intake\n");
-	mArmSolenoid.Set(true);
+	mArmSolenoid.Set(frc::DoubleSolenoid::kForward);
 	// printf("Is arm down - %d\n", isArmDown());
 }
 // raise the intake arm -  start the arm motor
 void Intake::raiseIntakeArm() {
 	printf("Retracting intake\n");
-	mArmSolenoid.Set(false);
+	mArmSolenoid.Set(frc::DoubleSolenoid::kReverse);
 }
 // stopIntakeArm - stop the intake arm motor by shutting it off
 // void Intake::stopIntakeArm() {
