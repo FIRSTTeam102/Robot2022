@@ -8,6 +8,7 @@ TurnDegreesGyro::TurnDegreesGyro(SwerveDrive* pSwerveDrive, double speed, double
 // Called when the command is initially scheduled.
 void TurnDegreesGyro::Initialize() {
 	mpSwerveDrive->resetGyro();
+	mpSwerveDrive->setAutoState(true);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -18,6 +19,7 @@ void TurnDegreesGyro::Execute() {
 // Called once the command ends or is interrupted.
 void TurnDegreesGyro::End(bool interrupted) {
 	mpSwerveDrive->stopDrive();
+	mpSwerveDrive->setAutoState(false);
 }
 
 // Returns true when the command should end.

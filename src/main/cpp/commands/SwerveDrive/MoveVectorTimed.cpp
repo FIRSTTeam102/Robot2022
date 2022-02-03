@@ -9,7 +9,9 @@ MoveVectorTimed::MoveVectorTimed(SwerveDrive* pSwerveDrive, double x, double y, 
 }
 
 // Called when the command is initially scheduled.
-void MoveVectorTimed::Initialize() {}
+void MoveVectorTimed::Initialize() {
+	mpSwerveDrive->setAutoState(true);
+}
 
 // Called repeatedly when this Command is scheduled to run
 void MoveVectorTimed::Execute() {
@@ -17,7 +19,10 @@ void MoveVectorTimed::Execute() {
 }
 
 // Called once the command ends or is interrupted.
-void MoveVectorTimed::End(bool interrupted) {}
+void MoveVectorTimed::End(bool interrupted) {
+	mpSwerveDrive->stopDrive();
+	mpSwerveDrive->setAutoState(false);
+}
 
 // Returns true when the command should end.
 bool MoveVectorTimed::IsFinished() {

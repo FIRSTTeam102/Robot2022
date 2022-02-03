@@ -7,7 +7,9 @@ MoveLinearTimed::MoveLinearTimed(SwerveDrive* pSwerveDrive, double speed, double
 }
 
 // Called when the command is initially scheduled.
-void MoveLinearTimed::Initialize() {}
+void MoveLinearTimed::Initialize() {
+	mpSwerveDrive->setAutoState(true);
+}
 
 // Called repeatedly when this Command is scheduled to run
 void MoveLinearTimed::Execute() {
@@ -18,6 +20,7 @@ void MoveLinearTimed::Execute() {
 // Called once the command ends or is interrupted.
 void MoveLinearTimed::End(bool interrupted) {
 	mpSwerveDrive->stopDrive();
+	mpSwerveDrive->setAutoState(false);
 }
 
 // Returns true when the command should end.

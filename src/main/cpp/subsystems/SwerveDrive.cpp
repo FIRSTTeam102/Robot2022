@@ -5,6 +5,8 @@
 SwerveDrive::SwerveDrive() : mWheelFL{SwerveDriveConstants::kFLDrive, SwerveDriveConstants::kFLTurn, SwerveDriveConstants::kFLEnc, SwerveDriveConstants::kFLOffset}, mWheelFR{SwerveDriveConstants::kFRDrive, SwerveDriveConstants::kFRTurn, SwerveDriveConstants::kFREnc, SwerveDriveConstants::kFROffset}, mWheelBR{SwerveDriveConstants::kBRDrive, SwerveDriveConstants::kBRTurn, SwerveDriveConstants::kBREnc, SwerveDriveConstants::kBROffset}, mWheelBL{SwerveDriveConstants::kBLDrive, SwerveDriveConstants::kBLTurn, SwerveDriveConstants::kBLEnc, SwerveDriveConstants::kBLOffset} {
 	SetName("SwerveDrive");
 	SetSubsystem("SwerveDrive");
+	mIsFieldOriented = true;
+	mAutoState = false;
 }
 
 double SwerveDrive::angleCalc(double x, double y) {
@@ -48,7 +50,7 @@ double SwerveDrive::pythag(double x, double y) {
 // }
 
 int SwerveDrive::readOffset() {
-	double offset = mGyro.GetAngle();
+	double offset = getGyroAngle();
 	
 	return (int) offset;
 }
@@ -117,6 +119,14 @@ void SwerveDrive::resetGyro() {
 
 double SwerveDrive::getGyroAngle() {
 	return mGyro.GetAngle();
+}
+
+void SwerveDrive::setAutoState(bool state) {
+	mAutoState = state;
+}
+
+bool SwerveDrive::getAutoState() {
+	return mAutoState;
 }
 
 // This method will be called once per scheduler run

@@ -33,6 +33,8 @@ class SwerveDrive : public frc2::SubsystemBase {
 		void changeOrientation();
 		void resetGyro();
 		double getGyroAngle();
+		void setAutoState(bool state);
+		bool getAutoState();
 
 		void Periodic() override;
 
@@ -52,6 +54,7 @@ class SwerveDrive : public frc2::SubsystemBase {
 		int angle;
 		double speed;
 		bool mIsFieldOriented;
+		bool mAutoState;
 
 		frc::XboxController *mpDriverController;
 		AHRS mGyro{frc::SPI::Port::kMXP};
