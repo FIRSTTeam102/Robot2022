@@ -7,6 +7,10 @@ Shooter::Shooter() : mShooterMotor{ShooterConstants::kShooterMotor}, mHoodActuat
 
 	// Actuator setup
 	mHoodActuator.SetBounds(2.0, 1.8, 1.5, 1.2, 1.0);
+
+	// Shooter motor setup
+	mShooterMotor.SetInverted(true);
+	mShooterMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
 }
 
 void Shooter::Periodic() {
