@@ -50,9 +50,9 @@ class RobotContainer {
 		frc2::Button mDriverLT{[&] { return (mDriverController.GetLeftTriggerAxis() > 0.5); }};
 		frc2::Button mDriverRT{[&] { return (mDriverController.GetRightTriggerAxis() > 0.5); }};
 		frc2::Button mDriverUpDPad{[&] { return (mDriverController.GetPOV() == 0); }};
-		frc2::Button mDriverLeftDPad{[&] { return (mDriverController.GetPOV() == 90); }};
+		frc2::Button mDriverLeftDPad{[&] { return (mDriverController.GetPOV() == 270); }};
 		frc2::Button mDriverDownDPad{[&] { return (mDriverController.GetPOV() == 180); }};
-		frc2::Button mDriverRightDPad{[&] { return (mDriverController.GetPOV() == 270); }};
+		frc2::Button mDriverRightDPad{[&] { return (mDriverController.GetPOV() == 90); }};
 
 		frc::XboxController mOperatorController{1};
 		frc2::Button mOperatorButtonA{[&] { return mOperatorController.GetAButton(); }};
