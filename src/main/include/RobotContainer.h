@@ -10,7 +10,9 @@
 #include "commands/Climber/Climb.h"
 #include "commands/Indexer/Backward.h"
 #include "commands/Indexer/Forward.h"
-#include "commands/Intake/ArmControl.h"
+#include "commands/Intake/BallIn.h"
+#include "commands/Intake/BallOut.h"
+#include "commands/Intake/ArmToggle.h"
 #include "commands/Limelight/AimbotSequential.h"
 #include "commands/Limelight/SetShootSpeed.h"
 #include "commands/Limelight/YawToTarget.h"
@@ -82,7 +84,9 @@ class RobotContainer {
 		RunSwerveDrive mRunSwerveDrive{&mSwerveDrive};
 
 		Intake mIntake;
-		ArmControl mIntakeControlCommand{&mIntake, &mIndexer};
+		BallIn mBallInCommand{&mIntake, &mIndexer};
+		BallOut mBallOutCommand{&mIntake, &mIndexer};
+		ArmToggle mArmToggleCommand{&mIntake};
 
 		Indexer mIndexer;
 		Forward mIndexUpCommand{&mIndexer};

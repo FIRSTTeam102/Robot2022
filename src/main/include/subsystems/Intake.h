@@ -19,5 +19,7 @@ class Intake : public frc2::SubsystemBase {
 		void startReverseRollers();
 		void stopRollers();
 
+		frc::DoubleSolenoid::Value getArmState();
+
 		void Periodic() override;
 };
