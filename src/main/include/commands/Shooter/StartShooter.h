@@ -1,5 +1,6 @@
 #pragma once
 
+#include <frc/XboxController.h>
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
@@ -7,7 +8,7 @@
 
 class StartShooter : public frc2::CommandHelper<frc2::CommandBase, StartShooter> {
 	public:
-		explicit StartShooter(Shooter* pShooter, double speed);
+		explicit StartShooter(Shooter* pShooter, double speed, frc::XboxController* pOperatorController);
 
 		void Initialize() override;
 		void Execute() override;
@@ -18,4 +19,5 @@ class StartShooter : public frc2::CommandHelper<frc2::CommandBase, StartShooter>
 		Shooter* mpShooter;
 		double mSpeed;
 		double mTargetSpeed;
+		frc::XboxController* mpOperatorController;
 };

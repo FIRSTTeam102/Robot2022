@@ -32,6 +32,7 @@ class RobotContainer {
 		static RobotContainer* GetInstance();
 
 		frc::XboxController* GetDriverController() { return &mDriverController; }
+		frc::XboxController* GetOperatorController() { return &mOperatorController; }
 
 	private:
 		RobotContainer();
@@ -87,9 +88,9 @@ class RobotContainer {
 		Backward mIndexDownCommand{&mIndexer};
 
 		Shooter mShooter;
-		StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kSlowSpeed};
-		StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kMedSpeed};
-		StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kFastSpeed};
+		StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kSlowSpeed, &mOperatorController};
+		StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kMedSpeed, &mOperatorController};
+		StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kFastSpeed, &mOperatorController};
 		StopShooter mStopShooterCommand{&mShooter};
 
 		Climber mClimber;
