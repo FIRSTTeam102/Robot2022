@@ -22,6 +22,10 @@ class Shooter : public frc2::SubsystemBase {
 			return ( ( deg - ShooterConstants::kHoodMinAngle ) / ( ShooterConstants::kHoodMaxAngle - ShooterConstants::kHoodMinAngle ) );
 		}
 
+		double actuatorToDegrees() {
+			return ( ( ( ( ShooterConstants::kHoodMaxAngle - ShooterConstants::kHoodMinAngle ) / 2 ) * mHoodActuator.GetSpeed() ) + ( ( ShooterConstants::kHoodMaxAngle + ShooterConstants::kHoodMinAngle ) / 2 ) );
+		}
+
 	public:
 		Shooter();
 
@@ -31,6 +35,7 @@ class Shooter : public frc2::SubsystemBase {
 		bool isRunning();
 
 		void setHoodAngle(double degrees);
+		double getHoodAngle();
 
 		void Periodic() override;
 };
