@@ -75,6 +75,8 @@ class RobotContainer {
 		AutonomousCommand mAutonomousCommand;
 		static RobotContainer* mRobotContainer;
 
+		void ConfigureButtonBindings();
+
 		// Subsystems and commands
 		SwerveDrive mSwerveDrive;
 		RunSwerveDrive mRunSwerveDrive{&mSwerveDrive};
@@ -92,6 +94,4 @@ class RobotContainer {
 		Climb mClimbCommand{&mClimber};
 
 		Limelight mLimelight;
-
-		void ConfigureButtonBindings();
 };
