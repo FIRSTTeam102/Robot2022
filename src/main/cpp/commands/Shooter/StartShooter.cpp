@@ -14,6 +14,8 @@ void StartShooter::Initialize() {
 	if (mSpeed > mTargetSpeed) mpShooter->setShooter(mTargetSpeed);
 
 	printf("Shooting at %f\n", mTargetSpeed);
+
+	mpRumbleControllerCommand->Cancel();
 }
 
 // Called repeatedly when this Command is scheduled to run

@@ -35,6 +35,9 @@ class RobotContainer {
 		frc::XboxController* GetDriverController() { return &mDriverController; }
 		frc::XboxController* GetOperatorController() { return &mOperatorController; }
 
+		RumbleController mRumbleDriverControllerCommand{&mDriverController};
+		RumbleController mRumbleOperatorControllerCommand{&mOperatorController};
+
 	private:
 		RobotContainer();
 
@@ -78,9 +81,6 @@ class RobotContainer {
 		void ConfigureButtonBindings();
 
 		// Subsystems and commands
-		RumbleController mRumbleDriverControllerCommand{&mDriverController};
-		RumbleController mRumbleOperatorControllerCommand{&mOperatorController};
-
 		SwerveDrive mSwerveDrive;
 		RunSwerveDrive mRunSwerveDrive{&mSwerveDrive};
 
