@@ -24,7 +24,7 @@ int SwerveWheel::circScale(int i) {
 
 // This method will be called once per scheduler run
 void SwerveWheel::Periodic() {
-	// printf("Encoder #%d at %d\n", mWheelNum, mEnc.GetValue()); // for calibration
+	printf("Encoder #%d at %d\n", mWheelNum, mEnc.GetValue()); // for calibration
 
 	scaledPos = (double)(mEnc.GetValue() - mAngleOffset) * 360.0 / 4096.0;
 	posCurrent = circScale(scaledPos);
