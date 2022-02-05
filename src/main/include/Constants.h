@@ -12,14 +12,14 @@
 
 namespace SwerveDriveConstants {
 	// Motor ports
-	const int kFLDrive = 1;
-	const int kFLTurn = 2;
-	const int kFRDrive = 3;
-	const int kFRTurn = 4;
-	const int kBRDrive = 5;
-	const int kBRTurn = 6;
-	const int kBLDrive = 7;
-	const int kBLTurn = 8;
+	const int kFLDrive = 21;
+	const int kFLTurn = 22;
+	const int kFRDrive = 23;
+	const int kFRTurn = 24;
+	const int kBRDrive = 25;
+	const int kBRTurn = 26;
+	const int kBLDrive = 27;
+	const int kBLTurn = 28;
 
 	// Encoder Ports
 	const int kFLEnc = 0;
