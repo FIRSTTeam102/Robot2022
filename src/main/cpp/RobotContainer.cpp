@@ -28,6 +28,7 @@ void RobotContainer::ConfigureButtonBindings() {
 	mOperatorButtonLB.ToggleWhenPressed(&mIntakeControlCommand);
 	mOperatorUpDPad.WhenHeld(&mIndexUpCommand);
 	mOperatorDownDPad.WhenHeld(&mIndexDownCommand);
+	mOperatorLeftDPad.ToggleWhenPressed(&mClimbCommand);
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {

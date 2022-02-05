@@ -91,6 +91,7 @@ class RobotContainer {
 		Shooter mShooter;
 
 		Climber mClimber;
+		Climb mClimbCommand{&mClimber};
 
 		Limelight mLimelight;
 };
