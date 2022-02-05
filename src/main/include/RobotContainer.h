@@ -14,6 +14,7 @@
 #include "commands/Limelight/AimbotSequential.h"
 #include "commands/Limelight/SetShootSpeed.h"
 #include "commands/Limelight/YawToTarget.h"
+#include "commands/RumbleController.h"
 #include "commands/Shooter/ShootSequential.h"
 #include "commands/Shooter/StartShooter.h"
 #include "commands/Shooter/StopShooter.h"
@@ -77,6 +78,9 @@ class RobotContainer {
 		void ConfigureButtonBindings();
 
 		// Subsystems and commands
+		RumbleController mRumbleDriverControllerCommand{&mDriverController};
+		RumbleController mRumbleOperatorControllerCommand{&mOperatorController};
+
 		SwerveDrive mSwerveDrive;
 		RunSwerveDrive mRunSwerveDrive{&mSwerveDrive};
 
@@ -88,9 +92,9 @@ class RobotContainer {
 		Backward mIndexDownCommand{&mIndexer};
 
 		Shooter mShooter;
-		StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kSlowSpeed, &mOperatorController};
-		StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kMedSpeed, &mOperatorController};
-		StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kFastSpeed, &mOperatorController};
+		StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kSlowSpeed, &mRumbleOperatorControllerCommand};
+		StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kMedSpeed, &mRumbleOperatorControllerCommand};
+		StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kFastSpeed, &mRumbleOperatorControllerCommand};
 		StopShooter mStopShooterCommand{&mShooter};
 
 		Climber mClimber;

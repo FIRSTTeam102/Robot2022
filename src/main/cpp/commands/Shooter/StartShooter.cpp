@@ -1,6 +1,6 @@
 #include "commands/Shooter/StartShooter.h"
 
-StartShooter::StartShooter(Shooter* pShooter, double speed, frc::XboxController* pOperatorController) : mpShooter{pShooter}, mTargetSpeed{speed}, mpOperatorController{pOperatorController} {
+StartShooter::StartShooter(Shooter* pShooter, double speed, RumbleController* pRumbleControllerCommand) : mpShooter{pShooter}, mTargetSpeed{speed}, mpRumbleControllerCommand{pRumbleControllerCommand} {
 	SetName("StartShooter");
 	AddRequirements(pShooter);
 }
@@ -34,9 +34,5 @@ bool StartShooter::IsFinished() {
 void StartShooter::End(bool interrupted) {
 	if (interrupted) mpShooter->setShooter(mTargetSpeed);
 
-	mpOperatorController->SetRumble(frc::GenericHID::RumbleType::kLeftRumble, 1);
-	mpOperatorController->SetRumble(frc::GenericHID::RumbleType::kRightRumble, 1);
-	sleep(1);
-	mpOperatorController->SetRumble(frc::GenericHID::RumbleType::kLeftRumble, 0);
-	mpOperatorController->SetRumble(frc::GenericHID::RumbleType::kRightRumble, 0);
+	mpRumbleControllerCommand->Schedule();
 }
