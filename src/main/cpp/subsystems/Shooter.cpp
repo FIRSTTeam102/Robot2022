@@ -51,3 +51,6 @@ void Shooter::setHoodAngle(double degrees) {
 	mHoodActuator.SetSpeed(servoSetting);
 }
 
+double Shooter::getHoodAngle() {
+	return actuatorToDegrees();
+}
