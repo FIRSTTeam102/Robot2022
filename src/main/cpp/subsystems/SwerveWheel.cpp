@@ -4,6 +4,9 @@ SwerveWheel::SwerveWheel(int drivePort, int turnPort, int encPort, int encOffset
 	SetName("SwerveWheel");
 	SetSubsystem("SwerveWheel");
 	mWheelNum = encPort + 1;
+
+	mDriveMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
+	mTurnMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
 }
 
 void SwerveWheel::setAngle(double angle) {
