@@ -16,7 +16,7 @@ double SwerveDrive::angleCalc(double x, double y) {
 	if (y == 0)
 		angle = 90.0;
 	else
-		angle = atan2(abs(x), abs(y)) * 57.2958; // may be asinf, not quite sure yet
+		angle = atan2(abs(x), abs(y)) * 57.2958; // multiply by 57.2958 to convert radians to degrees
 	if (x < 0 && y < 0) {
 		angle += 180;
 	} else if (x < 0) {
@@ -88,6 +88,8 @@ void SwerveDrive::vectorSwerve(double leftX, double leftY, double rightX, int of
 	mWheelFR.setSpeed(targetSpeed[1]);
 	mWheelBR.setSpeed(targetSpeed[2]);
 	mWheelBL.setSpeed(targetSpeed[3]);
+
+	printf("Swerve speed %f %f %f %f\n", targetSpeed[0], targetSpeed[1], targetSpeed[2], targetSpeed[3]);
 }
 
 void SwerveDrive::autoDrive(double angle, double speed) {
