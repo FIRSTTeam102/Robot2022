@@ -4,14 +4,14 @@
 
 #include "commands/Shooter/SetHoodAngle.h"
 
-SetHoodAngle::SetHoodAngle(Shooter* pShooter, double degrees): mpShooter{pShooter}, mDegrees{degrees} {
+SetHoodAngle::SetHoodAngle(double setting, Shooter* pShooter): mSetting{setting}, mpShooter{pShooter} {
 	// Use addRequirements() here to declare subsystem dependencies.
 	AddRequirements(pShooter);
 }
 
 // Called when the command is initially scheduled.
 void SetHoodAngle::Initialize() {
-	mpShooter->setHoodAngle(mDegrees);
+	mpShooter->setActuator(mSetting);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -22,5 +22,5 @@ void SetHoodAngle::End(bool interrupted) {}
 
 // Returns true when the command should end.
 bool SetHoodAngle::IsFinished() {
-	return (mpShooter->getHoodAngle() == mDegrees);
+	return true;
 }

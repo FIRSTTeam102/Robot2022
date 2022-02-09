@@ -19,7 +19,7 @@
 class SetHoodAngle
 	: public frc2::CommandHelper<frc2::CommandBase, SetHoodAngle> {
 	public:
-		SetHoodAngle(Shooter* pShooter, double degrees);
+		SetHoodAngle(double setting, Shooter* pShooter);
 
 		void Initialize() override;
 
@@ -29,6 +29,6 @@ class SetHoodAngle
 
 		bool IsFinished() override;
 	private:
+		double mSetting;
 		Shooter* mpShooter;
-		double mDegrees;
 };

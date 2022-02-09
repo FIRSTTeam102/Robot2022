@@ -37,20 +37,17 @@ bool Shooter::isRunning() {
 	return mIsRunning;
 }
 
-void Shooter::setHoodAngle(double degrees) {
-	double servoSetting;
+double Shooter::degreesToLinearLength(double degrees) {
+	double outerAngle = asin(ShooterConstants::kOuterY / ShooterConstants::kOuterR) * 57.2958;
 
-	if (degrees < ShooterConstants::kHoodMinAngle) {
-		servoSetting = -1.0;
-	} else if ( degrees > ShooterConstants::kHoodMaxAngle ) {
-		servoSetting = 1.0;
-	} else {
-		servoSetting = degreesToActuator(degrees);
-	}
+	frc::Vector2d innerVector{(ShooterConstants::kInnerR * cos(degrees / 57.2958)), (ShooterConstants::kInnerR * sin(degrees / 57.2958))};
+	frc::Vector2d outerVector{(ShooterConstants::kOuterR * cos(outerAngle / 57.2958)), ShooterConstants::kOuterY};
 
-	mHoodActuator.SetSpeed(servoSetting);
+	frc::Vector2d actuatorVector{outerVector.x - innerVector.x, outerVector.y - innerVector.y};
+
+	return actuatorVector.Magnitude();
 }
 
-double Shooter::getHoodAngle() {
-	return actuatorToDegrees();
+void Shooter::setActuator(double setting) {
+	mHoodActuator.SetSpeed(setting);
 }

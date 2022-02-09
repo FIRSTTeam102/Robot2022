@@ -32,6 +32,9 @@ void RobotContainer::ConfigureButtonBindings() {
 	mOperatorButtonB.WhenPressed(&mMedShooterCommand);
 	mOperatorButtonY.WhenPressed(&mFastShooterCommand);
 	mOperatorButtonX.WhenPressed(&mStopShooterCommand);
+	
+	mOperatorButtonLMenu.WhenPressed(&mActuatorUp);
+	mOperatorButtonRMenu.WhenPressed(&mActuatorDown);
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {

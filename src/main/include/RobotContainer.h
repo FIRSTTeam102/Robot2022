@@ -15,6 +15,7 @@
 #include "commands/Limelight/SetShootSpeed.h"
 #include "commands/Limelight/YawToTarget.h"
 #include "commands/RumbleController.h"
+#include "commands/Shooter/SetHoodAngle.h"
 #include "commands/Shooter/ShootSequential.h"
 #include "commands/Shooter/StartShooter.h"
 #include "commands/Shooter/StopShooter.h"
@@ -92,6 +93,8 @@ class RobotContainer {
 		Backward mIndexDownCommand{&mIndexer};
 
 		Shooter mShooter;
+		SetHoodAngle mActuatorUp{-0.95, &mShooter};
+		SetHoodAngle mActuatorDown{0.95, &mShooter};
 		StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kSlowSpeed, &mRumbleOperatorControllerCommand};
 		StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kMedSpeed, &mRumbleOperatorControllerCommand};
 		StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kFastSpeed, &mRumbleOperatorControllerCommand};
