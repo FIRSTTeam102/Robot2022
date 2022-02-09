@@ -11,8 +11,7 @@ ArmToggle::ArmToggle(Intake* pIntake): mpIntake{pIntake} {
 
 // Called when the command is initially scheduled.
 void ArmToggle::Initialize() {
-	if (mpIntake->getArmState() == frc::DoubleSolenoid::Value::kForward) mpIntake->raiseIntakeArm();
-	else mpIntake->lowerIntakeArm();
+	mpIntake->toggleIntakeArm();
 }
 
 // Called repeatedly when this Command is scheduled to run

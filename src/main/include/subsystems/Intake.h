@@ -4,6 +4,8 @@
 #include <frc/DoubleSolenoid.h>
 #include <frc2/command/SubsystemBase.h>
 
+#include "Constants.h"
+
 class Intake : public frc2::SubsystemBase {
 	private:
 		TalonSRX mRollerMotor;
@@ -14,12 +16,12 @@ class Intake : public frc2::SubsystemBase {
 
 		void lowerIntakeArm();
 		void raiseIntakeArm();
-		// void stopIntakeArm();
+		void toggleIntakeArm();
+		frc::DoubleSolenoid::Value getArmState();
+
 		void startRollers();
 		void startReverseRollers();
 		void stopRollers();
-
-		frc::DoubleSolenoid::Value getArmState();
 
 		void Periodic() override;
 };
