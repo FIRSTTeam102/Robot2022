@@ -30,6 +30,7 @@ void RobotContainer::ConfigureButtonBindings() {
 	mOperatorDownDPad.WhenHeld(&mIndexDownCommand);
 	mOperatorButtonRMenu.WhenPressed(&mArmToggleCommand);
 	mOperatorLeftDPad.ToggleWhenPressed(&mBallOutCommand);	
+	mOperatorRightDPad.ToggleWhenPressed(&mClimbCommand);
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
