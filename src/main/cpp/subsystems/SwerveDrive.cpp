@@ -7,6 +7,7 @@ SwerveDrive::SwerveDrive() : mWheelFL{SwerveDriveConstants::kFLDrive, SwerveDriv
 	SetSubsystem("SwerveDrive");
 	mIsFieldOriented = true;
 	mAutoState = false;
+	mGyro.Calibrate();
 }
 
 double SwerveDrive::angleCalc(double x, double y) {
@@ -50,7 +51,7 @@ double SwerveDrive::pythag(double x, double y) {
 // }
 
 int SwerveDrive::readOffset() {
-	double offset = getGyroAngle();
+	double offset = *getGyroAngle();
 	
 	return (int) offset;
 }
@@ -73,8 +74,8 @@ void SwerveDrive::vectorSwerve(double leftX, double leftY, double rightX, int of
 	mTurnVector.y = rightX;
 	// printf("Turn speed: %f\n",mTurnVector.x);
 	for (int i = 0; i < 4; i++) { // For each wheel:
-		mSumVector.x = (mDriveVector.x + mTurnVector.x) / 2; // Add the two vectors to get one final vector
-		mSumVector.y = (mDriveVector.y + mTurnVector.y) / 2;
+		mSumVector.x = (0.7 * mDriveVector.x + 0.3 * mTurnVector.x); // Add the two vectors to get one final vector
+		mSumVector.y = (0.7 * mDriveVector.y + 0.3 * mTurnVector.y);
 		targetEncoder[i] = angleCalc(mSumVector.x, mSumVector.y); // Calculate the angle of this vector
 		targetSpeed[i] = mSumVector.Magnitude() * SwerveDriveConstants::kMaxSpeed; // Scale the speed of the wheels
 		// targetSpeed[i] = SwerveDriveConstants::kMaxSpeed * mpDriverController->GetRightTriggerAxis() - SwerveDriveConstants::kMaxSpeed * mpDriverController->GetLeftTriggerAxis();
@@ -89,7 +90,7 @@ void SwerveDrive::vectorSwerve(double leftX, double leftY, double rightX, int of
 	mWheelBR.setSpeed(targetSpeed[2]);
 	mWheelBL.setSpeed(targetSpeed[3]);
 
-	printf("Swerve speed %f %f %f %f\n", targetSpeed[0], targetSpeed[1], targetSpeed[2], targetSpeed[3]);
+	// printf("Swerve speed %f %f %f %f\n", targetSpeed[0], targetSpeed[1], targetSpeed[2], targetSpeed[3]);
 }
 
 void SwerveDrive::autoDrive(double angle, double speed) {
@@ -119,8 +120,8 @@ void SwerveDrive::resetGyro() {
 	mGyro.Reset();
 }
 
-double SwerveDrive::getGyroAngle() {
-	return mGyro.GetAngle();
+double* SwerveDrive::getGyroAngle() {
+	return &gyroAngle;
 }
 
 void SwerveDrive::setAutoState(bool state) {
@@ -132,4 +133,6 @@ bool SwerveDrive::getAutoState() {
 }
 
 // This method will be called once per scheduler run
-void SwerveDrive::Periodic() {}
+void SwerveDrive::Periodic() {
+	gyroAngle = mGyro.GetAngle();
+}

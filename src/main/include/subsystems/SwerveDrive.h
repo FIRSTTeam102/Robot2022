@@ -32,7 +32,7 @@ class SwerveDrive : public frc2::SubsystemBase {
 		void stopDrive();
 		void changeOrientation();
 		void resetGyro();
-		double getGyroAngle();
+		double* getGyroAngle();
 		void setAutoState(bool state);
 		bool getAutoState();
 
@@ -57,7 +57,7 @@ class SwerveDrive : public frc2::SubsystemBase {
 		bool mAutoState;
 
 		frc::XboxController *mpDriverController;
-		AHRS mGyro{frc::SPI::Port::kMXP};
+		AHRS mGyro{frc::SPI::Port::kMXP, 100};
 
 		SwerveWheel mWheelFL;
 		SwerveWheel mWheelFR;
@@ -69,6 +69,7 @@ class SwerveDrive : public frc2::SubsystemBase {
 		char rawOffset[10] = {0};
 		int offset = 0;
 		bool negativeOffset = false;
+		double gyroAngle;
 		frc::Vector2d mDriveVector;
 		frc::Vector2d mTurnVector;
 		frc::Vector2d mSumVector;
