@@ -4,6 +4,7 @@
 #include <frc2/command/CommandHelper.h>
 
 #include "subsystems/Climber.h"
+#include "subsystems/Lights.h"
 
 class Climb : public frc2::CommandHelper<frc2::CommandBase, Climb> {
 	public:
