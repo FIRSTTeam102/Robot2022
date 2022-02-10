@@ -27,10 +27,9 @@ class Shooter : public frc2::SubsystemBase {
 
 		double degreesToLinearLength(double degrees);
 		double linearLengthToSetting(double length);
-		double settingToDegrees();
 
 		void setActuator(double setting);
-		double getHood();
+		double getHoodSetting();
 
 		void Periodic() override;
 };

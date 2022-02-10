@@ -48,6 +48,18 @@ double Shooter::degreesToLinearLength(double degrees) {
 	return actuatorVector.Magnitude();
 }
 
+double Shooter::linearLengthToSetting(double length) {
+	double result = ( ( 2 / ( ShooterConstants::kMaxLength - ShooterConstants::kMinLength ) ) * ( length - ShooterConstants::kMaxLength ) ) + 1;
+
+	if ( result > ShooterConstants::kActuatorUpperBound ) return ShooterConstants::kActuatorUpperBound;
+	else if ( result < ShooterConstants::kActuatorLowerBound ) return ShooterConstants::kActuatorLowerBound;
+	else return result;
+}
+
 void Shooter::setActuator(double setting) {
-	mHoodActuator.SetSpeed(setting);
+	else mHoodActuator.SetSpeed(setting);
+}
+
+double Shooter::getHoodSetting() {
+	return mHoodActuator.GetSpeed();
 }

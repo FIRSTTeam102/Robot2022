@@ -66,10 +66,14 @@ namespace ShooterConstants {
 	const float kMedSpeed = 0.75;
 	const float kFastSpeed = 1.0;
 
-	// Hood angles
-	const double kHoodMaxAngle = 85;
-	const double kHoodMinAngle = 65;
+	// Hood/Actuator Data data
+	const double kHoodMaxAngle = 85; // Not needed right now, may need later for LM
+	const double kHoodMinAngle = 65; // Not needed right now, may need later for LM
 	const double kInnerR = 12.239;
 	const double kOuterR = 18.734;
 	const double kOuterY = 12.989;
+	const double kMaxLength = 15;
+	const double kMinLength = 9;
+	const double kActuatorUpperBound = 0.95;
+	const double kActuatorLowerBound = -0.95;
 }
