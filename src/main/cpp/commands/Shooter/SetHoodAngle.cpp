@@ -31,6 +31,7 @@ void SetHoodAngle::End(bool interrupted) {
 
 // Returns true when the command should end.
 bool SetHoodAngle::IsFinished() {
+	// use less than comparison if less than 0 because negatives are funny ig
 	if ( mSetting < 0 ) return ( mSetting <= mpShooter->getHoodSetting() );
-	else if ( mSetting >= 0 ) return ( mSetting >= mpShooter->getHoodSetting() );
+	else return ( mSetting >= mpShooter->getHoodSetting() );
 }

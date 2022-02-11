@@ -22,14 +22,20 @@ class Shooter : public frc2::SubsystemBase {
 
 		void setShooter(double speed);
 		void stopShooter();
-		double getSpeed();
-		bool isRunning();
+		double getSpeed() {
+			return mSpeed;
+		}
+		bool isRunning() {
+			return mIsRunning;
+		}
 
 		double degreesToLinearLength(double degrees);
 		double linearLengthToSetting(double length);
 
 		void setActuator(double setting);
-		double getHoodSetting();
+		double getHoodSetting() {
+			return mHoodActuator.GetSpeed();
+		}
 
 		void Periodic() override;
 };

@@ -29,14 +29,7 @@ void Shooter::stopShooter() {
 	mIsRunning = false;
 }
 
-double Shooter::getSpeed() {
-	return mSpeed;
-}
-
-bool Shooter::isRunning() {
-	return mIsRunning;
-}
-
+// Converts an angle to required length for linear actuator to make shooter hood reach that angle
 double Shooter::degreesToLinearLength(double degrees) {
 	double outerAngle = asin(ShooterConstants::kOuterY / ShooterConstants::kOuterR) * 57.2958;
 
@@ -48,6 +41,7 @@ double Shooter::degreesToLinearLength(double degrees) {
 	return actuatorVector.Magnitude();
 }
 
+// Converts length of linear actuator to a setting within the bounds of kActuatorUpperBound and kActuatorLowerBound
 double Shooter::linearLengthToSetting(double length) {
 	double result = ( ( 2 / ( ShooterConstants::kMaxLength - ShooterConstants::kMinLength ) ) * ( length - ShooterConstants::kMaxLength ) ) + 1;
 
@@ -57,9 +51,5 @@ double Shooter::linearLengthToSetting(double length) {
 }
 
 void Shooter::setActuator(double setting) {
-	else mHoodActuator.SetSpeed(setting);
-}
-
-double Shooter::getHoodSetting() {
-	return mHoodActuator.GetSpeed();
+	mHoodActuator.SetSpeed(setting);
 }
