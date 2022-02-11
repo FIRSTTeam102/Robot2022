@@ -57,7 +57,7 @@ class SwerveDrive : public frc2::SubsystemBase {
 		bool mAutoState;
 
 		frc::XboxController *mpDriverController;
-		AHRS mGyro{frc::SPI::Port::kMXP, 100};
+		AHRS mGyro{frc::SPI::Port::kMXP};
 
 		SwerveWheel mWheelFL;
 		SwerveWheel mWheelFR;

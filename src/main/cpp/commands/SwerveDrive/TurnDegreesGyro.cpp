@@ -8,7 +8,7 @@ TurnDegreesGyro::TurnDegreesGyro(SwerveDrive* pSwerveDrive, double speed, double
 // Called when the command is initially scheduled.
 void TurnDegreesGyro::Initialize() {
 	mpSwerveDrive->resetGyro();
-	printf("Gyro reset to %f\n", *mpSwerveDrive->getGyroAngle());
+	printf("Gyro reset to %f\n", mpSwerveDrive->getGyroAngle());
 	mpSwerveDrive->setAutoState(true);
 
 }
@@ -16,7 +16,7 @@ void TurnDegreesGyro::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void TurnDegreesGyro::Execute() {
 	mpSwerveDrive->vectorSwerve(0, 0, ( (mTargetDegs >= 0) ? mSpeed : -mSpeed ));
-	printf("Gyro Angle: %f, Target Angle: %f\n", *mpSwerveDrive->getGyroAngle(), mTargetDegs);
+	printf("Gyro Angle: %f, Target Angle: %f\n", mpSwerveDrive->getGyroAngle(), mTargetDegs);
 }
 
 // Called once the command ends or is interrupted.
@@ -32,8 +32,8 @@ void TurnDegreesGyro::End(bool interrupted) {
 // Returns true when the command should end.
 bool TurnDegreesGyro::IsFinished() {
 	if (mTargetDegs >= 0) {
-		return (*mpSwerveDrive->getGyroAngle() >= mTargetDegs);
+		return (mpSwerveDrive->getGyroAngle() >= mTargetDegs);
 	} else {
-		return (*mpSwerveDrive->getGyroAngle() <= mTargetDegs);
+		return (mpSwerveDrive->getGyroAngle() <= mTargetDegs);
 	}
 }

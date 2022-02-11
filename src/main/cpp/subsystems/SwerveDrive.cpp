@@ -120,8 +120,8 @@ void SwerveDrive::resetGyro() {
 	mGyro.Reset();
 }
 
-double* SwerveDrive::getGyroAngle() {
-	return &gyroAngle;
+double SwerveDrive::getGyroAngle() {
+	return gyroAngle;
 }
 
 void SwerveDrive::setAutoState(bool state) {
