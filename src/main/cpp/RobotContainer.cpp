@@ -25,9 +25,10 @@ RobotContainer* RobotContainer::GetInstance() {
 }
 
 void RobotContainer::ConfigureButtonBindings() {
-	//mDriverButtonA.WhenPressed(&mResetGyro);
-	//mDriverButtonB.WhenPressed(&mFlipOrientation);
+	// mDriverButtonA.WhenPressed(&mResetGyro);
+	mDriverButtonRT.WhenPressed(&mFlipOrientation);
 	
+
 	mDriverButtonA.WhenPressed(&mSlowShooterCommand);
 	mDriverButtonB.WhenPressed(&mMedShooterCommand);
 	mDriverButtonY.WhenPressed(&mFastShooterCommand);
