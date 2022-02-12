@@ -51,7 +51,7 @@ double SwerveDrive::pythag(double x, double y) {
 // }
 
 int SwerveDrive::readOffset() {
-	double offset = *getGyroAngle();
+	double offset = getGyroAngle();
 	
 	return (int) offset;
 }

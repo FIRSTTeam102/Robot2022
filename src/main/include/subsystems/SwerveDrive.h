@@ -32,7 +32,7 @@ class SwerveDrive : public frc2::SubsystemBase {
 		void stopDrive();
 		void changeOrientation();
 		void resetGyro();
-		double* getGyroAngle();
+		double getGyroAngle();
 		void setAutoState(bool state);
 		bool getAutoState();
 
