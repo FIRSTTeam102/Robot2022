@@ -5,6 +5,7 @@ AutonomousLikeAController::AutonomousLikeAController(SwerveDrive* pSwerveDrive, 
 {
 	// Use addRequirements() here to declare subsystem dependencies.
 	mCounter = 0;
+	AddRequirements(pSwerveDrive);
 }
 
 // Called when the command is initially scheduled.
