@@ -2,7 +2,7 @@
 
 #include <frc/smartdashboard/SmartDashboard.h>
 
-Limelight::Limelight() : Sm_LimelightHasTarget(false) {
+Limelight::Limelight() : m_LimelightHasTarget(false) {
 	SetName("Limelight");
 	SetSubsystem("Limelight");
 	Kp = 0.02777;
