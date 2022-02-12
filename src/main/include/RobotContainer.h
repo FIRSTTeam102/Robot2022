@@ -99,9 +99,9 @@ class RobotContainer {
 		Shooter mShooter;
 		SetHoodAngle mActuatorUp{26, &mShooter};
 		SetHoodAngle mActuatorDown{4, &mShooter};
-		StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kSlowSpeed, &mRumbleOperatorControllerCommand};
-		StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kMedSpeed, &mRumbleOperatorControllerCommand};
-		StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kFastSpeed, &mRumbleOperatorControllerCommand};
+		StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kSlowSpeed, &mRumbleDriverControllerCommand};
+		StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kMedSpeed, &mRumbleDriverControllerCommand};
+		StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kFastSpeed, &mRumbleDriverControllerCommand};
 		StopShooter mStopShooterCommand{&mShooter};
 
 		Climber mClimber;
