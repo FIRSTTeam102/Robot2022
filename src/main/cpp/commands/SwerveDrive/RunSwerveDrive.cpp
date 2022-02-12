@@ -11,7 +11,7 @@ void RunSwerveDrive::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void RunSwerveDrive::Execute() {
-	// mpSwerveDrive->controllerSwerve();
+	mpSwerveDrive->controllerSwerve();
 }
 
 // Make this return true when this Command no longer needs to run execute()

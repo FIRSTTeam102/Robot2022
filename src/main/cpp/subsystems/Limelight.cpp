@@ -2,11 +2,11 @@
 
 #include <frc/smartdashboard/SmartDashboard.h>
 
-Limelight::Limelight() : m_LimelightHasTarget(false) {
+Limelight::Limelight() : Sm_LimelightHasTarget(false) {
 	SetName("Limelight");
 	SetSubsystem("Limelight");
-	Kp = 0.01851851852f;
-	min_command = 0.2f;
+	Kp = 0.02777;
+	min_command = 0.20f;
 	table->PutNumber("ledMode", 0);
 	table->PutNumber("pipeline", 0);
 }
@@ -274,17 +274,15 @@ void Limelight::Periodic() {
 	tv = table->GetNumber("tv", 0.0);
 
 	if (m_LimelightHasTarget == true) {
-		heading_error = tx;
 		steering_adjust = 0.0f;
 		if (tx < -1.0) { // Target is to the left of the robot, robot is to the right of the target -> robot must turn left
 			// steering_adjust = must be negative
-			steering_adjust = Kp * heading_error + min_command;
+			steering_adjust = Kp * tx - min_command;
 		} else if (tx > 1.0) { // Target is to the right of the robot, robot is to the left of the target -> turn right
 			// steering_adjust = must be positive
-			steering_adjust = Kp * heading_error - min_command;
+			steering_adjust = Kp * tx + min_command;
 		}
-		rotation = steering_adjust;
-		printf("Limelight rotation adjustment %f\n", rotation);
+		printf("Limelight rotation adjustment %f %f\n", steering_adjust, tx);
 	}
 
 	if (tv < 1.0) {

@@ -23,7 +23,6 @@ class Limelight : public frc2::SubsystemBase {
 		double ta;
 		bool tv;
 
-		float heading_error;
 		float steering_adjust = 0.0f;
 
 		float Kp;
@@ -38,8 +37,7 @@ class Limelight : public frc2::SubsystemBase {
 		double getServoAngle();
 		bool LimelightHasTarget() { return m_LimelightHasTarget; }
 		bool isClose() { return (ty < 9); }
-
-		float rotation;
+		float getRotation() { return steering_adjust; }
 
 		std::shared_ptr<nt::NetworkTable> table = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
 
