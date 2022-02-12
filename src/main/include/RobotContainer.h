@@ -16,11 +16,11 @@
 #include "commands/Limelight/AimbotSequential.h"
 #include "commands/Limelight/SetShootSpeed.h"
 #include "commands/Limelight/YawToTarget.h"
-#include "commands/Shooter/BallPiston/ExtendRetract.h"
+#include "commands/RumbleController.h"
+#include "commands/Shooter/SetHoodAngle.h"
 #include "commands/Shooter/ShootSequential.h"
-#include "commands/Shooter/StartFlywheel.h"
-#include "commands/Shooter/StopFlywheel.h"
-#include "commands/Shooter/StopIndexer.h"
+#include "commands/Shooter/StartShooter.h"
+#include "commands/Shooter/StopShooter.h"
 #include "commands/SwerveDrive/FlipDrive.h"
 #include "commands/SwerveDrive/RunSwerveDrive.h"
 #include "subsystems/Climber.h"
@@ -36,6 +36,10 @@ class RobotContainer {
 		static RobotContainer* GetInstance();
 
 		frc::XboxController* GetDriverController() { return &mDriverController; }
+		frc::XboxController* GetOperatorController() { return &mOperatorController; }
+
+		RumbleController mRumbleDriverControllerCommand{&mDriverController};
+		RumbleController mRumbleOperatorControllerCommand{&mOperatorController};
 
 	private:
 		RobotContainer();
@@ -93,6 +97,12 @@ class RobotContainer {
 		Backward mIndexDownCommand{&mIndexer};
 
 		Shooter mShooter;
+		SetHoodAngle mActuatorUp{26, &mShooter};
+		SetHoodAngle mActuatorDown{4, &mShooter};
+		StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kSlowSpeed, &mRumbleOperatorControllerCommand};
+		StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kMedSpeed, &mRumbleOperatorControllerCommand};
+		StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kFastSpeed, &mRumbleOperatorControllerCommand};
+		StopShooter mStopShooterCommand{&mShooter};
 
 		Climber mClimber;
 		Climb mClimbCommand{&mClimber};

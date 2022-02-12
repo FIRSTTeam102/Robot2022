@@ -63,3 +63,25 @@ namespace IndexerConstants {
 	// Speeds
 	const double kMotorSpeed = 0.4;
 }
+
+namespace ShooterConstants {
+	// Ports
+	const int kShooterMotor = 9;
+	const int kHoodActuator = 0;
+
+	// Speeds
+	const float kSlowSpeed = 0.5;
+	const float kMedSpeed = 0.75;
+	const float kFastSpeed = 1.0;
+
+	// Hood/Actuator Data 
+	const double kHoodMaxAngle = 85; // Not needed right now, may need later for LM
+	const double kHoodMinAngle = 65; // Not needed right now, may need later for LM
+	const double kInnerR = 12.239;
+	const double kOuterR = 18.734;
+	const double kOuterY = 12.989;
+	const double kMaxLength = 14.336;
+	const double kMinLength = 8.946;
+	const double kActuatorUpperBound = 0.95;
+	const double kActuatorLowerBound = -0.95;
+}
