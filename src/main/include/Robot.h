@@ -2,8 +2,11 @@
 
 #include <frc/TimedRobot.h>
 #include <frc2/command/Command.h>
+#include <frc/Compressor.h>
 
+// #include "Constants.h"
 #include "RobotContainer.h"
+#include "subsystems/Lights.h"
 
 class Robot : public frc::TimedRobot {
 	public:
@@ -23,4 +26,6 @@ class Robot : public frc::TimedRobot {
 		frc2::Command* mAutonomousCommand = nullptr;
 
 		RobotContainer* mContainer = RobotContainer::GetInstance();
+		
+		// frc::Compressor mCompressor{kPneumaticHub, frc::PneumaticsModuleType::REVPH};
 };

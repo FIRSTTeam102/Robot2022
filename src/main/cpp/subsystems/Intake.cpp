@@ -1,12 +1,42 @@
 #include "subsystems/Intake.h"
-#include <frc/smartdashboard/SmartDashboard.h>
 
-Intake::Intake() {
-    SetName("Intake");
-    SetSubsystem("Intake");
+Intake::Intake() : mRollerMotor{IntakeConstants::kRollerMotor}, mArmSolenoid{frc::PneumaticsModuleType::REVPH, IntakeConstants::kArmSolenoidDown, IntakeConstants::kArmSolenoidUp} {
+	SetName("Intake");
+	SetSubsystem("Intake");
+}
+
+void Intake::lowerIntakeArm() {
+	printf("Deploying intake\n");
+	mArmSolenoid.Set(frc::DoubleSolenoid::kForward);
+}
+
+void Intake::raiseIntakeArm() {
+	printf("Retracting intake\n");
+	mArmSolenoid.Set(frc::DoubleSolenoid::kReverse);
+}
+
+void Intake::toggleIntakeArm() {
+	printf("Toggling intake\n");
+	mArmSolenoid.Toggle();
+}
+
+frc::DoubleSolenoid::Value Intake::getArmState() {
+	return mArmSolenoid.Get();
+}
+
+void Intake::startRollers() {
+	printf("Rollers should be moving\n");
+	mRollerMotor.Set(ControlMode::PercentOutput, IntakeConstants::kRollerSpeed);
+}
+
+void Intake::startReverseRollers() {
+	mRollerMotor.Set(ControlMode::PercentOutput, -IntakeConstants::kRollerSpeed);
+}
+
+void Intake::stopRollers() {
+	mRollerMotor.Set(ControlMode::PercentOutput, 0);
 }
 
 void Intake::Periodic() {
-    // Put code here to be run every loop
-
+	// Put code here to be run every loop
 }

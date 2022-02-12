@@ -9,9 +9,11 @@ AllowShortIfStatementsOnASingleLine: true
 ColumnLimit: 0
 ConstructorInitializerAllOnOneLineOrOnePerLine: false
 ConstructorInitializerIndentWidth: 4
+FixNamespaceComments: false
 IndentAccessModifiers: true
 IndentWidth: 4
 IndentWidth: 4
+NamespaceIndentation: All
 SpaceAfterCStyleCast: false
 SpaceAfterLogicalNot: false
 SpaceBeforeAssignmentOperators: true

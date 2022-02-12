@@ -10,16 +10,17 @@
 #include "commands/Climber/Climb.h"
 #include "commands/Indexer/Backward.h"
 #include "commands/Indexer/Forward.h"
-#include "commands/Intake/DownYesRoll.h"
-#include "commands/Intake/UpNoRoll.h"
+#include "commands/Intake/BallIn.h"
+#include "commands/Intake/BallOut.h"
+#include "commands/Intake/ArmToggle.h"
 #include "commands/Limelight/AimbotSequential.h"
 #include "commands/Limelight/SetShootSpeed.h"
 #include "commands/Limelight/YawToTarget.h"
-#include "commands/Shooter/BallPiston/ExtendRetract.h"
+#include "commands/RumbleController.h"
+#include "commands/Shooter/SetHoodAngle.h"
 #include "commands/Shooter/ShootSequential.h"
-#include "commands/Shooter/StartFlywheel.h"
-#include "commands/Shooter/StopFlywheel.h"
-#include "commands/Shooter/StopIndexer.h"
+#include "commands/Shooter/StartShooter.h"
+#include "commands/Shooter/StopShooter.h"
 #include "commands/SwerveDrive/FlipDrive.h"
 #include "commands/SwerveDrive/RunSwerveDrive.h"
 #include "commands/SwerveDrive/ResetGyro.h"
@@ -38,6 +39,10 @@ class RobotContainer {
 		static RobotContainer* GetInstance();
 
 		frc::XboxController* GetDriverController() { return &mDriverController; }
+		frc::XboxController* GetOperatorController() { return &mOperatorController; }
+
+		RumbleController mRumbleDriverControllerCommand{&mDriverController};
+		RumbleController mRumbleOperatorControllerCommand{&mOperatorController};
 
 	private:
 		RobotContainer();
@@ -54,9 +59,9 @@ class RobotContainer {
 		frc2::Button mDriverLT{[&] { return (mDriverController.GetLeftTriggerAxis() > 0.5); }};
 		frc2::Button mDriverRT{[&] { return (mDriverController.GetRightTriggerAxis() > 0.5); }};
 		frc2::Button mDriverUpDPad{[&] { return (mDriverController.GetPOV() == 0); }};
-		frc2::Button mDriverLeftDPad{[&] { return (mDriverController.GetPOV() == 90); }};
+		frc2::Button mDriverRightDPad{[&] { return (mDriverController.GetPOV() == 90); }};
 		frc2::Button mDriverDownDPad{[&] { return (mDriverController.GetPOV() == 180); }};
-		frc2::Button mDriverRightDPad{[&] { return (mDriverController.GetPOV() == 270); }};
+		frc2::Button mDriverLeftDPad{[&] { return (mDriverController.GetPOV() == 270); }};
 
 		frc::XboxController mOperatorController{1};
 		frc2::Button mOperatorButtonA{[&] { return mOperatorController.GetAButton(); }};
@@ -70,9 +75,9 @@ class RobotContainer {
 		frc2::Button mOperatorLT{[&] { return mOperatorController.GetLeftTriggerAxis() > 0.5; }};
 		frc2::Button mOperatorRT{[&] { return mOperatorController.GetRightTriggerAxis() > 0.5; }};
 		frc2::Button mOperatorUpDPad{[&] { return (mOperatorController.GetPOV() == 0); }};
-		frc2::Button mOperatorLeftDPad{[&] { return (mOperatorController.GetPOV() == 90); }};
+		frc2::Button mOperatorRightDPad{[&] { return (mOperatorController.GetPOV() == 90); }};
 		frc2::Button mOperatorDownDPad{[&] { return (mOperatorController.GetPOV() == 180); }};
-		frc2::Button mOperatorRightDPad{[&] { return (mOperatorController.GetPOV() == 270); }};
+		frc2::Button mOperatorLeftDPad{[&] { return (mOperatorController.GetPOV() == 270); }};
 
 		frc::SendableChooser<frc2::Command*> mChooser;
 
@@ -88,12 +93,24 @@ class RobotContainer {
 		ResetGyro mResetGyro{&mSwerveDrive};
 
 		Intake mIntake;
+		BallIn mBallInCommand{&mIntake, &mIndexer};
+		BallOut mBallOutCommand{&mIntake, &mIndexer};
+		ArmToggle mArmToggleCommand{&mIntake};
 
 		Indexer mIndexer;
+		Forward mIndexUpCommand{&mIndexer};
+		Backward mIndexDownCommand{&mIndexer};
 
 		Shooter mShooter;
+		SetHoodAngle mActuatorUp{26, &mShooter};
+		SetHoodAngle mActuatorDown{4, &mShooter};
+		StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kSlowSpeed, &mRumbleDriverControllerCommand};
+		StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kMedSpeed, &mRumbleDriverControllerCommand};
+		StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kFastSpeed, &mRumbleDriverControllerCommand};
+		StopShooter mStopShooterCommand{&mShooter};
 
 		Climber mClimber;
+		Climb mClimbCommand{&mClimber};
 
 		Limelight mLimelight;
 };
