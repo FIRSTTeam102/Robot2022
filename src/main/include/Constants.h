@@ -24,19 +24,24 @@ namespace SwerveDriveConstants {
 	const int kBLDrive = 27;
 	const int kBLTurn = 28;
 
-	// Encoder ports
+	// Encoder Ports
 	const int kFLEnc = 0;
 	const int kFREnc = 1;
 	const int kBREnc = 2;
 	const int kBLEnc = 3;
 
 	// Calibration Values
-	const int kFLOffset = 573;
-	const int kFROffset = 412;
-	const int kBROffset = 2686;
-	const int kBLOffset = 1176;
+	const int kFLOffset = 603;
+	const int kFROffset = 415;
+	const int kBROffset = 2672;
+	const int kBLOffset = 1156;
 
 	const double kMaxSpeed = 1.00;
+
+	// const double kMaxMotorSpeed = 5000.0; // this is in RPM
+	// // in inches
+	// const double kWheelDiameter = 4;
+	// const double kDriveDiameter = 23;
 }
 
 namespace ClimberConstants {

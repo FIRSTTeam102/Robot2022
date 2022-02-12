@@ -23,6 +23,9 @@
 #include "commands/Shooter/StopShooter.h"
 #include "commands/SwerveDrive/FlipDrive.h"
 #include "commands/SwerveDrive/RunSwerveDrive.h"
+#include "commands/SwerveDrive/ResetGyro.h"
+#include "commands/SwerveDrive/TurnDegreesGyro.h"
+#include "commands/SwerveDrive/MoveLinearTimed.h"
 #include "subsystems/Climber.h"
 #include "subsystems/Indexer.h"
 #include "subsystems/Intake.h"
@@ -86,6 +89,8 @@ class RobotContainer {
 		// Subsystems and commands
 		SwerveDrive mSwerveDrive;
 		RunSwerveDrive mRunSwerveDrive{&mSwerveDrive};
+		FlipDrive mFlipOrientation{&mSwerveDrive};
+		ResetGyro mResetGyro{&mSwerveDrive};
 
 		Intake mIntake;
 		BallIn mBallInCommand{&mIntake, &mIndexer};

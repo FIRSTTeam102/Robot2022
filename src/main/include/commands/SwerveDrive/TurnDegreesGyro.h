@@ -5,15 +5,20 @@
 
 #include "subsystems/SwerveDrive.h"
 
-class FlipDrive : public frc2::CommandHelper<frc2::CommandBase, FlipDrive> {
+class TurnDegreesGyro
+	: public frc2::CommandHelper<frc2::CommandBase, TurnDegreesGyro> {
 	public:
-		explicit FlipDrive(SwerveDrive* pSwerveDrive);
+		TurnDegreesGyro(SwerveDrive* pSwerveDrive, double speed, double degrees);
 
 		void Initialize() override;
+
 		void Execute() override;
-		bool IsFinished() override;
+
 		void End(bool interrupted) override;
 
+		bool IsFinished() override;
 	private:
 		SwerveDrive* mpSwerveDrive;
+		double mSpeed;
+		double mTargetDegs;
 };
