@@ -10,11 +10,11 @@ void StartShooter::Initialize() {
 	mSpeed = mpShooter->getSpeed(mUseRpm);
 
 	if (!mUseRpm) {
-		if (mSpeed < mTargetSpeed) mRamp = -0.2;
-		else mRamp = 0.2;
+		if (mSpeed < mTargetSpeed) mRamp = 0.2;
+		else mRamp = -0.2;
 	} else {
-		if (mSpeed < mTargetSpeed) mRamp = -100.0;
-		else mRamp = 100.0;
+		if (mSpeed < mTargetSpeed) mRamp = 100.0;
+		else mRamp = -100.0;
 	}
 
 	printf("Shooting at %f\n", mTargetSpeed);

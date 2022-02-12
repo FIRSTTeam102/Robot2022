@@ -4,6 +4,7 @@
 Shooter::Shooter() : mShooterMotor{ShooterConstants::kShooterMotor}, mHoodServo{ShooterConstants::kHoodServo} {
 	SetName("Shooter");
 	SetSubsystem("Shooter");
+	mShooterMotor.SetInverted(true);
 }
 
 void Shooter::Periodic() {
@@ -22,8 +23,8 @@ void Shooter::setShooter(double speed, bool useRpm = false) {
 
 		// RPM to percent output
 		mSpeed = speed / ShooterConstants::kMaxRpm;
+		printf("%f\n", speed);
 	}
-
 	mIsRunning = true;
 }
 

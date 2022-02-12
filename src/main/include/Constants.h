@@ -12,7 +12,7 @@
 
 namespace IndexerConstants {
 	// Ports
-	const int kIndexerMotor = 7;
+	const int kIndexerMotor = 10;
 	const int kBallSwitch = 5;
 
 	// Speeds
@@ -21,7 +21,7 @@ namespace IndexerConstants {
 
 namespace IntakeConstants {
 	// Ports
-	const int kRollerMotor = 12;
+	const int kRollerMotor = 11;
 	const int kArmSolenoid = 0;
 
 	// Speeds
@@ -33,13 +33,22 @@ namespace ShooterConstants {
 	const int kShooterMotor = 9;
 	const int kHoodServo = 11;
 
+	// Motor constants
+	const double kMaxRpm = 6380;
+
 	// Speeds
 	const float kSlowSpeed = 0.3;
 	const float kMedSpeed = 0.6;
 	const float kFastSpeed = 1.0;
 
-	// Motor constants
-	const double kMaxRpm = 6380;
+	// const float kRPMSlowSpeed = kMaxRpm * kSlowSpeed;
+	// const float kRPMMedSpeed = kMaxRpm * kMedSpeed;
+	// const float kRPMFastSpeed = kMaxRpm * kFastSpeed;
+
+	// const float kRPMSlowSpeed = 2000;
+	// const float kRPMMedSpeed = 3000;
+	// const float kRPMFastSpeed = 4000;
+
 }
 
 namespace SwerveDriveConstants {

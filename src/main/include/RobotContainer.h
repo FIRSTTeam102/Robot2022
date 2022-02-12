@@ -89,6 +89,9 @@ class RobotContainer {
 		StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kSlowSpeed};
 		StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kMedSpeed};
 		StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kFastSpeed};
+		// StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kRPMSlowSpeed, true};
+		// StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kRPMMedSpeed, true};
+		// StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kRPMFastSpeed, true};
 		StopShooter mStopShooterCommand{&mShooter};
 
 		Climber mClimber;
