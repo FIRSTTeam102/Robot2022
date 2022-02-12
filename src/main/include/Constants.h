@@ -75,8 +75,8 @@ namespace ShooterConstants {
 	const int kHoodActuator = 0;
 
 	// Speeds
-	const float kSlowSpeed = 0.5;
-	const float kMedSpeed = 0.75;
+	const float kSlowSpeed = 0.75;
+	const float kMedSpeed = 0.875;
 	const float kFastSpeed = 1.0;
 
 	// Hood/Actuator Data 
