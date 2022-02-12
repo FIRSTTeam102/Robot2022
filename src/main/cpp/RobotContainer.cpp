@@ -25,16 +25,23 @@ RobotContainer* RobotContainer::GetInstance() {
 }
 
 void RobotContainer::ConfigureButtonBindings() {
-	mOperatorButtonLB.ToggleWhenPressed(&mIntakeControlCommand);
-	mOperatorUpDPad.WhenHeld(&mIndexUpCommand);
-	mOperatorDownDPad.WhenHeld(&mIndexDownCommand);
-	mOperatorButtonA.WhenPressed(&mSlowShooterCommand);
-	mOperatorButtonB.WhenPressed(&mMedShooterCommand);
-	mOperatorButtonY.WhenPressed(&mFastShooterCommand);
-	mOperatorButtonX.WhenPressed(&mStopShooterCommand);
+	mDriverButtonA.WhenPressed(&mSlowShooterCommand);
+	mDriverButtonB.WhenPressed(&mMedShooterCommand);
+	mDriverButtonY.WhenPressed(&mFastShooterCommand);
+	mDriverButtonX.WhenPressed(&mStopShooterCommand);
 	
 	mOperatorButtonLMenu.WhenPressed(&mActuatorUp);
 	mOperatorButtonRMenu.WhenPressed(&mActuatorDown);
+
+	mDriverButtonLB.ToggleWhenPressed(&mBallInCommand);
+
+	mDriverRT.WhenHeld(&mIndexUpCommand);
+
+	mDriverDownDPad.WhenHeld(&mIndexDownCommand);
+	mDriverLeftDPad.ToggleWhenPressed(&mBallOutCommand);	
+	mDriverRightDPad.ToggleWhenPressed(&mClimbCommand);
+
+	mDriverButtonRMenu.WhenPressed(&mArmToggleCommand);
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {

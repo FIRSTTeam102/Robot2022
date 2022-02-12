@@ -1,12 +1,19 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
+#include <frc/DoubleSolenoid.h>
 
-class Climber: public frc2::SubsystemBase {
-private:
-public:
-Climber();
+#include "Constants.h"
 
-    void Periodic() override;
+class Climber : public frc2::SubsystemBase {
+	private:
+		frc::DoubleSolenoid mClimberSolenoidRight;
+		frc::DoubleSolenoid mClimberSolenoidLeft;
+
+	public:
+		Climber();
+		void Periodic() override;
+        void armsUp();
+        void armsDown();
+        void toggleArms();
 };
-

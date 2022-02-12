@@ -39,6 +39,14 @@ namespace SwerveDriveConstants {
 	const double kMaxSpeed = 1.00;
 }
 
+namespace ClimberConstants {
+	// Ports
+	const int kClimberSolenoidRightUp = 0;
+	const int kClimberSolenoidRightDown = 1;
+	const int kClimberSolenoidLeftUp = 6;
+	const int kClimberSolenoidLeftDown = 7;
+}
+
 namespace IntakeConstants {
 	// Ports
 	const int kRollerMotor = 11;

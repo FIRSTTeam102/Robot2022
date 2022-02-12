@@ -7,6 +7,7 @@
 
 #include "Constants.h"
 
+// Prevent errors when no Arduino is attached
 // #define ARDUINO
 
 class Lights : public frc2::SubsystemBase {
@@ -19,7 +20,9 @@ class Lights : public frc2::SubsystemBase {
 			kIntake = 4,
 			kLimelight = 5,
 			kShooting = 6,
-			kClimb = 7
+			kClimb = 7,
+			kAlliance = 8,
+			kAllianceFire = 9
 		};
 
 		static Lights* GetInstance();
