@@ -10,6 +10,9 @@
  * they are needed.
  */
 
+const int kPneumaticHub = 1;
+const int kPowerDistributionHub = 2;
+
 namespace SwerveDriveConstants {
 	// Motor ports
 	const int kFLDrive = 21;
@@ -39,4 +42,51 @@ namespace SwerveDriveConstants {
 	// // in inches
 	// const double kWheelDiameter = 4;
 	// const double kDriveDiameter = 23;
+}
+
+namespace ClimberConstants {
+	// Ports
+	const int kClimberSolenoidRightUp = 0;
+	const int kClimberSolenoidRightDown = 1;
+	const int kClimberSolenoidLeftUp = 6;
+	const int kClimberSolenoidLeftDown = 7;
+}
+
+namespace IntakeConstants {
+	// Ports
+	const int kRollerMotor = 11;
+	const int kArmSolenoidDown = 3;
+	const int kArmSolenoidUp = 4;
+	// Speeds
+	const double kRollerSpeed = 0.5;
+}
+
+namespace IndexerConstants {
+	// Ports
+	const int kIndexerMotor = 10;
+	const int kBallSwitch = 5;
+	// Speeds
+	const double kMotorSpeed = 0.4;
+}
+
+namespace ShooterConstants {
+	// Ports
+	const int kShooterMotor = 9;
+	const int kHoodActuator = 0;
+
+	// Speeds
+	const float kSlowSpeed = 0.5;
+	const float kMedSpeed = 0.75;
+	const float kFastSpeed = 1.0;
+
+	// Hood/Actuator Data 
+	const double kHoodMaxAngle = 85; // Not needed right now, may need later for LM
+	const double kHoodMinAngle = 65; // Not needed right now, may need later for LM
+	const double kInnerR = 12.239;
+	const double kOuterR = 18.734;
+	const double kOuterY = 12.989;
+	const double kMaxLength = 14.336;
+	const double kMinLength = 8.946;
+	const double kActuatorUpperBound = 0.95;
+	const double kActuatorLowerBound = -0.95;
 }

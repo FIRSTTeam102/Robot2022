@@ -3,11 +3,11 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
-#include "subsystems/Indexer.h"
+#include "subsystems/Shooter.h"
 
-class Backward : public frc2::CommandHelper<frc2::CommandBase, Backward> {
+class StopShooter : public frc2::CommandHelper<frc2::CommandBase, StopShooter> {
 	public:
-		explicit Backward(Indexer* pIndexer);
+		explicit StopShooter(Shooter* pShooter);
 
 		void Initialize() override;
 		void Execute() override;
@@ -15,5 +15,5 @@ class Backward : public frc2::CommandHelper<frc2::CommandBase, Backward> {
 		void End(bool interrupted) override;
 
 	private:
-		Indexer* mpIndexer;
+		Shooter* mpShooter;
 };
