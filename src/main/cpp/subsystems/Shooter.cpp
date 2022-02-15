@@ -4,7 +4,27 @@
 Shooter::Shooter() : mShooterMotor{ShooterConstants::kShooterMotor}, mHoodServo{ShooterConstants::kHoodServo} {
 	SetName("Shooter");
 	SetSubsystem("Shooter");
+
+	// Shooter motor setup
+	mShooterMotor.ConfigFactoryDefault(); // resets all settings
 	mShooterMotor.SetInverted(true);
+	mShooterMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
+
+	// Sensor
+	mShooterMotor.ConfigSelectedFeedbackSensor(TalonFXFeedbackDevice::IntegratedSensor);
+	mShooterMotor.SetSensorPhase(true);
+
+	// Peak and nominal outputs
+	mShooterMotor.ConfigNominalOutputForward(0, ShooterConstants::kTimeoutMs);
+	mShooterMotor.ConfigNominalOutputReverse(0, ShooterConstants::kTimeoutMs);
+	mShooterMotor.ConfigPeakOutputForward(1, ShooterConstants::kTimeoutMs);
+	mShooterMotor.ConfigPeakOutputReverse(-1, ShooterConstants::kTimeoutMs);
+
+	// Closed loop gains
+	mShooterMotor.Config_kD(0, ShooterConstants::kD, ShooterConstants::kTimeoutMs);
+	mShooterMotor.Config_kF(0, ShooterConstants::kF, ShooterConstants::kTimeoutMs);
+	mShooterMotor.Config_kI(0, ShooterConstants::kI, ShooterConstants::kTimeoutMs);
+	mShooterMotor.Config_kP(0, ShooterConstants::kP, ShooterConstants::kTimeoutMs);
 }
 
 void Shooter::Periodic() {
