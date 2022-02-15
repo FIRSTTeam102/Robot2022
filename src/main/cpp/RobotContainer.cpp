@@ -5,14 +5,14 @@
 
 RobotContainer* RobotContainer::mRobotContainer = NULL;
 
-RobotContainer::RobotContainer() : mAutonomousCommand() {
+RobotContainer::RobotContainer() {
 	// SmartDashboard Buttons
 	mSwerveDrive.setController(&mDriverController);
 	mSwerveDrive.SetDefaultCommand(std::move(mRunSwerveDrive));
 
 	ConfigureButtonBindings();
 
-	mChooser.SetDefaultOption("Autonomous Command", new AutonomousCommand());
+	// mChooser.SetDefaultOption("Autonomous Command", new AutonomousCommand());
 
 	frc::SmartDashboard::PutData("Auto Mode", &mChooser);
 }

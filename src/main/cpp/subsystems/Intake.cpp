@@ -25,16 +25,28 @@ frc::DoubleSolenoid::Value Intake::getArmState() {
 }
 
 void Intake::startRollers() {
-	printf("Rollers should be moving\n");
+	// printf("Rollers should be moving\n");
 	mRollerMotor.Set(ControlMode::PercentOutput, IntakeConstants::kRollerSpeed);
+	mState = RollerState::Forward;
 }
 
 void Intake::startReverseRollers() {
 	mRollerMotor.Set(ControlMode::PercentOutput, -IntakeConstants::kRollerSpeed);
+	mState = RollerState::Reverse;
 }
 
 void Intake::stopRollers() {
 	mRollerMotor.Set(ControlMode::PercentOutput, 0);
+	mState = RollerState::Off;
+}
+
+void Intake::toggleRollerDirection() {
+	if ( mState == RollerState::Forward ) startReverseRollers();
+	else if ( mState == RollerState::Reverse ) startRollers();
+}
+
+Intake::RollerState Intake::getRollerState() {
+	return mState;
 }
 
 void Intake::Periodic() {

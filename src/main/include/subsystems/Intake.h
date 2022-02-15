@@ -7,10 +7,6 @@
 #include "Constants.h"
 
 class Intake : public frc2::SubsystemBase {
-	private:
-		TalonSRX mRollerMotor;
-		frc::DoubleSolenoid mArmSolenoid;
-
 	public:
 		Intake();
 
@@ -19,9 +15,24 @@ class Intake : public frc2::SubsystemBase {
 		void toggleIntakeArm();
 		frc::DoubleSolenoid::Value getArmState();
 
+		enum RollerState {
+			Off,
+			Forward,
+			Reverse,
+		};
+
 		void startRollers();
 		void startReverseRollers();
 		void stopRollers();
+		void toggleRollerDirection();
+		RollerState getRollerState();
 
 		void Periodic() override;
+
+	private:
+		TalonSRX mRollerMotor;
+		frc::DoubleSolenoid mArmSolenoid;
+
+		RollerState mState = RollerState::Off;
+
 };
