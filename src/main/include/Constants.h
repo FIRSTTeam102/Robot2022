@@ -13,6 +13,12 @@
 const int kPneumaticHub = 1;
 const int kPowerDistributionHub = 2;
 
+enum MotorDirection {
+	kOff,
+	kForward,
+	kReverse
+};
+
 namespace SwerveDriveConstants {
 	// Motor ports
 	const int kFLDrive = 21;

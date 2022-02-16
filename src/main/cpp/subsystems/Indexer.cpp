@@ -11,14 +11,17 @@ void Indexer::Periodic() {
 
 void Indexer::indexDown() {
 	mIndexerMotor.Set(ControlMode::PercentOutput, -IndexerConstants::kMotorSpeed);
+	mState = MotorDirection::kReverse;
 }
 
 void Indexer::indexUp() {
 	mIndexerMotor.Set(ControlMode::PercentOutput, IndexerConstants::kMotorSpeed);
+	mState = MotorDirection::kForward;
 }
 
 void Indexer::stopIndexer() {
 	mIndexerMotor.Set(ControlMode::PercentOutput, 0.0);
+	mState = MotorDirection::kOff;
 }
 
 bool Indexer::getSwitch() {

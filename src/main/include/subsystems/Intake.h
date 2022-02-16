@@ -15,17 +15,11 @@ class Intake : public frc2::SubsystemBase {
 		void toggleIntakeArm();
 		frc::DoubleSolenoid::Value getArmState();
 
-		enum RollerState {
-			Off,
-			Forward,
-			Reverse,
-		};
-
 		void startRollers();
 		void startReverseRollers();
 		void stopRollers();
 		void toggleRollerDirection();
-		RollerState getRollerState();
+		MotorDirection getRollerState() { return mState; };
 
 		void Periodic() override;
 
@@ -33,6 +27,5 @@ class Intake : public frc2::SubsystemBase {
 		TalonSRX mRollerMotor;
 		frc::DoubleSolenoid mArmSolenoid;
 
-		RollerState mState = RollerState::Off;
-
+		MotorDirection mState = MotorDirection::kOff;
 };

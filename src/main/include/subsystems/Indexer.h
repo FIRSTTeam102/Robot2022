@@ -10,6 +10,7 @@ class Indexer : public frc2::SubsystemBase {
 	private:
 		TalonSRX mIndexerMotor;
 		frc::DigitalInput mBallSwitch;
+		MotorDirection mState = MotorDirection::kOff;
 
 	public:
 		Indexer();
@@ -18,6 +19,7 @@ class Indexer : public frc2::SubsystemBase {
 		void indexUp();
 		void stopIndexer();
 		bool getSwitch();
+		MotorDirection getMotorDirection() { return mState; }
 
 		void Periodic() override;
 };
