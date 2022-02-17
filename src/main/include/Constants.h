@@ -55,8 +55,8 @@ namespace ClimberConstants {
 namespace IntakeConstants {
 	// Ports
 	const int kRollerMotor = 11;
-	const int kArmSolenoidDown = 3;
-	const int kArmSolenoidUp = 4;
+	const int kArmSolenoidForward = 3;
+	const int kArmSolenoidBackward = 4;
 	// Speeds
 	const double kRollerSpeed = 0.5;
 }
