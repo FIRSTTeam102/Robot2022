@@ -1,18 +1,18 @@
 #pragma once
 
+#include <frc/DoubleSolenoid.h>
 #include <frc2/command/CommandHelper.h>
 #include <frc2/command/SequentialCommandGroup.h>
 
 #include "Constants.h"
 #include "commands/Indexer/SetIndexer.h"
-#include "commands/Intake/ArmToggle.h"
+#include "commands/Intake/SetArm.h"
 #include "commands/Intake/SetRollers.h"
 #include "commands/Limelight/YawToTarget.h"
 #include "commands/Shooter/StartShooter.h"
 #include "commands/Shooter/StopShooter.h"
-#include "commands/SwerveDrive/TurnDegreesGyro.h"
 #include "commands/SwerveDrive/MoveLinearTimed.h"
-
+#include "commands/SwerveDrive/TurnDegreesGyro.h"
 #include "subsystems/Indexer.h"
 #include "subsystems/Intake.h"
 #include "subsystems/Limelight.h"

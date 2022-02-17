@@ -13,6 +13,7 @@ class Intake : public frc2::SubsystemBase {
 		void lowerIntakeArm();
 		void raiseIntakeArm();
 		void toggleIntakeArm();
+		void setIntakeArm(frc::DoubleSolenoid::Value state);
 		frc::DoubleSolenoid::Value getArmState();
 
 		void startRollers();

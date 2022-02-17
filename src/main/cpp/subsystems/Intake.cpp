@@ -20,6 +20,10 @@ void Intake::toggleIntakeArm() {
 	mArmSolenoid.Toggle();
 }
 
+void Intake::setIntakeArm(frc::DoubleSolenoid::Value state) {
+	mArmSolenoid.Set(state);
+}
+
 frc::DoubleSolenoid::Value Intake::getArmState() {
 	return mArmSolenoid.Get();
 }
