@@ -51,3 +51,9 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
 	// The selected command will be run in autonomous
 	return mChooser.GetSelected();
 }
+
+void RobotContainer::RobotInit() {
+	// Set initial solenoid states
+	mClimber.armsDown();
+	mIntake.raiseIntakeArm();
+}

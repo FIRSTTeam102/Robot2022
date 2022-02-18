@@ -37,6 +37,7 @@ class RobotContainer {
 	public:
 		frc2::Command* GetAutonomousCommand();
 		static RobotContainer* GetInstance();
+		void RobotInit();
 
 		frc::XboxController* GetDriverController() { return &mDriverController; }
 		frc::XboxController* GetOperatorController() { return &mOperatorController; }
