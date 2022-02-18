@@ -5,14 +5,18 @@
 
 #include "subsystems/SwerveDrive.h"
 
-class FlipDrive : public frc2::CommandHelper<frc2::CommandBase, FlipDrive> {
+class ResetGyro
+	: public frc2::CommandHelper<frc2::CommandBase, ResetGyro> {
 	public:
-		explicit FlipDrive(SwerveDrive* pSwerveDrive);
+		ResetGyro(SwerveDrive* pSwerveDrive);
 
 		void Initialize() override;
+
 		void Execute() override;
-		bool IsFinished() override;
+
 		void End(bool interrupted) override;
+
+		bool IsFinished() override;
 
 	private:
 		SwerveDrive* mpSwerveDrive;

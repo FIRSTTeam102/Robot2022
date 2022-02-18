@@ -1,4 +1,5 @@
 #include "commands/Shooter/StartShooter.h"
+#include "RobotContainer.h"
 
 StartShooter::StartShooter(Shooter* pShooter, double speed, bool useRpm) : mpShooter{pShooter}, mTargetSpeed{speed}, mUseRpm{useRpm} {
 	SetName("StartShooter");

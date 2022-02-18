@@ -2,15 +2,18 @@
 
 #include <ctre/Phoenix.h>
 #include <frc/Servo.h>
+#include <frc/drive/Vector2d.h>
 #include <frc/system/plant/DCMotor.h>
 #include <frc2/command/SubsystemBase.h>
+
+#include <cmath>
 
 #include "Constants.h"
 
 class Shooter : public frc2::SubsystemBase {
 	private:
 		TalonFX mShooterMotor;
-		frc::Servo mHoodServo;
+		frc::Servo mHoodActuator;
 
 		float mSpeed;
 		bool mIsRunning = false;
@@ -21,10 +24,17 @@ class Shooter : public frc2::SubsystemBase {
 		void setShooter(double speed, bool useRpm);
 		void stopShooter();
 		double getSpeed(bool useRpm);
-		bool isRunning();
+		bool isRunning() {
+			return mIsRunning;
+		}
 
-		void setServo(double value);
-		void setServoAngle(double degrees);
+		double degreesToLinearLength(double degrees);
+		double linearLengthToSetting(double length);
+
+		void setActuator(double setting);
+		double getHoodSetting() {
+			return mHoodActuator.GetSpeed();
+		}
 
 		void Periodic() override;
 };

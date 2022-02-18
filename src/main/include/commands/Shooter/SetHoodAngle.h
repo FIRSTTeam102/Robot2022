@@ -7,12 +7,19 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
-#include "subsystems/SwerveDrive.h"
+#include <subsystems/Shooter.h>
 
-class MoveLinearTimed
-	: public frc2::CommandHelper<frc2::CommandBase, MoveLinearTimed> {
+/**
+ * An example command.
+ *
+ * <p>Note that this extends CommandHelper, rather extending CommandBase
+ * directly; this is crucially important, or else the decorator functions in
+ * Command will *not* work!
+ */
+class SetHoodAngle
+	: public frc2::CommandHelper<frc2::CommandBase, SetHoodAngle> {
 	public:
-		MoveLinearTimed(SwerveDrive* pSwerveDrive, double speed, double time, double angle = 0.0);
+		SetHoodAngle(double degrees, Shooter* pShooter);
 
 		void Initialize() override;
 
@@ -21,11 +28,8 @@ class MoveLinearTimed
 		void End(bool interrupted) override;
 
 		bool IsFinished() override;
-
 	private:
-		SwerveDrive* mpSwerveDrive;
-		double mSpeed;
-		double mAngle;
-		int mTicks;
-		int mCounter;
+		double mSetting;
+		double mDegrees;
+		Shooter* mpShooter;
 };

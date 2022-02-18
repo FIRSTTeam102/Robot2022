@@ -5,10 +5,13 @@ AutonomousLikeAController::AutonomousLikeAController(SwerveDrive* pSwerveDrive, 
 {
 	// Use addRequirements() here to declare subsystem dependencies.
 	mCounter = 0;
+	AddRequirements(pSwerveDrive);
 }
 
 // Called when the command is initially scheduled.
-void AutonomousLikeAController::Initialize() {}
+void AutonomousLikeAController::Initialize() {
+	mpSwerveDrive->setAutoState(true);
+}
 
 // Called repeatedly when this Command is scheduled to run
 void AutonomousLikeAController::Execute() {
@@ -19,6 +22,7 @@ void AutonomousLikeAController::Execute() {
 // Called once the command ends or is interrupted.
 void AutonomousLikeAController::End(bool interrupted) {
 	mpSwerveDrive->stopDrive();
+	mpSwerveDrive->setAutoState(false);
 }
 
 // Returns true when the command should end.

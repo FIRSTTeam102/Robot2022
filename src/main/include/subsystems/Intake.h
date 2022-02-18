@@ -1,20 +1,24 @@
 #pragma once
 
 #include <ctre/Phoenix.h>
-#include <frc/Solenoid.h>
+#include <frc/DoubleSolenoid.h>
 #include <frc2/command/SubsystemBase.h>
+
+#include "Constants.h"
 
 class Intake : public frc2::SubsystemBase {
 	private:
-		WPI_TalonSRX mRollerMotor;
-		frc::Solenoid mArmSolenoid;
+		TalonSRX mRollerMotor;
+		frc::DoubleSolenoid mArmSolenoid;
 
 	public:
 		Intake();
 
 		void lowerIntakeArm();
 		void raiseIntakeArm();
-		// void stopIntakeArm();
+		void toggleIntakeArm();
+		frc::DoubleSolenoid::Value getArmState();
+
 		void startRollers();
 		void startReverseRollers();
 		void stopRollers();

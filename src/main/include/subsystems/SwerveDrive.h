@@ -1,16 +1,15 @@
 #pragma once
 
-#include <frc/SerialPort.h>
+#include <AHRS.h>
 #include <frc/XboxController.h>
 #include <frc/drive/Vector2d.h>
 #include <frc2/command/SubsystemBase.h>
-#include <math.h>
+#include <cmath>
 
 #include "Constants.h"
 #include "subsystems/SwerveWheel.h"
 
 // Use Field Oriented Drive with the Gyro Sensor
-// #define GYRO
 
 class SwerveDrive : public frc2::SubsystemBase {
 	public:
@@ -31,24 +30,34 @@ class SwerveDrive : public frc2::SubsystemBase {
 		void vectorSwerve(double leftX, double leftY, double rightX, int offset = 0);
 		void autoDrive(double angle, double speed);
 		void stopDrive();
+		void changeOrientation();
+		void resetGyro();
+		double getGyroAngle();
+		void setAutoState(bool state);
+		bool getAutoState();
 
 		void Periodic() override;
 
+		// Static values 
+
+		// static const double kWheelCircum = SwerveDriveConstants::kWheelDiameter * M_PI;
+		// static const double kDriveCircum = SwerveDriveConstants::kDriveDiameter * M_PI;
+
+		// static const double kRotationsPer360 = kDriveCircum / kWheelCircum;
+		// static const double kMaxTurnSpeed = SwerveDriveConstants::kMaxMotorSpeed * 0.70711;
 	private:
 		double pythag(double x, double y);
 		double angleCalc(double x, double y);
 
-#ifdef GYRO
 		int readOffset();
-#endif
 
 		int angle;
 		double speed;
+		bool mIsFieldOriented;
+		bool mAutoState;
 
 		frc::XboxController *mpDriverController;
-#ifdef GYRO
-		frc::SerialPort mSerial{115200, frc::SerialPort::kUSB};
-#endif
+		AHRS mGyro{frc::SPI::Port::kMXP};
 
 		SwerveWheel mWheelFL;
 		SwerveWheel mWheelFR;
@@ -60,6 +69,7 @@ class SwerveDrive : public frc2::SubsystemBase {
 		char rawOffset[10] = {0};
 		int offset = 0;
 		bool negativeOffset = false;
+		double gyroAngle;
 		frc::Vector2d mDriveVector;
 		frc::Vector2d mTurnVector;
 		frc::Vector2d mSumVector;

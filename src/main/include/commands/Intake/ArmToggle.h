@@ -6,13 +6,21 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
+#include <frc/DoubleSolenoid.h>
 
-#include "subsystems/SwerveDrive.h"
+#include "subsystems/Intake.h"
 
-class MoveLinearTimed
-	: public frc2::CommandHelper<frc2::CommandBase, MoveLinearTimed> {
+/**
+ * An example command.
+ *
+ * <p>Note that this extends CommandHelper, rather extending CommandBase
+ * directly; this is crucially important, or else the decorator functions in
+ * Command will *not* work!
+ */
+class ArmToggle
+	: public frc2::CommandHelper<frc2::CommandBase, ArmToggle> {
 	public:
-		MoveLinearTimed(SwerveDrive* pSwerveDrive, double speed, double time, double angle = 0.0);
+		ArmToggle(Intake* pIntake);
 
 		void Initialize() override;
 
@@ -21,11 +29,6 @@ class MoveLinearTimed
 		void End(bool interrupted) override;
 
 		bool IsFinished() override;
-
 	private:
-		SwerveDrive* mpSwerveDrive;
-		double mSpeed;
-		double mAngle;
-		int mTicks;
-		int mCounter;
+		Intake* mpIntake;
 };

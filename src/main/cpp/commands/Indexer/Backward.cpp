@@ -7,7 +7,7 @@ Backward::Backward(Indexer* pIndexer): mpIndexer{pIndexer} {
 
 // Called just before this Command runs the first time
 void Backward::Initialize() {
-	mpIndexer->indexUp();
+	mpIndexer->indexDown();
 }
 
 // Called repeatedly when this Command is scheduled to run

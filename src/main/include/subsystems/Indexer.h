@@ -13,6 +13,7 @@ class Indexer : public frc2::SubsystemBase {
 
 	public:
 		Indexer();
+
 		void indexDown();
 		void indexUp();
 		void stopIndexer();

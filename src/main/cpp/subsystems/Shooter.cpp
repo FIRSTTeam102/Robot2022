@@ -1,7 +1,8 @@
 #include "subsystems/Shooter.h"
 #include <frc/smartdashboard/SmartDashboard.h>
 
-Shooter::Shooter() : mShooterMotor{ShooterConstants::kShooterMotor}, mHoodServo{ShooterConstants::kHoodServo} {
+
+Shooter::Shooter() : mShooterMotor{ShooterConstants::kShooterMotor}, mHoodActuator{ShooterConstants::kHoodActuator} {
 	SetName("Shooter");
 	SetSubsystem("Shooter");
 
@@ -25,6 +26,9 @@ Shooter::Shooter() : mShooterMotor{ShooterConstants::kShooterMotor}, mHoodServo{
 	mShooterMotor.Config_kF(0, ShooterConstants::kF, ShooterConstants::kTimeoutMs);
 	mShooterMotor.Config_kI(0, ShooterConstants::kI, ShooterConstants::kTimeoutMs);
 	mShooterMotor.Config_kP(0, ShooterConstants::kP, ShooterConstants::kTimeoutMs);
+
+	// Actuator setup
+	mHoodActuator.SetBounds(2.0, 1.8, 1.5, 1.2, 1.0);
 }
 
 void Shooter::Periodic() {
@@ -58,14 +62,27 @@ double Shooter::getSpeed(bool useRpm = false) {
 	return useRpm ? (mSpeed * ShooterConstants::kMaxRpm) : mSpeed;
 }
 
-bool Shooter::isRunning() {
-	return mIsRunning;
+// Converts an angle to required length for linear actuator to make shooter hood reach that angle
+double Shooter::degreesToLinearLength(double degrees) {
+	double outerAngle = asin(ShooterConstants::kOuterY / ShooterConstants::kOuterR) * 57.2958;
+
+	frc::Vector2d innerVector{(ShooterConstants::kInnerR * cos(degrees / 57.2958)), (ShooterConstants::kInnerR * sin(degrees / 57.2958))};
+	frc::Vector2d outerVector{(ShooterConstants::kOuterR * cos(outerAngle / 57.2958)), ShooterConstants::kOuterY};
+
+	frc::Vector2d actuatorVector{outerVector.x - innerVector.x, outerVector.y - innerVector.y};
+
+	return actuatorVector.Magnitude();
 }
 
-void Shooter::setServo(double value) {
-	mHoodServo.Set(value);
+// Converts length of linear actuator to a setting within the bounds of kActuatorUpperBound and kActuatorLowerBound
+double Shooter::linearLengthToSetting(double length) {
+	double result = ( ( 2 / ( ShooterConstants::kMaxLength - ShooterConstants::kMinLength ) ) * ( length - ShooterConstants::kMaxLength ) ) + 1;
+
+	if ( result > ShooterConstants::kActuatorUpperBound ) return ShooterConstants::kActuatorUpperBound;
+	else if ( result < ShooterConstants::kActuatorLowerBound ) return ShooterConstants::kActuatorLowerBound;
+	else return result;
 }
 
-void Shooter::setServoAngle(double degrees) {
-	mHoodServo.SetAngle(degrees);
+void Shooter::setActuator(double setting) {
+	mHoodActuator.SetSpeed(setting);
 }

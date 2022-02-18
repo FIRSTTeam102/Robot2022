@@ -6,8 +6,9 @@
 RobotContainer* RobotContainer::mRobotContainer = NULL;
 
 RobotContainer::RobotContainer() : mAutonomousCommand() {
-	mSwerveDrive.SetDefaultCommand(std::move(mRunSwerveDrive));
+	// SmartDashboard Buttons
 	mSwerveDrive.setController(&mDriverController);
+	mSwerveDrive.SetDefaultCommand(std::move(mRunSwerveDrive));
 
 	ConfigureButtonBindings();
 
@@ -24,17 +25,36 @@ RobotContainer* RobotContainer::GetInstance() {
 }
 
 void RobotContainer::ConfigureButtonBindings() {
-	mDriverButtonLB.WhenHeld(&mIntakeControlCommand);
-	mDriverUpDPad.WhenHeld(&mIndexUpCommand);
-	mDriverDownDPad.WhenHeld(&mIndexDownCommand);
+	// mDriverButtonA.WhenPressed(&mResetGyro);
+	mDriverButtonRT.WhenPressed(&mFlipOrientation);
+	
+
 	mDriverButtonA.WhenPressed(&mSlowShooterCommand);
 	mDriverButtonB.WhenPressed(&mMedShooterCommand);
 	mDriverButtonY.WhenPressed(&mFastShooterCommand);
 	mDriverButtonX.WhenPressed(&mStopShooterCommand);
+
+	mDriverButtonLMenu.WhenPressed(&mActuatorUp);
+	mDriverButtonRMenu.WhenPressed(&mActuatorDown);
+
+	mDriverButtonLB.ToggleWhenPressed(&mBallInCommand);
+
+	mDriverRT.WhenHeld(&mIndexUpCommand);
+
+	mDriverDownDPad.WhenHeld(&mIndexDownCommand);
+	mDriverLeftDPad.ToggleWhenPressed(&mBallOutCommand);	
+	mDriverRightDPad.ToggleWhenPressed(&mClimbCommand);
+	mDriverUpDPad.WhenPressed(&mArmToggleCommand);
 	mDriverLT.WhenHeld(&mAimbotParallel);
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
 	// The selected command will be run in autonomous
 	return mChooser.GetSelected();
+}
+
+void RobotContainer::RobotInit() {
+	// Set initial solenoid states
+	mClimber.armsDown();
+	mIntake.raiseIntakeArm();
 }
