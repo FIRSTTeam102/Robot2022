@@ -12,7 +12,7 @@ RobotContainer::RobotContainer() {
 
 	ConfigureButtonBindings();
 
-	mChooser.SetDefaultOption("Autonomous Command", new MainAutonomous(&mIndexer, &mIntake, &mLimelight, &mShooter, &mSwerveDrive));
+	mChooser.SetDefaultOption("Autonomous Command", new MainAutonomous(&mIndexer, &mIntake, &mLimelight, &mShooter, &mSwerveDrive, &mDriverController));
 
 	frc::SmartDashboard::PutData("Auto Mode", &mChooser);
 }
