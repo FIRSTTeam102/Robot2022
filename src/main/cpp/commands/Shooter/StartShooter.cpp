@@ -1,6 +1,7 @@
 #include "commands/Shooter/StartShooter.h"
+#include "RobotContainer.h"
 
-StartShooter::StartShooter(Shooter* pShooter, double speed, RumbleController* pRumbleControllerCommand) : mpShooter{pShooter}, mTargetSpeed{speed}, mpRumbleControllerCommand{pRumbleControllerCommand} {
+StartShooter::StartShooter(Shooter* pShooter, double speed) : mpShooter{pShooter}, mTargetSpeed{speed} {
 	SetName("StartShooter");
 	AddRequirements(pShooter);
 }
@@ -14,8 +15,6 @@ void StartShooter::Initialize() {
 	if (mSpeed > mTargetSpeed) mpShooter->setShooter(mTargetSpeed);
 
 	printf("Shooting at %f\n", mTargetSpeed);
-
-	mpRumbleControllerCommand->Cancel();
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -36,5 +35,5 @@ bool StartShooter::IsFinished() {
 void StartShooter::End(bool interrupted) {
 	if (interrupted) mpShooter->setShooter(mTargetSpeed);
 
-	mpRumbleControllerCommand->Schedule();
+	(new RumbleController(RobotContainer::GetInstance()->GetDriverController()))->Schedule();
 }
