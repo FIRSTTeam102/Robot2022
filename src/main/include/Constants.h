@@ -89,4 +89,5 @@ namespace ShooterConstants {
 	const double kMinLength = 8.946;
 	const double kActuatorUpperBound = 0.95;
 	const double kActuatorLowerBound = -0.95;
+	const double kHoodAngleOffset = 13.818;
 }
