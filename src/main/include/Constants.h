@@ -37,17 +37,13 @@ namespace ShooterConstants {
 	const double kMaxRpm = 6380;
 
 	// Speeds
-	const float kSlowSpeed = 0.5;
-	const float kMedSpeed = 0.75;
-	const float kFastSpeed = 1.0;
+	// const float kSlowSpeed = 0.50;
+	// const float kMedSpeed = 0.75;
+	// const float kFastSpeed = 1.0;
 
-	// const float kRPMSlowSpeed = kMaxRpm * kSlowSpeed;
-	// const float kRPMMedSpeed = kMaxRpm * kMedSpeed;
-	// const float kRPMFastSpeed = kMaxRpm * kFastSpeed;
-
-	const float kRPMSlowSpeed = 3000;
-	const float kRPMMedSpeed = 4000;
-	const float kRPMFastSpeed = 5000;
+	const float kRPMSlowSpeed = 1480;
+	const float kRPMMedSpeed = 1484;
+	const float kRPMFastSpeed = 1523;
 
 	// Closed loop control
 	const int kTimeoutMs = 30;
