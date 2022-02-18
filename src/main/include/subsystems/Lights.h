@@ -8,7 +8,7 @@
 #include "Constants.h"
 
 // Prevent errors when no Arduino is attached
-#define ARDUINO
+// #define ARDUINO
 
 class Lights : public frc2::SubsystemBase {
 	public:

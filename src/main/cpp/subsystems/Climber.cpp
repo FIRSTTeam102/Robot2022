@@ -1,6 +1,8 @@
 #include "subsystems/Climber.h"
 
-Climber::Climber() : mClimberSolenoidRight{frc::PneumaticsModuleType::REVPH, ClimberConstants::kClimberSolenoidRightUp, ClimberConstants::kClimberSolenoidRightDown}, mClimberSolenoidLeft{frc::PneumaticsModuleType::REVPH, ClimberConstants::kClimberSolenoidLeftUp, ClimberConstants::kClimberSolenoidLeftDown} {
+#include "RobotContainer.h"
+
+Climber::Climber() : mClimberSolenoidRight{frc::PneumaticsModuleType::REVPH, ClimberConstants::kClimberSolenoidRightUp, ClimberConstants::kClimberSolenoidRightDown}, mClimberSolenoidLeft{frc::PneumaticsModuleType::REVPH, ClimberConstants::kClimberSolenoidLeftUp, ClimberConstants::kClimberSolenoidLeftDown}, mLineSensorLeft{ClimberConstants::kLineSensorLeft}, mLineSensorRight{ClimberConstants::kLineSensorRight}, mRumbleLeft{RobotContainer::GetInstance()->GetDriverController(), 100, true, false}, mRumbleRight{RobotContainer::GetInstance()->GetDriverController(), 100, false, true} {
 	SetName("Climber");
 	SetSubsystem("Climber");
 }
@@ -24,5 +26,15 @@ void Climber::toggleArms() {
 }
 
 void Climber::Periodic() {
-	// Put code here to be run every loop
+	if (mLineSensorLeft.Get() && !mRumbleLeft.IsScheduled()) {
+		// mRumbleLeft.Schedule();
+	} else {
+		// mRumbleLeft.Cancel();
+	}
+
+	if (mLineSensorRight.Get() && !mRumbleRight.IsScheduled()) {
+		// mRumbleRight.Schedule();
+	} else {
+		// mRumbleRight.Cancel();
+	}
 }

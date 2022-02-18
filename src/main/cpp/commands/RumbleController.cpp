@@ -1,13 +1,12 @@
 #include "commands/RumbleController.h"
 
-RumbleController::RumbleController(frc::XboxController* pController) : mpController{pController} {}
+RumbleController::RumbleController(frc::XboxController* pController, int ticks, bool left, bool right) : mpController{pController}, mTicks{ticks}, mLeft{left}, mRight{right} {}
 
 // Called when the command is initially scheduled.
 void RumbleController::Initialize() {
-	mTicks = 20;
 	// printf("RUMBLE RUMBLE\n");
-	mpController->SetRumble(frc::GenericHID::RumbleType::kLeftRumble, 1);
-	mpController->SetRumble(frc::GenericHID::RumbleType::kRightRumble, 1);
+	if (mLeft) mpController->SetRumble(frc::GenericHID::RumbleType::kLeftRumble, 1);
+	if (mRight) mpController->SetRumble(frc::GenericHID::RumbleType::kRightRumble, 1);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -19,8 +18,8 @@ void RumbleController::Execute() {
 // Called once the command ends or is interrupted.
 void RumbleController::End(bool interrupted) {
 	// printf("STOP RUMBLE\n");
-	mpController->SetRumble(frc::GenericHID::RumbleType::kLeftRumble, 0);
-	mpController->SetRumble(frc::GenericHID::RumbleType::kRightRumble, 0);
+	if (mLeft) mpController->SetRumble(frc::GenericHID::RumbleType::kLeftRumble, 0);
+	if (mRight) mpController->SetRumble(frc::GenericHID::RumbleType::kRightRumble, 0);
 }
 
 // Returns true when the command should end.
