@@ -26,15 +26,18 @@ void Climber::toggleArms() {
 }
 
 void Climber::Periodic() {
-	if (mLineSensorLeft.Get() && !mRumbleLeft.IsScheduled()) {
-		// mRumbleLeft.Schedule();
-	} else {
-		// mRumbleLeft.Cancel();
-	}
+	// uncomment when tested
+	/* if (frc::Timer::GetMatchTime() < 30_s) {
+		if (mLineSensorLeft.Get() && !mRumbleLeft.IsScheduled()) {
+			mRumbleLeft.Schedule();
+		} else if (!mLineSensorLeft.Get() && mRumbleLeft.IsScheduled()) {
+			mRumbleLeft.Cancel();
+		}
 
-	if (mLineSensorRight.Get() && !mRumbleRight.IsScheduled()) {
-		// mRumbleRight.Schedule();
-	} else {
-		// mRumbleRight.Cancel();
-	}
+		if (mLineSensorRight.Get() && !mRumbleRight.IsScheduled()) {
+			mRumbleRight.Schedule();
+		} else if (!mLineSensorRight.Get() && mRumbleRight.IsScheduled()) {
+			mRumbleRight.Cancel();
+		}
+	} */
 }
