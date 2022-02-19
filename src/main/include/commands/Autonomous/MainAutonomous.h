@@ -25,7 +25,7 @@
 
 class MainAutonomous : public frc2::CommandHelper<frc2::SequentialCommandGroup, MainAutonomous> {
 	public:
-		MainAutonomous(Indexer* pIndexer, Intake* pIntake, Limelight* pLM, Shooter* pShooter, SwerveDrive* pSwerveDrive, frc::XboxController* pController);
+		MainAutonomous(Indexer* pIndexer, Intake* pIntake, Limelight* pLM, Shooter* pShooter, SwerveDrive* pSwerveDrive);
 
 	private:
 		Indexer* mpIndexer;
@@ -33,5 +33,4 @@ class MainAutonomous : public frc2::CommandHelper<frc2::SequentialCommandGroup, 
 		Limelight* mpLM;
 		Shooter* mpShooter;
 		SwerveDrive* mpSwerve;
-		frc::XboxController* mpController;
 };
