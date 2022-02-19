@@ -13,8 +13,6 @@
 #include "commands/Intake/BallIn.h"
 #include "commands/Intake/BallOut.h"
 #include "commands/Intake/ArmToggle.h"
-#include "commands/Limelight/AimbotSequential.h"
-#include "commands/Limelight/SetShootSpeed.h"
 #include "commands/Limelight/AimbotParallel.h"
 #include "commands/Limelight/YawToTarget.h"
 #include "commands/RumbleController.h"
