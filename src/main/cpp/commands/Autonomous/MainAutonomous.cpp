@@ -4,13 +4,13 @@ MainAutonomous::MainAutonomous(Indexer* pIndexer, Intake* pIntake, Limelight* pL
 	AddCommands(
 		SetArm(mpIntake, frc::DoubleSolenoid::Value::kForward),
 		SetRollers(mpIntake, MotorDirection::kForward),
-		MoveLinearTimed(mpSwerve, 0.8, 0.8), 
-		TurnDegreesGyro(mpSwerve, 0.7, 180),
+		MoveLinearTimed(mpSwerve, 0.65, 0.8), 
+		TurnDegreesGyro(mpSwerve, 0.75, 180),
 		// LM stuff when ready
 		// SetArm(mpIntake, frc::DoubleSolenoid::Value::kReverse),
 		StartShooter(mpShooter, ShooterConstants::kMedSpeed),
 		SetIndexer(mpIndexer, MotorDirection::kForward),
-		// frc2::WaitUntilCommand([this] { return mpIndexer->getSwitch(); }),
+		frc2::WaitUntilCommand([&] { return !(mpIndexer->getSwitch()); }),
 		frc2::WaitCommand(2.0_s),
 		SetIndexer(mpIndexer, MotorDirection::kOff),
 		StopShooter(mpShooter),
