@@ -56,13 +56,15 @@ namespace ClimberConstants {
 	const int kClimberSolenoidRightDown = 1;
 	const int kClimberSolenoidLeftUp = 6;
 	const int kClimberSolenoidLeftDown = 7;
+	const int kLineSensorRight = 1;
+	const int kLineSensorLeft = 0;
 }
 
 namespace IntakeConstants {
 	// Ports
 	const int kRollerMotor = 11;
-	const int kArmSolenoidDown = 3;
-	const int kArmSolenoidUp = 4;
+	const int kArmSolenoidForward = 3;
+	const int kArmSolenoidBackward = 4;
 	// Speeds
 	const double kRollerSpeed = 0.5;
 }
@@ -95,4 +97,5 @@ namespace ShooterConstants {
 	const double kMinLength = 8.946;
 	const double kActuatorUpperBound = 0.95;
 	const double kActuatorLowerBound = -0.95;
+	const double kHoodAngleOffset = 13.818;
 }

@@ -9,7 +9,7 @@
 
 class StartShooter : public frc2::CommandHelper<frc2::CommandBase, StartShooter> {
 	public:
-		explicit StartShooter(Shooter* pShooter, double speed, RumbleController* pRumbleControllerCommand);
+		explicit StartShooter(Shooter* pShooter, double speed);
 
 		void Initialize() override;
 		void Execute() override;

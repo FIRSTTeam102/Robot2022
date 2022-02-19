@@ -37,12 +37,10 @@ class RobotContainer {
 	public:
 		frc2::Command* GetAutonomousCommand();
 		static RobotContainer* GetInstance();
+		void RobotInit();
 
 		frc::XboxController* GetDriverController() { return &mDriverController; }
 		frc::XboxController* GetOperatorController() { return &mOperatorController; }
-
-		RumbleController mRumbleDriverControllerCommand{&mDriverController};
-		RumbleController mRumbleOperatorControllerCommand{&mOperatorController};
 
 	private:
 		RobotContainer();
@@ -108,9 +106,9 @@ class RobotContainer {
 		Shooter mShooter;
 		SetHoodAngle mActuatorUp{26, &mShooter};
 		SetHoodAngle mActuatorDown{4, &mShooter};
-		StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kSlowSpeed, &mRumbleDriverControllerCommand};
-		StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kMedSpeed, &mRumbleDriverControllerCommand};
-		StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kFastSpeed, &mRumbleDriverControllerCommand};
+		StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kSlowSpeed};
+		StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kMedSpeed};
+		StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kFastSpeed};
 		StopShooter mStopShooterCommand{&mShooter};
 
 		Climber mClimber;

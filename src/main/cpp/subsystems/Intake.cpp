@@ -1,6 +1,6 @@
 #include "subsystems/Intake.h"
 
-Intake::Intake() : mRollerMotor{IntakeConstants::kRollerMotor}, mArmSolenoid{frc::PneumaticsModuleType::REVPH, IntakeConstants::kArmSolenoidDown, IntakeConstants::kArmSolenoidUp} {
+Intake::Intake() : mRollerMotor{IntakeConstants::kRollerMotor}, mArmSolenoid{frc::PneumaticsModuleType::REVPH, IntakeConstants::kArmSolenoidForward, IntakeConstants::kArmSolenoidBackward} {
 	SetName("Intake");
 	SetSubsystem("Intake");
 }
