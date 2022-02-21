@@ -25,21 +25,21 @@ void Climber::toggleArms() {
 
 void Climber::Periodic() {
 	// printf("Climber line sensor L%d R%d\n", mLineSensorLeft.Get(), mLineSensorRight.Get());
-	if (frc::Timer::GetMatchTime() < 30_s && frc::DriverStation::IsTeleopEnabled()) {
-		if (mLineSensorLeft.Get()) {
-			mpController->SetRumble(frc::GenericHID::kLeftRumble, 1);
-			mLeftRumbling = true;
-		} else if (mLeftRumbling) { // only stop rumbling once
-			mpController->SetRumble(frc::GenericHID::kLeftRumble, 0);
-			mLeftRumbling = false;
-		}
+	// if (frc::Timer::GetMatchTime() < 30_s && frc::DriverStation::IsTeleopEnabled()) {
+	// 	if (mLineSensorLeft.Get()) {
+	// 		mpController->SetRumble(frc::GenericHID::kLeftRumble, 1);
+	// 		mLeftRumbling = true;
+	// 	} else if (mLeftRumbling) { // only stop rumbling once
+	// 		mpController->SetRumble(frc::GenericHID::kLeftRumble, 0);
+	// 		mLeftRumbling = false;
+	// 	}
 
-		if (mLineSensorRight.Get()) {
-			mpController->SetRumble(frc::GenericHID::kRightRumble, 1);
-			mRightRumbling = true;
-		} else if (mRightRumbling) { // only stop rumbling once
-			mpController->SetRumble(frc::GenericHID::kRightRumble, 0);
-			mRightRumbling = false;
-		}
-	}
+	// 	if (mLineSensorRight.Get()) {
+	// 		mpController->SetRumble(frc::GenericHID::kRightRumble, 1);
+	// 		mRightRumbling = true;
+	// 	} else if (mRightRumbling) { // only stop rumbling once
+	// 		mpController->SetRumble(frc::GenericHID::kRightRumble, 0);
+	// 		mRightRumbling = false;
+	// 	}
+	// }
 }

@@ -15,7 +15,7 @@ void SetHoodAngle::Initialize() {
 	mSetting = mpShooter->linearLengthToSetting(length);
 
 	mpShooter->setActuator(mSetting); 
-	printf("Setting Hood Angle... "); // for testing
+	printf("Setting Hood Angle to %f\n", mSetting); // for testing
 }
 
 // Called repeatedly when this Command is scheduled to run

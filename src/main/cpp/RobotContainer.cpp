@@ -2,7 +2,7 @@
 
 RobotContainer* RobotContainer::mRobotContainer = NULL;
 
-RobotContainer::RobotContainer() : mAutonomousCommand() {
+RobotContainer::RobotContainer() {
 	mSwerveDrive.setController(&mDriverController);
 	mSwerveDrive.SetDefaultCommand(std::move(mRunSwerveDrive));
 
@@ -40,7 +40,7 @@ void RobotContainer::ConfigureButtonBindings() {
 
 	mDriverDownDPad.WhenHeld(&mIndexDownCommand);
 	mDriverLeftDPad.ToggleWhenPressed(&mBallOutCommand);
-	mDriverRightDPad.ToggleWhenPressed(&mClimbCommand);
+	mDriverRightDPad.ToggleWhenPressed(&mActuatorMid);
 	mDriverUpDPad.WhenPressed(&mArmToggleCommand);
 }
 
