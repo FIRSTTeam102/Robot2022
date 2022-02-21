@@ -18,6 +18,5 @@
   "files.associations": {
     "new": "cpp",
     "*.inc": "cpp"
-  },
-  "C_Cpp.errorSquiggles": "Enabled"
+  }
 }

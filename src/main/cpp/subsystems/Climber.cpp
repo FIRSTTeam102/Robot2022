@@ -1,8 +1,6 @@
 #include "subsystems/Climber.h"
 
-#include "RobotContainer.h"
-
-Climber::Climber() : mClimberSolenoidRight{frc::PneumaticsModuleType::REVPH, ClimberConstants::kClimberSolenoidRightUp, ClimberConstants::kClimberSolenoidRightDown}, mClimberSolenoidLeft{frc::PneumaticsModuleType::REVPH, ClimberConstants::kClimberSolenoidLeftUp, ClimberConstants::kClimberSolenoidLeftDown}, mLineSensorLeft{ClimberConstants::kLineSensorLeft}, mLineSensorRight{ClimberConstants::kLineSensorRight}, mRumbleLeft{RobotContainer::GetInstance()->GetDriverController(), 100, true, false}, mRumbleRight{RobotContainer::GetInstance()->GetDriverController(), 100, false, true} {
+Climber::Climber(frc::XboxController *pController) : mpController{pController} {
 	SetName("Climber");
 	SetSubsystem("Climber");
 }
@@ -26,15 +24,22 @@ void Climber::toggleArms() {
 }
 
 void Climber::Periodic() {
-	if (mLineSensorLeft.Get() && !mRumbleLeft.IsScheduled()) {
-		// mRumbleLeft.Schedule();
-	} else {
-		// mRumbleLeft.Cancel();
-	}
+	// printf("Climber line sensor L%d R%d\n", mLineSensorLeft.Get(), mLineSensorRight.Get());
+	if (frc::Timer::GetMatchTime() < 30_s && frc::DriverStation::IsTeleopEnabled()) {
+		if (mLineSensorLeft.Get()) {
+			mpController->SetRumble(frc::GenericHID::kLeftRumble, 1);
+			mLeftRumbling = true;
+		} else if (mLeftRumbling) { // only stop rumbling once
+			mpController->SetRumble(frc::GenericHID::kLeftRumble, 0);
+			mLeftRumbling = false;
+		}
 
-	if (mLineSensorRight.Get() && !mRumbleRight.IsScheduled()) {
-		// mRumbleRight.Schedule();
-	} else {
-		// mRumbleRight.Cancel();
+		if (mLineSensorRight.Get()) {
+			mpController->SetRumble(frc::GenericHID::kRightRumble, 1);
+			mRightRumbling = true;
+		} else if (mRightRumbling) { // only stop rumbling once
+			mpController->SetRumble(frc::GenericHID::kRightRumble, 0);
+			mRightRumbling = false;
+		}
 	}
 }
