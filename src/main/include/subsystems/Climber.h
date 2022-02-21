@@ -2,26 +2,29 @@
 
 #include <frc/DigitalInput.h>
 #include <frc/DoubleSolenoid.h>
+#include <frc/Timer.h>
+#include <frc/DriverStation.h>
 #include <frc2/command/SubsystemBase.h>
 
-#include "commands/RumbleController.h"
 #include "Constants.h"
+#include "commands/RumbleController.h"
 
 class Climber : public frc2::SubsystemBase {
 	public:
-		Climber();
+		Climber(frc::XboxController* pController);
 		void Periodic() override;
 		void armsUp();
 		void armsDown();
 		void toggleArms();
 
 	private:
-		frc::DoubleSolenoid mClimberSolenoidRight;
-		frc::DoubleSolenoid mClimberSolenoidLeft;
+		frc::DoubleSolenoid mClimberSolenoidRight{frc::PneumaticsModuleType::REVPH, ClimberConstants::kClimberSolenoidRightUp, ClimberConstants::kClimberSolenoidRightDown};
+		frc::DoubleSolenoid mClimberSolenoidLeft{frc::PneumaticsModuleType::REVPH, ClimberConstants::kClimberSolenoidLeftUp, ClimberConstants::kClimberSolenoidLeftDown};
 
-		// frc::DigitalInput mLineSensorLeft;
-		// frc::DigitalInput mLineSensorRight;
+		frc::DigitalInput mLineSensorLeft{ClimberConstants::kLineSensorLeft};
+		frc::DigitalInput mLineSensorRight{ClimberConstants::kLineSensorRight};
 
-		// RumbleController mRumbleLeft;
-		// RumbleController mRumbleRight;
+		frc::XboxController* mpController;
+		bool mLeftRumbling = false;
+		bool mRightRumbling = false;
 };
