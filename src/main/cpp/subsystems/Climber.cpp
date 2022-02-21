@@ -2,7 +2,7 @@
 
 #include "RobotContainer.h"
 
-Climber::Climber() : mClimberSolenoidRight{frc::PneumaticsModuleType::REVPH, ClimberConstants::kClimberSolenoidRightUp, ClimberConstants::kClimberSolenoidRightDown}, mClimberSolenoidLeft{frc::PneumaticsModuleType::REVPH, ClimberConstants::kClimberSolenoidLeftUp, ClimberConstants::kClimberSolenoidLeftDown}, mLineSensorLeft{ClimberConstants::kLineSensorLeft}, mLineSensorRight{ClimberConstants::kLineSensorRight}, mRumbleLeft{RobotContainer::GetInstance()->GetDriverController(), 100, true, false}, mRumbleRight{RobotContainer::GetInstance()->GetDriverController(), 100, false, true} {
+Climber::Climber() : mClimberSolenoidRight{frc::PneumaticsModuleType::REVPH, ClimberConstants::kClimberSolenoidRightUp, ClimberConstants::kClimberSolenoidRightDown}, mClimberSolenoidLeft{frc::PneumaticsModuleType::REVPH, ClimberConstants::kClimberSolenoidLeftUp, ClimberConstants::kClimberSolenoidLeftDown}/*, mLineSensorLeft{ClimberConstants::kLineSensorLeft}, mLineSensorRight{ClimberConstants::kLineSensorRight}, mRumbleLeft{RobotContainer::GetInstance()->GetDriverController(), 100, true, false}, mRumbleRight{RobotContainer::GetInstance()->GetDriverController(), 100, false, true}*/ {
 	SetName("Climber");
 	SetSubsystem("Climber");
 }

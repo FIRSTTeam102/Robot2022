@@ -19,9 +19,9 @@ class Climber : public frc2::SubsystemBase {
 		frc::DoubleSolenoid mClimberSolenoidRight;
 		frc::DoubleSolenoid mClimberSolenoidLeft;
 
-		frc::DigitalInput mLineSensorLeft;
-		frc::DigitalInput mLineSensorRight;
+		// frc::DigitalInput mLineSensorLeft;
+		// frc::DigitalInput mLineSensorRight;
 
-		RumbleController mRumbleLeft;
-		RumbleController mRumbleRight;
+		// RumbleController mRumbleLeft;
+		// RumbleController mRumbleRight;
 };
