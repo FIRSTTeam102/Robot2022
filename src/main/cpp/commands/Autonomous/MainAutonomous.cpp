@@ -4,7 +4,7 @@ MainAutonomous::MainAutonomous(Indexer* pIndexer, Intake* pIntake, Limelight* pL
 	AddCommands(
 		SetArm(mpIntake, frc::DoubleSolenoid::Value::kForward),
 		SetRollers(mpIntake, MotorDirection::kForward),
-		MoveLinearTimed(mpSwerve, 0.65, 1.1), 
+		MoveVectorTimed(mpSwerve, 0.0, 0.8, 1.5), 
 		TurnDegreesGyro(mpSwerve, 0.75, 170),
 		// LM stuff when ready
 		// SetArm(mpIntake, frc::DoubleSolenoid::Value::kReverse),
