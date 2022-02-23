@@ -13,12 +13,6 @@
 
 class Lights : public frc2::SubsystemBase {
 	public:
-		enum Alliance {
-			kDefault = kRed,
-			kRed = "r",
-			kBlue = "b"
-		};
-
 		enum Mode {
 			kOff = 0,
 			kDefault = 1,

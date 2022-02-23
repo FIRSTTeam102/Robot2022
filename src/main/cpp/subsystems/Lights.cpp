@@ -12,15 +12,15 @@ Lights::Lights() {
 
 	switch (frc::DriverStation::GetAlliance()) {
 		case frc::DriverStation::Alliance::kRed:
-			mArduino.Write(Alliance::kRed);
+			mArduino.Write("r");
 			break;
 
 		case frc::DriverStation::Alliance::kBlue:
-			mArduino.Write(Alliance::kBlue);
+			mArduino.Write("b");
 			break;
 
 		default:
-			mArduino.Write(Alliance::kDefault);
+			mArduino.Write("r");
 	}
 #endif
 }
