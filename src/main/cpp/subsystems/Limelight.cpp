@@ -17,7 +17,7 @@ double Limelight::calculateShootAngle() {
 }
 
 double Limelight::calculateShootDistance() {
-	d = h / tan(a);
+	d = (h / tan(90 - a)) + distanceOffset;
 	return d;
 }
 
@@ -272,6 +272,11 @@ void Limelight::Periodic() {
 	ty = table->GetNumber("ty", 0.0);
 	ta = table->GetNumber("ta", 0.0);
 	tv = table->GetNumber("tv", 0.0);
+
+	calculateShootAngle();
+	calculateShootDistance();
+	printf("Angle from target %f\n", a);
+	printf("Distance from target %f\n", d);
 
 	if (m_LimelightHasTarget == true) {
 		steering_adjust = 0.0f;

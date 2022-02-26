@@ -6,7 +6,7 @@
 
 SetHoodAngle::SetHoodAngle(double degrees, Shooter* pShooter): mDegrees{degrees}, mpShooter{pShooter} {
 	// Use addRequirements() here to declare subsystem dependencies.
-	AddRequirements(pShooter);
+	// AddRequirements(pShooter);
 }
 
 // Called when the command is initially scheduled.

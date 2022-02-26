@@ -10,8 +10,9 @@ class Limelight : public frc2::SubsystemBase {
 	private:
 		bool m_LimelightHasTarget;
 
-		static constexpr double h = 62; // Height between Limelight to the top of the target
-		static constexpr double a1 = 25; // a1 is the degrees of the Limelight. a2 is the fov of the limelight
+		static constexpr double h = 104; // Height between ground to the top of the target
+		static constexpr double a1 = 30; // a1 is the degrees of the Limelight. a2 is the fov of the limelight
+		static constexpr double distanceOffset = 20; // Distance from ring of target to middle of target
 		double a; // Angle needed to see the Target
 		double d; // Distance to the target
 
