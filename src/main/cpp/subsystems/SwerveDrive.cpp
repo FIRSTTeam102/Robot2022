@@ -63,7 +63,7 @@ void SwerveDrive::controllerSwerve() {
 	} else {
 		offset = 0;
 	}
-	vectorSwerve(mpDriverController->GetLeftX(), -mpDriverController->GetLeftY(), mpDriverController->GetRightX(), offset);
+	vectorSwerve(fixInput(mpDriverController->GetLeftX()), fixInput(-mpDriverController->GetLeftY()), fixInput(mpDriverController->GetRightX()), offset);
 }
 
 void SwerveDrive::vectorSwerve(double leftX, double leftY, double rightX, int offset) {
