@@ -108,7 +108,8 @@ class RobotContainer {
 
 		Shooter mShooter;
 		SetHoodAngle mActuatorUp{26, &mShooter};
-		SetHoodAngle mActuatorDown{4, &mShooter};
+		SetHoodAngle mActuatorMid{15, &mShooter};
+		SetHoodAngle mActuatorDown{-4, &mShooter};
 		StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kSlowSpeed};
 		StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kMedSpeed};
 		StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kFastSpeed};

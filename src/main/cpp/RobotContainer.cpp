@@ -33,6 +33,7 @@ void RobotContainer::ConfigureButtonBindings() {
 
 	mDriverButtonLMenu.WhenPressed(&mActuatorUp);
 	mDriverButtonRMenu.WhenPressed(&mActuatorDown);
+	mDriverButtonRB.ToggleWhenPressed(&mActuatorMid);
 
 	mDriverButtonLB.ToggleWhenPressed(&mBallInCommand);
 

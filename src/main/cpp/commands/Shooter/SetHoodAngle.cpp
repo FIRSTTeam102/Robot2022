@@ -15,7 +15,7 @@ void SetHoodAngle::Initialize() {
 	mSetting = mpShooter->linearLengthToSetting(length);
 
 	mpShooter->setActuator(mSetting); 
-	printf("Setting Hood Angle... "); // for testing
+	printf("Setting hood angle to %Fdeg, %F length, %F setting\n", mDegrees, length, mSetting);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -25,8 +25,8 @@ void SetHoodAngle::Execute() {
 
 // Called once the command ends or is interrupted.
 void SetHoodAngle::End(bool interrupted) {
-	printf("Hood Angle Set");
-	if (interrupted) printf("Process interrupted");
+	// printf("Hood angle set\n");
+	// if (interrupted) printf("Hood process interrupted\n");
 }
 
 // Returns true when the command should end.
