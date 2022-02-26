@@ -50,8 +50,8 @@ namespace ClimberConstants {
 	const int kClimberSolenoidRightDown = 1;
 	const int kClimberSolenoidLeftUp = 6;
 	const int kClimberSolenoidLeftDown = 7;
-	const int kLineSensorRight = 1;
 	const int kLineSensorLeft = 0;
+	const int kLineSensorRight = 1;
 }
 
 namespace IntakeConstants {

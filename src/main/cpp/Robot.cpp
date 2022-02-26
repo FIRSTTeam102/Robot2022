@@ -24,6 +24,11 @@ void Robot::RobotPeriodic() { frc2::CommandScheduler::GetInstance().Run(); }
  */
 void Robot::DisabledInit() {
 	Lights::GetInstance()->setMode(Lights::Mode::kDisabled);
+
+	mContainer->GetDriverController()->SetRumble(frc::GenericHID::kLeftRumble, 0);
+	mContainer->GetDriverController()->SetRumble(frc::GenericHID::kRightRumble, 0);
+	mContainer->GetOperatorController()->SetRumble(frc::GenericHID::kLeftRumble, 0);
+	mContainer->GetOperatorController()->SetRumble(frc::GenericHID::kRightRumble, 0);
 }
 
 void Robot::DisabledPeriodic() {}

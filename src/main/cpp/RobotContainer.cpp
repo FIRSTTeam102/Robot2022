@@ -1,12 +1,8 @@
 #include "RobotContainer.h"
 
-#include <frc/smartdashboard/SmartDashboard.h>
-#include <frc2/command/ParallelRaceGroup.h>
-
 RobotContainer* RobotContainer::mRobotContainer = NULL;
 
 RobotContainer::RobotContainer() : mAutonomousCommand() {
-	// SmartDashboard Buttons
 	mSwerveDrive.setController(&mDriverController);
 	mSwerveDrive.SetDefaultCommand(std::move(mRunSwerveDrive));
 
@@ -15,6 +11,8 @@ RobotContainer::RobotContainer() : mAutonomousCommand() {
 	mChooser.SetDefaultOption("Autonomous Command", new AutonomousCommand());
 
 	frc::SmartDashboard::PutData("Auto Mode", &mChooser);
+
+	frc::DriverStation::SilenceJoystickConnectionWarning(true);
 }
 
 RobotContainer* RobotContainer::GetInstance() {
@@ -26,8 +24,7 @@ RobotContainer* RobotContainer::GetInstance() {
 
 void RobotContainer::ConfigureButtonBindings() {
 	// mDriverButtonA.WhenPressed(&mResetGyro);
-	mDriverButtonRT.WhenPressed(&mFlipOrientation);
-	
+	mDriverButtonLS.WhenPressed(&mFlipOrientation);	
 
 	mDriverButtonA.WhenPressed(&mSlowShooterCommand);
 	mDriverButtonB.WhenPressed(&mMedShooterCommand);
@@ -42,7 +39,7 @@ void RobotContainer::ConfigureButtonBindings() {
 	mDriverRT.WhenHeld(&mIndexUpCommand);
 
 	mDriverDownDPad.WhenHeld(&mIndexDownCommand);
-	mDriverLeftDPad.ToggleWhenPressed(&mBallOutCommand);	
+	mDriverLeftDPad.ToggleWhenPressed(&mBallOutCommand);
 	mDriverRightDPad.ToggleWhenPressed(&mClimbCommand);
 	mDriverUpDPad.WhenPressed(&mArmToggleCommand);
 	mDriverLT.WhenHeld(&mAimbotParallel);
