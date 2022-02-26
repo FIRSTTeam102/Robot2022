@@ -84,9 +84,9 @@ namespace ShooterConstants {
 	// const float kMedSpeed = 0.75;
 	// const float kFastSpeed = 1.0;
 
-	const float kRPMSlowSpeed = 1480;
-	const float kRPMMedSpeed = 1484;
-	const float kRPMFastSpeed = 1523;
+	const float kRPMSlowSpeed = 1480; // Close Tarmac Speed, 45 inches away from target
+	const float kRPMMedSpeed = 1484; // Back Tarmac Speed, 70 inches away from target
+	const float kRPMFastSpeed = 1523; // Launchpad Speed, 195 inches away from target
 
 	// Closed loop control
 	const int kTimeoutMs = 30;
