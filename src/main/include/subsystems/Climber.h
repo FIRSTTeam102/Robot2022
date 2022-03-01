@@ -2,11 +2,8 @@
 
 #include <frc/DigitalInput.h>
 #include <frc/DoubleSolenoid.h>
-#include <frc/DriverStation.h>
-#include <frc/shuffleboard/Shuffleboard.h>
-#include <frc/shuffleboard/ShuffleboardLayout.h>
-#include <frc/shuffleboard/ShuffleboardTab.h>
 #include <frc/Timer.h>
+#include <frc/DriverStation.h>
 #include <frc2/command/SubsystemBase.h>
 
 #include "Constants.h"

@@ -2,26 +2,18 @@
 
 Lights* Lights::mpLightsInstance = NULL;
 
-Lights::Lights() {
+#ifdef ARDUINO
+Lights::Lights() : mArduino{9600, frc::SerialPort::kUSB1}
+#else
+Lights::Lights()
+#endif
+{
 	SetName("Lights");
 	SetSubsystem("Lights");
 
 #ifdef ARDUINO
 	mArduino.EnableTermination();
 	mArduino.Reset();
-
-	switch (frc::DriverStation::GetAlliance()) {
-		case frc::DriverStation::Alliance::kRed:
-			mArduino.Write("r");
-			break;
-
-		case frc::DriverStation::Alliance::kBlue:
-			mArduino.Write("b");
-			break;
-
-		default:
-			mArduino.Write("r");
-	}
 #endif
 }
 
