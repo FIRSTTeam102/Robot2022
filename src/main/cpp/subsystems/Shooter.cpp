@@ -14,11 +14,17 @@ void Shooter::Periodic() {
 
 	layout.Add("Target percent", mSpeed);
 	layout.Add("Actual percent", mShooterMotor.GetMotorOutputPercent());
+	mBoostPercent = layout.AddPersistent("Boost", mBoostPercent)
+		.WithWidget(frc::BuiltInWidgets::kNumberSlider)
+		.WithProperties(kNumberSliderProperties)
+		.WithSize(3, 1)
+		.GetEntry()
+		.GetDouble();
 }
 
 void Shooter::setShooter(double speed) {
 	mSpeed = speed;
-	mShooterMotor.Set(ControlMode::PercentOutput, mSpeed);
+	mShooterMotor.Set(ControlMode::PercentOutput, mBoostPercent * mSpeed);
 	mIsRunning = true;
 }
 
