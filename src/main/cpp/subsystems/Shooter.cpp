@@ -8,7 +8,7 @@ Shooter::Shooter() : mShooterMotor{ShooterConstants::kShooterMotor}, mHoodActuat
 
 	// Shooter motor setup
 	mShooterMotor.ConfigFactoryDefault(); // resets all settings
-	mShooterMotor.SetInverted(false);
+	mShooterMotor.SetInverted(true);
 	mShooterMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
 
 	// Sensor

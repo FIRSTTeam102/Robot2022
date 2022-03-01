@@ -12,12 +12,17 @@ Limelight::Limelight() : m_LimelightHasTarget(false) {
 }
 
 double Limelight::calculateShootAngle() {
-	a = a1 + ty;
-	return a;
+	ad = ay + ty;
+	return ad;
+}
+
+double Limelight::convertShootAngletoRadians() {
+	ar = ad * 3.131592 / 180;
+	return ar;
 }
 
 double Limelight::calculateShootDistance() {
-	d = (h / tan(90 - a)) + distanceOffset;
+	d = (h / tan(ar)) + de;
 	return d;
 }
 
@@ -274,8 +279,10 @@ void Limelight::Periodic() {
 	tv = table->GetNumber("tv", 0.0);
 
 	calculateShootAngle();
+	convertShootAngletoRadians();
 	calculateShootDistance();
-	printf("Angle from target %f\n", a);
+	printf("Angle from target in degrees %f\n", ad);
+	printf("Angle from target in radians %f\n", ar);
 	printf("Distance from target %f\n", d);
 
 	if (m_LimelightHasTarget == true) {

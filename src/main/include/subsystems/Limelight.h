@@ -10,11 +10,12 @@ class Limelight : public frc2::SubsystemBase {
 	private:
 		bool m_LimelightHasTarget;
 
-		static constexpr double h = 104; // Height between ground to the top of the target
-		static constexpr double a1 = 30; // a1 is the degrees of the Limelight. a2 is the fov of the limelight
-		static constexpr double distanceOffset = 20; // Distance from ring of target to middle of target
-		double a; // Angle needed to see the Target
-		double d; // Distance to the target
+		static constexpr double h = 61; // Height of limelight to target
+		static constexpr double ay = 30; // Angle of limelight to target
+		double ad; // Angle of robot to target in degrees
+		double ar; // Angle of robot to target in radians
+		static constexpr double de = 20; // Distance error
+		double d; //Distance of robot to targte
 
 		double rpm; // RPM of the shooter
 		double hoodAngle;  // Angle of the hood
@@ -33,6 +34,7 @@ class Limelight : public frc2::SubsystemBase {
 		Limelight();
 
 		double calculateShootAngle();
+		double convertShootAngletoRadians();
 		double calculateShootDistance();
 		double getShootSpeed();
 		double getServoAngle();
