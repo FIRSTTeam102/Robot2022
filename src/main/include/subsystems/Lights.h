@@ -1,5 +1,6 @@
 #pragma once
 
+#include <frc/DriverStation.h>
 #include <frc/SerialPort.h>
 #include <frc2/command/SubsystemBase.h>
 
@@ -34,6 +35,6 @@ class Lights : public frc2::SubsystemBase {
 		static Lights* mpLightsInstance;
 
 #ifdef ARDUINO
-		frc::SerialPort mArduino;
+		frc::SerialPort mArduino{9600, frc::SerialPort::kUSB1};
 #endif
 };
