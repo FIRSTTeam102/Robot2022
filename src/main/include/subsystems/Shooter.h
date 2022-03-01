@@ -15,8 +15,6 @@ class Shooter : public frc2::SubsystemBase {
 		float mSpeed;
 		bool mIsRunning = false;
 
-		frc::ShuffleboardLayout& mLayout;
-
 	public:
 		Shooter();
 

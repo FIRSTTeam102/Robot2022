@@ -18,8 +18,6 @@ class ShooterHood : public frc2::SubsystemBase {
 		double mTargetSetting;
 		double mDegrees;
 
-		frc::ShuffleboardLayout& mLayout;
-
 		double degreesToLinearLength(double degrees);
 		double linearLengthToSetting(double length);
 

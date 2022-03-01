@@ -9,9 +9,9 @@ Climber::Climber(frc::XboxController *pController) : mpController{pController} {
 		std::make_pair("Number of rows", nt::Value::MakeString("1"))
 	};
 
-	mSensorGrid = frc::Shuffleboard::GetTab("Teleop")
-		->GetLayout("Climb sensors", frc::BuiltinLayouts::kGrid)
-			.WithProperties(properties);
+	// mSensorGrid = frc::Shuffleboard::GetTab("Teleop")
+	// 	.GetLayout("Climb sensors", frc::BuiltInLayouts::kGrid)
+	// 		.WithProperties(properties);
 }
 
 void Climber::armsUp() {
@@ -67,6 +67,8 @@ void Climber::Periodic() {
 		}
 	}
 
-	mSensorGrid.Add("Left", mLineSensorLeft.Get());
-	mSensorGrid.Add("Right", mLineSensorRight.Get());
+	frc::ShuffleboardLayout& layout = frc::Shuffleboard::GetTab("Teleop").GetLayout("Climb sensors", frc::BuiltInLayouts::kList);
+
+	layout.Add("Left", mLineSensorLeft.Get());
+	layout.Add("Right", mLineSensorRight.Get());
 }

@@ -1,6 +1,6 @@
 #include "commands/ShooterHood/SetHoodAngle.h"
 
-SetHoodAngle::SetHoodAngle(double degrees, ShooterHood* pShooterHood): mDegrees{degrees}, mpShooterHood{pShooter} {
+SetHoodAngle::SetHoodAngle(double degrees, ShooterHood* pShooterHood): mDegrees{degrees}, mpShooterHood{pShooterHood} {
 	// Use addRequirements() here to declare subsystem dependencies.
 	AddRequirements(pShooterHood);
 }

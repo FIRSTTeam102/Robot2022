@@ -7,15 +7,13 @@ Shooter::Shooter() : mShooterMotor{ShooterConstants::kShooterMotor} {
 	// Shooter motor setup
 	mShooterMotor.SetInverted(true);
 	mShooterMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
-
-	// Shuffleboard
-	mLayout = frc::Shuffleboard::GetTab("Teleop")
-		->GetLayout("Shooter", frc::BuiltinLayouts::kList);
 }
 
 void Shooter::Periodic() {
-	mLayout.Add("Target percent", mSpeed);
-	mLayout.Add("Actual percent", mShooterMotor.GetMotorOutputPercent());
+	frc::ShuffleboardLayout& layout = frc::Shuffleboard::GetTab("Teleop").GetLayout("Shooter", frc::BuiltInLayouts::kList);
+
+	layout.Add("Target percent", mSpeed);
+	layout.Add("Actual percent", mShooterMotor.GetMotorOutputPercent());
 }
 
 void Shooter::setShooter(double speed) {
