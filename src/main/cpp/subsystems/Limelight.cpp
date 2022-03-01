@@ -144,8 +144,6 @@ double Limelight::getShootSpeed() {
 	} else {
 		rpm = 1480;
 	}
-
-	// return rpm / ShooterConstants::kMaxRpm; // convert to percent output
 	return rpm;
 }
 
@@ -261,7 +259,6 @@ double Limelight::getServoAngle() {
 	} else {
 		hoodAngle = 85.00;
 	}
-
 	return hoodAngle;
 }
 

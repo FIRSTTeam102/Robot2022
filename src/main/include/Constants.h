@@ -67,8 +67,9 @@ namespace IndexerConstants {
 	// Ports
 	const int kIndexerMotor = 10;
 	const int kBallSwitch = 5;
+
 	// Speeds
-	const double kMotorSpeed = 0.4;
+	const double kMotorSpeed = 0.95;
 }
 
 namespace ShooterConstants {
@@ -84,9 +85,9 @@ namespace ShooterConstants {
 	// const float kMedSpeed = 0.75;
 	// const float kFastSpeed = 1.0;
 
-	const float kRPMSlowSpeed = 1480; // Close Tarmac Speed, 45 inches away from target
-	const float kRPMMedSpeed = 1484; // Back Tarmac Speed, 70 inches away from target
-	const float kRPMFastSpeed = 1523; // Launchpad Speed, 195 inches away from target
+	const float kRPMSlowSpeed = 4000; // Close Tarmac Speed, 45 inches away from target
+	const float kRPMMedSpeed = 5000; // Back Tarmac Speed, 70 inches away from target
+	const float kRPMFastSpeed = 6380; // Launchpad Speed, 195 inches away from target
 
 	// Closed loop control
 	const int kTimeoutMs = 30;
@@ -96,8 +97,8 @@ namespace ShooterConstants {
 	const double kP = 0.22; // Proportional gain
 
 	// Hood/Actuator Data 
-	const double kHoodMaxAngle = 85; // Not needed right now, may need later for LM
-	const double kHoodMinAngle = 65; // Not needed right now, may need later for LM
+	const double kHoodMaxAngle = 85;
+	const double kHoodMinAngle = 65;
 	const double kInnerR = 12.239;
 	const double kOuterR = 18.734;
 	const double kOuterY = 12.989;
