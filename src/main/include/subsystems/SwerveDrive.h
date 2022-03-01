@@ -13,10 +13,7 @@
 
 class SwerveDrive : public frc2::SubsystemBase {
 	public:
-		SwerveDrive();
-		void setController(frc::XboxController *pDriverController) {
-			mpDriverController = pDriverController;
-		}
+		SwerveDrive(frc::XboxController *pDriverController);
 		double fixInput(double s, bool square = true) {
 			if (square) s = std::copysign(s * s, s);
 

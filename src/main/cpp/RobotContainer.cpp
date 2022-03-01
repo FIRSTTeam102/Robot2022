@@ -3,14 +3,12 @@
 RobotContainer* RobotContainer::mRobotContainer = NULL;
 
 RobotContainer::RobotContainer() : mAutonomousCommand() {
-	mSwerveDrive.setController(&mDriverController);
 	mSwerveDrive.SetDefaultCommand(std::move(mRunSwerveDrive));
 
 	ConfigureButtonBindings();
 
-	mChooser.SetDefaultOption("Autonomous Command", new AutonomousCommand());
-
-	frc::SmartDashboard::PutData("Auto Mode", &mChooser);
+	mChooser.SetDefaultOption("Default", new AutonomousCommand());
+	frc::Shuffleboard::GetTab("Autonomous").Add("Mode", &mChooser);
 
 	frc::DriverStation::SilenceJoystickConnectionWarning(true);
 }
