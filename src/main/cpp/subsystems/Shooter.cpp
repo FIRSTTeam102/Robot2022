@@ -7,18 +7,36 @@ Shooter::Shooter() : mShooterMotor{ShooterConstants::kShooterMotor} {
 	// Shooter motor setup
 	mShooterMotor.SetInverted(true);
 	mShooterMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
+
+	// Shuffleboard
+	wpi::StringMap<std::shared_ptr<nt::Value>> numberSliderProperties = {
+		std::make_pair("Min", nt::Value::MakeDouble(0.50)),
+		std::make_pair("Max", nt::Value::MakeDouble(2.00)),
+		std::make_pair("Block increment", nt::Value::MakeDouble(0.1))
+	};
+
+	frc::ShuffleboardLayout& layout = frc::Shuffleboard::GetTab("Teleop").GetLayout("Shooter", frc::BuiltInLayouts::kList);
+
+	mShuffleboardSpeedTarget = layout.Add("Target percent", 0.0).GetEntry();
+	mShuffleboardSpeedActual = layout.Add("Actual percent", 0.0).GetEntry();
+	mShuffleboardBoost = layout.AddPersistent("Boost", mBoostPercent)
+		.WithWidget(frc::BuiltInWidgets::kNumberSlider)
+		.WithProperties(numberSliderProperties)
+		.WithSize(3, 1)
+		.GetEntry();
 }
 
 void Shooter::Periodic() {
-	frc::ShuffleboardLayout& layout = frc::Shuffleboard::GetTab("Teleop").GetLayout("Shooter", frc::BuiltInLayouts::kList);
+	mShuffleboardSpeedTarget.SetDouble(mSpeed);
+	mShuffleboardSpeedActual.SetDouble(mShooterMotor.GetMotorOutputPercent());
+	mBoostPercent = mShuffleboardBoost.GetDouble(mBoostPercent);
 
-	layout.Add("Target percent", mSpeed);
-	layout.Add("Actual percent", mShooterMotor.GetMotorOutputPercent());
+	printf("Boost percent %F\n", mBoostPercent);
 }
 
 void Shooter::setShooter(double speed) {
 	mSpeed = speed;
-	mShooterMotor.Set(ControlMode::PercentOutput, mSpeed);
+	mShooterMotor.Set(ControlMode::PercentOutput, mBoostPercent * mSpeed);
 	mIsRunning = true;
 }
 

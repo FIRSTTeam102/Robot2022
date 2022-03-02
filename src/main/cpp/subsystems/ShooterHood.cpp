@@ -6,13 +6,17 @@ ShooterHood::ShooterHood() : mHoodActuator{ShooterConstants::kHoodActuator} {
 
 	// Actuator setup
 	mHoodActuator.SetBounds(2.0, 1.8, 1.5, 1.2, 1.0);
+
+	// Shuffleboard
+	frc::ShuffleboardLayout& layout = frc::Shuffleboard::GetTab("Teleop").GetLayout("Shooter hood", frc::BuiltInLayouts::kList);
+
+	mShuffleboardTargetAngle = layout.Add("Target angle", 0.0).GetEntry();
+	mShuffleboardTargetBool = layout.Add("At target?", false).GetEntry();
 }
 
 void ShooterHood::Periodic() {
-	frc::ShuffleboardLayout& layout = frc::Shuffleboard::GetTab("Teleop").GetLayout("Shooter hood", frc::BuiltInLayouts::kList);
-
-	layout.Add("Target angle", mDegrees);
-	layout.Add("At target?", isAtTarget());
+	mShuffleboardTargetAngle.SetDouble(mDegrees);
+	mShuffleboardTargetBool.SetBoolean(isAtTarget());
 }
 
 // Converts an angle to required length for linear actuator to make shooter hood reach that angle

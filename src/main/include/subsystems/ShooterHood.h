@@ -6,6 +6,7 @@
 #include <frc/shuffleboard/ShuffleboardLayout.h>
 #include <frc/shuffleboard/ShuffleboardTab.h>
 #include <frc2/command/SubsystemBase.h>
+#include <networktables/NetworkTableEntry.h>
 
 #include <cmath>
 
@@ -20,6 +21,9 @@ class ShooterHood : public frc2::SubsystemBase {
 
 		double degreesToLinearLength(double degrees);
 		double linearLengthToSetting(double length);
+
+		nt::NetworkTableEntry mShuffleboardTargetAngle;
+		nt::NetworkTableEntry mShuffleboardTargetBool;
 
 	public:
 		ShooterHood();
