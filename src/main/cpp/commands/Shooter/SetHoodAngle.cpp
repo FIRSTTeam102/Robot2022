@@ -14,6 +14,7 @@ void SetHoodAngle::Initialize() {
 	double length = mpShooter->degreesToLinearLength(mDegrees);
 	mSetting = mpShooter->linearLengthToSetting(length);
 
+	printf("Setting: %f\n", mSetting);
 	mpShooter->setActuator(mSetting); 
 	printf("Setting Hood Angle... "); // for testing
 }

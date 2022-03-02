@@ -11,7 +11,7 @@ class Limelight : public frc2::SubsystemBase {
 		bool m_LimelightHasTarget;
 
 		static constexpr double h = 61; // Height of limelight to target
-		static constexpr double ay = 30; // Angle of limelight to target
+		static constexpr double ay = 31.4; // Angle of limelight to target
 		double ad; // Angle of robot to target in degrees
 		double ar; // Angle of robot to target in radians
 		static constexpr double de = 20; // Distance error

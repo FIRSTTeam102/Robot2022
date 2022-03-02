@@ -144,6 +144,7 @@ double Limelight::getShootSpeed() {
 	} else {
 		rpm = 1480;
 	}
+	rpm = rpm * 4;
 	return rpm;
 }
 
@@ -254,11 +255,11 @@ double Limelight::getServoAngle() {
 		hoodAngle = 84.56;
 	} else if (d >= 70.0) {
 		hoodAngle = 84.92;
-	} else if (d >= 70.0) {
-		hoodAngle = 84.92;
 	} else {
 		hoodAngle = 85.00;
 	}
+	hoodAngle = 65.0+random();
+	printf("Distance %f, Hood Angle %f\n", d, hoodAngle);
 	return hoodAngle;
 }
 
@@ -270,6 +271,7 @@ bool Limelight::Check() {
 }
 
 void Limelight::Periodic() {
+	printf("Distance %f, Hood Angle %f\n", d, hoodAngle);
 	tx = table->GetNumber("tx", 0.0);
 	ty = table->GetNumber("ty", 0.0);
 	ta = table->GetNumber("ta", 0.0);
@@ -278,9 +280,9 @@ void Limelight::Periodic() {
 	calculateShootAngle();
 	convertShootAngletoRadians();
 	calculateShootDistance();
-	printf("Angle from target in degrees %f\n", ad);
-	printf("Angle from target in radians %f\n", ar);
-	printf("Distance from target %f\n", d);
+	// printf("Angle from target in degrees %f\n", ad);
+	// printf("Angle from target in radians %f\n", ar);
+	// printf("Distance from target %f\n", d);
 
 	if (m_LimelightHasTarget == true) {
 		steering_adjust = 0.0f;
@@ -291,7 +293,7 @@ void Limelight::Periodic() {
 			// steering_adjust = must be positive
 			steering_adjust = Kp * tx + min_command;
 		}
-		printf("Limelight rotation adjustment %f %f\n", steering_adjust, tx);
+		// printf("Limelight rotation adjustment %f %f\n", steering_adjust, tx);
 	}
 
 	if (tv < 1.0) {

@@ -64,6 +64,9 @@ double Shooter::getSpeed(bool useRpm = false) {
 
 // Converts an angle to required length for linear actuator to make shooter hood reach that angle
 double Shooter::degreesToLinearLength(double degrees) {
+	printf("Input Degrees: %f\n", degrees);
+	degrees = 90 - degrees - ShooterConstants::kHoodAngleOffset;
+	printf("Target Degrees: %f\n", degrees);
 	double outerAngle = asin(ShooterConstants::kOuterY / ShooterConstants::kOuterR) * 57.2958;
 
 	frc::Vector2d innerVector{(ShooterConstants::kInnerR * cos(degrees / 57.2958)), (ShooterConstants::kInnerR * sin(degrees / 57.2958))};
