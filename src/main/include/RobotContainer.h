@@ -25,6 +25,7 @@
 #include "commands/RumbleController.h"
 #include "commands/Shooter/StartShooter.h"
 #include "commands/Shooter/StopShooter.h"
+#include "commands/ShooterHood/IncrementHoodAngle.h"
 #include "commands/ShooterHood/SetHoodAngle.h"
 #include "commands/SwerveDrive/FlipDrive.h"
 #include "commands/SwerveDrive/MoveLinearTimed.h"
@@ -116,9 +117,11 @@ class RobotContainer {
 		StopShooter mStopShooterCommand{&mShooter};
 
 		ShooterHood mShooterHood;
-		SetHoodAngle mActuatorUp{26, &mShooterHood};
-		SetHoodAngle mActuatorMid{15, &mShooterHood};
-		SetHoodAngle mActuatorDown{-4, &mShooterHood};
+		IncrementHoodAngle mIncrementHood{5.0, &mShooterHood};
+		IncrementHoodAngle mDecrementHood{-5.0, &mShooterHood};
+		// SetHoodAngle mHoodUp{26, &mShooterHood};
+		// SetHoodAngle mHoodMid{15, &mShooterHood};
+		// SetHoodAngle mHoodDown{-4, &mShooterHood};
 
 		Climber mClimber{&mDriverController};
 		Climb mClimbCommand{&mClimber};

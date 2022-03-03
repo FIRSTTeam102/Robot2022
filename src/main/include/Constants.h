@@ -5,7 +5,7 @@
 
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide
- * numerical or boolean constants.  This should not be used for any other
+ * numerical or boolean constants. This should not be used for any other
  * purpose.
  *
  * It is generally a good idea to place constants into subsystem- or
@@ -91,10 +91,11 @@ namespace ShooterConstants {
 	const float kMedSpeed = 0.875;
 	const float kFastSpeed = 1.0;
 #endif
+}
 
-	// Hood/Actuator Data 
-	const double kHoodMaxAngle = 85; // Not needed right now, may need later for LM
-	const double kHoodMinAngle = 65; // Not needed right now, may need later for LM
+namespace ShooterHoodConstants {
+	const double kMaxAngle = 85;
+	const double kMinAngle = 65;
 	const double kInnerR = 12.239;
 	const double kOuterR = 18.734;
 	const double kOuterY = 12.989;

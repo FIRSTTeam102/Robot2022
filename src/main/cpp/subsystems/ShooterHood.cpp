@@ -1,6 +1,8 @@
 #include "subsystems/ShooterHood.h"
 
-ShooterHood::ShooterHood() : mHoodActuator{ShooterConstants::kHoodActuator} {
+#define M_DEGTORAD 57.2958
+
+ShooterHood::ShooterHood() : mHoodActuator{ShooterHoodConstants::kHoodActuator} {
 	SetName("ShooterHood");
 	SetSubsystem("ShooterHood");
 
@@ -21,10 +23,10 @@ void ShooterHood::Periodic() {
 
 // Converts an angle to required length for linear actuator to make shooter hood reach that angle
 double ShooterHood::degreesToLinearLength(double degrees) {
-	double outerAngle = asin(ShooterConstants::kOuterY / ShooterConstants::kOuterR) * 57.2958;
+	double outerAngle = asin(ShooterHoodConstants::kOuterY / ShooterHoodConstants::kOuterR) * M_DEGTORAD;
 
-	frc::Vector2d innerVector{(ShooterConstants::kInnerR * cos(degrees / 57.2958)), (ShooterConstants::kInnerR * sin(degrees / 57.2958))};
-	frc::Vector2d outerVector{(ShooterConstants::kOuterR * cos(outerAngle / 57.2958)), ShooterConstants::kOuterY};
+	frc::Vector2d innerVector{(ShooterHoodConstants::kInnerR * cos(degrees / M_DEGTORAD)), (ShooterHoodConstants::kInnerR * sin(degrees / M_DEGTORAD))};
+	frc::Vector2d outerVector{(ShooterHoodConstants::kOuterR * cos(outerAngle / M_DEGTORAD)), ShooterHoodConstants::kOuterY};
 
 	frc::Vector2d actuatorVector{outerVector.x - innerVector.x, outerVector.y - innerVector.y};
 
@@ -33,15 +35,13 @@ double ShooterHood::degreesToLinearLength(double degrees) {
 
 // Converts length of linear actuator to a setting within the bounds of kActuatorUpperBound and kActuatorLowerBound
 double ShooterHood::linearLengthToSetting(double length) {
-	double result = ( ( 2 / ( ShooterConstants::kMaxLength - ShooterConstants::kMinLength ) ) * ( length - ShooterConstants::kMaxLength ) ) + 1;
+	double result = ( ( 2 / ( ShooterHoodConstants::kMaxLength - ShooterHoodConstants::kMinLength ) ) * ( length - ShooterHoodConstants::kMaxLength ) ) + 1;
 
-	if ( result > ShooterConstants::kActuatorUpperBound ) return ShooterConstants::kActuatorUpperBound;
-	else if ( result < ShooterConstants::kActuatorLowerBound ) return ShooterConstants::kActuatorLowerBound;
-	else return result;
+	return std::clamp(result, ShooterHoodConstants::kActuatorLowerBound, ShooterHoodConstants::kActuatorUpperBound);
 }
 
 void ShooterHood::setAngle(double degrees) {
-	mDegrees = degrees;
+	mDegrees = std::clamp(degrees, ShooterHoodConstants::kMinAngle, ShooterHoodConstants::kMaxAngle);
 	double length = degreesToLinearLength(degrees);
 
 	mTargetSetting = linearLengthToSetting(length);
@@ -49,4 +49,10 @@ void ShooterHood::setAngle(double degrees) {
 	mHoodActuator.SetSpeed(mTargetSetting);
 
 	printf("Setting hood angle to %Fdeg, %F length, %F setting\n", mDegrees, length, mTargetSetting);
+}
+
+void ShooterHood::incrementAngle(double degreeChange) {
+	// Clamping is taken care of in setAngle
+	// Passing a negative number will deincrement
+	setAngle(mDegrees + degreeChange);
 }

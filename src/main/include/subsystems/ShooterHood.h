@@ -8,6 +8,7 @@
 #include <frc2/command/SubsystemBase.h>
 #include <networktables/NetworkTableEntry.h>
 
+#include <algorithm>
 #include <cmath>
 
 #include "Constants.h"
@@ -29,6 +30,7 @@ class ShooterHood : public frc2::SubsystemBase {
 		ShooterHood();
 
 		void setAngle(double degrees);
+		void incrementAngle(double degreeChange);
 		double getAngle() {
 			return mDegrees;
 		}

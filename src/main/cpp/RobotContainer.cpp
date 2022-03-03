@@ -41,8 +41,8 @@ void RobotContainer::ConfigureButtonBindings() {
 
 	// mOperatorRT.WhenPressed(); // LM speed
 
-	mOperatorUpDPad.WhenPressed(&mActuatorUp); // change to be an increment up
-	mOperatorDownDPad.WhenPressed(&mActuatorDown);  // change to be an increment down
+	mOperatorUpDPad.WhenPressed(&mIncrementHood);
+	mOperatorDownDPad.WhenPressed(&mDecrementHood);
 
 	mOperatorButtonLMenu.ToggleWhenPressed(&mClimbCommand);
 }
