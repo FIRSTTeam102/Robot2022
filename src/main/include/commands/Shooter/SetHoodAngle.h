@@ -8,6 +8,7 @@
 #include <frc2/command/CommandHelper.h>
 
 #include <subsystems/Shooter.h>
+#include <subsystems/Limelight.h>
 
 /**
  * An example command.
@@ -16,10 +17,12 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
+
+enum class HoodSettings { ACTUATUP, ACTUATDOWN, LMDET};
 class SetHoodAngle
 	: public frc2::CommandHelper<frc2::CommandBase, SetHoodAngle> {
 	public:
-		SetHoodAngle(double degrees, Shooter* pShooter);
+		SetHoodAngle(HoodSettings hoodSet, Shooter* pShooter, Limelight* pLimelight);
 
 		void Initialize() override;
 
@@ -31,5 +34,7 @@ class SetHoodAngle
 	private:
 		double mSetting;
 		double mDegrees;
+		HoodSettings mHoodSet;
 		Shooter* mpShooter;
+		Limelight* mpLimelight;
 };

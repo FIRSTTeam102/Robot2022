@@ -4,13 +4,30 @@
 
 #include "commands/Shooter/SetHoodAngle.h"
 
-SetHoodAngle::SetHoodAngle(double degrees, Shooter* pShooter): mDegrees{degrees}, mpShooter{pShooter} {
+SetHoodAngle::SetHoodAngle(HoodSettings hoodSet, Shooter* pShooter, Limelight* pLimelight): 
+     mHoodSet{hoodSet}, mpShooter{pShooter}, mpLimelight{pLimelight} {
 	// Use addRequirements() here to declare subsystem dependencies.
 	// AddRequirements(pShooter);
+	switch (mHoodSet){
+	   case HoodSettings::ACTUATUP:
+	     mDegrees = ShooterConstants::kActuatorUp;
+	   break;
+	   case HoodSettings::ACTUATDOWN:
+	     mDegrees = ShooterConstants::kActuatorDown;
+	   break;
+	   case HoodSettings::LMDET:
+	     mDegrees = 0;
+	   break;
+	   default:
+	     mDegrees = 0;
+	}
 }
 
 // Called when the command is initially scheduled.
 void SetHoodAngle::Initialize() {
+	if (mHoodSet == HoodSettings::LMDET){
+		mDegrees = mpLimelight->getServoAngle();
+	}
 	double length = mpShooter->degreesToLinearLength(mDegrees);
 	mSetting = mpShooter->linearLengthToSetting(length);
 

@@ -97,6 +97,8 @@ namespace ShooterConstants {
 	const double kP = 0.22; // Proportional gain
 
 	// Hood/Actuator Data 
+	const double kActuatorUp = 26;
+	const double kActuatorDown = 4;
 	const double kHoodMaxAngle = 87;
 	const double kHoodMinAngle = 62;
 	const double kInnerR = 12.239;
