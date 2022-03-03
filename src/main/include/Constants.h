@@ -1,5 +1,8 @@
 #pragma once
 
+// For drive practice
+// #define PRACTICE
+
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide
  * numerical or boolean constants.  This should not be used for any other
@@ -79,9 +82,15 @@ namespace ShooterConstants {
 	const int kHoodActuator = 0;
 
 	// Speeds
+#ifdef PRACTICE
+	const float kSlowSpeed = 0.4;
+	const float kMedSpeed = 0.5;
+	const float kFastSpeed = 0.6;
+#else
 	const float kSlowSpeed = 0.75;
 	const float kMedSpeed = 0.875;
 	const float kFastSpeed = 1.0;
+#endif
 
 	// Hood/Actuator Data 
 	const double kHoodMaxAngle = 85; // Not needed right now, may need later for LM

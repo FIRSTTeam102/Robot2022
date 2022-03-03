@@ -21,26 +21,30 @@ RobotContainer* RobotContainer::GetInstance() {
 }
 
 void RobotContainer::ConfigureButtonBindings() {
-	// mDriverButtonA.WhenPressed(&mResetGyro);
-	mDriverButtonLS.WhenPressed(&mFlipOrientation);	
+	/****** Driver ******/
+	mDriverButtonA.WhenPressed(&mFlipOrientation);
+	// mDriverButtonRMenu.WhenPressed(&mResetGyro);
 
-	mDriverButtonA.WhenPressed(&mSlowShooterCommand);
-	mDriverButtonB.WhenPressed(&mMedShooterCommand);
-	mDriverButtonY.WhenPressed(&mFastShooterCommand);
-	mDriverButtonX.WhenPressed(&mStopShooterCommand);
-
-	mDriverButtonLMenu.WhenPressed(&mActuatorUp);
-	mDriverButtonRMenu.WhenPressed(&mActuatorDown);
-	mDriverButtonRB.ToggleWhenPressed(&mActuatorMid);
-
-	mDriverButtonLB.ToggleWhenPressed(&mBallInCommand);
+	// mDriverLT.WhenHeld(); // LM aim
 
 	mDriverRT.WhenHeld(&mIndexUpCommand);
+	mDriverButtonRB.WhenHeld(&mIndexDownCommand);
+	
+	/****** Operator ******/
+	mOperatorButtonA.WhenPressed(&mSlowShooterCommand);
+	mOperatorButtonB.WhenPressed(&mMedShooterCommand);
+	mOperatorButtonY.WhenPressed(&mFastShooterCommand);
+	mOperatorButtonX.WhenPressed(&mStopShooterCommand);
 
-	mDriverDownDPad.WhenHeld(&mIndexDownCommand);
-	mDriverLeftDPad.ToggleWhenPressed(&mBallOutCommand);
-	mDriverRightDPad.ToggleWhenPressed(&mClimbCommand);
-	mDriverUpDPad.WhenPressed(&mArmToggleCommand);
+	mOperatorLT.WhenHeld(&mBallInCommand);
+	mOperatorButtonLB.WhenHeld(&mBallOutCommand);
+
+	// mOperatorRT.WhenPressed(); // LM speed
+
+	mOperatorUpDPad.WhenPressed(&mActuatorUp); // change to be an increment up
+	mOperatorDownDPad.WhenPressed(&mActuatorDown);  // change to be an increment down
+
+	mOperatorButtonLMenu.ToggleWhenPressed(&mClimbCommand);
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
