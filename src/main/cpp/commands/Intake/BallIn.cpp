@@ -8,6 +8,7 @@ BallIn::BallIn(Intake* pIntake, Indexer* pIndexer) : mpIntake{pIntake}, mpIndexe
 
 // Called just before this Command runs the first time
 void BallIn::Initialize() {
+	mpIndexer->mLock = true;
 	mpIntake->startRollers();
 	mpIntake->lowerIntakeArm();
 	mpIndexer->indexUp();
@@ -26,6 +27,7 @@ bool BallIn::IsFinished() {
 
 // Called once after isFinished returns true
 void BallIn::End(bool interrupted) {
+	mpIndexer->mLock = false;
 	mpIntake->stopRollers();
 	mpIntake->raiseIntakeArm();
 	mpIndexer->stopIndexer();

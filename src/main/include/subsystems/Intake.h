@@ -24,4 +24,6 @@ class Intake : public frc2::SubsystemBase {
 		void stopRollers();
 
 		void Periodic() override;
+
+		bool mLock = false; // used to prevent other intake commands from running
 };
