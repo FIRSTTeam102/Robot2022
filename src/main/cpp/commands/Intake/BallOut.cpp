@@ -12,7 +12,7 @@ BallOut::BallOut(Intake* pIntake, Indexer* pIndexer): mpIntake{pIntake}, mpIndex
 
 // Called when the command is initially scheduled.
 void BallOut::Initialize() {
-	if (!mpIndexer->mLock) {
+	if (!mpIntake->mLock) {
 		mpIntake->lowerIntakeArm();
 		mpIntake->startReverseRollers();
 		mpIndexer->indexDown();
@@ -24,7 +24,7 @@ void BallOut::Execute() {}
 
 // Called once the command ends or is interrupted.
 void BallOut::End(bool interrupted) {
-	if (!mpIndexer->mLock) {
+	if (!mpIntake->mLock) {
 		mpIntake->raiseIntakeArm();
 		mpIntake->stopRollers();
 		mpIndexer->stopIndexer();
@@ -33,5 +33,5 @@ void BallOut::End(bool interrupted) {
 
 // Returns true when the command should end.
 bool BallOut::IsFinished() {
-	return mpIndexer->mLock; // true if it should just quit
+	return mpIntake->mLock; // true if it should just quit
 }

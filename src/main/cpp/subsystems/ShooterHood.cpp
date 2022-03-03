@@ -2,7 +2,7 @@
 
 #define M_DEGTORAD 57.2958
 
-ShooterHood::ShooterHood() : mHoodActuator{ShooterHoodConstants::kHoodActuator} {
+ShooterHood::ShooterHood() : mHoodActuator{ShooterHoodConstants::kActuator} {
 	SetName("ShooterHood");
 	SetSubsystem("ShooterHood");
 

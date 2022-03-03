@@ -79,7 +79,6 @@ namespace IndexerConstants {
 namespace ShooterConstants {
 	// Ports
 	const int kShooterMotor = 9;
-	const int kHoodActuator = 0;
 
 	// Speeds
 #ifdef PRACTICE
@@ -94,14 +93,20 @@ namespace ShooterConstants {
 }
 
 namespace ShooterHoodConstants {
+	const int kActuator = 0;
+
 	const double kMaxAngle = 85;
 	const double kMinAngle = 65;
+
 	const double kInnerR = 12.239;
 	const double kOuterR = 18.734;
 	const double kOuterY = 12.989;
+
 	const double kMaxLength = 14.336;
 	const double kMinLength = 8.946;
+
 	const double kActuatorUpperBound = 0.95;
 	const double kActuatorLowerBound = -0.95;
+
 	const double kHoodAngleOffset = 13.818;
 }
