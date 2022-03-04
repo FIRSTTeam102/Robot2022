@@ -1,6 +1,7 @@
 #include "commands/Shooter/StartShooter.h"
 #include "RobotContainer.h"
 
+
 StartShooter::StartShooter(Shooter* pShooter, Limelight* pLimelight, SpeedSettings speedType, bool useRpm) : 
     mpShooter{pShooter}, mpLimelight(pLimelight),
     mUseSpeed{speedType}, mUseRpm{useRpm} {
@@ -23,8 +24,6 @@ StartShooter::StartShooter(Shooter* pShooter, Limelight* pLimelight, SpeedSettin
 		default:
 		   mTargetSpeed = 0;
 	}
-
-
 }
 
 // Called just before this Command runs the first time

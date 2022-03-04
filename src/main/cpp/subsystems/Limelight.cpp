@@ -2,6 +2,7 @@
 
 #include <frc/smartdashboard/SmartDashboard.h>
 
+
 Limelight::Limelight() : m_LimelightHasTarget(false) {
 	SetName("Limelight");
 	SetSubsystem("Limelight");
@@ -27,79 +28,7 @@ double Limelight::calculateShootDistance() {
 }
 
 double Limelight::getShootSpeed() {
-	if (d >= 330.0) {
-		rpm = 1610;
-	} else if (d >= 330.0) {
-		rpm = 1603;
-	} else if (d >= 325.0) {
-		rpm = 1599;
-	} else if (d >= 320.0) {
-		rpm = 1595;
-	} else if (d >= 315.0) {
-		rpm = 1592;
-	} else if (d >= 310.0) {
-		rpm = 1588;
-	} else if (d >= 305.0) {
-		rpm = 1585;
-	} else if (d >= 300.0) {
-		rpm = 1582;
-	} else if (d >= 295.0) {
-		rpm = 1578;
-	} else if (d >= 290.0) {
-		rpm = 1575;
-	} else if (d >= 285.0) {
-		rpm = 1572;
-	} else if (d >= 280.0) {
-		rpm = 1569;
-	} else if (d >= 275.0) {
-		rpm = 1566;
-	} else if (d >= 270.0) {
-		rpm = 1562;
-	} else if (d >= 265.0) {
-		rpm = 1559;
-	} else if (d >= 260.0) {
-		rpm = 1556;
-	} else if (d >= 255.0) {
-		rpm = 1554;
-	} else if (d >= 250.0) {
-		rpm = 1551;
-	} else if (d >= 245.0) {
-		rpm = 1548;
-	} else if (d >= 240.0) {
-		rpm = 1545;
-	} else if (d >= 235.0) {
-		rpm = 1542;
-	} else if (d >= 230.0) {
-		rpm = 1540;
-	} else if (d >= 225.0) {
-		rpm = 1537;
-	} else if (d >= 220.0) {
-		rpm = 1535;
-	} else if (d >= 215.0) {
-		rpm = 1532;
-	} else if (d >= 210.0) {
-		rpm = 1530;
-	} else if (d >= 205.0) {
-		rpm = 1527;
-	} else if (d >= 200.0) {
-		rpm = 1525;
-	} else if (d >= 195.0) {
-		rpm = 1523;
-	} else if (d >= 190.0) {
-		rpm = 1520;
-	} else if (d >= 185.0) {
-		rpm = 1518;
-	} else if (d >= 180.0) {
-		rpm = 1516;
-	} else if (d >= 175.0) {
-		rpm = 1514;
-	} else if (d >= 170.0) {
-		rpm = 1512;
-	} else if (d >= 165.0) {
-		rpm = 1510;
-	} else if (d >= 160.0) {
-		rpm = 1508;
-	} else if (d >= 155.0) {
+	if (d >= 155.0) {
 		rpm = 1506;
 	} else if (d >= 150.0) {
 		rpm = 1505;
@@ -149,112 +78,42 @@ double Limelight::getShootSpeed() {
 }
 
 double Limelight::getServoAngle() {
-	if (d >= 330.0) {
-		hoodAngle = 66.65;
-	} else if (d >= 325.0) {
-		hoodAngle = 67.58;
-	} else if (d >= 320.0) {
-		hoodAngle = 67.89;
-	} else if (d >= 315.0) {
-		hoodAngle = 68.20;
-	} else if (d >= 310.0) {
-		hoodAngle = 68.52;
-	} else if (d >= 305.0) {
-		hoodAngle = 68.83;
-	} else if (d >= 300.0) {
-		hoodAngle = 69.15;
-	} else if (d >= 295.0) {
-		hoodAngle = 69.47;
-	} else if (d >= 290.0) {
-		hoodAngle = 69.79;
-	} else if (d >= 285.0) {
-		hoodAngle = 70.11;
-	} else if (d >= 280.0) {
-		hoodAngle = 70.43;
-	} else if (d >= 275.0) {
-		hoodAngle = 70.76;
-	} else if (d >= 270.0) {
-		hoodAngle = 71.08;
-	} else if (d >= 265.0) {
-		hoodAngle = 71.41;
-	} else if (d >= 260.0) {
-		hoodAngle = 71.73;
-	} else if (d >= 255.0) {
-		hoodAngle = 72.06;
-	} else if (d >= 250.0) {
-		hoodAngle = 72.39;
-	} else if (d >= 245.0) {
-		hoodAngle = 72.72;
-	} else if (d >= 240.0) {
-		hoodAngle = 73.05;
-	} else if (d >= 235.0) {
-		hoodAngle = 73.39;
-	} else if (d >= 230.0) {
-		hoodAngle = 73.72;
-	} else if (d >= 225.0) {
-		hoodAngle = 74.06;
-	} else if (d >= 220.0) {
-		hoodAngle = 74.40;
-	} else if (d >= 215.0) {
-		hoodAngle = 74.73;
-	} else if (d >= 210.0) {
-		hoodAngle = 75.07;
-	} else if (d >= 205.0) {
-		hoodAngle = 75.41;
-	} else if (d >= 200.0) {
-		hoodAngle = 75.75;
-	} else if (d >= 195.0) {
-		hoodAngle = 76.10;
-	} else if (d >= 190.0) {
-		hoodAngle = 76.44;
-	} else if (d >= 185.0) {
-		hoodAngle = 76.78;
-	} else if (d >= 180.0) {
-		hoodAngle = 77.13;
-	} else if (d >= 175.0) {
-		hoodAngle = 77.47;
-	} else if (d >= 170.0) {
-		hoodAngle = 77.82;
-	} else if (d >= 165.0) {
-		hoodAngle = 78.17;
-	} else if (d >= 160.0) {
-		hoodAngle = 78.52;
-	} else if (d >= 155.0) {
-		hoodAngle = 78.87;
+	if (d >= 155.0) {
+		hoodAngle = 68.25;
 	} else if (d >= 150.0) {
-		hoodAngle = 79.22;
+		hoodAngle = 68.25; //79.22 ***
 	} else if (d >= 145.0) {
-		hoodAngle = 79.57;
+		hoodAngle = 68.25; //79.57 ***
 	} else if (d >= 140.0) {
-		hoodAngle = 79.92;
+		hoodAngle = 68.25; //79.92 ***
 	} else if (d >= 135.0) {
-		hoodAngle = 80.27;
+		hoodAngle = 69.00; //80.27 ***
 	} else if (d >= 130.0) {
-		hoodAngle = 80.63;
+		hoodAngle = 69.50; //80.63 ***
 	} else if (d >= 125.0) {
-		hoodAngle = 80.98;
+		hoodAngle = 80.00; //80.98
 	} else if (d >= 120.0) {
-		hoodAngle = 81.34;
+		hoodAngle = 76.00; // 81.34 ***
 	} else if (d >= 115.0) {
-		hoodAngle = 81.69;
+		hoodAngle = 80.00; //81.69
 	} else if (d >= 110.0) {
-		hoodAngle = 82.05;
+		hoodAngle = 80.00; //82.05
 	} else if (d >= 105.0) {
-		hoodAngle = 82.41;
+		hoodAngle = 80.00; //82.41
 	} else if (d >= 100.0) {
-		hoodAngle = 82.76;
+		hoodAngle = 80.00; //82.76
 	} else if (d >= 95.0) {
-		hoodAngle = 83.12;
+		hoodAngle = 80.00; //83.12
 	} else if (d >= 90.0) {
-		hoodAngle = 83.48;
+		hoodAngle = 80.00; //83.48
 	} else if (d >= 85.0) {
-		hoodAngle = 83.84;
+		hoodAngle = 80.00; //83.84
 	} else if (d >= 80.0) {
-		hoodAngle = 84.20;
+		hoodAngle = 80.00; //84.20
 	} else if (d >= 75.0) {
-		hoodAngle = 84.56;
+		hoodAngle = 80.00; //84.56
 	} else if (d >= 70.0) {
-		hoodAngle = 84.92;
+		hoodAngle = 80.00; //84.92
 	} else {
 		hoodAngle = 85.00;
 	}
@@ -270,7 +129,7 @@ bool Limelight::Check() {
 }
 
 void Limelight::Periodic() {
-	printf("Distance %f, Hood Angle %f\n", d, hoodAngle);
+	// printf("Distance %f, Hood Angle %f\n", d, hoodAngle);
 	tx = table->GetNumber("tx", 0.0);
 	ty = table->GetNumber("ty", 0.0);
 	ta = table->GetNumber("ta", 0.0);
@@ -281,7 +140,7 @@ void Limelight::Periodic() {
 	calculateShootDistance();
 	// printf("Angle from target in degrees %f\n", ad);
 	// printf("Angle from target in radians %f\n", ar);
-	// printf("Distance from target %f\n", d);
+	printf("Distance %f, Hood Angle %f\n", d, hoodAngle);
 
 	if (m_LimelightHasTarget == true) {
 		steering_adjust = 0.0f;

@@ -5,7 +5,6 @@
 #include "networktables/NetworkTableInstance.h"
 
 #include "Constants.h"
-
 class Limelight : public frc2::SubsystemBase {
 	private:
 		bool m_LimelightHasTarget;

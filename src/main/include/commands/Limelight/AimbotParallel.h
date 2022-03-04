@@ -10,7 +10,6 @@
 #include "subsystems/Shooter.h"
 #include "subsystems/SwerveDrive.h"
 #include "commands/Shooter/SetHoodAngle.h"
-
 class AimbotParallel : public frc2::CommandHelper<frc2::ParallelCommandGroup, AimbotParallel> {
 	public:
 		explicit AimbotParallel(Limelight *pLimelight, Shooter *pShooter, SwerveDrive *pSwerveDrive);

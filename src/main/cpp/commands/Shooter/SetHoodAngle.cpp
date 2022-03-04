@@ -4,6 +4,7 @@
 
 #include "commands/Shooter/SetHoodAngle.h"
 
+
 SetHoodAngle::SetHoodAngle(HoodSettings hoodSet, Shooter* pShooter, Limelight* pLimelight): 
      mHoodSet{hoodSet}, mpShooter{pShooter}, mpLimelight{pLimelight} {
 	// Use addRequirements() here to declare subsystem dependencies.
