@@ -18,11 +18,11 @@
  * Command will *not* work!
  */
 
-enum class HoodSettings { ACTUATUP, ACTUATDOWN, LMDET};
 class SetHoodAngle
 	: public frc2::CommandHelper<frc2::CommandBase, SetHoodAngle> {
 	public:
-		SetHoodAngle(HoodSettings hoodSet, Shooter* pShooter, Limelight* pLimelight);
+		SetHoodAngle(double degrees, Shooter* pShooter);
+		SetHoodAngle(Shooter* pShooter, Limelight* pLimelight);
 
 		void Initialize() override;
 
@@ -34,7 +34,7 @@ class SetHoodAngle
 	private:
 		double mSetting;
 		double mDegrees;
-		HoodSettings mHoodSet;
+
 		Shooter* mpShooter;
 		Limelight* mpLimelight;
 };

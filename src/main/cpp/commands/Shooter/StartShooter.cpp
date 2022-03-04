@@ -1,35 +1,25 @@
 #include "commands/Shooter/StartShooter.h"
 #include "RobotContainer.h"
 
+//create StartShooter with a hardcoded speed value
+StartShooter::StartShooter(Shooter* pShooter, double speed, bool useRpm) : 
+    mpShooter{pShooter}, mpLimelight{NULL},mTargetSpeed{speed}, mUseRpm{useRpm} {
 
-StartShooter::StartShooter(Shooter* pShooter, Limelight* pLimelight, SpeedSettings speedType, bool useRpm) : 
-    mpShooter{pShooter}, mpLimelight(pLimelight),
-    mUseSpeed{speedType}, mUseRpm{useRpm} {
 	SetName("StartShooter");
 	AddRequirements(pShooter);
 
-	switch (mUseSpeed){
-		case SpeedSettings::SLOW:
-		   mTargetSpeed = ShooterConstants::kRPMSlowSpeed;
-		   break;
-	    case SpeedSettings::MED:
-		   mTargetSpeed = ShooterConstants::kRPMMedSpeed;
-		   break;
-	    case SpeedSettings::FAST:
-		   mTargetSpeed = ShooterConstants::kRPMFastSpeed;
-		   break;
-	    case SpeedSettings::LMDET:
-		   mTargetSpeed = 0;
-		break;
-		default:
-		   mTargetSpeed = 0;
-	}
+}
+//create StartShooter using the limelight to determine the speed
+StartShooter::StartShooter(Shooter* pShooter, Limelight* pLimelight, bool useRpm) :
+   mpShooter{pShooter}, mpLimelight{pLimelight}, mTargetSpeed{0},mUseRpm{useRpm} {
+   SetName("StartShooter");
+   AddRequirements(pShooter);
 }
 
 // Called just before this Command runs the first time
 void StartShooter::Initialize() {
 
-	if (mUseSpeed == SpeedSettings::LMDET){
+	if (mpLimelight){
         mTargetSpeed = mpLimelight->getShootSpeed();
 	}
 	mSpeed = mpShooter->getSpeed(mUseRpm);

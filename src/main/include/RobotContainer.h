@@ -109,11 +109,12 @@ class RobotContainer {
 		// StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kSlowSpeed};
 		// StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kMedSpeed};
 		// StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kFastSpeed};
-		StartShooter mSlowShooterCommand{&mShooter, &mLimelight, SpeedSettings::SLOW, true};
-		StartShooter mMedShooterCommand{&mShooter, &mLimelight, SpeedSettings::MED, true};
-		StartShooter mFastShooterCommand{&mShooter, &mLimelight, SpeedSettings::FAST, true};
-		SetHoodAngle mActuatorUp{HoodSettings::ACTUATUP, &mShooter, &mLimelight};
-		SetHoodAngle mActuatorDown{HoodSettings::ACTUATDOWN, &mShooter, &mLimelight};
+		
+		StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kRPMSlowSpeed, true};
+		StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kRPMMedSpeed, true};
+		StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kRPMFastSpeed, true};
+		SetHoodAngle mActuatorUp{26, &mShooter};
+		SetHoodAngle mActuatorDown{4, &mShooter};
 		StopShooter mStopShooterCommand{&mShooter};
 
 		Climber mClimber{&mDriverController};

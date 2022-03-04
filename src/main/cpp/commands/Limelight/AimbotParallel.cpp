@@ -6,7 +6,7 @@ AimbotParallel::AimbotParallel(Limelight *pLimelight, Shooter *pShooter, SwerveD
 	SetName("AimbotParallel");
 	
 	
-	AddCommands(StartShooter(pShooter, pLimelight, SpeedSettings::LMDET,true),
-		SetHoodAngle(HoodSettings::LMDET, pShooter, pLimelight), 
+	AddCommands(StartShooter(pShooter, pLimelight,true),
+		SetHoodAngle(pShooter, pLimelight), 
 		YawToTarget(pLimelight, pSwerveDrive));
 }

@@ -4,31 +4,27 @@
 
 #include "commands/Shooter/SetHoodAngle.h"
 
-
-SetHoodAngle::SetHoodAngle(HoodSettings hoodSet, Shooter* pShooter, Limelight* pLimelight): 
-     mHoodSet{hoodSet}, mpShooter{pShooter}, mpLimelight{pLimelight} {
+//SetHoodAngle using a hardcoded angle in degrees
+SetHoodAngle::SetHoodAngle(double degrees, Shooter* pShooter): 
+     mDegrees{degrees}, mpShooter{pShooter}, mpLimelight{NULL} {
 	// Use addRequirements() here to declare subsystem dependencies.
 	// AddRequirements(pShooter);
-	switch (mHoodSet){
-	   case HoodSettings::ACTUATUP:
-	     mDegrees = ShooterConstants::kActuatorUp;
-	   break;
-	   case HoodSettings::ACTUATDOWN:
-	     mDegrees = ShooterConstants::kActuatorDown;
-	   break;
-	   case HoodSettings::LMDET:
-	     mDegrees = 0;
-	   break;
-	   default:
-	     mDegrees = 0;
-	}
 }
+//SetHoodAngle based on distance from target determined by limelight
+SetHoodAngle::SetHoodAngle(Shooter* pShooter, Limelight* pLimelight):
+     mDegrees{0}, mpShooter{pShooter}, mpLimelight{pLimelight} {
+    //Use addRequirements() here to declare subsystem dependencies.
+	//AddRequirements(pShooter);
+ }
 
 // Called when the command is initially scheduled.
 void SetHoodAngle::Initialize() {
-	if (mHoodSet == HoodSettings::LMDET){
+	//if the limelight is active, use it to determine the servo angle
+	//based on distance
+	if (mpLimelight){
 		mDegrees = mpLimelight->getServoAngle();
 	}
+
 	double length = mpShooter->degreesToLinearLength(mDegrees);
 	mSetting = mpShooter->linearLengthToSetting(length);
 
