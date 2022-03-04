@@ -17,6 +17,8 @@
 #include "commands/Shooter/StopShooter.h"
 #include "commands/SwerveDrive/MoveLinearTimed.h"
 #include "commands/SwerveDrive/MoveVectorTimed.h"
+#include "commands/SwerveDrive/SetAnglesCommand.h"
+#include "commands/SwerveDrive/SetSpeedsTimed.h"
 #include "commands/SwerveDrive/TurnDegreesGyro.h"
 #include "subsystems/Indexer.h"
 #include "subsystems/Intake.h"

@@ -104,6 +104,20 @@ void SwerveDrive::autoDrive(double angle, double speed) {
 	mWheelBL.setSpeed(speed);
 }
 
+void SwerveDrive::setAngles(double angle) {
+	mWheelFL.setAngle(angle);
+	mWheelFR.setAngle(angle);
+	mWheelBR.setAngle(angle);
+	mWheelBL.setAngle(angle);
+}
+
+void SwerveDrive::setSpeeds(double speed) {
+	mWheelFL.setSpeed(speed);
+	mWheelFR.setSpeed(speed);
+	mWheelBR.setSpeed(speed);
+	mWheelBL.setSpeed(speed);
+}
+
 void SwerveDrive::stopDrive() {
 	mWheelFL.setSpeed(0);
 	mWheelFR.setSpeed(0);
