@@ -30,8 +30,6 @@ void Shooter::Periodic() {
 	mShuffleboardSpeedTarget.SetDouble(mSpeed);
 	mShuffleboardSpeedActual.SetDouble(mShooterMotor.GetMotorOutputPercent());
 	mBoostPercent = mShuffleboardBoost.GetDouble(mBoostPercent);
-
-	printf("Boost percent %F\n", mBoostPercent);
 }
 
 void Shooter::setShooter(double speed) {

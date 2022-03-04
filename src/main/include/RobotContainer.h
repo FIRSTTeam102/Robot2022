@@ -117,8 +117,8 @@ class RobotContainer {
 		StopShooter mStopShooterCommand{&mShooter};
 
 		ShooterHood mShooterHood;
-		IncrementHoodAngle mIncrementHood{5.0, &mShooterHood};
-		IncrementHoodAngle mDecrementHood{-5.0, &mShooterHood};
+		IncrementHoodAngle mIncrementHood{2.0, &mShooterHood};
+		IncrementHoodAngle mDecrementHood{-2.0, &mShooterHood};
 		// SetHoodAngle mHoodUp{26, &mShooterHood};
 		// SetHoodAngle mHoodMid{15, &mShooterHood};
 		// SetHoodAngle mHoodDown{-4, &mShooterHood};

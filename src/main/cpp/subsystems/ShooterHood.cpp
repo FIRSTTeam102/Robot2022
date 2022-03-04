@@ -23,6 +23,7 @@ void ShooterHood::Periodic() {
 
 // Converts an angle to required length for linear actuator to make shooter hood reach that angle
 double ShooterHood::degreesToLinearLength(double degrees) {
+	degrees = 90 - degrees - ShooterHoodConstants::kAngleOffset;
 	double outerAngle = asin(ShooterHoodConstants::kOuterY / ShooterHoodConstants::kOuterR) * M_DEGTORAD;
 
 	frc::Vector2d innerVector{(ShooterHoodConstants::kInnerR * cos(degrees / M_DEGTORAD)), (ShooterHoodConstants::kInnerR * sin(degrees / M_DEGTORAD))};
@@ -53,6 +54,6 @@ void ShooterHood::setAngle(double degrees) {
 
 void ShooterHood::incrementAngle(double degreeChange) {
 	// Clamping is taken care of in setAngle
-	// Passing a negative number will deincrement
+	// Passing a negative number will decrement
 	setAngle(mDegrees + degreeChange);
 }

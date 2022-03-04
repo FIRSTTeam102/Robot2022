@@ -95,8 +95,9 @@ namespace ShooterConstants {
 namespace ShooterHoodConstants {
 	const int kActuator = 0;
 
+	const double kMinAngle = 60;
 	const double kMaxAngle = 85;
-	const double kMinAngle = 65;
+	const double kAngleOffset = 13.818;
 
 	const double kInnerR = 12.239;
 	const double kOuterR = 18.734;
@@ -107,6 +108,4 @@ namespace ShooterHoodConstants {
 
 	const double kActuatorUpperBound = 0.95;
 	const double kActuatorLowerBound = -0.95;
-
-	const double kHoodAngleOffset = 13.818;
 }
