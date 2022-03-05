@@ -1,8 +1,6 @@
 #include "subsystems/Shooter.h"
-#include <frc/smartdashboard/SmartDashboard.h>
 
-
-Shooter::Shooter() : mShooterMotor{ShooterConstants::kShooterMotor}, mHoodActuator{ShooterConstants::kHoodActuator} {
+Shooter::Shooter() : mShooterMotor{ShooterConstants::kShooterMotor} {
 	SetName("Shooter");
 	SetSubsystem("Shooter");
 
@@ -27,16 +25,27 @@ Shooter::Shooter() : mShooterMotor{ShooterConstants::kShooterMotor}, mHoodActuat
 	mShooterMotor.Config_kI(0, ShooterConstants::kI, ShooterConstants::kTimeoutMs);
 	mShooterMotor.Config_kP(0, ShooterConstants::kP, ShooterConstants::kTimeoutMs);
 
-	// Actuator setup
-	mHoodActuator.SetBounds(2.0, 1.8, 1.5, 1.2, 1.0);
+	// Shuffleboard
+	wpi::StringMap<std::shared_ptr<nt::Value>> numberSliderProperties = {
+		std::make_pair("Min", nt::Value::MakeDouble(0.50)),
+		std::make_pair("Max", nt::Value::MakeDouble(2.00)),
+		std::make_pair("Block increment", nt::Value::MakeDouble(0.1))
+	};
+
+	frc::ShuffleboardLayout& layout = frc::Shuffleboard::GetTab("Teleop").GetLayout("Shooter", frc::BuiltInLayouts::kList);
+
+	mShuffleboardSpeedTarget = layout.Add("Target percent", 0.0).GetEntry();
+	mShuffleboardSpeedActual = layout.Add("Actual percent", 0.0).GetEntry();
+	mShuffleboardBoost = layout.AddPersistent("Boost", mBoostPercent)
+		.WithWidget(frc::BuiltInWidgets::kNumberSlider)
+		.WithProperties(numberSliderProperties)
+		.WithSize(3, 1)
+		.GetEntry();
 }
 
-void Shooter::Periodic() {
-	// Put code here to be run every loop
-}
-
-// useRpm is questionable and needs testing
 void Shooter::setShooter(double speed, bool useRpm = false) {
+	speed = speed * mBoostPercent;
+
 	if (!useRpm) {
 		mSpeed = speed;
 		mShooterMotor.Set(ControlMode::PercentOutput, mSpeed);
@@ -62,30 +71,8 @@ double Shooter::getSpeed(bool useRpm = false) {
 	return useRpm ? (mSpeed * ShooterConstants::kMaxRpm) : mSpeed;
 }
 
-// Converts an angle to required length for linear actuator to make shooter hood reach that angle
-double Shooter::degreesToLinearLength(double degrees) {
-	printf("Input Degrees: %f\n", degrees);
-	degrees = 90 - degrees - ShooterConstants::kHoodAngleOffset;
-	printf("Target Degrees: %f\n", degrees);
-	double outerAngle = asin(ShooterConstants::kOuterY / ShooterConstants::kOuterR) * 57.2958;
-
-	frc::Vector2d innerVector{(ShooterConstants::kInnerR * cos(degrees / 57.2958)), (ShooterConstants::kInnerR * sin(degrees / 57.2958))};
-	frc::Vector2d outerVector{(ShooterConstants::kOuterR * cos(outerAngle / 57.2958)), ShooterConstants::kOuterY};
-
-	frc::Vector2d actuatorVector{outerVector.x - innerVector.x, outerVector.y - innerVector.y};
-
-	return actuatorVector.Magnitude();
-}
-
-// Converts length of linear actuator to a setting within the bounds of kActuatorUpperBound and kActuatorLowerBound
-double Shooter::linearLengthToSetting(double length) {
-	double result = ( ( 2 / ( ShooterConstants::kMaxLength - ShooterConstants::kMinLength ) ) * ( length - ShooterConstants::kMaxLength ) ) + 1;
-
-	if ( result > ShooterConstants::kActuatorUpperBound ) return ShooterConstants::kActuatorUpperBound;
-	else if ( result < ShooterConstants::kActuatorLowerBound ) return ShooterConstants::kActuatorLowerBound;
-	else return result;
-}
-
-void Shooter::setActuator(double setting) {
-	mHoodActuator.SetSpeed(setting);
+void Shooter::Periodic() {
+	mShuffleboardSpeedTarget.SetDouble(mSpeed);
+	mShuffleboardSpeedActual.SetDouble(mShooterMotor.GetMotorOutputPercent());
+	mBoostPercent = mShuffleboardBoost.GetDouble(mBoostPercent);
 }

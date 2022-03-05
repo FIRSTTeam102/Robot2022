@@ -1,8 +1,11 @@
 #pragma once
 
+// For drive practice
+// #define PRACTICE
+
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide
- * numerical or boolean constants.  This should not be used for any other
+ * numerical or boolean constants. This should not be used for any other
  * purpose.
  *
  * It is generally a good idea to place constants into subsystem- or
@@ -37,6 +40,8 @@ namespace SwerveDriveConstants {
 	const int kBLOffset = 1156;
 
 	const double kMaxSpeed = 1.00;
+
+	const double kDeadzone = 0.1;
 
 	// const double kMaxMotorSpeed = 5000.0; // this is in RPM
 	// // in inches
@@ -75,18 +80,28 @@ namespace IndexerConstants {
 namespace ShooterConstants {
 	// Ports
 	const int kShooterMotor = 9;
-	const int kHoodActuator = 0;
 
 	// Motor constants
 	const double kMaxRpm = 6380;
 
 	// Speeds
-	// const float kSlowSpeed = 0.50;
-	// const float kMedSpeed = 0.75;
-	// const float kFastSpeed = 1.0;
-	const float kRPMSlowSpeed = 4000; // Close Tarmac Speed, 45 inches away from target
-	const float kRPMMedSpeed = 5000; // Back Tarmac Speed, 70 inches away from target
-	const float kRPMFastSpeed = 6380; // Launchpad Speed, 195 inches away from target
+#ifdef PRACTICE
+	const float kSlowSpeed = 0.4;
+	const float kMedSpeed = 0.5;
+	const float kFastSpeed = 0.6;
+
+	const float kRPMSlowSpeed = 1000;
+	const float kRPMMedSpeed = 2000;
+	const float kRPMFastSpeed = 3000;
+#else
+	const float kSlowSpeed = 0.75;
+	const float kMedSpeed = 0.875;
+	const float kFastSpeed = 1.0;
+
+	const float kRPMSlowSpeed = 4000; // Close tarmac speed, 45 inches away from target
+	const float kRPMMedSpeed = 5000; // Back tarmac speed, 70 inches away from target
+	const float kRPMFastSpeed = 6380; // Launchpad speed, 195 inches away from target
+#endif
 
 	// Closed loop control
 	const int kTimeoutMs = 30;
@@ -94,16 +109,22 @@ namespace ShooterConstants {
 	const double kF = 0.04736; // Feed forward gain
 	const double kI = 0.0; // Integral gain
 	const double kP = 0.22; // Proportional gain
+}
 
-	// Hood/Actuator Data 
-	const double kHoodMaxAngle = 87;
-	const double kHoodMinAngle = 62;
+namespace ShooterHoodConstants {
+	const int kActuator = 0;
+
+	const double kMinAngle = 60;
+	const double kMaxAngle = 85;
+	const double kAngleOffset = 13.818;
+
 	const double kInnerR = 12.239;
 	const double kOuterR = 18.734;
 	const double kOuterY = 12.989;
+
 	const double kMaxLength = 14.336;
 	const double kMinLength = 8.946;
+
 	const double kActuatorUpperBound = 0.95;
 	const double kActuatorLowerBound = -0.95;
-	const double kHoodAngleOffset = 13.818;
 }

@@ -1,17 +1,14 @@
 #include "RobotContainer.h"
 
-
 RobotContainer* RobotContainer::mRobotContainer = NULL;
 
 RobotContainer::RobotContainer() : mAutonomousCommand() {
-	mSwerveDrive.setController(&mDriverController);
 	mSwerveDrive.SetDefaultCommand(std::move(mRunSwerveDrive));
 
 	ConfigureButtonBindings();
 
-	mChooser.SetDefaultOption("Autonomous Command", new AutonomousCommand());
-
-	frc::SmartDashboard::PutData("Auto Mode", &mChooser);
+	mChooser.SetDefaultOption("Default", new AutonomousCommand());
+	frc::Shuffleboard::GetTab("Autonomous").Add("Mode", &mChooser);
 
 	frc::DriverStation::SilenceJoystickConnectionWarning(true);
 }
@@ -24,23 +21,30 @@ RobotContainer* RobotContainer::GetInstance() {
 }
 
 void RobotContainer::ConfigureButtonBindings() {
-	// mDriverButtonA.WhenPressed(&mResetGyro);
-	mDriverButtonA.WhenPressed(&mSlowShooterCommand);
-	mDriverButtonB.WhenPressed(&mMedShooterCommand);
-	mDriverButtonY.WhenPressed(&mFastShooterCommand);
-	mDriverButtonX.WhenPressed(&mStopShooterCommand);
-	mDriverButtonLB.ToggleWhenPressed(&mBallInCommand);
-	mDriverButtonRB.WhenHeld(&mYawToTarget);
-	mDriverButtonLMenu.WhenPressed(&mActuatorUp);
-	mDriverButtonRMenu.WhenPressed(&mActuatorDown);
-	mDriverLT.WhenHeld(&mAimbotParallel);
+	/****** Driver ******/
+	mDriverButtonA.WhenPressed(&mFlipMode);
+	// mDriverButtonRMenu.WhenPressed(&mResetGyro);
+
+	mDriverLT.WhenHeld(&mYawToTarget);
+
 	mDriverRT.WhenHeld(&mIndexUpCommand);
-	mDriverButtonLS.WhenPressed(&mFlipOrientation);	
-	//RS
-	mDriverUpDPad.WhenPressed(&mArmToggleCommand);
-	mDriverRightDPad.ToggleWhenPressed(&mClimbCommand);
-	mDriverDownDPad.WhenHeld(&mIndexDownCommand);
-	mDriverLeftDPad.ToggleWhenPressed(&mBallOutCommand);
+	mDriverButtonRB.WhenHeld(&mIndexDownCommand);
+	
+	/****** Operator ******/
+	mOperatorButtonA.WhenPressed(&mSlowShooterCommand);
+	mOperatorButtonB.WhenPressed(&mMedShooterCommand);
+	mOperatorButtonY.WhenPressed(&mFastShooterCommand);
+	mOperatorButtonX.WhenPressed(&mStopShooterCommand);
+
+	mOperatorLT.WhenHeld(&mBallInCommand);
+	mOperatorButtonLB.WhenHeld(&mBallOutCommand);
+
+	mOperatorRT.WhenPressed(&mLimelightShooterSpeed);
+
+	mOperatorUpDPad.WhenPressed(&mIncrementHood);
+	mOperatorDownDPad.WhenPressed(&mDecrementHood);
+
+	mOperatorButtonLMenu.ToggleWhenPressed(&mClimbCommand);
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {

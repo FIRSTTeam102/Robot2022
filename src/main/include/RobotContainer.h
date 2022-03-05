@@ -3,6 +3,9 @@
 #include <frc/DriverStation.h>
 #include <frc/Joystick.h>
 #include <frc/XboxController.h>
+#include <frc/shuffleboard/Shuffleboard.h>
+#include <frc/shuffleboard/ShuffleboardLayout.h>
+#include <frc/shuffleboard/ShuffleboardTab.h>
 #include <frc/smartdashboard/SendableChooser.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/Command.h>
@@ -19,10 +22,10 @@
 #include "commands/Limelight/AimbotParallel.h"
 #include "commands/Limelight/YawToTarget.h"
 #include "commands/RumbleController.h"
-#include "commands/Shooter/SetHoodAngle.h"
-#include "commands/Shooter/ShootSequential.h"
 #include "commands/Shooter/StartShooter.h"
 #include "commands/Shooter/StopShooter.h"
+#include "commands/ShooterHood/IncrementHoodAngle.h"
+#include "commands/ShooterHood/SetHoodAngle.h"
 #include "commands/SwerveDrive/FlipDrive.h"
 #include "commands/SwerveDrive/MoveLinearTimed.h"
 #include "commands/SwerveDrive/ResetGyro.h"
@@ -33,6 +36,7 @@
 #include "subsystems/Intake.h"
 #include "subsystems/Limelight.h"
 #include "subsystems/Shooter.h"
+#include "subsystems/ShooterHood.h"
 #include "subsystems/SwerveDrive.h"
 
 class RobotContainer {
@@ -91,9 +95,9 @@ class RobotContainer {
 		void ConfigureButtonBindings();
 
 		// Subsystems and commands
-		SwerveDrive mSwerveDrive;
+		SwerveDrive mSwerveDrive{&mDriverController};
 		RunSwerveDrive mRunSwerveDrive{&mSwerveDrive};
-		FlipDrive mFlipOrientation{&mSwerveDrive};
+		FlipDrive mFlipMode{&mSwerveDrive};
 		ResetGyro mResetGyro{&mSwerveDrive};
 
 		Intake mIntake;
@@ -112,14 +116,19 @@ class RobotContainer {
 		StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kRPMSlowSpeed, true};
 		StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kRPMMedSpeed, true};
 		StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kRPMFastSpeed, true};
-		SetHoodAngle mActuatorUp{26, &mShooter};
-		SetHoodAngle mActuatorDown{4, &mShooter};
 		StopShooter mStopShooterCommand{&mShooter};
+
+		ShooterHood mShooterHood;
+		IncrementHoodAngle mIncrementHood{2.0, &mShooterHood};
+		IncrementHoodAngle mDecrementHood{-2.0, &mShooterHood};
+		// SetHoodAngle mHoodUp{26, &mShooterHood};
+		// SetHoodAngle mHoodMid{15, &mShooterHood};
+		// SetHoodAngle mHoodDown{-4, &mShooterHood};
 
 		Climber mClimber{&mDriverController};
 		Climb mClimbCommand{&mClimber};
 
 		Limelight mLimelight;
-		AimbotParallel mAimbotParallel{&mLimelight, &mShooter};
+		AimbotParallel mLimelightShooterSpeed{&mLimelight, &mShooter, &mShooterHood};
 		YawToTarget mYawToTarget{&mLimelight, &mSwerveDrive};
 };

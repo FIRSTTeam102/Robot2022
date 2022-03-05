@@ -2,12 +2,21 @@
 
 #include <frc/DigitalInput.h>
 #include <frc/DoubleSolenoid.h>
-#include <frc/Timer.h>
 #include <frc/DriverStation.h>
+#include <frc/Timer.h>
+#include <frc/XboxController.h>
+#include <frc/shuffleboard/Shuffleboard.h>
+#include <frc/shuffleboard/ShuffleboardLayout.h>
+#include <frc/shuffleboard/ShuffleboardTab.h>
 #include <frc2/command/SubsystemBase.h>
+#include <networktables/NetworkTableEntry.h>
+#include <networktables/NetworkTableValue.h>
+#include <wpi/StringMap.h>
+
+#include <memory>
+#include <utility>
 
 #include "Constants.h"
-#include "commands/RumbleController.h"
 
 class Climber : public frc2::SubsystemBase {
 	public:
@@ -23,6 +32,9 @@ class Climber : public frc2::SubsystemBase {
 
 		frc::DigitalInput mLineSensorLeft{ClimberConstants::kLineSensorLeft};
 		frc::DigitalInput mLineSensorRight{ClimberConstants::kLineSensorRight};
+
+		nt::NetworkTableEntry mShuffleboardSensorLeft;
+		nt::NetworkTableEntry mShuffleboardSensorRight;
 
 		frc::XboxController* mpController;
 		bool mLeftRumbling = false;
