@@ -29,11 +29,9 @@ class Shooter : public frc2::SubsystemBase {
 	public:
 		Shooter();
 
-		void setShooter(double speed);
+		void setShooter(double speed, bool useRpm);
 		void stopShooter();
-		double getSpeed() {
-			return mSpeed;
-		}
+		double getSpeed(bool useRpm);
 		bool isRunning() {
 			return mIsRunning;
 		}

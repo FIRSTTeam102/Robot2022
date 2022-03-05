@@ -72,24 +72,43 @@ namespace IndexerConstants {
 	// Ports
 	const int kIndexerMotor = 10;
 	const int kBallSwitch = 5;
+
 	// Speeds
-	const double kMotorSpeed = 0.4;
+	const double kMotorSpeed = 0.95;
 }
 
 namespace ShooterConstants {
 	// Ports
 	const int kShooterMotor = 9;
 
+	// Motor constants
+	const double kMaxRpm = 6380;
+
 	// Speeds
 #ifdef PRACTICE
 	const float kSlowSpeed = 0.4;
 	const float kMedSpeed = 0.5;
 	const float kFastSpeed = 0.6;
+
+	const float kRPMSlowSpeed = 1000;
+	const float kRPMMedSpeed = 2000;
+	const float kRPMFastSpeed = 3000;
 #else
 	const float kSlowSpeed = 0.75;
 	const float kMedSpeed = 0.875;
 	const float kFastSpeed = 1.0;
+
+	const float kRPMSlowSpeed = 4000; // Close tarmac speed, 45 inches away from target
+	const float kRPMMedSpeed = 5000; // Back tarmac speed, 70 inches away from target
+	const float kRPMFastSpeed = 6380; // Launchpad speed, 195 inches away from target
 #endif
+
+	// Closed loop control
+	const int kTimeoutMs = 30;
+	const double kD = 0.0; // Derivative gain
+	const double kF = 0.04736; // Feed forward gain
+	const double kI = 0.0; // Integral gain
+	const double kP = 0.22; // Proportional gain
 }
 
 namespace ShooterHoodConstants {

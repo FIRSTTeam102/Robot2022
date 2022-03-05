@@ -1,12 +1,20 @@
 #include "commands/ShooterHood/SetHoodAngle.h"
 
-SetHoodAngle::SetHoodAngle(double degrees, ShooterHood* pShooterHood): mDegrees{degrees}, mpShooterHood{pShooterHood} {
-	// Use addRequirements() here to declare subsystem dependencies.
+// SetHoodAngle based on hardcoded value
+SetHoodAngle::SetHoodAngle(double degrees, ShooterHood* pShooterHood) : mDegrees{degrees}, mpShooterHood{pShooterHood}, mpLimelight{NULL} {
 	AddRequirements(pShooterHood);
+}
+
+// SetHoodAngle based on distance from target determined by Limelight
+SetHoodAngle::SetHoodAngle(ShooterHood* pShooterHood, Limelight* pLimelight) : mDegrees{0}, mpShooterHood{pShooterHood}, mpLimelight{pLimelight} {
+	AddRequirements(pShooterHood);
+	AddRequirements(pLimelight);
 }
 
 // Called when the command is initially scheduled.
 void SetHoodAngle::Initialize() {
+	if (mpLimelight) mDegrees = mpLimelight->getServoAngle();
+
 	mpShooterHood->setAngle(mDegrees);
 }
 

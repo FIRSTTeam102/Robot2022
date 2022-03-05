@@ -22,10 +22,10 @@ RobotContainer* RobotContainer::GetInstance() {
 
 void RobotContainer::ConfigureButtonBindings() {
 	/****** Driver ******/
-	mDriverButtonA.WhenPressed(&mFlipOrientation);
+	mDriverButtonA.WhenPressed(&mFlipMode);
 	// mDriverButtonRMenu.WhenPressed(&mResetGyro);
 
-	// mDriverLT.WhenHeld(); // LM aim
+	mDriverLT.WhenHeld(&mYawToTarget);
 
 	mDriverRT.WhenHeld(&mIndexUpCommand);
 	mDriverButtonRB.WhenHeld(&mIndexDownCommand);
@@ -39,7 +39,7 @@ void RobotContainer::ConfigureButtonBindings() {
 	mOperatorLT.WhenHeld(&mBallInCommand);
 	mOperatorButtonLB.WhenHeld(&mBallOutCommand);
 
-	// mOperatorRT.WhenPressed(); // LM speed
+	mOperatorRT.WhenPressed(&mLimelightShooterSpeed);
 
 	mOperatorUpDPad.WhenPressed(&mIncrementHood);
 	mOperatorDownDPad.WhenPressed(&mDecrementHood);

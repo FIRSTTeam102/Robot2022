@@ -19,8 +19,7 @@
 #include "commands/Intake/ArmToggle.h"
 #include "commands/Intake/BallIn.h"
 #include "commands/Intake/BallOut.h"
-#include "commands/Limelight/AimbotSequential.h"
-#include "commands/Limelight/SetShootSpeed.h"
+#include "commands/Limelight/AimbotParallel.h"
 #include "commands/Limelight/YawToTarget.h"
 #include "commands/RumbleController.h"
 #include "commands/Shooter/StartShooter.h"
@@ -98,7 +97,7 @@ class RobotContainer {
 		// Subsystems and commands
 		SwerveDrive mSwerveDrive{&mDriverController};
 		RunSwerveDrive mRunSwerveDrive{&mSwerveDrive};
-		FlipDrive mFlipOrientation{&mSwerveDrive};
+		FlipDrive mFlipMode{&mSwerveDrive};
 		ResetGyro mResetGyro{&mSwerveDrive};
 
 		Intake mIntake;
@@ -111,9 +110,12 @@ class RobotContainer {
 		Backward mIndexDownCommand{&mIndexer};
 
 		Shooter mShooter;
-		StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kSlowSpeed};
-		StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kMedSpeed};
-		StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kFastSpeed};
+		// StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kSlowSpeed};
+		// StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kMedSpeed};
+		// StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kFastSpeed};
+		StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kRPMSlowSpeed, true};
+		StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kRPMMedSpeed, true};
+		StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kRPMFastSpeed, true};
 		StopShooter mStopShooterCommand{&mShooter};
 
 		ShooterHood mShooterHood;
@@ -127,4 +129,6 @@ class RobotContainer {
 		Climb mClimbCommand{&mClimber};
 
 		Limelight mLimelight;
+		AimbotParallel mLimelightShooterSpeed{&mLimelight, &mShooter, &mShooterHood};
+		YawToTarget mYawToTarget{&mLimelight, &mSwerveDrive};
 };

@@ -37,15 +37,15 @@ void Climber::toggleArms() {
 
 void Climber::Periodic() {
 	// Automatically pull up climber just before match ends
-	if (
-		frc::DriverStation::IsTeleop() // in teleop
-		&& frc::DriverStation::IsFMSAttached() // a real competition
-		&& frc::DriverStation::GetMatchType() != frc::DriverStation::MatchType::kNone
-		&& frc::Timer::GetMatchTime() < 500_ms // less than 0.5 seconds left in the match
-	) {
-		printf("Automatically pulling up climber\n");
-		armsDown();
-	}
+	// if (
+	// 	frc::DriverStation::IsTeleop() // in teleop
+	// 	&& frc::DriverStation::IsFMSAttached() // a real competition
+	// 	&& frc::DriverStation::GetMatchType() != frc::DriverStation::MatchType::kNone
+	// 	&& frc::Timer::GetMatchTime() < 500_ms // less than 0.5 seconds left in the match
+	// ) {
+	// 	printf("Automatically pulling up climber\n");
+	// 	armsDown();
+	// }
 
 	// printf("Climber line sensor L%d R%d\n", mLineSensorLeft.Get(), mLineSensorRight.Get());
 	if (
