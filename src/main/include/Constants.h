@@ -77,7 +77,6 @@ namespace IntakeConstants {
 	const int kArmSolenoidBackward = 4;
 
 	// Speeds
-	const double kRollerSpeed = 0.7;
 	const double kRollerSpeed = 0.75;
 }
 
