@@ -31,15 +31,15 @@ void RobotContainer::ConfigureButtonBindings() {
 	mDriverButtonRB.WhenHeld(&mIndexDownCommand);
 	
 	/****** Operator ******/
-	mOperatorButtonA.WhenPressed(&mSlowShooterCommand);
-	mOperatorButtonB.WhenPressed(&mMedShooterCommand);
-	mOperatorButtonY.WhenPressed(&mFastShooterCommand);
+	mOperatorButtonA.WhenPressed(&mTarmacLower);
+	mOperatorButtonB.WhenPressed(&mTarmacUpper);
+	// mOperatorButtonY.WhenPressed(&mFastShooterCommand);
 	mOperatorButtonX.WhenPressed(&mStopShooterCommand);
 
 	mOperatorLT.WhenHeld(&mBallInCommand);
 	mOperatorButtonLB.WhenHeld(&mBallOutCommand);
 
-	mOperatorRT.WhenPressed(&mLimelightShooterSpeed);
+	mOperatorRT.WhenPressed(&mLimelightShooter);
 
 	mOperatorUpDPad.WhenPressed(&mIncrementHood);
 	mOperatorDownDPad.WhenPressed(&mDecrementHood);

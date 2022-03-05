@@ -9,7 +9,7 @@
 #include <frc/smartdashboard/SendableChooser.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/Command.h>
-#include <frc2/command/ParallelRaceGroup.h>
+#include <frc2/command/ParallelCommandGroup.h>
 #include <frc2/command/button/Button.h>
 
 #include "commands/AutonomousCommand.h"
@@ -110,25 +110,25 @@ class RobotContainer {
 		Backward mIndexDownCommand{&mIndexer};
 
 		Shooter mShooter;
-		// StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kSlowSpeed};
-		// StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kMedSpeed};
-		// StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kFastSpeed};
-		StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kRPMSlowSpeed, true};
-		StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kRPMMedSpeed, true};
-		StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kRPMFastSpeed, true};
 		StopShooter mStopShooterCommand{&mShooter};
+		// StartShooter mTarmacLowerSpeed{&mShooter, HardcodedShots::kTarmacLowerSpeedPercent};
+		// StartShooter mTarmacUpperSpeed{&mShooter, HardcodedShots::kTarmacUpperSpeedPercent};
+		StartShooter mTarmacLowerSpeed{&mShooter, HardcodedShots::kTarmacLowerSpeedRPM, true};
+		StartShooter mTarmacUpperSpeed{&mShooter, HardcodedShots::kTarmacUpperSpeedRPM, true};
 
 		ShooterHood mShooterHood;
 		IncrementHoodAngle mIncrementHood{2.0, &mShooterHood};
 		IncrementHoodAngle mDecrementHood{-2.0, &mShooterHood};
-		// SetHoodAngle mHoodUp{26, &mShooterHood};
-		// SetHoodAngle mHoodMid{15, &mShooterHood};
-		// SetHoodAngle mHoodDown{-4, &mShooterHood};
+		SetHoodAngle mTarmacLowerAngle{HardcodedShots::kTarmacLowerAngle, &mShooterHood};
+		SetHoodAngle mTarmacUpperAngle{HardcodedShots::kTarmacUpperAngle, &mShooterHood};
+
+		frc2::ParallelCommandGroup mTarmacLower{mTarmacLowerSpeed, mTarmacLowerAngle};
+		frc2::ParallelCommandGroup mTarmacUpper{mTarmacUpperSpeed, mTarmacUpperAngle};
 
 		Climber mClimber{&mDriverController};
 		Climb mClimbCommand{&mClimber};
 
 		Limelight mLimelight;
-		AimbotParallel mLimelightShooterSpeed{&mLimelight, &mShooter, &mShooterHood};
+		AimbotParallel mLimelightShooter{&mLimelight, &mShooter, &mShooterHood};
 		YawToTarget mYawToTarget{&mLimelight, &mSwerveDrive};
 };
