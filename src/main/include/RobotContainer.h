@@ -16,14 +16,13 @@
 #include "commands/Intake/ArmToggle.h"
 #include "commands/Intake/BallIn.h"
 #include "commands/Intake/BallOut.h"
-#include "commands/Limelight/AimbotSequential.h"
-#include "commands/Limelight/SetShootSpeed.h"
+#include "commands/Limelight/AimbotParallel.h"
 #include "commands/Limelight/YawToTarget.h"
 #include "commands/RumbleController.h"
-#include "commands/Shooter/SetHoodAngle.h"
-#include "commands/Shooter/ShootSequential.h"
 #include "commands/Shooter/StartShooter.h"
 #include "commands/Shooter/StopShooter.h"
+#include "commands/ShooterHood/IncrementHoodAngle.h"
+#include "commands/ShooterHood/SetHoodAngle.h"
 #include "commands/SwerveDrive/FlipDrive.h"
 #include "commands/SwerveDrive/MoveLinearTimed.h"
 #include "commands/SwerveDrive/ResetGyro.h"
@@ -94,7 +93,7 @@ class RobotContainer {
 		// Subsystems and commands
 		SwerveDrive mSwerveDrive;
 		RunSwerveDrive mRunSwerveDrive{&mSwerveDrive};
-		FlipDrive mFlipOrientation{&mSwerveDrive};
+		FlipDrive mFlipMode{&mSwerveDrive};
 		ResetGyro mResetGyro{&mSwerveDrive};
 
 		Intake mIntake;
@@ -107,16 +106,25 @@ class RobotContainer {
 		Backward mIndexDownCommand{&mIndexer};
 
 		Shooter mShooter;
-		SetHoodAngle mActuatorUp{35, &mShooter};
-		SetHoodAngle mActuatorMid{6, &mShooter};
-		SetHoodAngle mActuatorDown{-8, &mShooter};
-		StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kSlowSpeed};
-		StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kMedSpeed};
-		StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kFastSpeed};
+		// StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kSlowSpeed};
+		// StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kMedSpeed};
+		// StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kFastSpeed};
+		StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kRPMSlowSpeed, true};
+		StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kRPMMedSpeed, true};
+		StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kRPMFastSpeed, true};
 		StopShooter mStopShooterCommand{&mShooter};
+
+		ShooterHood mShooterHood;
+		IncrementHoodAngle mIncrementHood{2.0, &mShooterHood};
+		IncrementHoodAngle mDecrementHood{-2.0, &mShooterHood};
+		// SetHoodAngle mHoodUp{26, &mShooterHood};
+		// SetHoodAngle mHoodMid{15, &mShooterHood};
+		// SetHoodAngle mHoodDown{-4, &mShooterHood};
 
 		Climber mClimber{&mDriverController};
 		Climb mClimbCommand{&mClimber};
 
 		Limelight mLimelight;
+		AimbotParallel mLimelightShooterSpeed{&mLimelight, &mShooter, &mShooterHood};
+		YawToTarget mYawToTarget{&mLimelight, &mSwerveDrive};
 };

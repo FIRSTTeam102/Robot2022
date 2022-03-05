@@ -1,40 +1,39 @@
 #pragma once
 
 #include <ctre/Phoenix.h>
-#include <frc/Servo.h>
-#include <frc/drive/Vector2d.h>
+#include <frc/shuffleboard/Shuffleboard.h>
+#include <frc/shuffleboard/ShuffleboardLayout.h>
+#include <frc/shuffleboard/ShuffleboardTab.h>
 #include <frc2/command/SubsystemBase.h>
+#include <networktables/NetworkTableEntry.h>
+#include <networktables/NetworkTableValue.h>
+#include <wpi/StringMap.h>
 
-#include <cmath>
+#include <memory>
+#include <utility>
 
 #include "Constants.h"
 
 class Shooter : public frc2::SubsystemBase {
 	private:
 		TalonFX mShooterMotor;
-		frc::Servo mHoodActuator;
 
 		float mSpeed;
+		double mBoostPercent = 1.00;
 		bool mIsRunning = false;
+
+		nt::NetworkTableEntry mShuffleboardSpeedTarget;
+		nt::NetworkTableEntry mShuffleboardSpeedActual;
+		nt::NetworkTableEntry mShuffleboardBoost;
 
 	public:
 		Shooter();
 
-		void setShooter(double speed);
+		void setShooter(double speed, bool useRpm);
 		void stopShooter();
-		double getSpeed() {
-			return mSpeed;
-		}
+		double getSpeed(bool useRpm);
 		bool isRunning() {
 			return mIsRunning;
-		}
-
-		double degreesToLinearLength(double degrees);
-		double linearLengthToSetting(double length);
-
-		void setActuator(double setting);
-		double getHoodSetting() {
-			return mHoodActuator.GetSpeed();
 		}
 
 		void Periodic() override;

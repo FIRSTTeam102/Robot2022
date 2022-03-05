@@ -1,8 +1,11 @@
 #pragma once
 
+// For drive practice
+// #define PRACTICE
+
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide
- * numerical or boolean constants.  This should not be used for any other
+ * numerical or boolean constants. This should not be used for any other
  * purpose.
  *
  * It is generally a good idea to place constants into subsystem- or
@@ -73,29 +76,59 @@ namespace IndexerConstants {
 	// Ports
 	const int kIndexerMotor = 10;
 	const int kBallSwitch = 5;
+
 	// Speeds
-	const double kMotorSpeed = 0.4;
+	const double kMotorSpeed = 0.95;
 }
 
 namespace ShooterConstants {
 	// Ports
 	const int kShooterMotor = 9;
-	const int kHoodActuator = 0;
+
+	// Motor constants
+	const double kMaxRpm = 6380;
 
 	// Speeds
+#ifdef PRACTICE
+	const float kSlowSpeed = 0.4;
+	const float kMedSpeed = 0.5;
+	const float kFastSpeed = 0.6;
+
+	const float kRPMSlowSpeed = 1000;
+	const float kRPMMedSpeed = 2000;
+	const float kRPMFastSpeed = 3000;
+#else
 	const float kSlowSpeed = 0.75;
 	const float kMedSpeed = 0.875;
 	const float kFastSpeed = 1.0;
 
-	// Hood/Actuator Data 
-	const double kHoodMaxAngle = 85; // Not needed right now, may need later for LM
-	const double kHoodMinAngle = 65; // Not needed right now, may need later for LM
+	const float kRPMSlowSpeed = 4000; // Close tarmac speed, 45 inches away from target
+	const float kRPMMedSpeed = 5000; // Back tarmac speed, 70 inches away from target
+	const float kRPMFastSpeed = 6380; // Launchpad speed, 195 inches away from target
+#endif
+
+	// Closed loop control
+	const int kTimeoutMs = 30;
+	const double kD = 0.0; // Derivative gain
+	const double kF = 0.04736; // Feed forward gain
+	const double kI = 0.0; // Integral gain
+	const double kP = 0.22; // Proportional gain
+}
+
+namespace ShooterHoodConstants {
+	const int kActuator = 0;
+
+	const double kMinAngle = 60;
+	const double kMaxAngle = 85;
+	const double kAngleOffset = 13.818;
+
 	const double kInnerR = 12.239;
 	const double kOuterR = 18.734;
 	const double kOuterY = 12.989;
+
 	const double kMaxLength = 14.336;
 	const double kMinLength = 8.946;
+
 	const double kActuatorUpperBound = 0.95;
 	const double kActuatorLowerBound = -0.95;
-	const double kHoodAngleOffset = 13.818;
 }

@@ -24,6 +24,8 @@ class Intake : public frc2::SubsystemBase {
 
 		void Periodic() override;
 
+		bool mLock = false; // used to prevent other intake commands from running
+
 	private:
 		TalonSRX mRollerMotor;
 		frc::DoubleSolenoid mArmSolenoid;
