@@ -2,12 +2,12 @@
 
 SetSpeedsTimed::SetSpeedsTimed(SwerveDrive* pSwerveDrive, double speed, double time): mpSwerveDrive{pSwerveDrive}, mSpeed{speed}, mTicks{(int) (time * 50.0)} {
 	AddRequirements(pSwerveDrive);
-	mCounter = 0;
 }
 
 // Called when the command is initially scheduled.
 void SetSpeedsTimed::Initialize() {
 	mpSwerveDrive->setAutoState(true);
+	mCounter = 0;
 }
 
 // Called repeatedly when this Command is scheduled to run
