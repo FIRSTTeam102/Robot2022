@@ -40,12 +40,19 @@ namespace SwerveDriveConstants {
 	const int kBLEnc = 3;
 
 	// Calibration Values
-	const int kFLOffset = 603;
-	const int kFROffset = 415;
-	const int kBROffset = 2672;
-	const int kBLOffset = 1156;
+	const int kFLOffset = 589;
+	const int kFROffset = 400;
+	const int kBROffset = 2678;
+	const int kBLOffset = 1179;
 
 	const double kMaxSpeed = 1.00;
+
+	// Motor Max Speeds
+	const double kFLMaxSpeed = 490;
+	const double kFRMaxSpeed = 507;
+	const double kBRMaxSpeed = 494;
+	const double kBLMaxSpeed = 513;
+	const double kSlowestSpeed = kFLMaxSpeed;
 
 	// const double kMaxMotorSpeed = 5000.0; // this is in RPM
 	// // in inches
@@ -69,7 +76,7 @@ namespace IntakeConstants {
 	const int kArmSolenoidForward = 3;
 	const int kArmSolenoidBackward = 4;
 	// Speeds
-	const double kRollerSpeed = 0.5;
+	const double kRollerSpeed = 0.7;
 }
 
 namespace IndexerConstants {
