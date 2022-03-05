@@ -1,23 +1,25 @@
 #pragma once
 
+#include <frc/shuffleboard/Shuffleboard.h>
+#include <frc/shuffleboard/ShuffleboardLayout.h>
+#include <frc/shuffleboard/ShuffleboardTab.h>
 #include <frc2/command/SubsystemBase.h>
-#include "networktables/NetworkTable.h"
-#include "networktables/NetworkTableInstance.h"
+#include <networktables/NetworkTable.h>
+#include <networktables/NetworkTableEntry.h>
+#include <networktables/NetworkTableInstance.h>
 
 #include "Constants.h"
+
 class Limelight : public frc2::SubsystemBase {
 	private:
 		bool m_LimelightHasTarget;
 
-		static constexpr double h = 61; // Height of limelight to target
-		static constexpr double ay = 31.4; // Angle of limelight to target
 		double ad; // Angle of robot to target in degrees
 		double ar; // Angle of robot to target in radians
-		static constexpr double de = 20; // Distance error
-		double d; //Distance of robot to targte
+		double d; // Distance of robot to target
 
 		double rpm; // RPM of the shooter
-		double hoodAngle;  // Angle of the hood
+		double hoodAngle; // Angle of the hood
 
 		double tx;
 		double ty;
@@ -26,8 +28,12 @@ class Limelight : public frc2::SubsystemBase {
 
 		float steering_adjust = 0.0f;
 
-		float Kp;
-		float min_command;
+		nt::NetworkTableEntry mShuffleboardDistance;
+		nt::NetworkTableEntry mShuffleboardPossibleShot;
+		nt::NetworkTableEntry mShuffleboardSuggestedHoodAngle;
+		nt::NetworkTableEntry mShuffleboardSuggestedSpeed;
+		nt::NetworkTableEntry mShuffleboardTx;
+		nt::NetworkTableEntry mShuffleboardTv;
 
 	public:
 		Limelight();

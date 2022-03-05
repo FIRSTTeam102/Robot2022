@@ -56,7 +56,6 @@ void Shooter::setShooter(double speed, bool useRpm = false) {
 
 		// RPM to percent output
 		mSpeed = speed / ShooterConstants::kMaxRpm;
-		printf("%f\n", speed);
 	}
 	mIsRunning = true;
 }

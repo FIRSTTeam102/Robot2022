@@ -34,10 +34,10 @@ namespace SwerveDriveConstants {
 	const int kBLEnc = 3;
 
 	// Calibration Values
-	const int kFLOffset = 603;
-	const int kFROffset = 415;
-	const int kBROffset = 2672;
-	const int kBLOffset = 1156;
+	const int kFLOffset = 589;
+	const int kFROffset = 400;
+	const int kBROffset = 2678;
+	const int kBLOffset = 1179;
 
 	const double kMaxSpeed = 1.00;
 
@@ -66,7 +66,7 @@ namespace IntakeConstants {
 	const int kArmSolenoidBackward = 4;
 
 	// Speeds
-	const double kRollerSpeed = 0.5;
+	const double kRollerSpeed = 0.75;
 }
 
 namespace IndexerConstants {
@@ -116,13 +116,23 @@ namespace HardcodedShots {
 	constexpr float kTarmacLowerSpeedRPM = 1000;
 	constexpr float kTarmacUpperSpeedRPM = 3000;
 #else
-	constexpr float kTarmacLowerSpeedRPM = 3000; // lower hub
+	constexpr float kTarmacLowerSpeedRPM = 1800; // lower hub
 	constexpr float kTarmacUpperSpeedRPM = 5920; // upper hub
 #endif
 
 	constexpr float kTarmacLowerSpeedPercent = kTarmacLowerSpeedRPM / ShooterConstants::kMaxRpm;
 	constexpr float kTarmacUpperSpeedPercent = kTarmacUpperSpeedRPM / ShooterConstants::kMaxRpm;
 
-	const double kTarmacLowerAngle = 65;
+	const double kTarmacLowerAngle = 75;
 	const double kTarmacUpperAngle = 85;
+}
+
+namespace LimelightConstants {
+	const double h = 61; // Height of limelight to target
+	const double ay = 31.4; // Angle of limelight to target
+	const double de = 20; // Distance error
+	const double kP = 0.0238; // tx multiplier
+	const double kMinCommand = 0.35; // Yaw calculation deritive term
+
+	const double kMaxDistance = 145; // Maximum distance that shooter can shoot from in inches, used by Shuffleboard
 }

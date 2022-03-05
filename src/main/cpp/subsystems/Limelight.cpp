@@ -2,18 +2,25 @@
 
 #include <frc/smartdashboard/SmartDashboard.h>
 
-
 Limelight::Limelight() : m_LimelightHasTarget(false) {
 	SetName("Limelight");
 	SetSubsystem("Limelight");
-	Kp = 0.0238;
-	min_command = 0.35f;
 	table->PutNumber("ledMode", 0);
 	table->PutNumber("pipeline", 0);
+
+	// Shuffleboard
+	frc::ShuffleboardLayout& layout = frc::Shuffleboard::GetTab("Teleop").GetLayout("Limelight", frc::BuiltInLayouts::kList);
+
+	mShuffleboardDistance = layout.Add("Distance (in)", 0.0).GetEntry();
+	mShuffleboardPossibleShot = layout.Add("Possible shot", false).GetEntry();
+	mShuffleboardSuggestedHoodAngle = layout.Add("Calculated hood angle", 0.0).GetEntry();
+	mShuffleboardSuggestedSpeed = layout.Add("Calculated speed (RPM)", 0.0).GetEntry();
+	mShuffleboardTx = layout.Add("Horizontal degrees (tx)", 0.0).GetEntry();
+	mShuffleboardTv = layout.Add("Sees target (tv)", false).GetEntry();
 }
 
 double Limelight::calculateShootAngle() {
-	ad = ay + ty;
+	ad = LimelightConstants::ay + ty;
 	return ad;
 }
 
@@ -23,7 +30,7 @@ double Limelight::convertShootAngletoRadians() {
 }
 
 double Limelight::calculateShootDistance() {
-	d = (h / tan(ar)) + de;
+	d = (LimelightConstants::h / tan(ar)) + LimelightConstants::de;
 	return d;
 }
 
@@ -43,18 +50,26 @@ void Limelight::Periodic() {
 	calculateShootAngle();
 	convertShootAngletoRadians();
 	calculateShootDistance();
+
+	mShuffleboardDistance.SetDouble(d);
+	mShuffleboardPossibleShot.SetBoolean(tv > 0 && d <= LimelightConstants::kMaxDistance);
+	mShuffleboardSuggestedHoodAngle.SetDouble(getServoAngle());
+	mShuffleboardSuggestedSpeed.SetDouble(getShootSpeed());
+	mShuffleboardTx.SetDouble(tx);
+	mShuffleboardTv.SetBoolean(tv > 0);
+
 	// printf("Angle from target in degrees %f\n", ad);
 	// printf("Angle from target in radians %f\n", ar);
-	printf("Distance %f, Hood Angle %f\n", d, hoodAngle);
+	// printf("Distance %f, Hood Angle %f\n", d, hoodAngle);
 
 	if (m_LimelightHasTarget == true) {
 		steering_adjust = 0.0f;
 		if (tx < -1.0) { // Target is to the left of the robot, robot is to the right of the target -> robot must turn left
 			// steering_adjust = must be negative
-			steering_adjust = Kp * tx - min_command;
+			steering_adjust = LimelightConstants::kP * tx - LimelightConstants::kMinCommand;
 		} else if (tx > 1.0) { // Target is to the right of the robot, robot is to the left of the target -> turn right
 			// steering_adjust = must be positive
-			steering_adjust = Kp * tx + min_command;
+			steering_adjust = LimelightConstants::kP * tx + LimelightConstants::kMinCommand;
 		}
 		// printf("Limelight rotation adjustment %f %f\n", steering_adjust, tx);
 	}
