@@ -6,10 +6,10 @@ AimbotParallel::AimbotParallel(Limelight *pLimelight, Shooter *pShooter, Shooter
 	AddCommands(StartShooter(pShooter, pLimelight, true), SetHoodAngle(pShooterHood, pLimelight));
 }
 
-void AimbotParallel::Initialize() {
-	Lights::GetInstance()->setMode(Lights::kLimelight);
-}
+// void AimbotParallel::Initialize() {
+// 	Lights::GetInstance()->setMode(Lights::kLimelight);
+// }
 
-void AimbotParallel::End(bool interrupted) {
-	Lights::GetInstance()->setMode(Lights::kDefault);
-}
+// void AimbotParallel::End(bool interrupted) {
+// 	Lights::GetInstance()->setMode(Lights::kDefault);
+// }
