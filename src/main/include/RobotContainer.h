@@ -130,5 +130,5 @@ class RobotContainer {
 
 		Limelight mLimelight;
 		AimbotParallel mLimelightShooter{&mLimelight, &mShooter, &mShooterHood};
-		YawToTarget mYawToTarget{&mLimelight, &mSwerveDrive};
+		YawToTarget mYawToTarget{&mLimelight, &mSwerveDrive, &mDriverController};
 };

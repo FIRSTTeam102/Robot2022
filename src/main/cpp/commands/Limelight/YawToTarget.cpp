@@ -1,7 +1,7 @@
 #include "commands/Limelight/YawToTarget.h"
 
 
-YawToTarget::YawToTarget(Limelight *pLimelight, SwerveDrive *pSwerveDrive) : mpLimelight(pLimelight), mpSwerveDrive(pSwerveDrive) {
+YawToTarget::YawToTarget(Limelight *pLimelight, SwerveDrive *pSwerveDrive, frc::XboxController *pDriverController) : mpLimelight(pLimelight), mpSwerveDrive(pSwerveDrive), mpDriverController{pDriverController} {
 	SetName("YawToTarget");
 	AddRequirements(pSwerveDrive);
 }
@@ -14,13 +14,14 @@ void YawToTarget::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void YawToTarget::Execute() {
 	// printf("Limelight Rotation Adjusting \n");
-	mpSwerveDrive->vectorSwerve(0.0, 0.0, mpLimelight->getRotation());
+	// mpSwerveDrive->vectorSwerve(0.0, 0.0, mpLimelight->getRotation());
+	mpSwerveDrive->vectorSwerve(mpSwerveDrive->fixInput(mpDriverController->GetLeftX()), mpSwerveDrive->fixInput(-mpDriverController->GetLeftY()), mpLimelight->getRotation());
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool YawToTarget::IsFinished() {
-	return false;
 	// return mpLimelight->Check();
+	return false;
 }
 
 // Called once after isFinished returns true
