@@ -16,6 +16,12 @@
 const int kPneumaticHub = 1;
 const int kPowerDistributionHub = 2;
 
+enum MotorDirection {
+	kOff,
+	kForward,
+	kReverse
+};
+
 namespace SwerveDriveConstants {
 	// Motor ports
 	const int kFLDrive = 21;
@@ -42,6 +48,13 @@ namespace SwerveDriveConstants {
 	const double kMaxSpeed = 1.00;
 
 	const double kDeadzone = 0.1;
+
+	// Motor Max Speeds
+	const double kFLMaxSpeed = 490;
+	const double kFRMaxSpeed = 507;
+	const double kBRMaxSpeed = 494;
+	const double kBLMaxSpeed = 513;
+	const double kSlowestSpeed = kFLMaxSpeed;
 
 	// const double kMaxMotorSpeed = 5000.0; // this is in RPM
 	// // in inches

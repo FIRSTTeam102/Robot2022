@@ -12,7 +12,7 @@
 #include <frc2/command/ParallelCommandGroup.h>
 #include <frc2/command/button/Button.h>
 
-#include "commands/AutonomousCommand.h"
+#include "commands/Autonomous/MainAutonomous.h"
 #include "commands/Climber/Climb.h"
 #include "commands/Indexer/Backward.h"
 #include "commands/Indexer/Forward.h"
@@ -89,7 +89,6 @@ class RobotContainer {
 
 		frc::SendableChooser<frc2::Command*> mChooser;
 
-		AutonomousCommand mAutonomousCommand;
 		static RobotContainer* mRobotContainer;
 
 		void ConfigureButtonBindings();

@@ -1,6 +1,6 @@
 #include "subsystems/SwerveWheel.h"
 
-SwerveWheel::SwerveWheel(int drivePort, int turnPort, int encPort, int encOffset) : mDriveMotor{drivePort}, mTurnMotor{turnPort}, mEnc{encPort}, mAngleOffset{encOffset} {
+SwerveWheel::SwerveWheel(int drivePort, int turnPort, int encPort, int encOffset, double maxSpeed) : mDriveMotor{drivePort}, mTurnMotor{turnPort}, mEnc{encPort}, mAngleOffset{encOffset}, mMaxSpeed{maxSpeed} {
 	SetName("SwerveWheel");
 	SetSubsystem("SwerveWheel");
 	mWheelNum = encPort + 1;
@@ -14,6 +14,7 @@ void SwerveWheel::setAngle(double angle) {
 }
 
 void SwerveWheel::setSpeed(double speed) {
+	speed *= SwerveDriveConstants::kSlowestSpeed / mMaxSpeed;
 	if (!inverted) {
 		mDriveMotor.Set(TalonSRXControlMode::PercentOutput, speed);
 	} else {

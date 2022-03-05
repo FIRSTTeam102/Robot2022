@@ -6,12 +6,13 @@
 
 #include "subsystems/Intake.h"
 
-class ArmToggle : public frc2::CommandHelper<frc2::InstantCommand, ArmToggle> {
+class SetArm : public frc2::CommandHelper<frc2::InstantCommand, SetArm> {
 	public:
-		ArmToggle(Intake* pIntake);
+		SetArm(Intake* pIntake, frc::DoubleSolenoid::Value state);
 
 		void Initialize() override;
 
 	private:
 		Intake* mpIntake;
+		frc::DoubleSolenoid::Value mState;
 };

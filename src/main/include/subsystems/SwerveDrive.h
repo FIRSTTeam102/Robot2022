@@ -14,6 +14,9 @@
 class SwerveDrive : public frc2::SubsystemBase {
 	public:
 		SwerveDrive(frc::XboxController *pDriverController);
+		void setController(frc::XboxController *pDriverController) {
+			mpDriverController = pDriverController;
+		}
 		double fixInput(double s, bool square = true) {
 			if (square) s = std::copysign(s * s, s);
 
@@ -26,6 +29,8 @@ class SwerveDrive : public frc2::SubsystemBase {
 		void controllerSwerve();
 		void vectorSwerve(double leftX, double leftY, double rightX, int offset = 0);
 		void autoDrive(double angle, double speed);
+		void setAngles(double angle);
+		void setSpeeds(double speed);
 		void stopDrive();
 		void changeOrientation();
 		void resetGyro();

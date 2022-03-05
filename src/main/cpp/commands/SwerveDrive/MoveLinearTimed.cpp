@@ -3,12 +3,12 @@
 MoveLinearTimed::MoveLinearTimed(SwerveDrive* pSwerveDrive, double speed, double time, double angle) : mpSwerveDrive{pSwerveDrive}, mSpeed{speed}, mAngle{angle}, mTicks{(int) (time * 50.0)} {
 	// Use addRequirements() here to declare subsystem dependencies.
 	AddRequirements(pSwerveDrive);
-	mCounter = 0;
 }
 
 // Called when the command is initially scheduled.
 void MoveLinearTimed::Initialize() {
 	mpSwerveDrive->setAutoState(true);
+	mCounter = 0;
 }
 
 // Called repeatedly when this Command is scheduled to run
