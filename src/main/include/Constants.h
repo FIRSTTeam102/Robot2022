@@ -84,7 +84,6 @@ namespace ShooterConstants {
 	// const float kSlowSpeed = 0.50;
 	// const float kMedSpeed = 0.75;
 	// const float kFastSpeed = 1.0;
-
 	const float kRPMSlowSpeed = 4000; // Close Tarmac Speed, 45 inches away from target
 	const float kRPMMedSpeed = 5000; // Back Tarmac Speed, 70 inches away from target
 	const float kRPMFastSpeed = 6380; // Launchpad Speed, 195 inches away from target
@@ -97,7 +96,6 @@ namespace ShooterConstants {
 	const double kP = 0.22; // Proportional gain
 
 	// Hood/Actuator Data 
-	
 	const double kHoodMaxAngle = 87;
 	const double kHoodMinAngle = 62;
 	const double kInnerR = 12.239;
