@@ -1,8 +1,8 @@
 #include "subsystems/Shooter.h"
 
 Shooter::Shooter() : mShooterMotor{ShooterConstants::kShooterMotor} {
-    SetName("Shooter");
-    SetSubsystem("Shooter");
+	SetName("Shooter");
+	SetSubsystem("Shooter");
 
 	// Shooter motor setup
 	mShooterMotor.ConfigFactoryDefault(); // resets all settings
@@ -61,7 +61,7 @@ void Shooter::setShooter(double speed, bool useRpm = false) {
 }
 
 void Shooter::stopShooter() {
-    mSpeed = 0.0;
+	mSpeed = 0.0;
 	mShooterMotor.Set(ControlMode::PercentOutput, 0.0);
 	mIsRunning = false;
 }

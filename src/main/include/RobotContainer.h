@@ -3,6 +3,9 @@
 #include <frc/DriverStation.h>
 #include <frc/Joystick.h>
 #include <frc/XboxController.h>
+#include <frc/shuffleboard/Shuffleboard.h>
+#include <frc/shuffleboard/ShuffleboardLayout.h>
+#include <frc/shuffleboard/ShuffleboardTab.h>
 #include <frc/smartdashboard/SendableChooser.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/Command.h>
@@ -33,6 +36,7 @@
 #include "subsystems/Intake.h"
 #include "subsystems/Limelight.h"
 #include "subsystems/Shooter.h"
+#include "subsystems/ShooterHood.h"
 #include "subsystems/SwerveDrive.h"
 
 class RobotContainer {
@@ -85,13 +89,12 @@ class RobotContainer {
 
 		frc::SendableChooser<frc2::Command*> mChooser;
 
-		// AutonomousCommand mAutonomousCommand;
 		static RobotContainer* mRobotContainer;
 
 		void ConfigureButtonBindings();
 
 		// Subsystems and commands
-		SwerveDrive mSwerveDrive;
+		SwerveDrive mSwerveDrive{&mDriverController};
 		RunSwerveDrive mRunSwerveDrive{&mSwerveDrive};
 		FlipDrive mFlipMode{&mSwerveDrive};
 		ResetGyro mResetGyro{&mSwerveDrive};

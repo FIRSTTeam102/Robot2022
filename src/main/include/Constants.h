@@ -47,6 +47,8 @@ namespace SwerveDriveConstants {
 
 	const double kMaxSpeed = 1.00;
 
+	const double kDeadzone = 0.1;
+
 	// Motor Max Speeds
 	const double kFLMaxSpeed = 490;
 	const double kFRMaxSpeed = 507;

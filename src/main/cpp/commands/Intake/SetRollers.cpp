@@ -6,10 +6,14 @@ SetRollers::SetRollers(Intake* pIntake, MotorDirection targetState) : mpIntake{p
 
 // Called when the command is initially scheduled.
 void SetRollers::Initialize() {
-	if (!mTargetState)
-		mpIntake->stopRollers();
-	else if (mTargetState == MotorDirection::kForward)
-		mpIntake->startRollers();
-	else
-		mpIntake->startReverseRollers();
+	switch (mTargetState) {
+		case kOff:
+			mpIntake->stopRollers();
+			break;
+		case kForward:
+			mpIntake->startRollers();
+			break;
+		case kReverse:
+			mpIntake->startReverseRollers();
+	}
 }

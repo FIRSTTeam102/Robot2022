@@ -2,7 +2,7 @@
 
 #include <frc/smartdashboard/SmartDashboard.h>
 
-SwerveDrive::SwerveDrive() : mWheelFL{SwerveDriveConstants::kFLDrive, SwerveDriveConstants::kFLTurn, SwerveDriveConstants::kFLEnc, SwerveDriveConstants::kFLOffset, SwerveDriveConstants::kFLMaxSpeed}, mWheelFR{SwerveDriveConstants::kFRDrive, SwerveDriveConstants::kFRTurn, SwerveDriveConstants::kFREnc, SwerveDriveConstants::kFROffset, SwerveDriveConstants::kFRMaxSpeed}, mWheelBR{SwerveDriveConstants::kBRDrive, SwerveDriveConstants::kBRTurn, SwerveDriveConstants::kBREnc, SwerveDriveConstants::kBROffset, SwerveDriveConstants::kBRMaxSpeed}, mWheelBL{SwerveDriveConstants::kBLDrive, SwerveDriveConstants::kBLTurn, SwerveDriveConstants::kBLEnc, SwerveDriveConstants::kBLOffset, SwerveDriveConstants::kBLMaxSpeed} {
+SwerveDrive::SwerveDrive(frc::XboxController *pDriverController) : mpDriverController{pDriverController}, mWheelFL{SwerveDriveConstants::kFLDrive, SwerveDriveConstants::kFLTurn, SwerveDriveConstants::kFLEnc, SwerveDriveConstants::kFLOffset, SwerveDriveConstants::kFLMaxSpeed}, mWheelFR{SwerveDriveConstants::kFRDrive, SwerveDriveConstants::kFRTurn, SwerveDriveConstants::kFREnc, SwerveDriveConstants::kFROffset, SwerveDriveConstants::kFRMaxSpeed}, mWheelBR{SwerveDriveConstants::kBRDrive, SwerveDriveConstants::kBRTurn, SwerveDriveConstants::kBREnc, SwerveDriveConstants::kBROffset, SwerveDriveConstants::kBRMaxSpeed}, mWheelBL{SwerveDriveConstants::kBLDrive, SwerveDriveConstants::kBLTurn, SwerveDriveConstants::kBLEnc, SwerveDriveConstants::kBLOffset, SwerveDriveConstants::kBLMaxSpeed} {
 	SetName("SwerveDrive");
 	SetSubsystem("SwerveDrive");
 	mIsFieldOriented = false;
@@ -63,7 +63,7 @@ void SwerveDrive::controllerSwerve() {
 	} else {
 		offset = 0;
 	}
-	vectorSwerve(mpDriverController->GetLeftX(), -mpDriverController->GetLeftY(), mpDriverController->GetRightX(), offset);
+	vectorSwerve(fixInput(mpDriverController->GetLeftX()), fixInput(-mpDriverController->GetLeftY()), fixInput(mpDriverController->GetRightX()), offset);
 }
 
 void SwerveDrive::vectorSwerve(double leftX, double leftY, double rightX, int offset) {

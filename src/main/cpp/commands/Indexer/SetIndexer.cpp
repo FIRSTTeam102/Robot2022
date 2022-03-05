@@ -7,10 +7,15 @@ SetIndexer::SetIndexer(Indexer* pIndexer, MotorDirection targetState) : mpIndexe
 
 // Called when the command is initially scheduled.
 void SetIndexer::Initialize() {
-	if (!mTargetState)
-		mpIndexer->stopIndexer();
-	else if (mTargetState == MotorDirection::kForward)
-		mpIndexer->indexUp();
-	else
-		mpIndexer->indexDown();
+	switch (mTargetState) {
+		case kOff:
+			mpIndexer->stopIndexer();
+			break;
+		case kForward:
+			mpIndexer->indexUp();
+			break;
+		case kReverse:
+			mpIndexer->indexDown();
+			break;
+	}
 }
