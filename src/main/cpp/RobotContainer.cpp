@@ -2,13 +2,15 @@
 
 RobotContainer* RobotContainer::mRobotContainer = NULL;
 
-RobotContainer::RobotContainer() : mAutonomousCommand() {
+RobotContainer::RobotContainer() {
+	mSwerveDrive.setController(&mDriverController);
 	mSwerveDrive.SetDefaultCommand(std::move(mRunSwerveDrive));
 
 	ConfigureButtonBindings();
 
-	mChooser.SetDefaultOption("Default", new AutonomousCommand());
-	frc::Shuffleboard::GetTab("Autonomous").Add("Mode", &mChooser);
+	mChooser.SetDefaultOption("Autonomous Command", new MainAutonomous(&mIndexer, &mIntake, &mLimelight, &mShooter, &mShooterHood, &mSwerveDrive));
+
+	frc::SmartDashboard::PutData("Auto Mode", &mChooser);
 
 	frc::DriverStation::SilenceJoystickConnectionWarning(true);
 }

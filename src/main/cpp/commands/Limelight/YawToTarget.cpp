@@ -26,5 +26,6 @@ bool YawToTarget::IsFinished() {
 
 // Called once after isFinished returns true
 void YawToTarget::End(bool interrupted) {
+	mpSwerveDrive->stopDrive();
 	Lights::GetInstance()->setMode(Lights::kDefault);
 }

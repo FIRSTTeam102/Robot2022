@@ -18,8 +18,8 @@ class SetHoodAngle : public frc2::CommandHelper<frc2::CommandBase, SetHoodAngle>
 		void End(bool interrupted) override;
 
 		bool IsFinished() override;
-
 	private:
+		double mSetting;
 		double mDegrees;
 		ShooterHood* mpShooterHood;
 		Limelight* mpLimelight;
