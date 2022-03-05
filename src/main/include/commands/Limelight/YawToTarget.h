@@ -10,6 +10,7 @@
 class YawToTarget : public frc2::CommandHelper<frc2::CommandBase, YawToTarget> {
 	public:
 		explicit YawToTarget(Limelight *pLimelight, SwerveDrive *pSwerveDrive, frc::XboxController *pDriverController);
+		explicit YawToTarget(Limelight *pLimelight, SwerveDrive *pSwerveDrive);
 
 		void Initialize() override;
 		void Execute() override;

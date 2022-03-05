@@ -101,7 +101,7 @@ namespace ShooterConstants {
 	// Closed loop control
 	const int kTimeoutMs = 30;
 	const double kD = 0.0; // Derivative gain
-	const double kF = 0.04736; // Feed forward gain
+	const double kF = 0.049588; // Feed forward gain
 	const double kI = 0.0; // Integral gain
 	const double kP = 0.22; // Proportional gain
 }

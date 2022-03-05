@@ -177,6 +177,5 @@ double Limelight::getServoAngle() {
 	} else {
 		hoodAngle = 85.00;
 	}
-	printf("Distance %f, Hood Angle %f\n", d, hoodAngle);
 	return hoodAngle;
 }
