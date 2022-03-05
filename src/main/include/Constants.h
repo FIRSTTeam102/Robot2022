@@ -75,8 +75,10 @@ namespace IntakeConstants {
 	const int kRollerMotor = 11;
 	const int kArmSolenoidForward = 3;
 	const int kArmSolenoidBackward = 4;
+
 	// Speeds
 	const double kRollerSpeed = 0.7;
+	const double kRollerSpeed = 0.75;
 }
 
 namespace IndexerConstants {
@@ -93,26 +95,7 @@ namespace ShooterConstants {
 	const int kShooterMotor = 9;
 
 	// Motor constants
-	const double kMaxRpm = 6380;
-
-	// Speeds
-#ifdef PRACTICE
-	const float kSlowSpeed = 0.4;
-	const float kMedSpeed = 0.5;
-	const float kFastSpeed = 0.6;
-
-	const float kRPMSlowSpeed = 1000;
-	const float kRPMMedSpeed = 2000;
-	const float kRPMFastSpeed = 3000;
-#else
-	const float kSlowSpeed = 0.75;
-	const float kMedSpeed = 0.875;
-	const float kFastSpeed = 1.0;
-
-	const float kRPMSlowSpeed = 4000; // Close tarmac speed, 45 inches away from target
-	const float kRPMMedSpeed = 5000; // Back tarmac speed, 70 inches away from target
-	const float kRPMFastSpeed = 6380; // Launchpad speed, 195 inches away from target
-#endif
+	constexpr double kMaxRpm = 6380;
 
 	// Closed loop control
 	const int kTimeoutMs = 30;
@@ -138,4 +121,30 @@ namespace ShooterHoodConstants {
 
 	const double kActuatorUpperBound = 0.95;
 	const double kActuatorLowerBound = -0.95;
+}
+
+namespace HardcodedShots {
+#ifdef PRACTICE
+	constexpr float kTarmacLowerSpeedRPM = 1000;
+	constexpr float kTarmacUpperSpeedRPM = 3000;
+#else
+	constexpr float kTarmacLowerSpeedRPM = 1800; // lower hub
+	constexpr float kTarmacUpperSpeedRPM = 5920; // upper hub
+#endif
+
+	constexpr float kTarmacLowerSpeedPercent = kTarmacLowerSpeedRPM / ShooterConstants::kMaxRpm;
+	constexpr float kTarmacUpperSpeedPercent = kTarmacUpperSpeedRPM / ShooterConstants::kMaxRpm;
+
+	const double kTarmacLowerAngle = 75;
+	const double kTarmacUpperAngle = 85;
+}
+
+namespace LimelightConstants {
+	const double h = 61; // Height of limelight to target
+	const double ay = 31.4; // Angle of limelight to target
+	const double de = 20; // Distance error
+	const double kP = 0.0238; // tx multiplier
+	const double kMinCommand = 0.35; // Yaw calculation deritive term
+
+	const double kMaxDistance = 145; // Maximum distance that shooter can shoot from in inches, used by Shuffleboard
 }

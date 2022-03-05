@@ -3,6 +3,7 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
+#include "subsystems/Lights.h"
 #include "subsystems/Limelight.h"
 #include "subsystems/SwerveDrive.h"
 
