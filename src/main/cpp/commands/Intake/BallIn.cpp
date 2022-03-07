@@ -31,5 +31,5 @@ void BallIn::End(bool interrupted) {
 	mpIntake->stopRollers();
 	mpIntake->raiseIntakeArm();
 	mpIndexer->stopIndexer();
-	Lights::GetInstance()->setMode(Lights::Mode::kDefault);
+	Lights::GetInstance()->setDefault();
 }

@@ -23,5 +23,5 @@ bool Climb::IsFinished() {
 // Called once after isFinished returns true
 void Climb::End(bool interrupted) {
 	mpClimber->armsDown();
-	Lights::GetInstance()->setMode(Lights::Mode::kDefault);
+	Lights::GetInstance()->setDefault();
 }

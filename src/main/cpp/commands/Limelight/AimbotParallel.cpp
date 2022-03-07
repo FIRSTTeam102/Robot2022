@@ -7,9 +7,9 @@ AimbotParallel::AimbotParallel(Limelight *pLimelight, Shooter *pShooter, Shooter
 }
 
 // void AimbotParallel::Initialize() {
-// 	Lights::GetInstance()->setMode(Lights::kLimelight);
+// 	Lights::GetInstance()->setMode(Lights::Mode::kLimelight);
 // }
 
 // void AimbotParallel::End(bool interrupted) {
-// 	Lights::GetInstance()->setMode(Lights::kDefault);
+// 	Lights::GetInstance()->setDefault();
 // }

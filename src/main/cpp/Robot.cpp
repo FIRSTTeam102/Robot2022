@@ -59,7 +59,7 @@ void Robot::TeleopInit() {
 		mAutonomousCommand = nullptr;
 	}
 
-	Lights::GetInstance()->setMode(Lights::Mode::kDefault);
+	Lights::GetInstance()->setMode(Lights::Mode::kTeleop);
 }
 
 /**

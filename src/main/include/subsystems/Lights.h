@@ -15,7 +15,7 @@ class Lights : public frc2::SubsystemBase {
 	public:
 		enum Mode {
 			kOff = 0,
-			kDefault = 1,
+			kTeleop = 1,
 			kDisabled = 2,
 			kAuto = 3,
 			kIntake = 4,
@@ -29,6 +29,7 @@ class Lights : public frc2::SubsystemBase {
 		static Lights* GetInstance();
 		void Periodic() override;
 		void setMode(Mode mode);
+		void setDefault();
 
 	private:
 		Lights();

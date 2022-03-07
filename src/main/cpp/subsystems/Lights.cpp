@@ -43,3 +43,15 @@ void Lights::setMode(Mode mode) {
 #endif
 	printf("Set light mode to: %s\n", buffer.data());
 }
+
+void Lights::setDefault() {
+	if (frc::DriverStation::IsAutonomous()) {
+		setMode(Mode::kAutonomous);
+	} else if (frc::DriverStation::IsTeleop()) {
+		setMode(Mode::kTeleop);
+	} else if (frc::DriverStation::IsDisabled()) {
+		setMode(Mode::kDisabled);
+	} else {
+		setMode(Mode::kOff);
+	}
+}
