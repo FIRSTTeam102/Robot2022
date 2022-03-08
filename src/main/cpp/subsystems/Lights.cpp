@@ -46,7 +46,7 @@ void Lights::setMode(Mode mode) {
 
 void Lights::setDefault() {
 	if (frc::DriverStation::IsAutonomous()) {
-		setMode(Mode::kAutonomous);
+		setMode(Mode::kAuto);
 	} else if (frc::DriverStation::IsTeleop()) {
 		setMode(Mode::kTeleop);
 	} else if (frc::DriverStation::IsDisabled()) {
