@@ -5,9 +5,9 @@
 
 #include "subsystems/SwerveDrive.h"
 
-class FlipDrive : public frc2::CommandHelper<frc2::CommandBase, FlipDrive> {
+class ToggleDriveMode : public frc2::CommandHelper<frc2::CommandBase, ToggleDriveMode> {
 	public:
-		explicit FlipDrive(SwerveDrive* pSwerveDrive);
+		explicit ToggleDriveMode(SwerveDrive* pSwerveDrive);
 
 		void Initialize() override;
 		void Execute() override;

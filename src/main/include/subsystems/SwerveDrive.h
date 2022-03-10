@@ -3,7 +3,9 @@
 #include <AHRS.h>
 #include <frc/XboxController.h>
 #include <frc/drive/Vector2d.h>
+#include <frc/shuffleboard/Shuffleboard.h>
 #include <frc2/command/SubsystemBase.h>
+
 #include <cmath>
 
 #include "Constants.h"
@@ -40,7 +42,7 @@ class SwerveDrive : public frc2::SubsystemBase {
 
 		void Periodic() override;
 
-		// Static values 
+		// Static values
 
 		// static const double kWheelCircum = SwerveDriveConstants::kWheelDiameter * M_PI;
 		// static const double kDriveCircum = SwerveDriveConstants::kDriveDiameter * M_PI;
@@ -60,6 +62,8 @@ class SwerveDrive : public frc2::SubsystemBase {
 
 		frc::XboxController *mpDriverController;
 		AHRS mGyro{frc::SPI::Port::kMXP};
+
+		nt::NetworkTableEntry mShuffleboardFieldOriented;
 
 		SwerveWheel mWheelFL;
 		SwerveWheel mWheelFR;

@@ -1,7 +1,5 @@
 #include "subsystems/Limelight.h"
 
-#include <frc/smartdashboard/SmartDashboard.h>
-
 Limelight::Limelight() : m_LimelightHasTarget(false) {
 	SetName("Limelight");
 	SetSubsystem("Limelight");

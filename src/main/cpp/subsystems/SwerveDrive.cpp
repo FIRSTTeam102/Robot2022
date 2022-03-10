@@ -1,13 +1,14 @@
 #include "subsystems/SwerveDrive.h"
 
-#include <frc/smartdashboard/SmartDashboard.h>
-
 SwerveDrive::SwerveDrive(frc::XboxController *pDriverController) : mpDriverController{pDriverController}, mWheelFL{SwerveDriveConstants::kFLDrive, SwerveDriveConstants::kFLTurn, SwerveDriveConstants::kFLEnc, SwerveDriveConstants::kFLOffset, SwerveDriveConstants::kFLMaxSpeed}, mWheelFR{SwerveDriveConstants::kFRDrive, SwerveDriveConstants::kFRTurn, SwerveDriveConstants::kFREnc, SwerveDriveConstants::kFROffset, SwerveDriveConstants::kFRMaxSpeed}, mWheelBR{SwerveDriveConstants::kBRDrive, SwerveDriveConstants::kBRTurn, SwerveDriveConstants::kBREnc, SwerveDriveConstants::kBROffset, SwerveDriveConstants::kBRMaxSpeed}, mWheelBL{SwerveDriveConstants::kBLDrive, SwerveDriveConstants::kBLTurn, SwerveDriveConstants::kBLEnc, SwerveDriveConstants::kBLOffset, SwerveDriveConstants::kBLMaxSpeed} {
 	SetName("SwerveDrive");
 	SetSubsystem("SwerveDrive");
 	mIsFieldOriented = false;
 	mAutoState = false;
 	mGyro.Calibrate();
+
+	// Shuffleboard
+	mShuffleboardFieldOriented = frc::Shuffleboard::GetTab("Teleop").Add("Field oriented", mIsFieldOriented).GetEntry();
 }
 
 double SwerveDrive::angleCalc(double x, double y) {
@@ -126,8 +127,10 @@ void SwerveDrive::stopDrive() {
 }
 
 void SwerveDrive::changeOrientation() {
-	mGyro.Reset();
+	// mGyro.Reset();
 	mIsFieldOriented = !mIsFieldOriented;
+
+	mShuffleboardFieldOriented.SetBoolean(mIsFieldOriented);
 }
 
 void SwerveDrive::resetGyro() {

@@ -32,14 +32,14 @@ RobotContainer* RobotContainer::GetInstance() {
 
 void RobotContainer::ConfigureButtonBindings() {
 	/****** Driver ******/
-	mDriverButtonA.WhenPressed(&mFlipMode);
-	// mDriverButtonRMenu.WhenPressed(&mResetGyro);
+	mDriverButtonA.WhenPressed(&mToggleDriveMode);
+	mDriverButtonB.WhenPressed(&mResetGyro);
 
 	mDriverLT.WhenHeld(&mYawToTarget);
 
 	mDriverRT.WhenHeld(&mIndexUpCommand);
 	mDriverButtonRB.WhenHeld(&mIndexDownCommand);
-	
+
 	/****** Operator ******/
 	mOperatorButtonA.WhenPressed(&mTarmacLower);
 	mOperatorButtonB.WhenPressed(&mTarmacUpper);
