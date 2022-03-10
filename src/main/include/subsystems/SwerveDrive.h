@@ -11,14 +11,10 @@
 #include "Constants.h"
 #include "subsystems/SwerveWheel.h"
 
-// Use Field Oriented Drive with the Gyro Sensor
-
 class SwerveDrive : public frc2::SubsystemBase {
 	public:
-		SwerveDrive(frc::XboxController *pDriverController);
-		void setController(frc::XboxController *pDriverController) {
-			mpDriverController = pDriverController;
-		}
+		SwerveDrive(frc::XboxController *pController);
+
 		double fixInput(double s, bool square = true) {
 			if (square) s = std::copysign(s * s, s);
 
@@ -27,18 +23,28 @@ class SwerveDrive : public frc2::SubsystemBase {
 			else
 				return s;
 		}
-		void testSwerve();
+
 		void controllerSwerve();
-		void vectorSwerve(double leftX, double leftY, double rightX, int offset = 0);
+		void vectorSwerve(double leftX, double leftY, double rightX, double offset = 0.0);
+
 		void autoDrive(double angle, double speed);
 		void setAngles(double angle);
 		void setSpeeds(double speed);
 		void stopDrive();
+
 		void changeOrientation();
+
 		void resetGyro();
-		double getGyroAngle();
-		void setAutoState(bool state);
-		bool getAutoState();
+		double getGyroAngle() {
+			return mGyroAngle;
+		}
+
+		void setAutoState(bool state) {
+			mAutoState = state;
+		}
+		bool getAutoState() {
+			return mAutoState;
+		}
 
 		void Periodic() override;
 
@@ -53,14 +59,11 @@ class SwerveDrive : public frc2::SubsystemBase {
 		double pythag(double x, double y);
 		double angleCalc(double x, double y);
 
-		int readOffset();
-
-		int angle;
 		double speed;
 		bool mIsFieldOriented;
 		bool mAutoState;
 
-		frc::XboxController *mpDriverController;
+		frc::XboxController* mpController;
 		AHRS mGyro{frc::SPI::Port::kMXP};
 
 		nt::NetworkTableEntry mShuffleboardFieldOriented;
@@ -72,11 +75,12 @@ class SwerveDrive : public frc2::SubsystemBase {
 
 		int targetEncoder[4];
 		float targetSpeed[4], turnMagnitude[4];
-		char rawOffset[10] = {0};
-		int offset = 0;
-		bool negativeOffset = false;
-		double gyroAngle;
+		// char rawOffset[10] = {0};
+		// bool negativeOffset = false;
 		frc::Vector2d mDriveVector;
 		frc::Vector2d mTurnVector;
 		frc::Vector2d mSumVector;
+
+		double mGyroAngle;
+		double mInitialGyroOffset;
 };

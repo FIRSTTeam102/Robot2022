@@ -3,7 +3,6 @@
 RobotContainer* RobotContainer::mRobotContainer = NULL;
 
 RobotContainer::RobotContainer() {
-	mSwerveDrive.setController(&mDriverController);
 	mSwerveDrive.SetDefaultCommand(std::move(mRunSwerveDrive));
 
 	ConfigureButtonBindings();

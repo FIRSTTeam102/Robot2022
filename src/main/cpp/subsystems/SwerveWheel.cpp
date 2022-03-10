@@ -15,11 +15,7 @@ void SwerveWheel::setAngle(double angle) {
 
 void SwerveWheel::setSpeed(double speed) {
 	speed *= SwerveDriveConstants::kSlowestSpeed / mMaxSpeed;
-	if (!inverted) {
-		mDriveMotor.Set(TalonSRXControlMode::PercentOutput, speed);
-	} else {
-		mDriveMotor.Set(TalonSRXControlMode::PercentOutput, -speed);
-	}
+	mDriveMotor.Set(TalonSRXControlMode::PercentOutput, inverted ? -speed : speed);
 }
 
 int SwerveWheel::circScale(int i) {
