@@ -16,6 +16,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    # Some libraries don't support building for desktop on Linux and it makes the build take much longer
+    - name: Locally disable building desktop version
+      run: sed -i "s/def includeDesktopSupport = true/def includeDesktopSupport = false/" "${GITHUB_WORKSPACE}/build.gradle"
+
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
