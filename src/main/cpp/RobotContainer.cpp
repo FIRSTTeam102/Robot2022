@@ -9,8 +9,16 @@ RobotContainer::RobotContainer() {
 	ConfigureButtonBindings();
 
 	mChooser.SetDefaultOption("Autonomous Command", new MainAutonomous(&mIndexer, &mIntake, &mLimelight, &mShooter, &mShooterHood, &mSwerveDrive));
-
 	frc::SmartDashboard::PutData("Auto Mode", &mChooser);
+
+	mCamera = frc::CameraServer::StartAutomaticCapture(0);
+	mCamera.SetFPS(30);
+	mCamera.SetResolution(854, 480);
+	frc::CameraServer::GetServer().SetSource(mCamera);
+	frc::Shuffleboard::GetTab("Teleop")
+		.Add("Camera", mCamera)
+		.WithWidget(frc::BuiltInWidgets::kCameraStream)
+		.WithSize(5, 3);
 
 	frc::DriverStation::SilenceJoystickConnectionWarning(true);
 }

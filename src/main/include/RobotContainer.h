@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cameraserver/CameraServer.h>
 #include <frc/DriverStation.h>
 #include <frc/Joystick.h>
 #include <frc/XboxController.h>
@@ -86,6 +87,8 @@ class RobotContainer {
 		frc2::Button mOperatorRightDPad{[&] { return (mOperatorController.GetPOV() == 90); }};
 		frc2::Button mOperatorDownDPad{[&] { return (mOperatorController.GetPOV() == 180); }};
 		frc2::Button mOperatorLeftDPad{[&] { return (mOperatorController.GetPOV() == 270); }};
+
+		cs::UsbCamera mCamera;
 
 		frc::SendableChooser<frc2::Command*> mChooser;
 
