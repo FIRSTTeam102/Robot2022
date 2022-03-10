@@ -69,7 +69,7 @@ void SwerveDrive::controllerSwerve() {
 void SwerveDrive::vectorSwerve(double leftX, double leftY, double rightX, int offset) {
 	mDriveVector.x = leftX;
 	mDriveVector.y = leftY;
-	mDriveVector.Rotate(360 - offset); // Factor in gyroscope value (subtract from 360 to go from counterclockwise to clockwise)
+	mDriveVector.Rotate(/*360 - */offset); // Factor in gyroscope value (subtract from 360 to go from counterclockwise to clockwise)
 	mTurnVector.x = rightX;
 	mTurnVector.y = rightX;
 	// printf("Turn speed: %f\n",mTurnVector.x);

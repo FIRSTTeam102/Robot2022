@@ -142,7 +142,7 @@ namespace HardcodedShots {
 
 namespace LimelightConstants {
 	const double h = 61; // Height of limelight to target
-	const double ay = 31.4; // Angle of limelight to target
+	const double ay = 29.8; // Angle of limelight to target
 	const double de = 20; // Distance error
 	const double kP = 0.0238; // tx multiplier
 	const double kMinCommand = 0.35; // Yaw calculation deritive term
