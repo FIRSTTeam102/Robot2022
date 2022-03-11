@@ -10,9 +10,10 @@ RobotContainer::RobotContainer() {
 	mChooser.SetDefaultOption("Autonomous Command", new MainAutonomous(&mIndexer, &mIntake, &mLimelight, &mShooter, &mShooterHood, &mSwerveDrive));
 	frc::SmartDashboard::PutData("Auto Mode", &mChooser);
 
-	mCamera = frc::CameraServer::StartAutomaticCapture(0);
+	// mCamera = frc::CameraServer::GetInstance()->StartAutomaticCapture(0);
+	mCamera = frc::CameraServer::StartAutomaticCapture();
 	mCamera.SetFPS(30);
-	mCamera.SetResolution(854, 480);
+	mCamera.SetResolution(640, 480);
 	frc::CameraServer::GetServer().SetSource(mCamera);
 	frc::Shuffleboard::GetTab("Teleop")
 		.Add("Camera", mCamera)

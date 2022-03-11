@@ -1,13 +1,13 @@
 #include "commands/Shooter/StartShooter.h"
 #include "RobotContainer.h"
 
-//create StartShooter with a hardcoded speed value
+// Create StartShooter with a hardcoded speed value
 StartShooter::StartShooter(Shooter* pShooter, double speed, bool useRpm) : mpShooter{pShooter}, mpLimelight{NULL}, mTargetSpeed{speed}, mUseRpm{useRpm} {
 	SetName("StartShooter");
 	AddRequirements(pShooter);
-
 }
-//create StartShooter using the limelight to determine the speed
+
+// Create StartShooter using the limelight to determine the speed
 StartShooter::StartShooter(Shooter* pShooter, Limelight* pLimelight, bool useRpm) : mpShooter{pShooter}, mpLimelight{pLimelight}, mTargetSpeed{0}, mUseRpm{useRpm} {
 	SetName("StartShooter");
 	AddRequirements(pShooter);
@@ -18,11 +18,13 @@ void StartShooter::Initialize() {
 	if (mpLimelight) mTargetSpeed = mpLimelight->getShootSpeed();
 	mSpeed = mpShooter->getSpeed(mUseRpm);
 
+	if (mSpeed == mTargetSpeed) End(true);
+
 	if (!mUseRpm) {
-		if (mSpeed < mTargetSpeed) mRamp = 0.2;
+		if (mSpeed <= mTargetSpeed) mRamp = 0.2;
 		else mRamp = -0.2;
 	} else {
-		if (mSpeed < mTargetSpeed) mRamp = 100.0;
+		if (mSpeed <= mTargetSpeed) mRamp = 100.0;
 		else mRamp = -100.0;
 	}
 
