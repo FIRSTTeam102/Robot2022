@@ -3,7 +3,9 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 #include <frc2/command/ParallelCommandGroup.h>
+#include <frc2/command/SequentialCommandGroup.h>
 
+// #include "commands/Shooter/ShootWithRumble.h"
 #include "commands/Shooter/StartShooter.h"
 #include "commands/ShooterHood/SetHoodAngle.h"
 #include "subsystems/Lights.h"

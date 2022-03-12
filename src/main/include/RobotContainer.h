@@ -11,6 +11,7 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/Command.h>
 #include <frc2/command/ParallelCommandGroup.h>
+#include <frc2/command/SequentialCommandGroup.h>
 #include <frc2/command/button/Button.h>
 
 #include "commands/Autonomous/MainAutonomous.h"
@@ -23,14 +24,15 @@
 #include "commands/Limelight/AimbotParallel.h"
 #include "commands/Limelight/YawToTarget.h"
 #include "commands/RumbleController.h"
+// #include "commands/Shooter/ShootWithRumble.h"
 #include "commands/Shooter/StartShooter.h"
 #include "commands/Shooter/StopShooter.h"
 #include "commands/ShooterHood/IncrementHoodAngle.h"
 #include "commands/ShooterHood/SetHoodAngle.h"
-#include "commands/SwerveDrive/ToggleDriveMode.h"
 #include "commands/SwerveDrive/MoveLinearTimed.h"
 #include "commands/SwerveDrive/ResetGyro.h"
 #include "commands/SwerveDrive/RunSwerveDrive.h"
+#include "commands/SwerveDrive/ToggleDriveMode.h"
 #include "commands/SwerveDrive/TurnDegreesGyro.h"
 #include "subsystems/Climber.h"
 #include "subsystems/Indexer.h"
@@ -133,4 +135,6 @@ class RobotContainer {
 		Limelight mLimelight;
 		AimbotParallel mLimelightShooter{&mLimelight, &mShooter, &mShooterHood};
 		YawToTarget mYawToTarget{&mLimelight, &mSwerveDrive, &mDriverController};
+
+		// frc2::SequentialCommandGroup mLimelightShooterRumble{mLimelightShooter, RumbleController(&mDriverController)};
 };

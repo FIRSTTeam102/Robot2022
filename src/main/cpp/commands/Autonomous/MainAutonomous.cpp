@@ -7,10 +7,10 @@ MainAutonomous::MainAutonomous(Indexer* pIndexer, Intake* pIntake, Limelight* pL
 		SetRollers(mpIntake, MotorDirection::kForward),
 		SetAnglesCommand(mpSwerve, -7),
 		frc2::WaitCommand(0.3_s),
-		SetSpeedsTimed(mpSwerve, 0.65, 0.80),
+		SetSpeedsTimed(mpSwerve, 0.65, 0.9),
 		frc2::WaitCommand(0.65_s),
 		SetRollers(mpIntake, MotorDirection::kOff),
-		TurnDegreesGyro(mpSwerve, 0.70, 160),
+		TurnDegreesGyro(mpSwerve, 0.70, 150),
 		// LM stuff when ready
 		// SetArm(mpIntake, frc::DoubleSolenoid::Value::kReverse),
 		MoveLinearTimed(mpSwerve, 0.75, 1.6),

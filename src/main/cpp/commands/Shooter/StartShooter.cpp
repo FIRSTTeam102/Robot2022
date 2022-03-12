@@ -29,6 +29,8 @@ void StartShooter::Initialize() {
 	}
 
 	printf("Shooting at %f\n", mTargetSpeed);
+
+	mpShooter->mShuffleboardReady.SetBoolean(false);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -48,4 +50,6 @@ bool StartShooter::IsFinished() {
 // Called once after isFinished returns true
 void StartShooter::End(bool interrupted) {
 	if (interrupted) mpShooter->setShooter(mTargetSpeed, mUseRpm);
+
+	mpShooter->mShuffleboardReady.SetBoolean(true);
 }

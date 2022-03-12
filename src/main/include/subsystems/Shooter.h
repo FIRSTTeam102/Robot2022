@@ -37,4 +37,6 @@ class Shooter : public frc2::SubsystemBase {
 		}
 
 		void Periodic() override;
+		
+		nt::NetworkTableEntry mShuffleboardReady;
 };

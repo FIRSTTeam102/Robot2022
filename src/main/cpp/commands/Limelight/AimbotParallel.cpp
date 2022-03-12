@@ -4,6 +4,7 @@ AimbotParallel::AimbotParallel(Limelight *pLimelight, Shooter *pShooter, Shooter
 	SetName("AimbotParallel");
 	
 	AddCommands(StartShooter(pShooter, pLimelight, true), SetHoodAngle(pShooterHood, pLimelight));
+	// AddCommands(frc2::SequentialCommandGroup(StartShooter(pShooter, pLimelight, true), RumbleController(RobotContainer::GetInstance()->GetDriverController())), SetHoodAngle(pShooterHood, pLimelight));
 }
 
 // void AimbotParallel::Initialize() {

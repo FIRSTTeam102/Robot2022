@@ -34,6 +34,7 @@ Shooter::Shooter() : mShooterMotor{ShooterConstants::kShooterMotor} {
 
 	frc::ShuffleboardLayout& layout = frc::Shuffleboard::GetTab("Teleop").GetLayout("Shooter", frc::BuiltInLayouts::kList);
 
+	mShuffleboardReady = layout.Add("Ready?", false).GetEntry();
 	mShuffleboardSpeedTarget = layout.Add("Target percent", 0.0).GetEntry();
 	mShuffleboardSpeedActual = layout.Add("Actual percent", 0.0).GetEntry();
 	mShuffleboardBoost = layout.AddPersistent("Boost", mBoostPercent)

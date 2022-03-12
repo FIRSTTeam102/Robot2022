@@ -62,9 +62,17 @@ void SwerveDrive::vectorSwerve(double leftX, double leftY, double rightX, double
 	mTurnVector.y = rightX;
 	// printf("Turn speed: %f\n", mTurnVector.x);
 
+	double drivePercent = 0.6;
+	double turnPercent = 0.45;
+
+	if (frc::DriverStation::IsAutonomous()) {
+		drivePercent = 0.7;
+		turnPercent = 0.3;
+	}
+
 	for (int i = 0; i < 4; i++) { // For each wheel:
-		mSumVector.x = (0.7 * mDriveVector.x + 0.3 * mTurnVector.x); // Add the two vectors to get one final vector
-		mSumVector.y = (0.7 * mDriveVector.y + 0.3 * mTurnVector.y);
+		mSumVector.x = (drivePercent * mDriveVector.x + turnPercent * mTurnVector.x); // Add the two vectors to get one final vector
+		mSumVector.y = (drivePercent * mDriveVector.y + turnPercent * mTurnVector.y);
 		targetEncoder[i] = angleCalc(mSumVector.x, mSumVector.y); // Calculate the angle of this vector
 		targetSpeed[i] = mSumVector.Magnitude() * SwerveDriveConstants::kMaxSpeed; // Scale the speed of the wheels
 		// targetSpeed[i] = SwerveDriveConstants::kMaxSpeed * mpController->GetRightTriggerAxis() - SwerveDriveConstants::kMaxSpeed * mpDriverController->GetLeftTriggerAxis();

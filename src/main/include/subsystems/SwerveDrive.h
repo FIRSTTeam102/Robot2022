@@ -1,6 +1,7 @@
 #pragma once
 
 #include <AHRS.h>
+#include <frc/DriverStation.h>
 #include <frc/XboxController.h>
 #include <frc/drive/Vector2d.h>
 #include <frc/shuffleboard/Shuffleboard.h>
@@ -13,7 +14,7 @@
 
 class SwerveDrive : public frc2::SubsystemBase {
 	public:
-		SwerveDrive(frc::XboxController *pController);
+		SwerveDrive(frc::XboxController* pController);
 
 		double fixInput(double s, bool square = true) {
 			if (square) s = std::copysign(s * s, s);

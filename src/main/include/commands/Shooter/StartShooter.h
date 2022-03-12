@@ -4,6 +4,7 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
+#include "commands/RumbleController.h"
 #include "subsystems/Shooter.h"
 #include "subsystems/Limelight.h"
 
@@ -25,4 +26,5 @@ class StartShooter : public frc2::CommandHelper<frc2::CommandBase, StartShooter>
 		double mTargetSpeed;
 		double mRamp;
 		bool mUseRpm;
+		RumbleController* mRumble;
 };
