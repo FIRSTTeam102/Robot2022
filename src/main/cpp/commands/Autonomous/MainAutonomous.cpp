@@ -9,7 +9,19 @@ MainAutonomous::MainAutonomous(Indexer* pIndexer, Intake* pIntake, Limelight* pL
 		frc2::WaitCommand(0.3_s),
 		SetSpeedsTimed(mpSwerve, 0.65, 0.9),
 		frc2::WaitCommand(0.65_s),
-		TurnDegreesGyro(mpSwerve, 0.65, 165),
+		// TurnDegreesGyro(mpSwerve, 0.65, 165),
+		frc2::FunctionalCommand(
+			// INIT
+			[this] { mpSwerve->resetGyro(); },
+			// EXECUTE
+			[this] { mpSwerve->vectorSwerve(0.0, 0.0, 0.7); },
+			// END
+			[this] ( bool interrupted ) { mpSwerve->stopDrive(); },
+			// IS FINISHED
+			[this] { return ( mpLM->Check() || ( mpSwerve->getGyroAngle() >= 160 ) ); },
+			// REQUIREMENTS
+			{ mpSwerve, mpLM }
+		),
 		SetRollers(mpIntake, MotorDirection::kOff),
 		// LM stuff when ready
 		// SetArm(mpIntake, frc::DoubleSolenoid::Value::kReverse),
