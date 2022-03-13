@@ -32,6 +32,9 @@ class Shooter : public frc2::SubsystemBase {
 		void setShooter(double speed, bool useRpm);
 		void stopShooter();
 		double getSpeed(bool useRpm);
+		double getActualPercent() {
+			return mShooterMotor.GetMotorOutputPercent();
+		}
 		bool isRunning() {
 			return mIsRunning;
 		}

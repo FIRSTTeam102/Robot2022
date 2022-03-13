@@ -8,6 +8,7 @@ OneBallAuto::OneBallAuto(Indexer* pIndexer, Shooter* pShooter, ShooterHood* pSho
 		frc2::WaitCommand(1.0_s),
 		SetIndexer(pIndexer, MotorDirection::kOff),
 		StopShooter(pShooter),
-		MoveLinearTimed(pSwerve, -0.7, 0.9)
+		SetAnglesCommand(pSwerve, 0.0),
+		SetSpeedsTimed(pSwerve, -0.9, 2.5)
 	);
 }

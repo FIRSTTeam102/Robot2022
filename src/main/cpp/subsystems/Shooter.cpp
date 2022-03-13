@@ -73,6 +73,6 @@ double Shooter::getSpeed(bool useRpm = false) {
 
 void Shooter::Periodic() {
 	mShuffleboardSpeedTarget.SetDouble(mSpeed);
-	mShuffleboardSpeedActual.SetDouble(mShooterMotor.GetMotorOutputPercent());
+	mShuffleboardSpeedActual.SetDouble(getActualPercent());
 	mBoostPercent = mShuffleboardBoost.GetDouble(mBoostPercent);
 }

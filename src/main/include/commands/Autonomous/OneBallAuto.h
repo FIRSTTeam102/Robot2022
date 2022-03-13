@@ -11,6 +11,8 @@
 #include "commands/Limelight/YawToTarget.h"
 #include "commands/Shooter/StopShooter.h"
 #include "commands/SwerveDrive/MoveLinearTimed.h"
+#include "commands/SwerveDrive/SetAnglesCommand.h"
+#include "commands/SwerveDrive/SetSpeedsTimed.h"
 #include "subsystems/Indexer.h"
 #include "subsystems/Limelight.h"
 #include "subsystems/Shooter.h"

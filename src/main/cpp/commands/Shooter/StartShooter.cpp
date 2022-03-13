@@ -49,7 +49,7 @@ bool StartShooter::IsFinished() {
 
 // Called once after isFinished returns true
 void StartShooter::End(bool interrupted) {
-	if (interrupted) mpShooter->setShooter(mTargetSpeed, mUseRpm);
+	if (interrupted || mpShooter->getActualPercent() < -0.1) mpShooter->setShooter(mTargetSpeed, mUseRpm);
 
 	mpShooter->mShuffleboardReady.SetBoolean(true);
 }
