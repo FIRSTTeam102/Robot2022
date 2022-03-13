@@ -11,10 +11,12 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/Command.h>
 #include <frc2/command/ParallelCommandGroup.h>
+#include <frc2/command/PrintCommand.h>
 #include <frc2/command/SequentialCommandGroup.h>
 #include <frc2/command/button/Button.h>
 
 #include "commands/Autonomous/MainAutonomous.h"
+#include "commands/Autonomous/OneBallAuto.h"
 #include "commands/Climber/Climb.h"
 #include "commands/Indexer/Backward.h"
 #include "commands/Indexer/Forward.h"

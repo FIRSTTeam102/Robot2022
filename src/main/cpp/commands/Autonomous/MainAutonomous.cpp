@@ -12,13 +12,13 @@ MainAutonomous::MainAutonomous(Indexer* pIndexer, Intake* pIntake, Limelight* pL
 		// TurnDegreesGyro(mpSwerve, 0.65, 165),
 		frc2::FunctionalCommand(
 			// INIT
-			[this] { mpSwerve->resetGyro(); },
+			[] {},
 			// EXECUTE
-			[this] { mpSwerve->vectorSwerve(0.0, 0.0, 0.7); },
+			[&] { mpSwerve->vectorSwerve(0.0, 0.0, 0.7); },
 			// END
-			[this] ( bool interrupted ) { mpSwerve->stopDrive(); },
+			[&] ( bool interrupted ) { mpSwerve->stopDrive(); },
 			// IS FINISHED
-			[this] { return ( mpLM->Check() || ( mpSwerve->getGyroAngle() >= 160 ) ); },
+			[&] { return mpLM->Check(); },
 			// REQUIREMENTS
 			{ mpSwerve, mpLM }
 		),
@@ -28,6 +28,7 @@ MainAutonomous::MainAutonomous(Indexer* pIndexer, Intake* pIntake, Limelight* pL
 		MoveLinearTimed(mpSwerve, 0.75, 1.6),
 		frc2::ParallelDeadlineGroup(frc2::WaitCommand(1.5_s), YawToTarget(mpLM, mpSwerve)),
 		// frc2::ParallelDeadlineGroup(frc2::WaitCommand(1.0_s), YawToTarget(mpLM, mpSwerve)),
+		frc2::WaitUntilCommand([&] { return mpLM->Check(); }),
 		frc2::ParallelDeadlineGroup(frc2::WaitCommand(2.0_s), AimbotParallel(mpLM, mpShooter, mpShooterHood)),
 		// frc2::PrintCommand("Done spinning up"),
 		frc2::WaitCommand(0.4_s),

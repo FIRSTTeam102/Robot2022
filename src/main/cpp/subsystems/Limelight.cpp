@@ -33,10 +33,7 @@ double Limelight::calculateShootDistance() {
 }
 
 bool Limelight::Check() {
-	if (-1.0 < tx && tx < 1.0) {
-		return true;
-	}
-	return false;
+	return ( ( -1.0 < tx ) && ( tx < 1.0 ) );
 }
 
 void Limelight::Periodic() {

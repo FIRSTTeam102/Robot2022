@@ -7,7 +7,9 @@ RobotContainer::RobotContainer() {
 
 	ConfigureButtonBindings();
 
-	mChooser.SetDefaultOption("Autonomous Command", new MainAutonomous(&mIndexer, &mIntake, &mLimelight, &mShooter, &mShooterHood, &mSwerveDrive));
+	mChooser.SetDefaultOption("2 ball", new MainAutonomous(&mIndexer, &mIntake, &mLimelight, &mShooter, &mShooterHood, &mSwerveDrive));
+	mChooser.AddOption("1 ball", new OneBallAuto(&mIndexer, &mShooter, &mShooterHood, &mLimelight, &mSwerveDrive));
+	mChooser.AddOption("None", new frc2::PrintCommand("No auto"));
 	frc::SmartDashboard::PutData("Auto Mode", &mChooser);
 
 	// mCamera = frc::CameraServer::GetInstance()->StartAutomaticCapture(0);

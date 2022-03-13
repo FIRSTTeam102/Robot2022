@@ -9,7 +9,7 @@ SwerveDrive::SwerveDrive(frc::XboxController *pController) :
 {
 	SetName("SwerveDrive");
 	SetSubsystem("SwerveDrive");
-	mIsFieldOriented = false;
+	mIsFieldOriented = true;
 	mAutoState = false;
 	mGyro.Calibrate();
 

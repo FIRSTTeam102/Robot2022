@@ -19,6 +19,7 @@ void SetSpeedsTimed::Execute() {
 // Called once the command ends or is interrupted.
 void SetSpeedsTimed::End(bool interrupted) {
 	mpSwerveDrive->setAutoState(false);
+	mpSwerveDrive->stopDrive();
 }
 
 // Returns true when the command should end.
