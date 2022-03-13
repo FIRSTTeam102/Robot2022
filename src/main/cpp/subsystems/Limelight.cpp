@@ -28,7 +28,7 @@ double Limelight::convertShootAngletoRadians() {
 }
 
 double Limelight::calculateShootDistance() {
-	d = (LimelightConstants::h / tan(ar)) + LimelightConstants::de;
+	d = (LimelightConstants::h / tan(ar)) + LimelightConstants::kDistanceError;
 	return d;
 }
 

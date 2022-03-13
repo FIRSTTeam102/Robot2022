@@ -40,10 +40,10 @@ namespace SwerveDriveConstants {
 	const int kBLEnc = 3;
 
 	// Calibration Values
-	const int kFLOffset = 594;
-	const int kFROffset = 443;
+	const int kFLOffset = 577;
+	const int kFROffset = 392;
 	const int kBROffset = 2657;
-	const int kBLOffset = 1168;
+	const int kBLOffset = 1150;
 
 	const double kMaxSpeed = 1.00;
 
@@ -143,7 +143,7 @@ namespace HardcodedShots {
 namespace LimelightConstants {
 	const double h = 60; // Height of limelight to target
 	const double ay = 29.8; // Angle of limelight to target
-	const double de = 23; // Distance error, from edge to center of target
+	const double kDistanceError = 23; // Distance error, from edge to center of target
 	const double kP = 0.0238; // tx multiplier
 	const double kMinCommand = 0.35; // Yaw calculation deritive term
 
