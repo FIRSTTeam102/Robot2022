@@ -8,7 +8,6 @@
 #include <frc/shuffleboard/ShuffleboardLayout.h>
 #include <frc/shuffleboard/ShuffleboardTab.h>
 #include <frc/smartdashboard/SendableChooser.h>
-#include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/Command.h>
 #include <frc2/command/ParallelCommandGroup.h>
 #include <frc2/command/PrintCommand.h>
@@ -74,7 +73,7 @@ class RobotContainer {
 
 		cs::UsbCamera mCamera;
 
-		frc::SendableChooser<frc2::Command*> mChooser;
+		frc::SendableChooser<frc2::Command*> mAutoMode;
 
 		static RobotContainer* mRobotContainer;
 

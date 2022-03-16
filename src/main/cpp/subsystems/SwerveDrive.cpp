@@ -10,7 +10,7 @@ SwerveDrive::SwerveDrive(frc::XboxController *pController) : mpController{pContr
 	mGyro.Calibrate();
 
 	// Shuffleboard
-	mShuffleboardFieldOriented = frc::Shuffleboard::GetTab("Teleop").Add("Field oriented", mIsFieldOriented).GetEntry();
+	mShuffleboardFieldOriented = frc::Shuffleboard::GetTab("Drive").Add("Field oriented", mIsFieldOriented).GetEntry();
 }
 
 double SwerveDrive::angleCalc(double x, double y) {

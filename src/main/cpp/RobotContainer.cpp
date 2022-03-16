@@ -7,17 +7,18 @@ RobotContainer::RobotContainer() {
 
 	ConfigureButtonBindings();
 
-	mChooser.SetDefaultOption("2 ball", new MainAutonomous(&mIndexer, &mIntake, &mLimelight, &mShooter, &mShooterHood, &mSwerveDrive));
-	mChooser.AddOption("1 ball", new OneBallAuto(&mIndexer, &mShooter, &mShooterHood, &mLimelight, &mSwerveDrive));
-	mChooser.AddOption("None", new frc2::PrintCommand("No auto"));
-	frc::SmartDashboard::PutData("Auto Mode", &mChooser);
+	mAutoMode.SetDefaultOption("2 ball", new MainAutonomous(&mIndexer, &mIntake, &mLimelight, &mShooter, &mShooterHood, &mSwerveDrive));
+	mAutoMode.AddOption("1 ball", new OneBallAuto(&mIndexer, &mShooter, &mShooterHood, &mLimelight, &mSwerveDrive));
+	mAutoMode.AddOption("None", new frc2::PrintCommand("No auto"));
+	frc::Shuffleboard::GetTab("Drive")
+		.Add("Auto mode", &mAutoMode);
 
 	// mCamera = frc::CameraServer::GetInstance()->StartAutomaticCapture(0);
 	mCamera = frc::CameraServer::StartAutomaticCapture();
 	mCamera.SetFPS(30);
 	mCamera.SetResolution(640, 480);
 	frc::CameraServer::GetServer().SetSource(mCamera);
-	frc::Shuffleboard::GetTab("Teleop")
+	frc::Shuffleboard::GetTab("Drive")
 		.Add("Camera", mCamera)
 		.WithWidget(frc::BuiltInWidgets::kCameraStream)
 		.WithSize(5, 3);
@@ -61,7 +62,7 @@ void RobotContainer::ConfigureButtonBindings() {
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
 	// The selected command will be run in autonomous
-	return mChooser.GetSelected();
+	return mAutoMode.GetSelected();
 }
 
 void RobotContainer::RobotInit() {

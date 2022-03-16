@@ -9,7 +9,7 @@ Climber::Climber(frc::XboxController *pController) : mpController{pController} {
 		std::make_pair("Number of rows", nt::Value::MakeDouble(1))
 	};
 
-	frc::ShuffleboardLayout& sensorGrid = frc::Shuffleboard::GetTab("Teleop")
+	frc::ShuffleboardLayout& sensorGrid = frc::Shuffleboard::GetTab("Drive")
 		.GetLayout("Climb sensors", frc::BuiltInLayouts::kGrid)
 			.WithProperties(sensorGridProperties);
 
