@@ -1,18 +1,16 @@
 #pragma once
 
-#include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
+#include <frc2/command/InstantCommand.h>
 
 #include "subsystems/SwerveDrive.h"
 
-class ToggleDriveMode : public frc2::CommandHelper<frc2::CommandBase, ToggleDriveMode> {
+class ToggleDriveMode : public frc2::CommandHelper<frc2::InstantCommand, ToggleDriveMode> {
 	public:
-		explicit ToggleDriveMode(SwerveDrive* pSwerveDrive);
+		ToggleDriveMode(SwerveDrive* pSwerveDrive);
 
 		void Initialize() override;
-		void Execute() override;
-		bool IsFinished() override;
-		void End(bool interrupted) override;
+		bool RunsWhenDisabled();
 
 	private:
 		SwerveDrive* mpSwerveDrive;
