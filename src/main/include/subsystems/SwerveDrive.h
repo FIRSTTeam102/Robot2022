@@ -108,10 +108,10 @@ class SwerveDrive : public frc2::SubsystemBase {
 
 		nt::NetworkTableEntry mShuffleboardFieldOriented;
 
-		SwerveWheel mWheelFL;
-		SwerveWheel mWheelFR;
-		SwerveWheel mWheelBR;
-		SwerveWheel mWheelBL;
+		SwerveWheel mWheelFL{SwerveDriveConstants::kFLDrive, SwerveDriveConstants::kFLTurn, SwerveDriveConstants::kFLEnc, SwerveDriveConstants::kFLOffset, SwerveDriveConstants::kFLMaxSpeed};
+		SwerveWheel mWheelFR{SwerveDriveConstants::kFRDrive, SwerveDriveConstants::kFRTurn, SwerveDriveConstants::kFREnc, SwerveDriveConstants::kFROffset, SwerveDriveConstants::kFRMaxSpeed};
+		SwerveWheel mWheelBR{SwerveDriveConstants::kBRDrive, SwerveDriveConstants::kBRTurn, SwerveDriveConstants::kBREnc, SwerveDriveConstants::kBROffset, SwerveDriveConstants::kBRMaxSpeed};
+		SwerveWheel mWheelBL{SwerveDriveConstants::kBLDrive, SwerveDriveConstants::kBLTurn, SwerveDriveConstants::kBLEnc, SwerveDriveConstants::kBLOffset, SwerveDriveConstants::kBLMaxSpeed};
 
 		int targetEncoder[4];
 		float targetSpeed[4], turnMagnitude[4];

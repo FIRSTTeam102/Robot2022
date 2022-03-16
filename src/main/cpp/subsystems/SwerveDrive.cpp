@@ -1,12 +1,8 @@
 #include "subsystems/SwerveDrive.h"
 
-SwerveDrive::SwerveDrive(frc::XboxController *pController) :
-	mpController{pController},
-	mWheelFL{SwerveDriveConstants::kFLDrive, SwerveDriveConstants::kFLTurn, SwerveDriveConstants::kFLEnc, SwerveDriveConstants::kFLOffset, SwerveDriveConstants::kFLMaxSpeed},
-	mWheelFR{SwerveDriveConstants::kFRDrive, SwerveDriveConstants::kFRTurn, SwerveDriveConstants::kFREnc, SwerveDriveConstants::kFROffset, SwerveDriveConstants::kFRMaxSpeed},
-	mWheelBR{SwerveDriveConstants::kBRDrive, SwerveDriveConstants::kBRTurn, SwerveDriveConstants::kBREnc, SwerveDriveConstants::kBROffset, SwerveDriveConstants::kBRMaxSpeed},
-	mWheelBL{SwerveDriveConstants::kBLDrive, SwerveDriveConstants::kBLTurn, SwerveDriveConstants::kBLEnc, SwerveDriveConstants::kBLOffset, SwerveDriveConstants::kBLMaxSpeed}
-{
+#define M_DEGTORAD 57.2958
+
+SwerveDrive::SwerveDrive(frc::XboxController *pController) : mpController{pController} {
 	SetName("SwerveDrive");
 	SetSubsystem("SwerveDrive");
 	mIsFieldOriented = true;
@@ -19,20 +15,22 @@ SwerveDrive::SwerveDrive(frc::XboxController *pController) :
 
 double SwerveDrive::angleCalc(double x, double y) {
 	double angle;
-	if (x == 0 && y == 0)
-		return -1;
-	if (y == 0)
-		angle = 90.0;
-	else
-		angle = atan2(abs(x), abs(y)) * 57.2958; // multiply by 57.2958 to convert radians to degrees
+
+	if (x == 0 && y == 0) return -1;
+
+	if (y == 0) angle = 90.0;
+	else angle = atan2(abs(x), abs(y)) * M_DEGTORAD;
+
 	if (x < 0 && y < 0) {
 		angle += 180;
 	} else if (x < 0) {
 		angle += 180 + (2 * (90 - angle));
 		// if (y < 0)
 		//     angle -= 2 * (90 - angle);
-	} else if (y < 0)
+	} else if (y < 0) {
 		angle += 2 * (90 - angle);
+	}
+
 	return angle;
 }
 
@@ -53,19 +51,19 @@ void SwerveDrive::controllerSwerve() {
 	);
 }
 
-void SwerveDrive::vectorSwerve(double leftX, double leftY, double rightX, double offset) {
-	mDriveVector.x = leftX;
-	mDriveVector.y = leftY;
+void SwerveDrive::vectorSwerve(double driveX, double driveY, double turn, double offset) {
+	mDriveVector.x = driveX;
+	mDriveVector.y = driveY;
 	mDriveVector.Rotate(/*360 - */offset); // Factor in gyroscope value (subtract from 360 to go from counterclockwise to clockwise)
 
-	mTurnVector.x = rightX;
-	mTurnVector.y = rightX;
+	mTurnVector.x = turn;
+	mTurnVector.y = turn;
 	// printf("Turn speed: %f\n", mTurnVector.x);
 
-	double drivePercent = 0.6;
-	double turnPercent = 0.45;
+	double turnPercent = 0.4 * abs(turn); // give at max 40% to turn
+	double drivePercent = (1 - turnPercent); // allocate all of the remaining power to drive
 
-	if (frc::DriverStation::IsAutonomous()) {
+	if (frc::DriverStation::IsAutonomous()) { // use hardcoded values for auto for now
 		drivePercent = 0.7;
 		turnPercent = 0.3;
 	}
@@ -111,16 +109,11 @@ void SwerveDrive::setSpeeds(double speed) {
 }
 
 void SwerveDrive::stopDrive() {
-	mWheelFL.setSpeed(0);
-	mWheelFR.setSpeed(0);
-	mWheelBR.setSpeed(0);
-	mWheelBL.setSpeed(0);
+	setSpeeds(0);
 }
 
 void SwerveDrive::changeOrientation() {
-	// mGyro.Reset();
 	mIsFieldOriented = !mIsFieldOriented;
-
 	mShuffleboardFieldOriented.SetBoolean(mIsFieldOriented);
 }
 
