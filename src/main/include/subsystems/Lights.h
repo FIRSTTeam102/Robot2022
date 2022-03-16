@@ -6,8 +6,6 @@
 
 #include <string>
 
-#include "Constants.h"
-
 // Prevent errors when no Arduino is attached
 // #define ARDUINO
 

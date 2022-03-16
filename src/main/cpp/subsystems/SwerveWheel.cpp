@@ -1,5 +1,7 @@
 #include "subsystems/SwerveWheel.h"
 
+#include "subsystems/SwerveDrive.h"
+
 SwerveWheel::SwerveWheel(int drivePort, int turnPort, int encPort, int encOffset, double maxSpeed) : mDriveMotor{drivePort}, mTurnMotor{turnPort}, mEnc{encPort}, mAngleOffset{encOffset}, mMaxSpeed{maxSpeed} {
 	SetName("SwerveWheel");
 	SetSubsystem("SwerveWheel");

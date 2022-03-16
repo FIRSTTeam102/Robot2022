@@ -4,7 +4,17 @@
 #include <frc/DoubleSolenoid.h>
 #include <frc2/command/SubsystemBase.h>
 
-#include "Constants.h"
+#include "Utilities.h"
+
+namespace IntakeConstants {
+	// Ports
+	const int kRollerMotor = 11;
+	const int kArmSolenoidForward = 3;
+	const int kArmSolenoidBackward = 4;
+
+	// Speeds
+	const double kRollerSpeed = 0.6;
+}
 
 class Intake : public frc2::SubsystemBase {
 	public:

@@ -6,6 +6,7 @@
 #include "subsystems/Indexer.h"
 #include "subsystems/Intake.h"
 #include "subsystems/Lights.h"
+#include "Utilities.h"
 
 class BallIn : public frc2::CommandHelper<frc2::CommandBase, BallIn> {
 	public:
