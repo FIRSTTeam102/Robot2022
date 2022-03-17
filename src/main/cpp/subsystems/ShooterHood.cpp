@@ -10,7 +10,8 @@ ShooterHood::ShooterHood() : mHoodActuator{ShooterHoodConstants::kActuator} {
 	mHoodActuator.SetBounds(2.0, 1.8, 1.5, 1.2, 1.0);
 
 	// Shuffleboard
-	frc::ShuffleboardLayout& layout = frc::Shuffleboard::GetTab("Drive").GetLayout("Shooter hood", frc::BuiltInLayouts::kList);
+	frc::ShuffleboardLayout& layout = frc::Shuffleboard::GetTab("Drive").GetLayout("Shooter hood", frc::BuiltInLayouts::kList)
+		.WithSize(1, 2);
 
 	mShuffleboardTargetAngle = layout.Add("Target angle", 0.0).GetEntry();
 	mShuffleboardTargetBool = layout.Add("At target?", false).GetEntry();

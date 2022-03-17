@@ -7,7 +7,8 @@ Limelight::Limelight() : m_LimelightHasTarget(false) {
 	table->PutNumber("pipeline", 0);
 
 	// Shuffleboard
-	frc::ShuffleboardLayout& layout = frc::Shuffleboard::GetTab("Drive").GetLayout("Limelight", frc::BuiltInLayouts::kList);
+	frc::ShuffleboardLayout& layout = frc::Shuffleboard::GetTab("Drive").GetLayout("Limelight", frc::BuiltInLayouts::kList)
+		.WithSize(1, 4);
 
 	mShuffleboardDistance = layout.Add("Distance (in)", 0.0).GetEntry();
 	mShuffleboardPossibleShot = layout.Add("Possible shot", false).GetEntry();

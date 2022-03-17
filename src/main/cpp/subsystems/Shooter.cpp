@@ -32,7 +32,8 @@ Shooter::Shooter() : mShooterMotor{ShooterConstants::kShooterMotor} {
 		std::make_pair("Block increment", nt::Value::MakeDouble(0.1))
 	};
 
-	frc::ShuffleboardLayout& layout = frc::Shuffleboard::GetTab("Drive").GetLayout("Shooter", frc::BuiltInLayouts::kList);
+	frc::ShuffleboardLayout& layout = frc::Shuffleboard::GetTab("Drive").GetLayout("Shooter", frc::BuiltInLayouts::kList)
+		.WithSize(1, 3);
 
 	mShuffleboardReady = layout.Add("Ready?", false).GetEntry();
 	mShuffleboardSpeedTarget = layout.Add("Target percent", 0.0).GetEntry();

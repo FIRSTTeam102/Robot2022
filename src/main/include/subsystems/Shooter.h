@@ -38,6 +38,7 @@ class Shooter : public frc2::SubsystemBase {
 		nt::NetworkTableEntry mShuffleboardSpeedTarget;
 		nt::NetworkTableEntry mShuffleboardSpeedActual;
 		nt::NetworkTableEntry mShuffleboardBoost;
+		nt::NetworkTableEntry mShuffleboardRPM;
 
 	public:
 		Shooter();
