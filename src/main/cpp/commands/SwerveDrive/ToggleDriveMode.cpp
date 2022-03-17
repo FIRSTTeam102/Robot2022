@@ -10,15 +10,6 @@ void ToggleDriveMode::Initialize() {
 	mpSwerveDrive->changeOrientation();
 }
 
-// Called repeatedly when this Command is scheduled to run
-void ToggleDriveMode::Execute() {
-}
-
-// Make this return true when this Command no longer needs to run execute()
-bool ToggleDriveMode::IsFinished() {
+bool ToggleDriveMode::RunsWhenDisabled() {
 	return true;
-}
-
-// Called once after isFinished returns true
-void ToggleDriveMode::End(bool interrupted) {
 }
