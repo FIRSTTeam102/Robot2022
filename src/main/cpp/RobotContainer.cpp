@@ -11,7 +11,8 @@ RobotContainer::RobotContainer() {
 	mAutoMode.AddOption("1 ball", new OneBallAuto(&mIndexer, &mShooter, &mShooterHood, &mLimelight, &mSwerveDrive));
 	mAutoMode.AddOption("None", new frc2::PrintCommand("No auto"));
 	frc::Shuffleboard::GetTab("Drive")
-		.Add("Auto mode", &mAutoMode);
+		.Add("Auto mode", mAutoMode)
+		.WithWidget(frc::BuiltInWidgets::kComboBoxChooser);
 
 	// mCamera = frc::CameraServer::GetInstance()->StartAutomaticCapture(0);
 	mCamera = frc::CameraServer::StartAutomaticCapture();
