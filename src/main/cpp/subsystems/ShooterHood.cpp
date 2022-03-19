@@ -11,15 +11,26 @@ ShooterHood::ShooterHood() : mHoodActuator{ShooterHoodConstants::kActuator} {
 
 	// Shuffleboard
 	frc::ShuffleboardLayout& layout = frc::Shuffleboard::GetTab("Drive").GetLayout("Shooter hood", frc::BuiltInLayouts::kList)
-		.WithSize(1, 2);
+		.WithSize(1, 2)
+		.WithPosition(10, 3);
 
-	mShuffleboardTargetAngle = layout.Add("Target angle", 0.0).GetEntry();
+	wpi::StringMap<std::shared_ptr<nt::Value>> angleSliderProperties = {
+		std::make_pair("Min", nt::Value::MakeDouble(ShooterHoodConstants::kMinAngle)),
+		std::make_pair("Max", nt::Value::MakeDouble(ShooterHoodConstants::kMaxAngle)),
+		std::make_pair("Block increment", nt::Value::MakeDouble(0.25))
+	};
+
+	mShuffleboardTargetAngle = layout.Add("Target angle", 0.0)
+		.WithWidget(frc::BuiltInWidgets::kNumberSlider)
+		.WithProperties(angleSliderProperties)
+		.GetEntry();
 	mShuffleboardTargetBool = layout.Add("At target?", false).GetEntry();
 }
 
 void ShooterHood::Periodic() {
-	mShuffleboardTargetAngle.SetDouble(mDegrees);
 	mShuffleboardTargetBool.SetBoolean(isAtTarget());
+
+	setAngle(mShuffleboardTargetAngle.GetDouble(mDegrees));
 }
 
 // Converts an angle to required length for linear actuator to make shooter hood reach that angle
@@ -44,13 +55,17 @@ double ShooterHood::linearLengthToSetting(double length) {
 
 void ShooterHood::setAngle(double degrees) {
 	mDegrees = std::clamp(degrees, ShooterHoodConstants::kMinAngle, ShooterHoodConstants::kMaxAngle);
+
 	double length = degreesToLinearLength(degrees);
 
 	mTargetSetting = linearLengthToSetting(length);
 
 	mHoodActuator.SetSpeed(mTargetSetting);
 
+	if (degrees == mDegrees) return;
+
 	printf("Setting hood angle to %Fdeg, %F length, %F setting\n", mDegrees, length, mTargetSetting);
+	mShuffleboardTargetAngle.SetDouble(mDegrees);
 }
 
 void ShooterHood::incrementAngle(double degreeChange) {

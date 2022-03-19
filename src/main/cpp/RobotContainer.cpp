@@ -12,7 +12,8 @@ RobotContainer::RobotContainer() {
 	mAutoMode.AddOption("None", new frc2::PrintCommand("No auto"));
 	frc::Shuffleboard::GetTab("Drive")
 		.Add("Auto mode", mAutoMode)
-		.WithWidget(frc::BuiltInWidgets::kComboBoxChooser);
+		.WithWidget(frc::BuiltInWidgets::kComboBoxChooser)
+		.WithPosition(0, 0);
 
 	// mCamera = frc::CameraServer::GetInstance()->StartAutomaticCapture(0);
 	mCamera = frc::CameraServer::StartAutomaticCapture();
@@ -22,7 +23,8 @@ RobotContainer::RobotContainer() {
 	frc::Shuffleboard::GetTab("Drive")
 		.Add("Camera", mCamera)
 		.WithWidget(frc::BuiltInWidgets::kCameraStream)
-		.WithSize(5, 3);
+		.WithSize(7, 5)
+		.WithPosition(3, 0);
 
 	frc::DriverStation::SilenceJoystickConnectionWarning(true);
 }

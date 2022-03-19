@@ -26,22 +26,22 @@ Shooter::Shooter() : mShooterMotor{ShooterConstants::kShooterMotor} {
 	mShooterMotor.Config_kP(0, ShooterConstants::kP, ShooterConstants::kTimeoutMs);
 
 	// Shuffleboard
-	wpi::StringMap<std::shared_ptr<nt::Value>> numberSliderProperties = {
-		std::make_pair("Min", nt::Value::MakeDouble(0.50)),
-		std::make_pair("Max", nt::Value::MakeDouble(2.00)),
+	wpi::StringMap<std::shared_ptr<nt::Value>> boostSliderProperties = {
+		std::make_pair("Min", nt::Value::MakeDouble(0.10)),
+		std::make_pair("Max", nt::Value::MakeDouble(1.50)),
 		std::make_pair("Block increment", nt::Value::MakeDouble(0.1))
 	};
 
 	frc::ShuffleboardLayout& layout = frc::Shuffleboard::GetTab("Drive").GetLayout("Shooter", frc::BuiltInLayouts::kList)
-		.WithSize(1, 3);
+		.WithSize(1, 3)
+		.WithPosition(10, 0);
 
-	mShuffleboardReady = layout.Add("Ready?", false).GetEntry();
+	mShuffleboardReady = layout.Add("Ready?", false).GetEntry();	
 	mShuffleboardSpeedTarget = layout.Add("Target percent", 0.0).GetEntry();
 	mShuffleboardSpeedActual = layout.Add("Actual percent", 0.0).GetEntry();
 	mShuffleboardBoost = layout.AddPersistent("Boost", mBoostPercent)
 		.WithWidget(frc::BuiltInWidgets::kNumberSlider)
-		.WithProperties(numberSliderProperties)
-		.WithSize(3, 1)
+		.WithProperties(boostSliderProperties)
 		.GetEntry();
 }
 
