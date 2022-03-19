@@ -1,10 +1,11 @@
 #include "subsystems/Climber.h"
 
-Climber::Climber(frc::XboxController *pController) : mpController{pController} {
+// Climber::Climber(frc::XboxController *pController) : mpController{pController} {
+Climber::Climber() {
 	SetName("Climber");
 	SetSubsystem("Climber");
 
-	wpi::StringMap<std::shared_ptr<nt::Value>> sensorGridProperties = {
+	/* wpi::StringMap<std::shared_ptr<nt::Value>> sensorGridProperties = {
 		std::make_pair("Number of columns", nt::Value::MakeDouble(2)),
 		std::make_pair("Number of rows", nt::Value::MakeDouble(1))
 	};
@@ -15,7 +16,7 @@ Climber::Climber(frc::XboxController *pController) : mpController{pController} {
 			.WithPosition(2, 1);
 
 	mShuffleboardSensorLeft = sensorGrid.Add("Left", false).GetEntry();
-	mShuffleboardSensorRight = sensorGrid.Add("Right", false).GetEntry();
+	mShuffleboardSensorRight = sensorGrid.Add("Right", false).GetEntry(); */
 }
 
 void Climber::armsUp() {
@@ -49,7 +50,7 @@ void Climber::Periodic() {
 	// }
 
 	// printf("Climber line sensor L%d R%d\n", mLineSensorLeft.Get(), mLineSensorRight.Get());
-	if (
+	/* if (
 		frc::DriverStation::IsTeleopEnabled()
 		&& frc::DriverStation::GetMatchType() != frc::DriverStation::MatchType::kNone
 		&& frc::Timer::GetMatchTime() < 30_s
@@ -72,5 +73,5 @@ void Climber::Periodic() {
 	}
 
 	mShuffleboardSensorLeft.SetBoolean(mLineSensorLeft.Get());
-	mShuffleboardSensorRight.SetBoolean(mLineSensorRight.Get());
+	mShuffleboardSensorRight.SetBoolean(mLineSensorRight.Get()); */
 }
