@@ -55,7 +55,7 @@ void RobotContainer::ConfigureButtonBindings() {
 	mOperatorLT.WhenHeld(&mBallInCommand);
 	mOperatorButtonLB.WhenHeld(&mBallOutCommand);
 
-	mOperatorRT.WhenPressed(&mLimelightShooter);
+	mOperatorRT.WhenHeld(&mLimelightShooter);
 
 	mOperatorUpDPad.WhenPressed(&mIncrementHood);
 	mOperatorDownDPad.WhenPressed(&mDecrementHood);

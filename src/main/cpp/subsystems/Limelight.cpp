@@ -9,7 +9,7 @@ Limelight::Limelight() : m_LimelightHasTarget(false) {
 	// Shuffleboard
 	frc::ShuffleboardLayout& layout = frc::Shuffleboard::GetTab("Drive").GetLayout("Limelight", frc::BuiltInLayouts::kList)
 		.WithSize(1, 4)
-		.WithPosition(2, 2);
+		.WithPosition(2, 1);
 
 	mShuffleboardDistance = layout.Add("Distance (in)", 0.0).GetEntry();
 	mShuffleboardPossibleShot = layout.Add("Possible shot", false).GetEntry();
@@ -79,17 +79,7 @@ void Limelight::Periodic() {
 }
 
 double Limelight::getShootSpeed() {
-	/* if (d >= 145.0) {
-		rpm = 1595;
-	} else if (d >= 165.0) {
-		rpm = 1595;
-	} else if (d >= 160.0) {
-		rpm = 1595;
-	} else if (d >= 155.0) {
-		rpm = 1595;
-	} else if (d >= 150.0) {
-		rpm = 1595;
-	} else */ if (d >= 145.0) {
+	if (d >= 145.0) {
 		rpm = 1595;
 	} else if (d >= 140.0) {
 		rpm = 1501;
@@ -135,11 +125,7 @@ double Limelight::getShootSpeed() {
 }
 
 double Limelight::getServoAngle() {
-	if (d >= 155.0) {
-		hoodAngle = 67.50;
-	} else if (d >= 150.0) {
-		hoodAngle = 67.75; //79.22 ***
-	} else if (d >= 145.0) {
+	if (d >= 145.0) {
 		hoodAngle = 68.00; //79.57 ***
 	} else if (d >= 140.0) {
 		hoodAngle = 68.25; //79.92 ***
