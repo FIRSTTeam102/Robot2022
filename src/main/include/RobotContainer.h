@@ -110,7 +110,7 @@ class RobotContainer {
 		frc2::ParallelCommandGroup mTarmacLower{mTarmacLowerSpeed, mTarmacLowerAngle};
 		frc2::ParallelCommandGroup mTarmacUpper{mTarmacUpperSpeed, mTarmacUpperAngle};
 
-		Climber mClimber{&mDriverController};
+		Climber mClimber;
 		Climb mClimbCommand{&mClimber};
 
 		Limelight mLimelight;
