@@ -6,19 +6,25 @@
 
 #include "commands/RumbleController.h"
 #include "subsystems/Shooter.h"
+#include "subsystems/Limelight.h"
 
 class StartShooter : public frc2::CommandHelper<frc2::CommandBase, StartShooter> {
 	public:
-		explicit StartShooter(Shooter* pShooter, double speed, RumbleController* pRumbleControllerCommand);
+		explicit StartShooter(Shooter* pShooter, double speed , bool useRpm = false);
+		explicit StartShooter(Shooter* pShooter, Limelight* pLimelight, bool useRpm = false);
 
 		void Initialize() override;
 		void Execute() override;
 		bool IsFinished() override;
 		void End(bool interrupted) override;
 
+
 	private:
 		Shooter* mpShooter;
+		Limelight* mpLimelight;
 		double mSpeed;
 		double mTargetSpeed;
-		RumbleController* mpRumbleControllerCommand;
+		double mRamp;
+		bool mUseRpm;
+		RumbleController* mRumble;
 };

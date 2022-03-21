@@ -6,10 +6,11 @@
 #include "subsystems/Indexer.h"
 #include "subsystems/Intake.h"
 #include "subsystems/Lights.h"
+#include "Utilities.h"
 
-class ArmControl : public frc2::CommandHelper<frc2::CommandBase, ArmControl> {
+class BallIn : public frc2::CommandHelper<frc2::CommandBase, BallIn> {
 	public:
-		explicit ArmControl(Intake* pIntake, Indexer* pIndexer);
+		explicit BallIn(Intake* pIntake, Indexer* pIndexer);
 
 		void Initialize() override;
 		void Execute() override;

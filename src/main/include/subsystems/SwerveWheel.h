@@ -4,11 +4,9 @@
 #include <frc/AnalogInput.h>
 #include <frc2/command/SubsystemBase.h>
 
-#include "Constants.h"
-
 class SwerveWheel : public frc2::SubsystemBase {
 public:
-	SwerveWheel(int drivePort, int turnPort, int encPort, int encOffset);
+	SwerveWheel(int drivePort, int turnPort, int encPort, int encOffset, double maxSpeed);
 
 	void setAngle(double angle);
 	void setSpeed(double speed);
@@ -23,6 +21,7 @@ private:
 	int circScale(int i);
 	int mWheelNum; // for debugging
 	int mAngleOffset;
+	double mMaxSpeed;
 	int target = 0;
 	int scaledTarg;
 	int scaledPos, posCurrent;

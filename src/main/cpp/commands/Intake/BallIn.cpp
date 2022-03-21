@@ -1,13 +1,14 @@
-#include "commands/Intake/ArmControl.h"
+#include "commands/Intake/BallIn.h"
 
-ArmControl::ArmControl(Intake* pIntake, Indexer* pIndexer) : mpIntake{pIntake}, mpIndexer{pIndexer} {
-	SetName("ArmControl");
+BallIn::BallIn(Intake* pIntake, Indexer* pIndexer) : mpIntake{pIntake}, mpIndexer{pIndexer} {
+	SetName("BallIn");
 	AddRequirements(pIntake);
-	AddRequirements(pIndexer);
+	// AddRequirements(pIndexer);
 }
 
 // Called just before this Command runs the first time
-void ArmControl::Initialize() {
+void BallIn::Initialize() {
+	mpIntake->mLock = true;
 	mpIntake->startRollers();
 	mpIntake->lowerIntakeArm();
 	// mpIndexer->indexUp();
@@ -15,19 +16,20 @@ void ArmControl::Initialize() {
 }
 
 // Called repeatedly when this Command is scheduled to run
-void ArmControl::Execute() {
-	if (mpIndexer->getSwitch()) mpIndexer->stopIndexer();
+void BallIn::Execute() {
+	// if (mpIndexer->getSwitch()) mpIndexer->stopIndexer();
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool ArmControl::IsFinished() {
+bool BallIn::IsFinished() {
 	return false; // gets interrupted by button release
 }
 
 // Called once after isFinished returns true
-void ArmControl::End(bool interrupted) {
+void BallIn::End(bool interrupted) {
+	mpIntake->mLock = false;
 	mpIntake->stopRollers();
 	mpIntake->raiseIntakeArm();
 	// mpIndexer->stopIndexer();
-	Lights::GetInstance()->setMode(Lights::Mode::kDefault);
+	Lights::GetInstance()->setDefault();
 }

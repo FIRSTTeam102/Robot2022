@@ -1,9 +1,14 @@
 #include "subsystems/SwerveWheel.h"
 
-SwerveWheel::SwerveWheel(int drivePort, int turnPort, int encPort, int encOffset) : mDriveMotor{drivePort}, mTurnMotor{turnPort}, mEnc{encPort}, mAngleOffset{encOffset} {
+#include "subsystems/SwerveDrive.h"
+
+SwerveWheel::SwerveWheel(int drivePort, int turnPort, int encPort, int encOffset, double maxSpeed) : mDriveMotor{drivePort}, mTurnMotor{turnPort}, mEnc{encPort}, mAngleOffset{encOffset}, mMaxSpeed{maxSpeed} {
 	SetName("SwerveWheel");
 	SetSubsystem("SwerveWheel");
 	mWheelNum = encPort + 1;
+
+	mDriveMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
+	mTurnMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
 }
 
 void SwerveWheel::setAngle(double angle) {
@@ -11,11 +16,8 @@ void SwerveWheel::setAngle(double angle) {
 }
 
 void SwerveWheel::setSpeed(double speed) {
-	if (!inverted) {
-		mDriveMotor.Set(TalonSRXControlMode::PercentOutput, speed);
-	} else {
-		mDriveMotor.Set(TalonSRXControlMode::PercentOutput, -speed);
-	}
+	speed *= SwerveDriveConstants::kSlowestSpeed / mMaxSpeed;
+	mDriveMotor.Set(TalonSRXControlMode::PercentOutput, inverted ? -speed : speed);
 }
 
 int SwerveWheel::circScale(int i) {
