@@ -1,14 +1,13 @@
 #include "commands/Shooter/StartShooter.h"
-#include "RobotContainer.h"
 
 // Create StartShooter with a hardcoded speed value
-StartShooter::StartShooter(Shooter* pShooter, double speed, bool useRpm) : mpShooter{pShooter}, mpLimelight{NULL}, mTargetSpeed{speed}, mUseRpm{useRpm} {
+StartShooter::StartShooter(Shooter* pShooter, double speed) : mpShooter{pShooter}, mpLimelight{NULL}, mTargetSpeed{speed} {
 	SetName("StartShooter");
 	AddRequirements(pShooter);
 }
 
-// Create StartShooter using the limelight to determine the speed
-StartShooter::StartShooter(Shooter* pShooter, Limelight* pLimelight, bool useRpm) : mpShooter{pShooter}, mpLimelight{pLimelight}, mTargetSpeed{0}, mUseRpm{useRpm} {
+// Create StartShooter using the Limelight to determine the speed
+StartShooter::StartShooter(Shooter* pShooter, Limelight* pLimelight) : mpShooter{pShooter}, mpLimelight{pLimelight}, mTargetSpeed{0} {
 	SetName("StartShooter");
 	AddRequirements(pShooter);
 }
@@ -16,17 +15,12 @@ StartShooter::StartShooter(Shooter* pShooter, Limelight* pLimelight, bool useRpm
 // Called just before this Command runs the first time
 void StartShooter::Initialize() {
 	if (mpLimelight) mTargetSpeed = mpLimelight->getShootSpeed();
-	mSpeed = mpShooter->getSpeed(mUseRpm);
+	mSpeed = mpShooter->getSpeed();
 
 	if (mSpeed == mTargetSpeed) End(true);
 
-	if (!mUseRpm) {
-		if (mSpeed <= mTargetSpeed) mRamp = 0.2;
-		else mRamp = -0.2;
-	} else {
-		if (mSpeed <= mTargetSpeed) mRamp = 100.0;
-		else mRamp = -100.0;
-	}
+	if (mSpeed <= mTargetSpeed) mRamp = 500.0;
+	else mRamp = -500.0;
 
 	printf("Shooting at %f\n", mTargetSpeed);
 
@@ -39,17 +33,18 @@ void StartShooter::Execute() {
 	mSpeed += mRamp;
 	if (mSpeed > mTargetSpeed) mSpeed = mTargetSpeed;
 
-	mpShooter->setShooter(mSpeed, mUseRpm);
+	mpShooter->setShooter(mSpeed);
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool StartShooter::IsFinished() {
+	// @todo: use getActualSpeed instead of ramping
 	return mSpeed >= mTargetSpeed;
 }
 
 // Called once after isFinished returns true
 void StartShooter::End(bool interrupted) {
-	if (interrupted || mpShooter->getActualPercent() < -0.1) mpShooter->setShooter(mTargetSpeed, mUseRpm);
+	if (interrupted || mpShooter->getActualPercent() < -0.1) mpShooter->setShooter(mTargetSpeed);
 
 	mpShooter->mShuffleboardReady.SetBoolean(true);
 }

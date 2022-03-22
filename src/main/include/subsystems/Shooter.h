@@ -31,27 +31,41 @@ class Shooter : public frc2::SubsystemBase {
 	private:
 		TalonFX mShooterMotor;
 
-		float mSpeed;
+		double mSpeed; // in RPM
 		double mBoostPercent = 1.00;
-		bool mIsRunning = false;
 
-		nt::NetworkTableEntry mShuffleboardSpeedTarget;
-		nt::NetworkTableEntry mShuffleboardSpeedActual;
+		nt::NetworkTableEntry mShuffleboardTargetRPM;
+		nt::NetworkTableEntry mShuffleboardActualRPM;
+		nt::NetworkTableEntry mShuffleboardActualPercent;
 		nt::NetworkTableEntry mShuffleboardBoost;
-		nt::NetworkTableEntry mShuffleboardRPM;
 
 	public:
 		Shooter();
 
-		void setShooter(double speed, bool useRpm);
+		void setShooter(double speed, bool useBoost = true);
 		void stopShooter();
-		double getSpeed(bool useRpm);
+		double getSpeed() {
+			return mSpeed;
+		}
+		double getActualSpeed() {
+			return velocityToRpm(mShooterMotor.GetSelectedSensorVelocity(0));
+		}
+
+		void setShooterPercent(double speed); // DEPRECATED: use RPM instead
 		double getActualPercent() {
 			return mShooterMotor.GetMotorOutputPercent();
 		}
+
 		bool isRunning() {
-			return mIsRunning;
+			return mSpeed > 0;
 		}
+
+		double rpmToVelocity(double rpm) {
+			return (2048.0 /* encoder ticks per revolution */ * rpm) / (600.0 /* 100ms per minute */);
+		};
+		double velocityToRpm(double velocity) {
+			return (600.0 /* 100ms per minute */ * velocity) / (2048.0 /* encoder ticks per revolution */);
+		};
 
 		void Periodic() override;
 		

@@ -4,9 +4,9 @@
 #include <frc/XboxController.h>
 #include <frc2/command/CommandHelper.h>
 #include <frc2/command/FunctionalCommand.h>
-#include <frc2/command/SequentialCommandGroup.h>
 #include <frc2/command/ParallelDeadlineGroup.h>
 #include <frc2/command/PrintCommand.h>
+#include <frc2/command/SequentialCommandGroup.h>
 #include <frc2/command/WaitCommand.h>
 #include <frc2/command/WaitUntilCommand.h>
 
@@ -14,10 +14,8 @@
 #include "commands/Indexer/SetIndexer.h"
 #include "commands/Intake/SetArm.h"
 #include "commands/Intake/SetRollers.h"
-#include "commands/Limelight/AimbotParallel.h"
+#include "commands/Limelight/LimelightShooter.h"
 #include "commands/Limelight/YawToTarget.h"
-#include "commands/RumbleController.h"
-#include "commands/Shooter/StartShooter.h"
 #include "commands/Shooter/StopShooter.h"
 #include "commands/SwerveDrive/MoveLinearTimed.h"
 #include "commands/SwerveDrive/MoveVectorTimed.h"

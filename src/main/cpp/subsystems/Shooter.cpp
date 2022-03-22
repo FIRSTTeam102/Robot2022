@@ -36,44 +36,37 @@ Shooter::Shooter() : mShooterMotor{ShooterConstants::kShooterMotor} {
 		.WithSize(1, 3)
 		.WithPosition(10, 0);
 
-	mShuffleboardReady = layout.Add("Ready?", false).GetEntry();	
-	mShuffleboardSpeedTarget = layout.Add("Target percent", 0.0).GetEntry();
-	mShuffleboardSpeedActual = layout.Add("Actual percent", 0.0).GetEntry();
+	mShuffleboardReady = layout.Add("Ready?", false).GetEntry();
+	mShuffleboardTargetRPM = layout.Add("Target RPM", 0.0).GetEntry();
+	mShuffleboardActualRPM = layout.Add("Actual RPM", 0.0).GetEntry();
+	mShuffleboardActualPercent = layout.Add("Actual %", 0.0).GetEntry();
 	mShuffleboardBoost = layout.AddPersistent("Boost", mBoostPercent)
 		.WithWidget(frc::BuiltInWidgets::kNumberSlider)
 		.WithProperties(boostSliderProperties)
 		.GetEntry();
 }
 
-void Shooter::setShooter(double speed, bool useRpm = false) {
-	speed = speed * mBoostPercent;
+void Shooter::setShooter(double speed, bool useBoost) {
+	if (useBoost) speed = speed * mBoostPercent;
 
-	if (!useRpm) {
-		mSpeed = speed;
-		mShooterMotor.Set(ControlMode::PercentOutput, mSpeed);
-	} else {
-		// RPM to velocity
-		double velocity = (2048.0 /* encoder ticks per revolution */ * speed) / (600.0 /* 100ms per minute */);
-		mShooterMotor.Set(ControlMode::Velocity, velocity);
+	mShooterMotor.Set(ControlMode::Velocity, rpmToVelocity(speed));
 
-		// RPM to percent output
-		mSpeed = speed / ShooterConstants::kMaxRpm;
-	}
-	mIsRunning = true;
+	mSpeed = speed;
 }
 
 void Shooter::stopShooter() {
 	mSpeed = 0.0;
 	mShooterMotor.Set(ControlMode::PercentOutput, 0.0);
-	mIsRunning = false;
 }
 
-double Shooter::getSpeed(bool useRpm = false) {
-	return useRpm ? (mSpeed * ShooterConstants::kMaxRpm) : mSpeed;
+void Shooter::setShooterPercent(double speed) {
+	mShooterMotor.Set(ControlMode::PercentOutput, speed);
+	mSpeed = speed / ShooterConstants::kMaxRpm;
 }
 
 void Shooter::Periodic() {
-	mShuffleboardSpeedTarget.SetDouble(mSpeed);
-	mShuffleboardSpeedActual.SetDouble(getActualPercent());
+	mShuffleboardTargetRPM.SetDouble(mSpeed);
+	mShuffleboardActualRPM.SetDouble(getActualSpeed());
+	mShuffleboardActualPercent.SetDouble(getActualPercent());
 	mBoostPercent = mShuffleboardBoost.GetDouble(mBoostPercent);
 }
