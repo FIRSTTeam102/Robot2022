@@ -16,31 +16,26 @@
 #include <memory>
 #include <utility> */
 
-namespace ClimberConstants {
-	// Ports
-	const int kClimberSolenoidRightUp = 0;
-	const int kClimberSolenoidRightDown = 1;
-	const int kClimberSolenoidLeftUp = 6;
-	const int kClimberSolenoidLeftDown = 7;
-	// const int kLineSensorLeft = 0;
-	// const int kLineSensorRight = 1;
-}
-
 class Climber : public frc2::SubsystemBase {
 	public:
 		Climber();
 		// Climber(frc::XboxController* pController);
 		void Periodic() override;
-		void armsUp();
-		void armsDown();
-		void toggleArms();
+
+		void midArmsUp();
+		void midArmsDown();
+		void midArmsToggle();
+
+		void highArmsUp();
+		void highArmsDown();
+		void highArmsToggle();
 
 	private:
-		frc::DoubleSolenoid mClimberSolenoidRight{frc::PneumaticsModuleType::REVPH, ClimberConstants::kClimberSolenoidRightUp, ClimberConstants::kClimberSolenoidRightDown};
-		frc::DoubleSolenoid mClimberSolenoidLeft{frc::PneumaticsModuleType::REVPH, ClimberConstants::kClimberSolenoidLeftUp, ClimberConstants::kClimberSolenoidLeftDown};
+		frc::DoubleSolenoid mMidSolenoid{frc::PneumaticsModuleType::REVPH, 0, 1};
+		frc::DoubleSolenoid mHighSolenoid{frc::PneumaticsModuleType::REVPH, 6, 7};
 
-		/* frc::DigitalInput mLineSensorLeft{ClimberConstants::kLineSensorLeft};
-		frc::DigitalInput mLineSensorRight{ClimberConstants::kLineSensorRight};
+		/* frc::DigitalInput mLineSensorLeft{0};
+		frc::DigitalInput mLineSensorRight{1};
 
 		nt::NetworkTableEntry mShuffleboardSensorLeft;
 		nt::NetworkTableEntry mShuffleboardSensorRight;

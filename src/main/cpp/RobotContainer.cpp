@@ -60,7 +60,8 @@ void RobotContainer::ConfigureButtonBindings() {
 	mOperatorUpDPad.WhenPressed(&mIncrementHood);
 	mOperatorDownDPad.WhenPressed(&mDecrementHood);
 
-	mOperatorButtonLMenu.ToggleWhenPressed(&mClimbCommand);
+	mOperatorButtonLMenu.ToggleWhenPressed(&mMidClimbCommand);
+	mOperatorButtonRMenu.ToggleWhenPressed(&mHighClimbCommand);
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
@@ -70,6 +71,7 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
 
 void RobotContainer::RobotInit() {
 	// Set initial solenoid states
-	mClimber.armsDown();
+	mClimber.midArmsDown();
+	mClimber.highArmsDown();
 	mIntake.raiseIntakeArm();
 }

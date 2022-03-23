@@ -16,7 +16,8 @@
 
 #include "commands/Autonomous/MainAutonomous.h"
 #include "commands/Autonomous/OneBallAuto.h"
-#include "commands/Climber/Climb.h"
+#include "commands/Climber/MidClimb.h"
+#include "commands/Climber/HighClimb.h"
 #include "commands/Indexer/Backward.h"
 #include "commands/Indexer/Forward.h"
 #include "commands/Intake/ArmToggle.h"
@@ -111,7 +112,8 @@ class RobotContainer {
 		frc2::ParallelCommandGroup mTarmacUpper{mTarmacUpperSpeed, mTarmacUpperAngle};
 
 		Climber mClimber;
-		Climb mClimbCommand{&mClimber};
+		MidClimb mMidClimbCommand{&mClimber};
+		HighClimb mHighClimbCommand{&mClimber};
 
 		Limelight mLimelight;
 		AimbotParallel mLimelightShooter{&mLimelight, &mShooter, &mShooterHood};
