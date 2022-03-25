@@ -1,29 +1,39 @@
 #include "subsystems/Shooter.h"
 
-Shooter::Shooter() : mShooterMotor{ShooterConstants::kShooterMotor} {
+Shooter::Shooter() {
 	SetName("Shooter");
 	SetSubsystem("Shooter");
 
+	using namespace ShooterConstants;
+
 	// Shooter motor setup
-	mShooterMotor.ConfigFactoryDefault(); // resets all settings
-	mShooterMotor.SetInverted(true);
-	mShooterMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
+	mMotor.ConfigFactoryDefault(); // resets all settings
+	mMotor.SetInverted(true);
+	mMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
+	mMotor.SetSafetyEnabled(false);
 
 	// Sensor
-	mShooterMotor.ConfigSelectedFeedbackSensor(TalonFXFeedbackDevice::IntegratedSensor);
-	mShooterMotor.SetSensorPhase(true);
+	mMotor.ConfigSelectedFeedbackSensor(FeedbackDevice::IntegratedSensor, 0, kTimeoutMs);
+	mMotor.SetSensorPhase(true);
+	mMotor.SetSelectedSensorPosition(0, 0, kTimeoutMs);
 
 	// Peak and nominal outputs
-	mShooterMotor.ConfigNominalOutputForward(0, ShooterConstants::kTimeoutMs);
-	mShooterMotor.ConfigNominalOutputReverse(0, ShooterConstants::kTimeoutMs);
-	mShooterMotor.ConfigPeakOutputForward(1, ShooterConstants::kTimeoutMs);
-	mShooterMotor.ConfigPeakOutputReverse(-1, ShooterConstants::kTimeoutMs);
+	mMotor.ConfigNominalOutputForward(0, kTimeoutMs);
+	mMotor.ConfigNominalOutputReverse(0, kTimeoutMs);
+	mMotor.ConfigPeakOutputForward(1, kTimeoutMs);
+	mMotor.ConfigPeakOutputReverse(-0.0, kTimeoutMs); // DO NOT run the motor backwards (worst mistake of my life)
+
+	// Voltage compensation
+	mMotor.ConfigNeutralDeadband(kDeadband, kTimeoutMs);
 
 	// Closed loop gains
-	mShooterMotor.Config_kD(0, ShooterConstants::kD, ShooterConstants::kTimeoutMs);
-	mShooterMotor.Config_kF(0, ShooterConstants::kF, ShooterConstants::kTimeoutMs);
-	mShooterMotor.Config_kI(0, ShooterConstants::kI, ShooterConstants::kTimeoutMs);
-	mShooterMotor.Config_kP(0, ShooterConstants::kP, ShooterConstants::kTimeoutMs);
+	mMotor.Config_kD(0, kD, kTimeoutMs);
+	mMotor.Config_kF(0, kF, kTimeoutMs);
+	mMotor.Config_kI(0, kI, kTimeoutMs);
+	mMotor.Config_kP(0, kP, kTimeoutMs);
+	mMotor.SelectProfileSlot(0, 0);
+
+	stopShooter();
 
 	// Shuffleboard
 	wpi::StringMap<std::shared_ptr<nt::Value>> boostSliderProperties = {
@@ -49,24 +59,46 @@ Shooter::Shooter() : mShooterMotor{ShooterConstants::kShooterMotor} {
 void Shooter::setShooter(double speed, bool useBoost) {
 	if (useBoost) speed = speed * mBoostPercent;
 
-	mShooterMotor.Set(ControlMode::Velocity, rpmToVelocity(speed));
+	mMotor.Set(ControlMode::Velocity, rpmToVelocity(speed));
 
-	mSpeed = speed;
+	mTargetSpeed = speed;
 }
 
 void Shooter::stopShooter() {
-	mSpeed = 0.0;
-	mShooterMotor.Set(ControlMode::PercentOutput, 0.0);
+	mTargetSpeed = 0.0;
+	mMotor.Set(ControlMode::Velocity, 0.0);
 }
 
 void Shooter::setShooterPercent(double speed) {
-	mShooterMotor.Set(ControlMode::PercentOutput, speed);
-	mSpeed = speed / ShooterConstants::kMaxRpm;
+	mMotor.Set(ControlMode::PercentOutput, speed);
+	mTargetSpeed = speed / ShooterConstants::kMaxRpm;
 }
 
 void Shooter::Periodic() {
-	mShuffleboardTargetRPM.SetDouble(mSpeed);
-	mShuffleboardActualRPM.SetDouble(getActualSpeed());
+	mActualSpeed = mFlywheelFilter.Calculate(velocityToRpm(mMotor.GetSelectedSensorVelocity(0)));
+
+	mShuffleboardReady.SetBoolean(isRunning() && isAtTargetRPM());
+	mShuffleboardTargetRPM.SetDouble(mTargetSpeed);
+	mShuffleboardActualRPM.SetDouble(mActualSpeed);
 	mShuffleboardActualPercent.SetDouble(getActualPercent());
 	mBoostPercent = mShuffleboardBoost.GetDouble(mBoostPercent);
+}
+
+void Shooter::SimulationPeriodic() {
+	TalonFXSimCollection &motorSim(mMotor.GetSimCollection());
+
+	// Set simulation inputs 
+	motorSim.SetBusVoltage(frc::RobotController::GetInputVoltage());
+	mFlywheelSim.SetInputVoltage(motorSim.GetMotorOutputLeadVoltage() * 1_V);
+
+	// Update simulation, standard loop time is 20ms
+	mFlywheelSim.Update(20_ms);
+
+	// Set simulated outputs
+	frc::sim::RoboRioSim::SetVInVoltage(
+		frc::sim::BatterySim::Calculate({mFlywheelSim.GetCurrentDraw()})
+	);
+	motorSim.SetIntegratedSensorVelocity(
+		rpmToVelocity(mFlywheelSim.GetAngularVelocity())
+	);
 }
