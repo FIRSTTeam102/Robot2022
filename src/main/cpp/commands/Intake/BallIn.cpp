@@ -3,7 +3,7 @@
 BallIn::BallIn(Intake* pIntake, Indexer* pIndexer) : mpIntake{pIntake}, mpIndexer{pIndexer} {
 	SetName("BallIn");
 	AddRequirements(pIntake);
-	// AddRequirements(pIndexer);
+	// AddRequirements({pIntake, pIndexer});
 }
 
 // Called just before this Command runs the first time

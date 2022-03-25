@@ -7,8 +7,7 @@ SetHoodAngle::SetHoodAngle(double degrees, ShooterHood* pShooterHood) : mDegrees
 
 // SetHoodAngle based on distance from target determined by Limelight
 SetHoodAngle::SetHoodAngle(ShooterHood* pShooterHood, Limelight* pLimelight) : mDegrees{0}, mpShooterHood{pShooterHood}, mpLimelight{pLimelight} {
-	AddRequirements(pShooterHood);
-	AddRequirements(pLimelight);
+	AddRequirements({pShooterHood, pLimelight});
 }
 
 // Called when the command is initially scheduled.

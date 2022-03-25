@@ -3,8 +3,7 @@
 
 BallOut::BallOut(Intake* pIntake, Indexer* pIndexer): mpIntake{pIntake}, mpIndexer{pIndexer} {
 	// Use addRequirements() here to declare subsystem dependencies.
-	AddRequirements(pIntake);
-	AddRequirements(pIndexer);
+	AddRequirements({pIntake, pIndexer});
 }
 
 // Called when the command is initially scheduled.

@@ -2,13 +2,18 @@
 
 #include "subsystems/SwerveDrive.h"
 
-SwerveWheel::SwerveWheel(int drivePort, int turnPort, int encPort, int encOffset, double maxSpeed) : mDriveMotor{drivePort}, mTurnMotor{turnPort}, mEnc{encPort}, mAngleOffset{encOffset}, mMaxSpeed{maxSpeed} {
+SwerveWheel::SwerveWheel(int drivePort, int turnPort, int encPort, int encOffset, double maxSpeed) :
+mDriveMotor{drivePort},
+mTurnMotor{turnPort},
+mEnc{encPort},
+mAngleOffset{encOffset},
+mMaxSpeed{maxSpeed} {
 	SetName("SwerveWheel");
 	SetSubsystem("SwerveWheel");
 	mWheelNum = encPort + 1;
 
 	mDriveMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
-	mTurnMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
+	mTurnMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake); // also see setCalibration(false)
 }
 
 void SwerveWheel::setAngle(double angle) {
@@ -26,7 +31,7 @@ int SwerveWheel::circScale(int i) {
 
 // This method will be called once per scheduler run
 void SwerveWheel::Periodic() {
-	// printf("Encoder #%d at %d\n", mWheelNum, mEnc.GetValue()); // for calibration
+	if (mCalibration) return;
 
 	scaledPos = (double)(mEnc.GetValue() - mAngleOffset) * 360.0 / 4096.0;
 	posCurrent = circScale(scaledPos);
