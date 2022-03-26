@@ -8,7 +8,6 @@ StopShooter::StopShooter(Shooter* pShooter): mpShooter{pShooter} {
 // Called just before this Command runs the first time
 void StopShooter::Initialize() {
 	mpShooter->stopShooter();
-	mpShooter->mShuffleboardReady.SetBoolean(false);
 }
 
 // Called repeatedly when this Command is scheduled to run

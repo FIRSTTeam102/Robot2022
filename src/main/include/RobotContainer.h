@@ -23,7 +23,7 @@
 #include "commands/Intake/ArmToggle.h"
 #include "commands/Intake/BallIn.h"
 #include "commands/Intake/BallOut.h"
-#include "commands/Limelight/AimbotParallel.h"
+#include "commands/Limelight/LimelightShooter.h"
 #include "commands/Limelight/YawToTarget.h"
 #include "commands/RumbleController.h"
 // #include "commands/Shooter/ShootWithRumble.h"
@@ -52,9 +52,6 @@ namespace HardcodedShots {
 	constexpr float kTarmacLowerSpeedRPM = 1800; // lower hub
 	constexpr float kTarmacUpperSpeedRPM = 5920; // upper hub
 #endif
-
-	constexpr float kTarmacLowerSpeedPercent = kTarmacLowerSpeedRPM / ShooterConstants::kMaxRpm;
-	constexpr float kTarmacUpperSpeedPercent = kTarmacUpperSpeedRPM / ShooterConstants::kMaxRpm;
 
 	const double kTarmacLowerAngle = 75;
 	const double kTarmacUpperAngle = 85;
@@ -97,10 +94,9 @@ class RobotContainer {
 
 		Shooter mShooter;
 		StopShooter mStopShooterCommand{&mShooter};
-		// StartShooter mTarmacLowerSpeed{&mShooter, HardcodedShots::kTarmacLowerSpeedPercent};
-		// StartShooter mTarmacUpperSpeed{&mShooter, HardcodedShots::kTarmacUpperSpeedPercent};
-		StartShooter mTarmacLowerSpeed{&mShooter, HardcodedShots::kTarmacLowerSpeedRPM, true};
-		StartShooter mTarmacUpperSpeed{&mShooter, HardcodedShots::kTarmacUpperSpeedRPM, true};
+		StartShooter mTarmacLowerSpeed{&mShooter, HardcodedShots::kTarmacLowerSpeedRPM};
+		StartShooter mTarmacUpperSpeed{&mShooter, HardcodedShots::kTarmacUpperSpeedRPM};
+		StartShooter mShuffleboardShooter{&mShooter, &mShooter.mShuffleboardTestRPM};
 
 		ShooterHood mShooterHood;
 		IncrementHoodAngle mIncrementHood{2.0, &mShooterHood};
@@ -116,10 +112,8 @@ class RobotContainer {
 		HighClimb mHighClimbCommand{&mClimber};
 
 		Limelight mLimelight;
-		AimbotParallel mLimelightShooter{&mLimelight, &mShooter, &mShooterHood};
+		LimelightShooter mLimelightShooter{&mLimelight, &mShooter, &mShooterHood};
 		YawToTarget mYawToTarget{&mLimelight, &mSwerveDrive, &mDriverController};
-
-		// frc2::SequentialCommandGroup mLimelightShooterRumble{mLimelightShooter, RumbleController(&mDriverController)};
 
 		// Controllers
 		frc::XboxController mDriverController{0};

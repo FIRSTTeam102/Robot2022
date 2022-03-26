@@ -10,9 +10,7 @@ ShooterHood::ShooterHood() : mHoodActuator{ShooterHoodConstants::kActuator} {
 	mHoodActuator.SetBounds(2.0, 1.8, 1.5, 1.2, 1.0);
 
 	// Shuffleboard
-	frc::ShuffleboardLayout& layout = frc::Shuffleboard::GetTab("Drive").GetLayout("Shooter hood", frc::BuiltInLayouts::kList)
-		.WithSize(1, 2)
-		.WithPosition(10, 3);
+	frc::ShuffleboardLayout& layout = frc::Shuffleboard::GetTab("Drive").GetLayout("Shooter hood", frc::BuiltInLayouts::kList);
 
 	wpi::StringMap<std::shared_ptr<nt::Value>> angleSliderProperties = {
 		std::make_pair("Min", nt::Value::MakeDouble(ShooterHoodConstants::kMinAngle)),
@@ -30,7 +28,7 @@ ShooterHood::ShooterHood() : mHoodActuator{ShooterHoodConstants::kActuator} {
 void ShooterHood::Periodic() {
 	mShuffleboardTargetBool.SetBoolean(isAtTarget());
 
-	setAngle(mShuffleboardTargetAngle.GetDouble(mDegrees));
+	// setAngle(mShuffleboardTargetAngle.GetDouble(mDegrees));
 }
 
 // Converts an angle to required length for linear actuator to make shooter hood reach that angle
