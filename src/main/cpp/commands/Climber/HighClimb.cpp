@@ -1,27 +1,27 @@
-#include "commands/Climber/Climb.h"
+#include "commands/Climber/HighClimb.h"
 
-Climb::Climb(Climber *pClimber) : mpClimber{pClimber} {
-	SetName("Climb");
+HighClimb::HighClimb(Climber *pClimber) : mpClimber{pClimber} {
+	SetName("HighClimb");
 	AddRequirements(mpClimber);
 }
 
 // Called just before this Command runs the first time
-void Climb::Initialize() {
-	mpClimber->armsUp();
+void HighClimb::Initialize() {
+	mpClimber->highArmsUp();
 	Lights::GetInstance()->setMode(Lights::Mode::kClimb);
 }
 
 // Called repeatedly when this Command is scheduled to run
-void Climb::Execute() {
+void HighClimb::Execute() {
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool Climb::IsFinished() {
+bool HighClimb::IsFinished() {
 	return false;
 }
 
 // Called once after isFinished returns true
-void Climb::End(bool interrupted) {
-	mpClimber->armsDown();
+void HighClimb::End(bool interrupted) {
+	mpClimber->highArmsDown();
 	Lights::GetInstance()->setDefault();
 }

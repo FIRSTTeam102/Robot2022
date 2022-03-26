@@ -2,7 +2,8 @@
 
 #define M_DEGTORAD 57.2958
 
-SwerveDrive::SwerveDrive(frc::XboxController *pController) : mpController{pController} {
+SwerveDrive::SwerveDrive(frc::XboxController *pController) :
+mpController{pController} {
 	SetName("SwerveDrive");
 	SetSubsystem("SwerveDrive");
 	mIsFieldOriented = true;
@@ -10,9 +11,10 @@ SwerveDrive::SwerveDrive(frc::XboxController *pController) : mpController{pContr
 	mGyro.Calibrate();
 
 	// Shuffleboard
-	mShuffleboardFieldOriented = frc::Shuffleboard::GetTab("Drive").Add("Field oriented", mIsFieldOriented)
-		.WithPosition(2, 0)
-		.GetEntry();
+	mShuffleboardFieldOriented = frc::Shuffleboard::GetTab("Drive").Add("Field oriented", mIsFieldOriented).WithPosition(2, 0).GetEntry();
+
+	mShuffleboardCalibration = frc::Shuffleboard::GetTab("Test").Add("Calibration mode", false).WithWidget(frc::BuiltInWidgets::kToggleSwitch).GetEntry();
+	mShuffleboardEncs = frc::Shuffleboard::GetTab("Test").Add("Calibration values", getEncValues()).GetEntry();
 }
 
 double SwerveDrive::angleCalc(double x, double y) {
@@ -45,37 +47,46 @@ void SwerveDrive::controllerSwerve() {
 	if (mIsFieldOriented) offset = getGyroAngle();
 	else offset = 0.0;
 
-	vectorSwerve(
-		fixInput(mpController->GetLeftX()),
-		fixInput(-mpController->GetLeftY()),
-		fixInput(mpController->GetRightX()),
-		offset
-	);
+	vectorSwerve(fixInput(mpController->GetLeftX()),
+			fixInput(-mpController->GetLeftY()),
+			fixInput(mpController->GetRightX()),
+			offset);
 }
 
 void SwerveDrive::vectorSwerve(double driveX, double driveY, double turn, double offset) {
 	mDriveVector.x = driveX;
 	mDriveVector.y = driveY;
-	mDriveVector.Rotate(/*360 - */offset); // Factor in gyroscope value (subtract from 360 to go from counterclockwise to clockwise)
+	mDriveVector.Rotate(
+			/*360 - */ offset); // Factor in gyroscope value (subtract from 360 to
+								// go from counterclockwise to clockwise)
 
 	mTurnVector.x = turn;
 	mTurnVector.y = turn;
 	// printf("Turn speed: %f\n", mTurnVector.x);
 
 	double turnPercent = 0.4 * abs(turn); // give at max 40% to turn
-	double drivePercent = (1 - turnPercent); // allocate all of the remaining power to drive
+	double drivePercent =
+			(1 - turnPercent); // allocate all of the remaining power to drive
 
-	if (frc::DriverStation::IsAutonomous()) { // use hardcoded values for auto for now
+	if (frc::DriverStation::IsAutonomous()) { // use hardcoded values for auto
+											  // for now
 		drivePercent = 0.7;
 		turnPercent = 0.3;
 	}
 
 	for (int i = 0; i < 4; i++) { // For each wheel:
-		mSumVector.x = (drivePercent * mDriveVector.x + turnPercent * mTurnVector.x); // Add the two vectors to get one final vector
-		mSumVector.y = (drivePercent * mDriveVector.y + turnPercent * mTurnVector.y);
-		targetEncoder[i] = angleCalc(mSumVector.x, mSumVector.y); // Calculate the angle of this vector
-		targetSpeed[i] = mSumVector.Magnitude() * SwerveDriveConstants::kMaxSpeed; // Scale the speed of the wheels
-		// targetSpeed[i] = SwerveDriveConstants::kMaxSpeed * mpController->GetRightTriggerAxis() - SwerveDriveConstants::kMaxSpeed * mpDriverController->GetLeftTriggerAxis();
+		mSumVector.x = (drivePercent * mDriveVector.x +
+				turnPercent *
+						mTurnVector.x); // Add the two vectors to get one final vector
+		mSumVector.y =
+				(drivePercent * mDriveVector.y + turnPercent * mTurnVector.y);
+		targetEncoder[i] = angleCalc(mSumVector.x,
+				mSumVector.y); // Calculate the angle of this vector
+		targetSpeed[i] = mSumVector.Magnitude() *
+				SwerveDriveConstants::kMaxSpeed; // Scale the speed of the wheels
+		// targetSpeed[i] = SwerveDriveConstants::kMaxSpeed *
+		// mpController->GetRightTriggerAxis() - SwerveDriveConstants::kMaxSpeed
+		// * mpDriverController->GetLeftTriggerAxis();
 		mTurnVector.Rotate(-90.0); // Rotate the vector clockwise 90 degrees
 	}
 
@@ -88,7 +99,8 @@ void SwerveDrive::vectorSwerve(double driveX, double driveY, double turn, double
 	mWheelBR.setSpeed(targetSpeed[2]);
 	mWheelBL.setSpeed(targetSpeed[3]);
 
-	// printf("Swerve speed %f %f %f %f\n", targetSpeed[0], targetSpeed[1], targetSpeed[2], targetSpeed[3]);
+	// printf("Swerve speed %f %f %f %f\n", targetSpeed[0], targetSpeed[1],
+	// targetSpeed[2], targetSpeed[3]);
 }
 
 void SwerveDrive::autoDrive(double angle, double speed) {
@@ -110,20 +122,29 @@ void SwerveDrive::setSpeeds(double speed) {
 	mWheelBL.setSpeed(speed);
 }
 
-void SwerveDrive::stopDrive() {
-	setSpeeds(0);
-}
+void SwerveDrive::stopDrive() { setSpeeds(0); }
 
 void SwerveDrive::changeOrientation() {
 	mIsFieldOriented = !mIsFieldOriented;
 	mShuffleboardFieldOriented.SetBoolean(mIsFieldOriented);
 }
 
-void SwerveDrive::resetGyro() {
-	mGyro.Reset();
-}
+void SwerveDrive::resetGyro() { mGyro.Reset(); }
 
 // This method will be called once per scheduler run
 void SwerveDrive::Periodic() {
 	mGyroAngle = mGyro.GetAngle();
+
+	if (frc::DriverStation::IsEnabled())
+		mShuffleboardEncs.SetDoubleArray(
+				getEncValues()); // disabling will pause output
+
+	if (mShuffleboardCalibration.GetBoolean(false) != mCalibration) {
+		mCalibration = mShuffleboardCalibration.GetBoolean(false);
+
+		mWheelFL.setCalibration(mCalibration);
+		mWheelFR.setCalibration(mCalibration);
+		mWheelBR.setCalibration(mCalibration);
+		mWheelBL.setCalibration(mCalibration);
+	};
 }

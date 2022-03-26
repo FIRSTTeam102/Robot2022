@@ -1,19 +1,30 @@
 Language: Cpp
 BasedOnStyle: Google
 AccessModifierOffset: 0
+AlignAfterOpenBracket: false
+AlignEscapedNewlines: DontAlign
+AlignOperands: false
 AlignTrailingComments: false
 AllowAllArgumentsOnNextLine: false
-AllowAllConstructorInitializersOnNextLine: false
-AllowAllParametersOfDeclarationOnNextLine: false
-AllowShortIfStatementsOnASingleLine: true
+AllowAllConstructorInitializersOnNextLine: true
+AllowAllParametersOfDeclarationOnNextLine: true
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+BinPackArguments: false
+BinPackParameters: false
+BreakBeforeBraces: Attach
+BreakConstructorInitializers: AfterColon
 ColumnLimit: 0
-ConstructorInitializerAllOnOneLineOrOnePerLine: false
-ConstructorInitializerIndentWidth: 4
+ContinuationIndentWidth: 8
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+ConstructorInitializerIndentWidth: 0
+# Cpp11BracedListStyle: false
 FixNamespaceComments: false
 IndentAccessModifiers: true
 IndentWidth: 4
-IndentWidth: 4
 NamespaceIndentation: All
+# PackConstructorInitializers: CurrentLine # unsupported
+PointerAlignment: Left
+ReferenceAlignment: Left
 SpaceAfterCStyleCast: false
 SpaceAfterLogicalNot: false
 SpaceBeforeAssignmentOperators: true

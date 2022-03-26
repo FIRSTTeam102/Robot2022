@@ -19,22 +19,34 @@ Climber::Climber() {
 	mShuffleboardSensorRight = sensorGrid.Add("Right", false).GetEntry(); */
 }
 
-void Climber::armsUp() {
-	mClimberSolenoidRight.Set(frc::DoubleSolenoid::kForward);
-	mClimberSolenoidLeft.Set(frc::DoubleSolenoid::kForward);
-	printf("Climber arms raising\n");
+void Climber::midArmsUp() {
+	mMidSolenoid.Set(frc::DoubleSolenoid::kForward);
+	printf("Raising mid climber\n");
 }
 
-void Climber::armsDown() {
-	mClimberSolenoidRight.Set(frc::DoubleSolenoid::kReverse);
-	mClimberSolenoidLeft.Set(frc::DoubleSolenoid::kReverse);
-	printf("Climber arms descending\n");
+void Climber::midArmsDown() {
+	mMidSolenoid.Set(frc::DoubleSolenoid::kReverse);
+	printf("Lowering mid climber\n");
 }
 
-void Climber::toggleArms() {
-	mClimberSolenoidRight.Toggle();
-	mClimberSolenoidLeft.Toggle();
-	printf("Climber arms toggled\n");
+void Climber::midArmsToggle() {
+	mMidSolenoid.Toggle();
+	printf("Toggling mid climber\n");
+}
+
+void Climber::highArmsUp() {
+	mHighSolenoid.Set(frc::DoubleSolenoid::kForward);
+	printf("Raising high climber\n");
+}
+
+void Climber::highArmsDown() {
+	mHighSolenoid.Set(frc::DoubleSolenoid::kReverse);
+	printf("Lowering high climber\n");
+}
+
+void Climber::highArmsToggle() {
+	mHighSolenoid.Toggle();
+	printf("Toggling high climber\n");
 }
 
 void Climber::Periodic() {

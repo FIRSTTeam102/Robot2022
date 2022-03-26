@@ -45,10 +45,15 @@ namespace SwerveDriveConstants {
 	const double kBLMaxSpeed = 513;
 	const double kSlowestSpeed = kFLMaxSpeed;
 
-	// const double kMaxMotorSpeed = 5000.0; // this is in RPM
-	// // in inches
-	// const double kWheelDiameter = 4;
-	// const double kDriveDiameter = 23;
+	// const double kMaxMotorSpeed = 5000.0; // RPM
+	// const double kWheelDiameter = 4; // inches
+	// const double kDriveDiameter = 23; // inches
+
+	// constexpr double kWheelCircum = kWheelDiameter * M_PI;
+	// constexpr double kDriveCircum = kDriveDiameter * M_PI;
+
+	// constexpr double kRotationsPer360 = kDriveCircum / kWheelCircum;
+	// constexpr double kMaxTurnSpeed = kMaxMotorSpeed * 0.70711;
 }
 
 class SwerveDrive : public frc2::SubsystemBase {
@@ -58,10 +63,8 @@ class SwerveDrive : public frc2::SubsystemBase {
 		double fixInput(double s, bool square = true) {
 			if (square) s = std::copysign(s * s, s);
 
-			if (-SwerveDriveConstants::kDeadzone < s && s < SwerveDriveConstants::kDeadzone)
-				return 0.0;
-			else
-				return s;
+			if (abs(s) < SwerveDriveConstants::kDeadzone) return 0.0;
+			else return s;
 		}
 
 		void controllerSwerve();
@@ -86,15 +89,17 @@ class SwerveDrive : public frc2::SubsystemBase {
 			return mAutoState;
 		}
 
+		std::initializer_list<double> getEncValues() {
+			return {
+				mWheelFL.getEnc(),
+				mWheelFR.getEnc(),
+				mWheelBR.getEnc(),
+				mWheelBL.getEnc()
+			};
+		}
+
 		void Periodic() override;
 
-		// Static values
-
-		// static const double kWheelCircum = SwerveDriveConstants::kWheelDiameter * M_PI;
-		// static const double kDriveCircum = SwerveDriveConstants::kDriveDiameter * M_PI;
-
-		// static const double kRotationsPer360 = kDriveCircum / kWheelCircum;
-		// static const double kMaxTurnSpeed = SwerveDriveConstants::kMaxMotorSpeed * 0.70711;
 	private:
 		double pythag(double x, double y);
 		double angleCalc(double x, double y);
@@ -102,16 +107,19 @@ class SwerveDrive : public frc2::SubsystemBase {
 		double speed;
 		bool mIsFieldOriented;
 		bool mAutoState;
+		bool mCalibration = false;
 
 		frc::XboxController* mpController;
-		AHRS mGyro{frc::SPI::Port::kMXP};
+		AHRS mGyro{ frc::SPI::Port::kMXP };
 
 		nt::NetworkTableEntry mShuffleboardFieldOriented;
+		nt::NetworkTableEntry mShuffleboardCalibration;
+		nt::NetworkTableEntry mShuffleboardEncs;
 
-		SwerveWheel mWheelFL{SwerveDriveConstants::kFLDrive, SwerveDriveConstants::kFLTurn, SwerveDriveConstants::kFLEnc, SwerveDriveConstants::kFLOffset, SwerveDriveConstants::kFLMaxSpeed};
-		SwerveWheel mWheelFR{SwerveDriveConstants::kFRDrive, SwerveDriveConstants::kFRTurn, SwerveDriveConstants::kFREnc, SwerveDriveConstants::kFROffset, SwerveDriveConstants::kFRMaxSpeed};
-		SwerveWheel mWheelBR{SwerveDriveConstants::kBRDrive, SwerveDriveConstants::kBRTurn, SwerveDriveConstants::kBREnc, SwerveDriveConstants::kBROffset, SwerveDriveConstants::kBRMaxSpeed};
-		SwerveWheel mWheelBL{SwerveDriveConstants::kBLDrive, SwerveDriveConstants::kBLTurn, SwerveDriveConstants::kBLEnc, SwerveDriveConstants::kBLOffset, SwerveDriveConstants::kBLMaxSpeed};
+		SwerveWheel mWheelFL{ SwerveDriveConstants::kFLDrive, SwerveDriveConstants::kFLTurn, SwerveDriveConstants::kFLEnc, SwerveDriveConstants::kFLOffset, SwerveDriveConstants::kFLMaxSpeed };
+		SwerveWheel mWheelFR{ SwerveDriveConstants::kFRDrive, SwerveDriveConstants::kFRTurn, SwerveDriveConstants::kFREnc, SwerveDriveConstants::kFROffset, SwerveDriveConstants::kFRMaxSpeed };
+		SwerveWheel mWheelBR{ SwerveDriveConstants::kBRDrive, SwerveDriveConstants::kBRTurn, SwerveDriveConstants::kBREnc, SwerveDriveConstants::kBROffset, SwerveDriveConstants::kBRMaxSpeed };
+		SwerveWheel mWheelBL{ SwerveDriveConstants::kBLDrive, SwerveDriveConstants::kBLTurn, SwerveDriveConstants::kBLEnc, SwerveDriveConstants::kBLOffset, SwerveDriveConstants::kBLMaxSpeed };
 
 		int targetEncoder[4];
 		float targetSpeed[4], turnMagnitude[4];
