@@ -16,8 +16,8 @@
 
 #include "commands/Autonomous/MainAutonomous.h"
 #include "commands/Autonomous/OneBallAuto.h"
-#include "commands/Climber/MidClimb.h"
 #include "commands/Climber/HighClimb.h"
+#include "commands/Climber/MidClimb.h"
 #include "commands/Indexer/Backward.h"
 #include "commands/Indexer/Forward.h"
 #include "commands/Intake/ArmToggle.h"
@@ -26,6 +26,7 @@
 #include "commands/Limelight/AimbotParallel.h"
 #include "commands/Limelight/YawToTarget.h"
 #include "commands/RumbleController.h"
+#include "commands/ToggleCamera.h"
 // #include "commands/Shooter/ShootWithRumble.h"
 #include "commands/Shooter/StartShooter.h"
 #include "commands/Shooter/StopShooter.h"
@@ -72,7 +73,8 @@ class RobotContainer {
 	private:
 		RobotContainer();
 
-		cs::UsbCamera mCamera;
+		cs::UsbCamera mCamera1;
+		cs::UsbCamera mCamera2;
 
 		frc::SendableChooser<frc2::Command*> mAutoMode;
 
@@ -120,6 +122,8 @@ class RobotContainer {
 		YawToTarget mYawToTarget{&mLimelight, &mSwerveDrive, &mDriverController};
 
 		// frc2::SequentialCommandGroup mLimelightShooterRumble{mLimelightShooter, RumbleController(&mDriverController)};
+
+		ToggleCamera mToggleCamera{&mCamera1, &mCamera2};
 
 		// Controllers
 		frc::XboxController mDriverController{0};

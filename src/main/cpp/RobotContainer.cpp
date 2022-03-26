@@ -15,13 +15,13 @@ RobotContainer::RobotContainer() {
 		.WithWidget(frc::BuiltInWidgets::kComboBoxChooser)
 		.WithPosition(0, 0);
 
-	// mCamera = frc::CameraServer::GetInstance()->StartAutomaticCapture(0);
-	mCamera = frc::CameraServer::StartAutomaticCapture();
-	mCamera.SetFPS(30);
-	mCamera.SetResolution(640, 480);
-	frc::CameraServer::GetServer().SetSource(mCamera);
+	mCamera1 = frc::CameraServer::StartAutomaticCapture("Intake", 0);
+	mCamera1.SetFPS(30);
+	mCamera1.SetResolution(320, 240);
+	mCamera2 = frc::CameraServer::StartAutomaticCapture("Climb", 1);
+	frc::CameraServer::GetServer().SetSource(mCamera1);
 	frc::Shuffleboard::GetTab("Drive")
-		.Add("Camera", mCamera)
+		.Add("Camera", mCamera1)
 		.WithWidget(frc::BuiltInWidgets::kCameraStream)
 		.WithSize(7, 5)
 		.WithPosition(3, 0);
@@ -57,8 +57,9 @@ void RobotContainer::ConfigureButtonBindings() {
 
 	mOperatorRT.WhenHeld(&mLimelightShooter);
 
-	mOperatorUpDPad.WhenPressed(&mIncrementHood);
-	mOperatorDownDPad.WhenPressed(&mDecrementHood);
+	// mOperatorUpDPad.WhenPressed(&mIncrementHood);
+	// mOperatorDownDPad.WhenPressed(&mDecrementHood);
+	mOperatorRightDPad.WhenPressed(&mToggleCamera);
 
 	mOperatorButtonLMenu.ToggleWhenPressed(&mMidClimbCommand);
 	mOperatorButtonRMenu.ToggleWhenPressed(&mHighClimbCommand);
