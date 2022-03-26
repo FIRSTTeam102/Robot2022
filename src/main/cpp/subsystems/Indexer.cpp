@@ -1,12 +1,13 @@
 #include "subsystems/Indexer.h"
 
-Indexer::Indexer() : mIndexerMotor{IndexerConstants::kIndexerMotor}, mBallSwitch{IndexerConstants::kBallSwitch} {
+Indexer::Indexer() : mIndexerMotor{IndexerConstants::kIndexerMotor} {
 	SetName("Indexer");
 	SetSubsystem("Indexer");
 }
 
 void Indexer::Periodic() {
 	// Put code here to be run every loop
+	// printf("Sensor Has Target: %s\n", getSwitch() ? "True" : "False");
 }
 
 void Indexer::indexDown() {
@@ -25,5 +26,5 @@ void Indexer::stopIndexer() {
 }
 
 bool Indexer::getSwitch() {
-	return mBallSwitch.Get();
+	return !mBallSwitch.Get();
 }

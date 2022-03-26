@@ -12,8 +12,7 @@ Climber::Climber() {
 
 	frc::ShuffleboardLayout& sensorGrid = frc::Shuffleboard::GetTab("Drive")
 		.GetLayout("Climb sensors", frc::BuiltInLayouts::kGrid)
-			.WithProperties(sensorGridProperties)
-			.WithPosition(2, 1);
+			.WithProperties(sensorGridProperties);
 
 	mShuffleboardSensorLeft = sensorGrid.Add("Left", false).GetEntry();
 	mShuffleboardSensorRight = sensorGrid.Add("Right", false).GetEntry(); */

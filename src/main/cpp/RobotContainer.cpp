@@ -12,8 +12,7 @@ RobotContainer::RobotContainer() {
 	mAutoMode.AddOption("None", new frc2::PrintCommand("No auto"));
 	frc::Shuffleboard::GetTab("Drive")
 		.Add("Auto mode", mAutoMode)
-		.WithWidget(frc::BuiltInWidgets::kComboBoxChooser)
-		.WithPosition(0, 0);
+		.WithWidget(frc::BuiltInWidgets::kComboBoxChooser);
 
 	mCamera1 = frc::CameraServer::StartAutomaticCapture("Intake", 0);
 	mCamera1.SetFPS(30);
@@ -23,8 +22,7 @@ RobotContainer::RobotContainer() {
 	frc::Shuffleboard::GetTab("Drive")
 		.Add("Camera", mCamera1)
 		.WithWidget(frc::BuiltInWidgets::kCameraStream)
-		.WithSize(7, 5)
-		.WithPosition(3, 0);
+		.WithSize(5, 4);
 
 	frc::DriverStation::SilenceJoystickConnectionWarning(true);
 }
@@ -45,6 +43,8 @@ void RobotContainer::ConfigureButtonBindings() {
 
 	mDriverRT.WhenHeld(&mIndexUpCommand);
 	mDriverButtonRB.WhenHeld(&mIndexDownCommand);
+
+	mDriverButtonRMenu.WhenPressed(&mShuffleboardShooter);
 
 	/****** Operator ******/
 	mOperatorButtonA.WhenPressed(&mTarmacLower);

@@ -8,6 +8,6 @@
 
 class ShootWithRumble : public frc2::CommandHelper<frc2::SequentialCommandGroup, ShootWithRumble> {
 	public:
-		explicit ShootWithRumble(Shooter* pShooter, double speed , bool useRpm = false);
-		explicit ShootWithRumble(Shooter* pShooter, Limelight* pLimelight, bool useRpm = false);
+		explicit ShootWithRumble(Shooter* pShooter, double speed);
+		explicit ShootWithRumble(Shooter* pShooter, Limelight* pLimelight);
 };

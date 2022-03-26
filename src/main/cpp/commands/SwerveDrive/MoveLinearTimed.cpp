@@ -9,11 +9,13 @@ MoveLinearTimed::MoveLinearTimed(SwerveDrive* pSwerveDrive, double speed, double
 void MoveLinearTimed::Initialize() {
 	mpSwerveDrive->setAutoState(true);
 	mCounter = 0;
+	mpSwerveDrive->resetGyro();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void MoveLinearTimed::Execute() {
-	mpSwerveDrive->autoDrive(mAngle, mSpeed);
+	double targetAngle = mAngle - mpSwerveDrive->getGyroAngle();
+	mpSwerveDrive->autoDrive(targetAngle, mSpeed);
 	mCounter++;
 }
 

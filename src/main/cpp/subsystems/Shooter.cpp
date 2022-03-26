@@ -1,29 +1,39 @@
 #include "subsystems/Shooter.h"
 
-Shooter::Shooter() : mShooterMotor{ShooterConstants::kShooterMotor} {
+Shooter::Shooter() {
 	SetName("Shooter");
 	SetSubsystem("Shooter");
 
+	using namespace ShooterConstants;
+
 	// Shooter motor setup
-	mShooterMotor.ConfigFactoryDefault(); // resets all settings
-	mShooterMotor.SetInverted(true);
-	mShooterMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
+	mMotor.ConfigFactoryDefault(); // resets all settings
+	mMotor.SetInverted(true);
+	mMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
+	mMotor.SetSafetyEnabled(false);
 
 	// Sensor
-	mShooterMotor.ConfigSelectedFeedbackSensor(TalonFXFeedbackDevice::IntegratedSensor);
-	mShooterMotor.SetSensorPhase(true);
+	mMotor.ConfigSelectedFeedbackSensor(FeedbackDevice::IntegratedSensor, 0, kTimeoutMs);
+	mMotor.SetSensorPhase(true);
+	mMotor.SetSelectedSensorPosition(0, 0, kTimeoutMs);
 
 	// Peak and nominal outputs
-	mShooterMotor.ConfigNominalOutputForward(0, ShooterConstants::kTimeoutMs);
-	mShooterMotor.ConfigNominalOutputReverse(0, ShooterConstants::kTimeoutMs);
-	mShooterMotor.ConfigPeakOutputForward(1, ShooterConstants::kTimeoutMs);
-	mShooterMotor.ConfigPeakOutputReverse(-1, ShooterConstants::kTimeoutMs);
+	mMotor.ConfigNominalOutputForward(0, kTimeoutMs);
+	mMotor.ConfigNominalOutputReverse(0, kTimeoutMs);
+	mMotor.ConfigPeakOutputForward(1, kTimeoutMs);
+	mMotor.ConfigPeakOutputReverse(-0.0, kTimeoutMs); // DO NOT run the motor backwards (worst mistake of my life)
+
+	// Voltage compensation
+	mMotor.ConfigNeutralDeadband(kDeadband, kTimeoutMs);
 
 	// Closed loop gains
-	mShooterMotor.Config_kD(0, ShooterConstants::kD, ShooterConstants::kTimeoutMs);
-	mShooterMotor.Config_kF(0, ShooterConstants::kF, ShooterConstants::kTimeoutMs);
-	mShooterMotor.Config_kI(0, ShooterConstants::kI, ShooterConstants::kTimeoutMs);
-	mShooterMotor.Config_kP(0, ShooterConstants::kP, ShooterConstants::kTimeoutMs);
+	mMotor.Config_kD(0, kD, kTimeoutMs);
+	mMotor.Config_kF(0, kF, kTimeoutMs);
+	mMotor.Config_kI(0, kI, kTimeoutMs);
+	mMotor.Config_kP(0, kP, kTimeoutMs);
+	mMotor.SelectProfileSlot(0, 0);
+
+	stopShooter();
 
 	// Shuffleboard
 	wpi::StringMap<std::shared_ptr<nt::Value>> boostSliderProperties = {
@@ -32,48 +42,65 @@ Shooter::Shooter() : mShooterMotor{ShooterConstants::kShooterMotor} {
 		std::make_pair("Block increment", nt::Value::MakeDouble(0.1))
 	};
 
-	frc::ShuffleboardLayout& layout = frc::Shuffleboard::GetTab("Drive").GetLayout("Shooter", frc::BuiltInLayouts::kList)
-		.WithSize(1, 3)
-		.WithPosition(10, 0);
+	frc::ShuffleboardLayout& layout = frc::Shuffleboard::GetTab("Drive").GetLayout("Shooter", frc::BuiltInLayouts::kList);
 
-	mShuffleboardReady = layout.Add("Ready?", false).GetEntry();	
-	mShuffleboardSpeedTarget = layout.Add("Target percent", 0.0).GetEntry();
-	mShuffleboardSpeedActual = layout.Add("Actual percent", 0.0).GetEntry();
+	mShuffleboardReady = layout.Add("Ready?", false).GetEntry();
+	mShuffleboardTargetRPM = layout.Add("Target RPM", 0.0).GetEntry();
+	mShuffleboardActualRPM = layout.Add("Actual RPM", 0.0).GetEntry();
+	mShuffleboardActualPercent = layout.Add("Actual %", 0.0).GetEntry();
 	mShuffleboardBoost = layout.AddPersistent("Boost", mBoostPercent)
 		.WithWidget(frc::BuiltInWidgets::kNumberSlider)
 		.WithProperties(boostSliderProperties)
 		.GetEntry();
+
+	mShuffleboardTestRPM = frc::Shuffleboard::GetTab("Test").Add("Set RPM command", 0.0).GetEntry();
 }
 
-void Shooter::setShooter(double speed, bool useRpm = false) {
-	speed = speed * mBoostPercent;
+void Shooter::setShooter(double speed, bool useBoost) {
+	if (useBoost) speed = speed * mBoostPercent;
 
-	if (!useRpm) {
-		mSpeed = speed;
-		mShooterMotor.Set(ControlMode::PercentOutput, mSpeed);
-	} else {
-		// RPM to velocity
-		double velocity = (2048.0 /* encoder ticks per revolution */ * speed) / (600.0 /* 100ms per minute */);
-		mShooterMotor.Set(ControlMode::Velocity, velocity);
+	mMotor.Set(ControlMode::Velocity, rpmToVelocity(speed));
 
-		// RPM to percent output
-		mSpeed = speed / ShooterConstants::kMaxRpm;
-	}
-	mIsRunning = true;
+	mTargetSpeed = speed;
 }
 
 void Shooter::stopShooter() {
-	mSpeed = 0.0;
-	mShooterMotor.Set(ControlMode::PercentOutput, 0.0);
-	mIsRunning = false;
+	mTargetSpeed = 0.0;
+	mMotor.Set(ControlMode::Velocity, 0.0);
 }
 
-double Shooter::getSpeed(bool useRpm = false) {
-	return useRpm ? (mSpeed * ShooterConstants::kMaxRpm) : mSpeed;
+void Shooter::setShooterPercent(double speed) {
+	mMotor.Set(ControlMode::PercentOutput, speed);
+	mTargetSpeed = speed / ShooterConstants::kMaxRpm;
 }
 
 void Shooter::Periodic() {
-	mShuffleboardSpeedTarget.SetDouble(mSpeed);
-	mShuffleboardSpeedActual.SetDouble(getActualPercent());
+	mActualSpeed = mFlywheelFilter.Calculate(velocityToRpm(mMotor.GetSelectedSensorVelocity(0)));
+
+	mShuffleboardReady.SetBoolean(isRunning() && isAtTargetRPM());
+	mShuffleboardActualRPM.SetDouble(mActualSpeed);
+	mShuffleboardActualPercent.SetDouble(getActualPercent());
 	mBoostPercent = mShuffleboardBoost.GetDouble(mBoostPercent);
+
+	// if (double newTargetSpeed = mShuffleboardTargetRPM.GetDouble(mTargetSpeed) != mTargetSpeed) setShooter(newTargetSpeed);
+	mShuffleboardTargetRPM.SetDouble(mTargetSpeed);
+}
+
+void Shooter::SimulationPeriodic() {
+	TalonFXSimCollection &motorSim(mMotor.GetSimCollection());
+
+	// Set simulation inputs 
+	motorSim.SetBusVoltage(frc::RobotController::GetInputVoltage());
+	mFlywheelSim.SetInputVoltage(motorSim.GetMotorOutputLeadVoltage() * 1_V);
+
+	// Update simulation, standard loop time is 20ms
+	mFlywheelSim.Update(20_ms);
+
+	// Set simulated outputs
+	frc::sim::RoboRioSim::SetVInVoltage(
+		frc::sim::BatterySim::Calculate({mFlywheelSim.GetCurrentDraw()})
+	);
+	motorSim.SetIntegratedSensorVelocity(
+		rpmToVelocity(mFlywheelSim.GetAngularVelocity())
+	);
 }
