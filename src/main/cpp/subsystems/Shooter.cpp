@@ -78,10 +78,12 @@ void Shooter::Periodic() {
 	mActualSpeed = mFlywheelFilter.Calculate(velocityToRpm(mMotor.GetSelectedSensorVelocity(0)));
 
 	mShuffleboardReady.SetBoolean(isRunning() && isAtTargetRPM());
-	mShuffleboardTargetRPM.SetDouble(mTargetSpeed);
 	mShuffleboardActualRPM.SetDouble(mActualSpeed);
 	mShuffleboardActualPercent.SetDouble(getActualPercent());
 	mBoostPercent = mShuffleboardBoost.GetDouble(mBoostPercent);
+
+	setShooter(mShuffleboardTargetRPM.GetDouble(mTargetSpeed));
+	mShuffleboardTargetRPM.SetDouble(mTargetSpeed);
 }
 
 void Shooter::SimulationPeriodic() {
