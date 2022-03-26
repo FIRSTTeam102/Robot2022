@@ -42,9 +42,7 @@ Shooter::Shooter() {
 		std::make_pair("Block increment", nt::Value::MakeDouble(0.1))
 	};
 
-	frc::ShuffleboardLayout& layout = frc::Shuffleboard::GetTab("Drive").GetLayout("Shooter", frc::BuiltInLayouts::kList)
-		.WithSize(1, 3)
-		.WithPosition(10, 0);
+	frc::ShuffleboardLayout& layout = frc::Shuffleboard::GetTab("Drive").GetLayout("Shooter", frc::BuiltInLayouts::kList);
 
 	mShuffleboardReady = layout.Add("Ready?", false).GetEntry();
 	mShuffleboardTargetRPM = layout.Add("Target RPM", 0.0).GetEntry();
@@ -54,6 +52,8 @@ Shooter::Shooter() {
 		.WithWidget(frc::BuiltInWidgets::kNumberSlider)
 		.WithProperties(boostSliderProperties)
 		.GetEntry();
+
+	mShuffleboardTestRPM = frc::Shuffleboard::GetTab("Test").Add("Set RPM command", 0.0).GetEntry();
 }
 
 void Shooter::setShooter(double speed, bool useBoost) {
@@ -82,7 +82,7 @@ void Shooter::Periodic() {
 	mShuffleboardActualPercent.SetDouble(getActualPercent());
 	mBoostPercent = mShuffleboardBoost.GetDouble(mBoostPercent);
 
-	setShooter(mShuffleboardTargetRPM.GetDouble(mTargetSpeed));
+	// if (double newTargetSpeed = mShuffleboardTargetRPM.GetDouble(mTargetSpeed) != mTargetSpeed) setShooter(newTargetSpeed);
 	mShuffleboardTargetRPM.SetDouble(mTargetSpeed);
 }
 

@@ -14,9 +14,15 @@ StartShooter::StartShooter(Shooter* pShooter, Limelight* pLimelight) : mpShooter
 	AddRequirements(pShooter);
 }
 
+StartShooter::StartShooter(Shooter* pShooter, nt::NetworkTableEntry* pNTEntry) : mpShooter{pShooter}, mpLimelight{NULL}, mpNTEntry{pNTEntry} {
+	SetName("StartShooter");
+	AddRequirements(pShooter);
+}
+
 // Called just before this Command runs the first time
 void StartShooter::Initialize() {
 	if (mpLimelight) mTargetSpeed = mpLimelight->getShootSpeed();
+	else if (mpNTEntry) mTargetSpeed = mpNTEntry->GetDouble(0.0);
 #ifdef RAMP
 	mSpeed = mpShooter->getSpeed();
 
@@ -40,6 +46,7 @@ void StartShooter::Execute() {
 
 	mpShooter->setShooter(mSpeed);
 #endif
+	printf("Shooter spinning up to %f, currently at %f\n", mTargetSpeed, mpShooter->getActualSpeed());
 }
 
 // Make this return true when this Command no longer needs to run execute()

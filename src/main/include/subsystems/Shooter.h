@@ -28,7 +28,7 @@ namespace ShooterConstants {
 	const double kRPMTolerance = 200.0;
 	const int kTimeoutMs = 30;
 	const double kD = 0.0; // Derivative gain
-	const double kF = 0.049588; // Feed forward gain
+	const double kF = 0.046503; // Feed forward gain
 	const double kI = 0.0; // Integral gain
 	const double kP = 0.22; // Proportional gain
 }
@@ -95,4 +95,6 @@ class Shooter : public frc2::SubsystemBase {
 
 		void Periodic() override;
 		void SimulationPeriodic() override;
+
+		nt::NetworkTableEntry mShuffleboardTestRPM;
 };

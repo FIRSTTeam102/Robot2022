@@ -11,7 +11,7 @@ mpController{pController} {
 	mGyro.Calibrate();
 
 	// Shuffleboard
-	mShuffleboardFieldOriented = frc::Shuffleboard::GetTab("Drive").Add("Field oriented", mIsFieldOriented).WithPosition(2, 0).GetEntry();
+	mShuffleboardFieldOriented = frc::Shuffleboard::GetTab("Drive").Add("Field oriented", mIsFieldOriented).GetEntry();
 
 	mShuffleboardCalibration = frc::Shuffleboard::GetTab("Test").Add("Calibration mode", false).WithWidget(frc::BuiltInWidgets::kToggleSwitch).GetEntry();
 	mShuffleboardEncs = frc::Shuffleboard::GetTab("Test").Add("Calibration values", getEncValues()).GetEntry();
