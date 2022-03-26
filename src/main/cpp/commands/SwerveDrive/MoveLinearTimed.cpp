@@ -13,7 +13,8 @@ void MoveLinearTimed::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void MoveLinearTimed::Execute() {
-	mpSwerveDrive->autoDrive(mAngle, mSpeed);
+	double targetAngle = mAngle - mpSwerveDrive->getGyroAngle();
+	mpSwerveDrive->autoDrive(targetAngle, mSpeed);
 	mCounter++;
 }
 

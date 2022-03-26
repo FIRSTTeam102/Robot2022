@@ -110,7 +110,7 @@ class SwerveDrive : public frc2::SubsystemBase {
 		bool mCalibration = false;
 
 		frc::XboxController* mpController;
-		AHRS mGyro{ frc::SPI::Port::kMXP };
+		AHRS mGyro{ frc::SPI::Port::kMXP, 110 };
 
 		nt::NetworkTableEntry mShuffleboardFieldOriented;
 		nt::NetworkTableEntry mShuffleboardCalibration;

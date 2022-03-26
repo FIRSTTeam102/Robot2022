@@ -18,7 +18,7 @@ namespace IndexerConstants {
 class Indexer : public frc2::SubsystemBase {
 	private:
 		TalonSRX mIndexerMotor;
-		frc::DigitalInput mBallSwitch;
+		frc::DigitalInput mBallSwitch{IndexerConstants::kBallSwitch};
 		MotorDirection mState = MotorDirection::kOff;
 
 	public:

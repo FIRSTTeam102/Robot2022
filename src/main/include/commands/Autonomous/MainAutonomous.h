@@ -16,6 +16,7 @@
 #include "commands/Intake/SetRollers.h"
 #include "commands/Limelight/AimbotParallel.h"
 #include "commands/Limelight/YawToTarget.h"
+#include "commands/Limelight/YawUntilTarget.h"
 #include "commands/RumbleController.h"
 #include "commands/Shooter/StartShooter.h"
 #include "commands/Shooter/StopShooter.h"

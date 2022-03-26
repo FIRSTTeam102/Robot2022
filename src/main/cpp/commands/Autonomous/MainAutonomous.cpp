@@ -5,12 +5,10 @@ MainAutonomous::MainAutonomous(Indexer* pIndexer, Intake* pIntake, Limelight* pL
 		SetArm(mpIntake, frc::DoubleSolenoid::kForward),
 		frc2::WaitCommand(0.3_s),
 		SetRollers(mpIntake, MotorDirection::kForward),
-		SetAnglesCommand(mpSwerve, -7),
-		frc2::WaitCommand(0.3_s),
-		SetSpeedsTimed(mpSwerve, 0.65, 0.9),
+		MoveLinearTimed(mpSwerve, 0.65, 0.9),
 		frc2::WaitCommand(0.65_s),
-		TurnDegreesGyro(mpSwerve, 0.65, 155),
 		SetRollers(mpIntake, MotorDirection::kOff),
+		YawUntilTarget(mpLM, mpSwerve, 0.65),
 		// LM stuff when ready
 		// SetArm(mpIntake, frc::DoubleSolenoid::Value::kReverse),
 		MoveLinearTimed(mpSwerve, 0.75, 1.6),
@@ -25,14 +23,12 @@ MainAutonomous::MainAutonomous(Indexer* pIndexer, Intake* pIntake, Limelight* pL
 		SetRollers(mpIntake, MotorDirection::kReverse),
 		frc2::WaitCommand(0.1_s),
 		SetRollers(mpIntake, MotorDirection::kForward),
-		// frc2::WaitUntilCommand([&] { return mpIndexer->getSwitch(); }),
+		frc2::WaitUntilCommand([&] { return mpIndexer->getSwitch(); }),
 		frc2::WaitCommand(2.0_s),
 		SetIndexer(mpIndexer, MotorDirection::kOff),
 		StopShooter(mpShooter),
 		SetRollers(mpIntake, MotorDirection::kOff),
 		SetArm(mpIntake, frc::DoubleSolenoid::kReverse),
-		SetAnglesCommand(mpSwerve, -8.0),
-		frc2::WaitCommand(0.3_s),
-		SetSpeedsTimed(mpSwerve, -1, 0.9)
+		MoveLinearTimed(mpSwerve, -1, 0.9)
 	);
 }
