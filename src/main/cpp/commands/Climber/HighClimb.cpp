@@ -2,7 +2,7 @@
 
 HighClimb::HighClimb(Climber *pClimber) : mpClimber{pClimber} {
 	SetName("HighClimb");
-	AddRequirements(mpClimber);
+	// AddRequirements(pClimber); // conflicts with MidClimb
 }
 
 // Called just before this Command runs the first time
