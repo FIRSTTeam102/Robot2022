@@ -34,7 +34,7 @@ namespace SwerveDriveConstants {
 	const int kBROffset = 2666;
 	const int kBLOffset = 1169;
 
-	const double kMaxSpeed = 0.60;
+	const double kMaxSpeed = 1.00;
 
 	const double kDeadzone = 0.1;
 

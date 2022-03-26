@@ -28,7 +28,7 @@ ShooterHood::ShooterHood() : mHoodActuator{ShooterHoodConstants::kActuator} {
 void ShooterHood::Periodic() {
 	mShuffleboardTargetBool.SetBoolean(isAtTarget());
 
-	setAngle(mShuffleboardTargetAngle.GetDouble(mDegrees));
+	// setAngle(mShuffleboardTargetAngle.GetDouble(mDegrees));
 }
 
 // Converts an angle to required length for linear actuator to make shooter hood reach that angle
