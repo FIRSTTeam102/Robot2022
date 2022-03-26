@@ -7,6 +7,7 @@ YawUntilTarget::YawUntilTarget(Limelight* pLimelight, SwerveDrive* pSwerveDrive,
 
 // Called when the command is initially scheduled.
 void YawUntilTarget::Initialize() {
+	mpSwerve->resetGyro();
 	mpSwerve->vectorSwerve(0.0, 0.0, mSpeed);
 }
 

@@ -7,7 +7,7 @@ Indexer::Indexer() : mIndexerMotor{IndexerConstants::kIndexerMotor} {
 
 void Indexer::Periodic() {
 	// Put code here to be run every loop
-	printf("Sensor Has Target: %s\n", getSwitch() ? "True" : "False");
+	// printf("Sensor Has Target: %s\n", getSwitch() ? "True" : "False");
 }
 
 void Indexer::indexDown() {
