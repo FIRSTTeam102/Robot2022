@@ -31,8 +31,8 @@ class Climber : public frc2::SubsystemBase {
 		void highArmsToggle();
 
 	private:
-		frc::DoubleSolenoid mMidSolenoid{frc::PneumaticsModuleType::REVPH, 0, 1};
-		frc::DoubleSolenoid mHighSolenoid{frc::PneumaticsModuleType::REVPH, 6, 7};
+		frc::DoubleSolenoid mMidSolenoid{frc::PneumaticsModuleType::REVPH, 6, 7};
+		frc::DoubleSolenoid mHighSolenoid{frc::PneumaticsModuleType::REVPH, 0, 1};
 
 		/* frc::DigitalInput mLineSensorLeft{0};
 		frc::DigitalInput mLineSensorRight{1};
