@@ -53,10 +53,6 @@ void Limelight::Periodic() {
 	mShuffleboardTx.SetDouble(tx);
 	mShuffleboardTv.SetBoolean(tv > 0);
 
-	// printf("Angle from target in degrees %f\n", ad);
-	// printf("Angle from target in radians %f\n", ar);
-	printf("Distance %f, Hood Angle %f\n", d, hoodAngle);
-
 	if (m_LimelightHasTarget == true) {
 		steering_adjust = 0.0f;
 		if (tx < -1.0) { // Target is to the left of the robot, robot is to the right of the target -> robot must turn left

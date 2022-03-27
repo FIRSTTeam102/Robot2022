@@ -14,7 +14,7 @@ BinPackParameters: false
 BreakBeforeBraces: Attach
 BreakConstructorInitializers: AfterColon
 ColumnLimit: 0
-ContinuationIndentWidth: 8
+ContinuationIndentWidth: 4
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
 ConstructorInitializerIndentWidth: 0
 # Cpp11BracedListStyle: false
