@@ -1,11 +1,11 @@
 #include "RobotContainer.h"
 
-RobotContainer* RobotContainer::mRobotContainer = NULL;
+RobotContainer* RobotContainer::mpRobotContainer = NULL;
 
 RobotContainer::RobotContainer() {
 	mSwerveDrive.SetDefaultCommand(std::move(mRunSwerveDrive));
 
-	ConfigureButtonBindings();
+	configureButtonBindings();
 
 	mAutoMode.SetDefaultOption("2 ball", new MainAutonomous(&mIndexer, &mIntake, &mLimelight, &mShooter, &mShooterHood, &mSwerveDrive));
 	mAutoMode.AddOption("1 ball", new OneBallAuto(&mIndexer, &mShooter, &mShooterHood, &mLimelight, &mSwerveDrive));
@@ -27,14 +27,7 @@ RobotContainer::RobotContainer() {
 	frc::DriverStation::SilenceJoystickConnectionWarning(true);
 }
 
-RobotContainer* RobotContainer::GetInstance() {
-	if (mRobotContainer == NULL) {
-		mRobotContainer = new RobotContainer();
-	}
-	return (mRobotContainer);
-}
-
-void RobotContainer::ConfigureButtonBindings() {
+void RobotContainer::configureButtonBindings() {
 	/****** Driver ******/
 	mDriverButtonA.WhenPressed(&mToggleDriveMode);
 	mDriverButtonB.WhenPressed(&mResetGyro);
@@ -65,13 +58,12 @@ void RobotContainer::ConfigureButtonBindings() {
 	mOperatorButtonRMenu.ToggleWhenPressed(&mHighClimbCommand);
 }
 
-frc2::Command* RobotContainer::GetAutonomousCommand() {
+frc2::Command* RobotContainer::getAutonomousCommand() {
 	// The selected command will be run in autonomous
 	return mAutoMode.GetSelected();
 }
 
-void RobotContainer::RobotInit() {
-	// Set initial solenoid states
+void RobotContainer::setInitialStates() {
 	mClimber.midArmsDown();
 	mClimber.highArmsDown();
 	mIntake.raiseIntakeArm();

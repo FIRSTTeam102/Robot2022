@@ -60,12 +60,26 @@ namespace HardcodedShots {
 
 class RobotContainer {
 	public:
-		frc2::Command* GetAutonomousCommand();
-		static RobotContainer* GetInstance();
-		void RobotInit();
+		static RobotContainer* mpRobotContainer;
+		static RobotContainer* GetInstance() {
+			if (mpRobotContainer == NULL) mpRobotContainer = new RobotContainer();
+			return mpRobotContainer;
+		}
 
-		frc::XboxController* GetDriverController() { return &mDriverController; }
-		frc::XboxController* GetOperatorController() { return &mOperatorController; }
+		frc::XboxController* getDriverController() { return &mDriverController; }
+		frc::XboxController* getOperatorController() { return &mOperatorController; }
+
+		void setDriverRumble(double amount) {
+			mDriverController.SetRumble(frc::GenericHID::kLeftRumble, amount);
+			mDriverController.SetRumble(frc::GenericHID::kRightRumble, amount);
+		}
+		void setOperatorRumble(double amount) {
+			mOperatorController.SetRumble(frc::GenericHID::kLeftRumble, amount);
+			mOperatorController.SetRumble(frc::GenericHID::kRightRumble, amount);
+		}
+
+		frc2::Command* getAutonomousCommand();
+		void setInitialStates();
 
 	private:
 		RobotContainer();
@@ -75,9 +89,7 @@ class RobotContainer {
 
 		frc::SendableChooser<frc2::Command*> mAutoMode;
 
-		static RobotContainer* mRobotContainer;
-
-		void ConfigureButtonBindings();
+		void configureButtonBindings();
 
 		// Subsystems and commands
 		SwerveDrive mSwerveDrive{&mDriverController};

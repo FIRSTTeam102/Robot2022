@@ -4,7 +4,7 @@
 #include <frc2/command/CommandScheduler.h>
 
 void Robot::RobotInit() {
-	mContainer->RobotInit();
+	mContainer->setInitialStates();
 }
 
 /**
@@ -25,10 +25,8 @@ void Robot::RobotPeriodic() { frc2::CommandScheduler::GetInstance().Run(); }
 void Robot::DisabledInit() {
 	Lights::setMode(Lights::kDisabled);
 
-	mContainer->GetDriverController()->SetRumble(frc::GenericHID::kLeftRumble, 0);
-	mContainer->GetDriverController()->SetRumble(frc::GenericHID::kRightRumble, 0);
-	mContainer->GetOperatorController()->SetRumble(frc::GenericHID::kLeftRumble, 0);
-	mContainer->GetOperatorController()->SetRumble(frc::GenericHID::kRightRumble, 0);
+	mContainer->setDriverRumble(0);
+	mContainer->setOperatorRumble(0);
 }
 
 void Robot::DisabledPeriodic() {}
@@ -38,7 +36,7 @@ void Robot::DisabledPeriodic() {}
  * RobotContainer} class.
  */
 void Robot::AutonomousInit() {
-	mAutonomousCommand = mContainer->GetAutonomousCommand();
+	mAutonomousCommand = mContainer->getAutonomousCommand();
 
 	if (mAutonomousCommand != nullptr) {
 		mAutonomousCommand->Schedule();
