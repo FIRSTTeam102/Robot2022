@@ -8,16 +8,13 @@
 class Lights {
 	public:
 		enum Mode { // max of 8 modes
-			kOff = 0,
+			kDisabled = 0,
 			kTeleop = 1,
-			kDisabled = 2,
-			kAuto = 3,
+			kAuto = 2,
 			kIntake = 4,
 			kLimelight = 5,
 			kShooting = 6,
-			kClimb = 7,
-			// kAlliance = 8,
-			// kAllianceFire = 9
+			kClimb = 7
 		};
 
 		static void setMode(Mode mode);
