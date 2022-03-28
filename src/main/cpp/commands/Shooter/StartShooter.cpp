@@ -3,18 +3,18 @@
 // #define RAMP
 
 // Create StartShooter with a hardcoded speed value
-StartShooter::StartShooter(Shooter* pShooter, double speed) : mpShooter{pShooter}, mpLimelight{NULL}, mTargetSpeed{speed} {
+StartShooter::StartShooter(Shooter* pShooter, double speed) : mpShooter{pShooter}, mpLimelight{NULL}, mTargetSpeed{speed}, mpNTEntry{NULL} {
 	SetName("StartShooter");
 	AddRequirements(pShooter);
 }
 
 // Create StartShooter using the Limelight to determine the speed
-StartShooter::StartShooter(Shooter* pShooter, Limelight* pLimelight) : mpShooter{pShooter}, mpLimelight{pLimelight}, mTargetSpeed{0} {
+StartShooter::StartShooter(Shooter* pShooter, Limelight* pLimelight) : mpShooter{pShooter}, mpLimelight{pLimelight}, mTargetSpeed{0}, mpNTEntry{NULL} {
 	SetName("StartShooter");
 	AddRequirements(pShooter);
 }
 
-StartShooter::StartShooter(Shooter* pShooter, nt::NetworkTableEntry* pNTEntry) : mpShooter{pShooter}, mpLimelight{NULL}, mpNTEntry{pNTEntry} {
+StartShooter::StartShooter(Shooter* pShooter, nt::NetworkTableEntry* pNTEntry) : mpShooter{pShooter}, mpLimelight{NULL}, mTargetSpeed{0}, mpNTEntry{pNTEntry} {
 	SetName("StartShooter");
 	AddRequirements(pShooter);
 }

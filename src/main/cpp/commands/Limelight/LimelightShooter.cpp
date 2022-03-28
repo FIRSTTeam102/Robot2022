@@ -6,10 +6,12 @@ LimelightShooter::LimelightShooter(Limelight *pLimelight, Shooter *pShooter, Sho
 	AddCommands(StartShooter(pShooter, pLimelight), SetHoodAngle(pShooterHood, pLimelight));
 }
 
-// void LimelightShooter::Initialize() {
-// 	Lights::setMode(Lights::kLimelight);
-// }
+void LimelightShooter::Initialize() {
+	ParallelCommandGroup::Initialize();
+	Lights::setMode(Lights::kLimelight);
+}
 
-// void LimelightShooter::End(bool interrupted) {
-// 	Lights::setDefault();
-// }
+void LimelightShooter::End(bool interrupted) {
+	ParallelCommandGroup::End(interrupted);
+	Lights::setDefault();
+}
