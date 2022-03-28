@@ -13,7 +13,7 @@ YawToTarget::YawToTarget(Limelight *pLimelight, SwerveDrive *pSwerveDrive) : mpL
 
 // Called just before this Command runs the first time
 void YawToTarget::Initialize() {
-	Lights::GetInstance()->setMode(Lights::Mode::kLimelight);
+	Lights::setMode(Lights::kLimelight);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -31,5 +31,5 @@ bool YawToTarget::IsFinished() {
 // Called once after isFinished returns true
 void YawToTarget::End(bool interrupted) {
 	mpSwerveDrive->stopDrive();
-	Lights::GetInstance()->setDefault();
+	Lights::setDefault();
 }

@@ -2,11 +2,10 @@
 
 #include <frc/DigitalOutput.h>
 #include <frc/DriverStation.h>
-#include <frc2/command/SubsystemBase.h>
 
 #include <bitset>
 
-class Lights : public frc2::SubsystemBase {
+class Lights {
 	public:
 		enum Mode { // max of 8 modes
 			kOff = 0,
@@ -21,14 +20,17 @@ class Lights : public frc2::SubsystemBase {
 			// kAllianceFire = 9
 		};
 
-		static Lights* GetInstance();
-		void Periodic() override;
-		void setMode(Mode mode);
-		void setDefault();
+		static void setMode(Mode mode);
+		static void setDefault();
 
 	private:
 		Lights();
+
 		static Lights* mpLightsInstance;
+		static Lights* GetInstance() {
+			if (mpLightsInstance == NULL) mpLightsInstance = new Lights();
+			return mpLightsInstance;
+		};
 
 		frc::DigitalOutput mMode0{6};
 		frc::DigitalOutput mMode1{7};

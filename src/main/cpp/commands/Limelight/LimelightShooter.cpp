@@ -7,9 +7,9 @@ LimelightShooter::LimelightShooter(Limelight *pLimelight, Shooter *pShooter, Sho
 }
 
 // void LimelightShooter::Initialize() {
-// 	Lights::GetInstance()->setMode(Lights::Mode::kLimelight);
+// 	Lights::setMode(Lights::kLimelight);
 // }
 
 // void LimelightShooter::End(bool interrupted) {
-// 	Lights::GetInstance()->setDefault();
+// 	Lights::setDefault();
 // }
