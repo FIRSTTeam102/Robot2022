@@ -1,31 +1,23 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 #pragma once
 
+#include <frc/Timer.h>
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
 #include "subsystems/SwerveDrive.h"
 
-class MoveLinearTimed
-	: public frc2::CommandHelper<frc2::CommandBase, MoveLinearTimed> {
+class MoveLinearTimed : public frc2::CommandHelper<frc2::CommandBase, MoveLinearTimed> {
 	public:
-		MoveLinearTimed(SwerveDrive* pSwerveDrive, double speed, double time, double angle = 0.0);
-
+		MoveLinearTimed(SwerveDrive* pSwerveDrive, double speed, units::second_t time, double angle = 0.0);
 		void Initialize() override;
-
 		void Execute() override;
-
 		void End(bool interrupted) override;
-
 		bool IsFinished() override;
 
 	private:
 		SwerveDrive* mpSwerveDrive;
 		double mSpeed;
 		double mAngle;
-		int mTicks;
-		int mCounter;
+		frc::Timer mTimer;
+		units::second_t mTime;
 };
