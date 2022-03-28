@@ -32,7 +32,7 @@ class Limelight : public frc2::SubsystemBase {
 		double tx;
 		double ty;
 		double ta;
-		bool tv;
+		double tv;
 
 		float steering_adjust = 0.0f;
 

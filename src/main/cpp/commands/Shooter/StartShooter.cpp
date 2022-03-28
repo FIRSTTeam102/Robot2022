@@ -1,20 +1,25 @@
 #include "commands/Shooter/StartShooter.h"
 
+#include "RobotContainer.h"
+
 // #define RAMP
 
 // Create StartShooter with a hardcoded speed value
-StartShooter::StartShooter(Shooter* pShooter, double speed) : mpShooter{pShooter}, mpLimelight{NULL}, mTargetSpeed{speed} {
+StartShooter::StartShooter(Shooter* pShooter, double speed) :
+mpShooter{pShooter}, mpLimelight{NULL}, mTargetSpeed{speed}, mpNTEntry{NULL} {
 	SetName("StartShooter");
 	AddRequirements(pShooter);
 }
 
 // Create StartShooter using the Limelight to determine the speed
-StartShooter::StartShooter(Shooter* pShooter, Limelight* pLimelight) : mpShooter{pShooter}, mpLimelight{pLimelight}, mTargetSpeed{0} {
+StartShooter::StartShooter(Shooter* pShooter, Limelight* pLimelight) :
+mpShooter{pShooter}, mpLimelight{pLimelight}, mTargetSpeed{0}, mpNTEntry{NULL} {
 	SetName("StartShooter");
 	AddRequirements(pShooter);
 }
 
-StartShooter::StartShooter(Shooter* pShooter, nt::NetworkTableEntry* pNTEntry) : mpShooter{pShooter}, mpLimelight{NULL}, mpNTEntry{pNTEntry} {
+StartShooter::StartShooter(Shooter* pShooter, nt::NetworkTableEntry* pNTEntry) :
+mpShooter{pShooter}, mpLimelight{NULL}, mTargetSpeed{0}, mpNTEntry{pNTEntry} {
 	SetName("StartShooter");
 	AddRequirements(pShooter);
 }
@@ -58,4 +63,9 @@ bool StartShooter::IsFinished() {
 // Called once after isFinished returns true
 void StartShooter::End(bool interrupted) {
 	if (interrupted || mpShooter->getActualPercent() < -0.1) mpShooter->setShooter(mTargetSpeed);
+
+	// Rumble test
+	/* RobotContainer::GetInstance()->setDriverRumble(0.25);
+	frc::Wait(250_ms);
+	RobotContainer::GetInstance()->setDriverRumble(0); */
 }

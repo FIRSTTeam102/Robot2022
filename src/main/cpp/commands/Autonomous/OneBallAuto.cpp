@@ -9,6 +9,6 @@ OneBallAuto::OneBallAuto(Indexer* pIndexer, Shooter* pShooter, ShooterHood* pSho
 		SetIndexer(pIndexer, MotorDirection::kOff),
 		StopShooter(pShooter),
 		SetAnglesCommand(pSwerve, 0.0),
-		SetSpeedsTimed(pSwerve, -0.9, 2.5)
+		SetSpeedsTimed(pSwerve, -0.9, 2.5_s)
 	);
 }

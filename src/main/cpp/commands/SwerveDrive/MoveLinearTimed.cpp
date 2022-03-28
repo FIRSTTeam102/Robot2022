@@ -1,31 +1,27 @@
 #include "commands/SwerveDrive/MoveLinearTimed.h"
 
-MoveLinearTimed::MoveLinearTimed(SwerveDrive* pSwerveDrive, double speed, double time, double angle) : mpSwerveDrive{pSwerveDrive}, mSpeed{speed}, mAngle{angle}, mTicks{(int) (time * 50.0)} {
-	// Use addRequirements() here to declare subsystem dependencies.
+MoveLinearTimed::MoveLinearTimed(SwerveDrive* pSwerveDrive, double speed, units::second_t time, double angle) :
+mpSwerveDrive{pSwerveDrive}, mSpeed{speed}, mAngle{angle}, mTime{time} {
 	AddRequirements(pSwerveDrive);
 }
 
-// Called when the command is initially scheduled.
 void MoveLinearTimed::Initialize() {
+	mTimer.Start();
 	mpSwerveDrive->setAutoState(true);
-	mCounter = 0;
 	mpSwerveDrive->resetGyro();
 }
 
-// Called repeatedly when this Command is scheduled to run
 void MoveLinearTimed::Execute() {
 	double targetAngle = mAngle - mpSwerveDrive->getGyroAngle();
 	mpSwerveDrive->autoDrive(targetAngle, mSpeed);
-	mCounter++;
 }
 
-// Called once the command ends or is interrupted.
 void MoveLinearTimed::End(bool interrupted) {
+	mTimer.Stop();
 	mpSwerveDrive->stopDrive();
 	mpSwerveDrive->setAutoState(false);
 }
 
-// Returns true when the command should end.
 bool MoveLinearTimed::IsFinished() {
-	return (mCounter >= mTicks);
+	return mTimer.AdvanceIfElapsed(mTime);
 }

@@ -1,11 +1,11 @@
 #include "RobotContainer.h"
 
-RobotContainer* RobotContainer::mRobotContainer = NULL;
+RobotContainer* RobotContainer::mpRobotContainer = NULL;
 
 RobotContainer::RobotContainer() {
 	mSwerveDrive.SetDefaultCommand(std::move(mRunSwerveDrive));
 
-	ConfigureButtonBindings();
+	configureButtonBindings();
 
 	mAutoMode.SetDefaultOption("2 ball", new MainAutonomous(&mIndexer, &mIntake, &mLimelight, &mShooter, &mShooterHood, &mSwerveDrive));
 	mAutoMode.AddOption("1 ball", new OneBallAuto(&mIndexer, &mShooter, &mShooterHood, &mLimelight, &mSwerveDrive));
@@ -14,27 +14,20 @@ RobotContainer::RobotContainer() {
 		.Add("Auto mode", mAutoMode)
 		.WithWidget(frc::BuiltInWidgets::kComboBoxChooser);
 
-	// mCamera = frc::CameraServer::GetInstance()->StartAutomaticCapture(0);
-	mCamera = frc::CameraServer::StartAutomaticCapture();
-	mCamera.SetFPS(30);
-	mCamera.SetResolution(640, 480);
-	frc::CameraServer::GetServer().SetSource(mCamera);
+	mCamera1 = frc::CameraServer::StartAutomaticCapture("Intake", 0);
+	mCamera1.SetFPS(30);
+	mCamera1.SetResolution(320, 240);
+	mCamera2 = frc::CameraServer::StartAutomaticCapture("Climb", 1);
+	frc::CameraServer::GetServer().SetSource(mCamera1);
 	frc::Shuffleboard::GetTab("Drive")
-		.Add("Camera", mCamera)
+		.Add("Camera", mCamera1)
 		.WithWidget(frc::BuiltInWidgets::kCameraStream)
 		.WithSize(5, 4);
 
 	frc::DriverStation::SilenceJoystickConnectionWarning(true);
 }
 
-RobotContainer* RobotContainer::GetInstance() {
-	if (mRobotContainer == NULL) {
-		mRobotContainer = new RobotContainer();
-	}
-	return (mRobotContainer);
-}
-
-void RobotContainer::ConfigureButtonBindings() {
+void RobotContainer::configureButtonBindings() {
 	/****** Driver ******/
 	mDriverButtonA.WhenPressed(&mToggleDriveMode);
 	mDriverButtonB.WhenPressed(&mResetGyro);
@@ -55,22 +48,22 @@ void RobotContainer::ConfigureButtonBindings() {
 	mOperatorLT.WhenHeld(&mBallInCommand);
 	mOperatorButtonLB.WhenHeld(&mBallOutCommand);
 
-	mOperatorRT.WhenHeld(&mLimelightShooter);
+	mOperatorRT.WhileHeld(&mLimelightShooter);
 
-	mOperatorUpDPad.WhenPressed(&mIncrementHood);
-	mOperatorDownDPad.WhenPressed(&mDecrementHood);
+	// mOperatorUpDPad.WhenPressed(&mIncrementHood);
+	// mOperatorDownDPad.WhenPressed(&mDecrementHood);
+	mOperatorRightDPad.WhenPressed(&mToggleCamera);
 
 	mOperatorButtonLMenu.ToggleWhenPressed(&mMidClimbCommand);
 	mOperatorButtonRMenu.ToggleWhenPressed(&mHighClimbCommand);
 }
 
-frc2::Command* RobotContainer::GetAutonomousCommand() {
+frc2::Command* RobotContainer::getAutonomousCommand() {
 	// The selected command will be run in autonomous
 	return mAutoMode.GetSelected();
 }
 
-void RobotContainer::RobotInit() {
-	// Set initial solenoid states
+void RobotContainer::setInitialStates() {
 	mClimber.midArmsDown();
 	mClimber.highArmsDown();
 	mIntake.raiseIntakeArm();

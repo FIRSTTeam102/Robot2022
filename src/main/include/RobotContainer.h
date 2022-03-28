@@ -16,8 +16,8 @@
 
 #include "commands/Autonomous/MainAutonomous.h"
 #include "commands/Autonomous/OneBallAuto.h"
-#include "commands/Climber/MidClimb.h"
 #include "commands/Climber/HighClimb.h"
+#include "commands/Climber/MidClimb.h"
 #include "commands/Indexer/Backward.h"
 #include "commands/Indexer/Forward.h"
 #include "commands/Intake/ArmToggle.h"
@@ -26,6 +26,7 @@
 #include "commands/Limelight/LimelightShooter.h"
 #include "commands/Limelight/YawToTarget.h"
 #include "commands/RumbleController.h"
+#include "commands/ToggleCamera.h"
 // #include "commands/Shooter/ShootWithRumble.h"
 #include "commands/Shooter/StartShooter.h"
 #include "commands/Shooter/StopShooter.h"
@@ -59,23 +60,36 @@ namespace HardcodedShots {
 
 class RobotContainer {
 	public:
-		frc2::Command* GetAutonomousCommand();
-		static RobotContainer* GetInstance();
-		void RobotInit();
+		static RobotContainer* mpRobotContainer;
+		static RobotContainer* GetInstance() {
+			if (mpRobotContainer == NULL) mpRobotContainer = new RobotContainer();
+			return mpRobotContainer;
+		}
 
-		frc::XboxController* GetDriverController() { return &mDriverController; }
-		frc::XboxController* GetOperatorController() { return &mOperatorController; }
+		frc::XboxController* getDriverController() { return &mDriverController; }
+		frc::XboxController* getOperatorController() { return &mOperatorController; }
+
+		void setDriverRumble(double amount) {
+			mDriverController.SetRumble(frc::GenericHID::kLeftRumble, amount);
+			mDriverController.SetRumble(frc::GenericHID::kRightRumble, amount);
+		}
+		void setOperatorRumble(double amount) {
+			mOperatorController.SetRumble(frc::GenericHID::kLeftRumble, amount);
+			mOperatorController.SetRumble(frc::GenericHID::kRightRumble, amount);
+		}
+
+		frc2::Command* getAutonomousCommand();
+		void setInitialStates();
 
 	private:
 		RobotContainer();
 
-		cs::UsbCamera mCamera;
+		cs::UsbCamera mCamera1;
+		cs::UsbCamera mCamera2;
 
 		frc::SendableChooser<frc2::Command*> mAutoMode;
 
-		static RobotContainer* mRobotContainer;
-
-		void ConfigureButtonBindings();
+		void configureButtonBindings();
 
 		// Subsystems and commands
 		SwerveDrive mSwerveDrive{&mDriverController};
@@ -114,6 +128,10 @@ class RobotContainer {
 		Limelight mLimelight;
 		LimelightShooter mLimelightShooter{&mLimelight, &mShooter, &mShooterHood};
 		YawToTarget mYawToTarget{&mLimelight, &mSwerveDrive, &mDriverController};
+
+		// frc2::SequentialCommandGroup mLimelightShooterRumble{mLimelightShooter, RumbleController(&mDriverController)};
+
+		ToggleCamera mToggleCamera{&mCamera1, &mCamera2};
 
 		// Controllers
 		frc::XboxController mDriverController{0};

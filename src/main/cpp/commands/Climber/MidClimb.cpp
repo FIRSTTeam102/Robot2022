@@ -2,13 +2,13 @@
 
 MidClimb::MidClimb(Climber *pClimber) : mpClimber{pClimber} {
 	SetName("MidClimb");
-	AddRequirements(mpClimber);
+	// AddRequirements(pClimber); // conflicts with HighClimb
 }
 
 // Called just before this Command runs the first time
 void MidClimb::Initialize() {
 	mpClimber->midArmsUp();
-	Lights::GetInstance()->setMode(Lights::Mode::kClimb);
+	Lights::setMode(Lights::kClimb);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -23,5 +23,5 @@ bool MidClimb::IsFinished() {
 // Called once after isFinished returns true
 void MidClimb::End(bool interrupted) {
 	mpClimber->midArmsDown();
-	Lights::GetInstance()->setDefault();
+	Lights::setDefault();
 }

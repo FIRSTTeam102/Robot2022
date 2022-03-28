@@ -1,14 +1,15 @@
 #pragma once
 
-#include <frc/Timer.h>
+#include <frc/DriverStation.h>
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
+#include <networktables/NetworkTableEntry.h>
 
 #include "subsystems/SwerveDrive.h"
 
-class MoveLinearTimed : public frc2::CommandHelper<frc2::CommandBase, MoveLinearTimed> {
+class SwerveCalibrator : public frc2::CommandHelper<frc2::CommandBase, SwerveCalibrator> {
 	public:
-		MoveLinearTimed(SwerveDrive* pSwerveDrive, double speed, units::second_t time, double angle = 0.0);
+		SwerveCalibrator(SwerveDrive* pSwerveDrive);
 		void Initialize() override;
 		void Execute() override;
 		void End(bool interrupted) override;
@@ -16,8 +17,4 @@ class MoveLinearTimed : public frc2::CommandHelper<frc2::CommandBase, MoveLinear
 
 	private:
 		SwerveDrive* mpSwerveDrive;
-		double mSpeed;
-		double mAngle;
-		frc::Timer mTimer;
-		units::second_t mTime;
 };

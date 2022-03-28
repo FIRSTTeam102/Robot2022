@@ -11,14 +11,18 @@ class SwerveWheel : public frc2::SubsystemBase {
 		void setAngle(double angle);
 		void setSpeed(double speed);
 
-		double getEnc() {
+		int getEnc() {
 			return mEnc.GetValue();
-		};
+		}
 		void setCalibration(bool enabled) {
 			mCalibration = enabled;
 			if (enabled) mTurnMotor.SetNeutralMode(NeutralMode::Coast);
 			else mTurnMotor.SetNeutralMode(NeutralMode::Brake);
-		};
+		}
+		void setOffset(int offset) {
+			mAngleOffset = offset;
+			printf("wheel %d offset set to %d\n", mWheelNum, mAngleOffset);
+		}
 
 		void Periodic();
 

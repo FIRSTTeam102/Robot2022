@@ -1,28 +1,25 @@
 #include "commands/SwerveDrive/SetSpeedsTimed.h"
 
-SetSpeedsTimed::SetSpeedsTimed(SwerveDrive* pSwerveDrive, double speed, double time): mpSwerveDrive{pSwerveDrive}, mSpeed{speed}, mTicks{(int) (time * 50.0)} {
+SetSpeedsTimed::SetSpeedsTimed(SwerveDrive* pSwerveDrive, double speed, units::second_t time) :
+mpSwerveDrive{pSwerveDrive}, mSpeed{speed}, mTime{time} {
 	AddRequirements(pSwerveDrive);
 }
 
-// Called when the command is initially scheduled.
 void SetSpeedsTimed::Initialize() {
+	mTimer.Start();
 	mpSwerveDrive->setAutoState(true);
-	mCounter = 0;
 }
 
-// Called repeatedly when this Command is scheduled to run
 void SetSpeedsTimed::Execute() {
 	mpSwerveDrive->setSpeeds(mSpeed);
-	mCounter++;
 }
 
-// Called once the command ends or is interrupted.
 void SetSpeedsTimed::End(bool interrupted) {
+	mTimer.Stop();
 	mpSwerveDrive->setAutoState(false);
 	mpSwerveDrive->stopDrive();
 }
 
-// Returns true when the command should end.
 bool SetSpeedsTimed::IsFinished() {
-	return (mCounter >= mTicks);
+	return mTimer.AdvanceIfElapsed(mTime);
 }

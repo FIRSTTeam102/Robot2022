@@ -11,7 +11,7 @@ void BallIn::Initialize() {
 	mpIntake->startRollers();
 	mpIntake->lowerIntakeArm();
 	mpIndexer->indexUp();
-	Lights::GetInstance()->setMode(Lights::Mode::kIntake);
+	Lights::setMode(Lights::kIntake);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -33,5 +33,5 @@ void BallIn::End(bool interrupted) {
 	mpIntake->stopRollers();
 	mpIntake->raiseIntakeArm();
 	mpIndexer->stopIndexer();
-	Lights::GetInstance()->setDefault();
+	Lights::setDefault();
 }

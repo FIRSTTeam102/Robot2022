@@ -6,6 +6,7 @@
 #include <frc/drive/Vector2d.h>
 #include <frc/shuffleboard/Shuffleboard.h>
 #include <frc2/command/SubsystemBase.h>
+#include <frc2/command/InstantCommand.h>
 
 #include <cmath>
 
@@ -89,13 +90,27 @@ class SwerveDrive : public frc2::SubsystemBase {
 			return mAutoState;
 		}
 
-		std::initializer_list<double> getEncValues() {
-			return {
-				mWheelFL.getEnc(),
-				mWheelFR.getEnc(),
-				mWheelBR.getEnc(),
-				mWheelBL.getEnc()
-			};
+		nt::NetworkTableEntry mShuffleboardCalibrationFL;
+		nt::NetworkTableEntry mShuffleboardCalibrationFR;
+		nt::NetworkTableEntry mShuffleboardCalibrationBL;
+		nt::NetworkTableEntry mShuffleboardCalibrationBR;
+		void setCalibration(bool enabled) {
+			mWheelFL.setCalibration(enabled);
+			mWheelFR.setCalibration(enabled);
+			mWheelBR.setCalibration(enabled);
+			mWheelBL.setCalibration(enabled);
+		}
+		void setOffsets() {
+			mWheelFL.setOffset(mShuffleboardCalibrationFL.GetDouble(SwerveDriveConstants::kFLOffset));
+			mWheelFR.setOffset(mShuffleboardCalibrationFR.GetDouble(SwerveDriveConstants::kFROffset));
+			mWheelBR.setOffset(mShuffleboardCalibrationBL.GetDouble(SwerveDriveConstants::kBLOffset));
+			mWheelBL.setOffset(mShuffleboardCalibrationBR.GetDouble(SwerveDriveConstants::kBROffset));
+		}
+		void updateShuffleboardOffsets() {
+			mShuffleboardCalibrationFL.SetDouble(mWheelFL.getEnc());
+			mShuffleboardCalibrationFR.SetDouble(mWheelFR.getEnc());
+			mShuffleboardCalibrationBL.SetDouble(mWheelBR.getEnc());
+			mShuffleboardCalibrationBR.SetDouble(mWheelBL.getEnc());
 		}
 
 		void Periodic() override;
@@ -107,19 +122,16 @@ class SwerveDrive : public frc2::SubsystemBase {
 		double speed;
 		bool mIsFieldOriented;
 		bool mAutoState;
-		bool mCalibration = false;
 
 		frc::XboxController* mpController;
-		AHRS mGyro{ frc::SPI::Port::kMXP, 110 };
+		AHRS mGyro{frc::SPI::Port::kMXP, 110};
 
 		nt::NetworkTableEntry mShuffleboardFieldOriented;
-		nt::NetworkTableEntry mShuffleboardCalibration;
-		nt::NetworkTableEntry mShuffleboardEncs;
 
-		SwerveWheel mWheelFL{ SwerveDriveConstants::kFLDrive, SwerveDriveConstants::kFLTurn, SwerveDriveConstants::kFLEnc, SwerveDriveConstants::kFLOffset, SwerveDriveConstants::kFLMaxSpeed };
-		SwerveWheel mWheelFR{ SwerveDriveConstants::kFRDrive, SwerveDriveConstants::kFRTurn, SwerveDriveConstants::kFREnc, SwerveDriveConstants::kFROffset, SwerveDriveConstants::kFRMaxSpeed };
-		SwerveWheel mWheelBR{ SwerveDriveConstants::kBRDrive, SwerveDriveConstants::kBRTurn, SwerveDriveConstants::kBREnc, SwerveDriveConstants::kBROffset, SwerveDriveConstants::kBRMaxSpeed };
-		SwerveWheel mWheelBL{ SwerveDriveConstants::kBLDrive, SwerveDriveConstants::kBLTurn, SwerveDriveConstants::kBLEnc, SwerveDriveConstants::kBLOffset, SwerveDriveConstants::kBLMaxSpeed };
+		SwerveWheel mWheelFL{SwerveDriveConstants::kFLDrive, SwerveDriveConstants::kFLTurn, SwerveDriveConstants::kFLEnc, SwerveDriveConstants::kFLOffset, SwerveDriveConstants::kFLMaxSpeed};
+		SwerveWheel mWheelFR{SwerveDriveConstants::kFRDrive, SwerveDriveConstants::kFRTurn, SwerveDriveConstants::kFREnc, SwerveDriveConstants::kFROffset, SwerveDriveConstants::kFRMaxSpeed};
+		SwerveWheel mWheelBR{SwerveDriveConstants::kBRDrive, SwerveDriveConstants::kBRTurn, SwerveDriveConstants::kBREnc, SwerveDriveConstants::kBROffset, SwerveDriveConstants::kBRMaxSpeed};
+		SwerveWheel mWheelBL{SwerveDriveConstants::kBLDrive, SwerveDriveConstants::kBLTurn, SwerveDriveConstants::kBLEnc, SwerveDriveConstants::kBLOffset, SwerveDriveConstants::kBLMaxSpeed};
 
 		int targetEncoder[4];
 		float targetSpeed[4], turnMagnitude[4];

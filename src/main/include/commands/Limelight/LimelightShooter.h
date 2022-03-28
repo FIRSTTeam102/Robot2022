@@ -6,7 +6,7 @@
 
 #include "commands/Shooter/StartShooter.h"
 #include "commands/ShooterHood/SetHoodAngle.h"
-// #include "subsystems/Lights.h"
+#include "subsystems/Lights.h"
 #include "subsystems/Limelight.h"
 #include "subsystems/Shooter.h"
 #include "subsystems/ShooterHood.h"
@@ -14,6 +14,6 @@
 class LimelightShooter : public frc2::CommandHelper<frc2::ParallelCommandGroup, LimelightShooter> {
 	public:
 		explicit LimelightShooter(Limelight *pLimelight, Shooter *pShooter, ShooterHood *pShooterHood);
-		// void Initialize() override;
-		// void End(bool interrupted) override;
+		void Initialize();
+		void End(bool interrupted);
 };
