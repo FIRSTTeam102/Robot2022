@@ -12,11 +12,11 @@ MainAutonomous::MainAutonomous(Indexer* pIndexer, Intake* pIntake, Limelight* pL
 		// YawUntilTarget(mpLM, mpSwerve, 0.7),
 		// LM stuff when ready
 		// SetArm(mpIntake, frc::DoubleSolenoid::Value::kReverse),
-		// MoveLinearTimed(mpSwerve, 0.75, 0.7),
+		MoveLinearTimed(mpSwerve, 0.75, 0.7),
 		frc2::ParallelDeadlineGroup(frc2::WaitCommand(1.5_s), YawToTarget(mpLM, mpSwerve)),
 		// frc2::ParallelDeadlineGroup(frc2::WaitCommand(1.0_s), YawToTarget(mpLM, mpSwerve)),
 		// frc2::WaitUntilCommand([this] { return mpLM->Check(); }),
-		frc2::ParallelDeadlineGroup(frc2::WaitCommand(2.0_s), AimbotParallel(mpLM, mpShooter, mpShooterHood)),
+		frc2::ParallelDeadlineGroup(frc2::WaitCommand(2.0_s), LimelightShooter(mpLM, mpShooter, mpShooterHood)),
 		// frc2::PrintCommand("Done spinning up"),
 		frc2::WaitCommand(0.4_s),
 		SetIndexer(mpIndexer, MotorDirection::kForward),
