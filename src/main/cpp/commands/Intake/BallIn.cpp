@@ -16,9 +16,10 @@ void BallIn::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void BallIn::Execute() {
-	if (mpIndexer->getSwitch()) {
+	if (mpIndexer->getSwitch() && !mIndexerAlreadyGotBall) {
 		printf("switch true\n");
 		mpIndexer->stopIndexer();
+		mIndexerAlreadyGotBall = true;
 	}
 }
 

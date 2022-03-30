@@ -15,13 +15,13 @@ mpController{pController} {
 	// Shuffleboard
 	mShuffleboardFieldOriented = frc::Shuffleboard::GetTab("Drive").Add("Field oriented", mIsFieldOriented).GetEntry();
 
-	frc::ShuffleboardLayout& calibrationLayout = frc::Shuffleboard::GetTab("Test").GetLayout("Swerve calibrator", frc::BuiltInLayouts::kList);
+	/* frc::ShuffleboardLayout& calibrationLayout = frc::Shuffleboard::GetTab("Test").GetLayout("Swerve calibrator", frc::BuiltInLayouts::kList);
 	mShuffleboardCalibrationFL = calibrationLayout.Add("FL", SwerveDriveConstants::kFLOffset).GetEntry();
 	mShuffleboardCalibrationFR = calibrationLayout.Add("FR", SwerveDriveConstants::kFROffset).GetEntry();
 	mShuffleboardCalibrationBL = calibrationLayout.Add("BL", SwerveDriveConstants::kBLOffset).GetEntry();
 	mShuffleboardCalibrationBR = calibrationLayout.Add("BR", SwerveDriveConstants::kBROffset).GetEntry();
 	calibrationLayout.Add("Calibrate", new SwerveCalibrator(this)).WithWidget(frc::BuiltInWidgets::kCommand).GetEntry();
-	calibrationLayout.Add("Set values", new frc2::InstantCommand([&] { setOffsets(); }, {this})).WithWidget(frc::BuiltInWidgets::kCommand).GetEntry();
+	calibrationLayout.Add("Set values", new frc2::InstantCommand([&] { setOffsets(); }, {this})).WithWidget(frc::BuiltInWidgets::kCommand).GetEntry(); */
 }
 
 double SwerveDrive::angleCalc(double x, double y) {
@@ -98,8 +98,7 @@ void SwerveDrive::vectorSwerve(double driveX, double driveY, double turn, double
 	mWheelBR.setSpeed(targetSpeed[2]);
 	mWheelBL.setSpeed(targetSpeed[3]);
 
-	// printf("Swerve speed %f %f %f %f\n", targetSpeed[0], targetSpeed[1],
-	// targetSpeed[2], targetSpeed[3]);
+	// printf("Swerve speed %f %f %f %f\n", targetSpeed[0], targetSpeed[1], targetSpeed[2], targetSpeed[3]);
 }
 
 void SwerveDrive::autoDrive(double angle, double speed) {
