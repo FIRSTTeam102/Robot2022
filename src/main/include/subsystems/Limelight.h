@@ -15,7 +15,7 @@ namespace LimelightConstants {
 	const double kP = 0.0238; // tx multiplier
 	const double kMinCommand = 0.55; // 0.35; // Yaw calculation deritive term
 
-	const double kMaxDistance = 145; // Maximum distance that shooter can shoot from in inches, used by Shuffleboard
+	const double kMaxDistance = 150; // Maximum distance that shooter can shoot from in inches, used by Shuffleboard
 }
 
 class Limelight : public frc2::SubsystemBase {
