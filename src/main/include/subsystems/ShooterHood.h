@@ -1,10 +1,11 @@
 #pragma once
 
-#include <frc/drive/Vector2d.h>
 #include <frc/Servo.h>
+#include <frc/drive/Vector2d.h>
 #include <frc/shuffleboard/Shuffleboard.h>
 #include <frc/shuffleboard/ShuffleboardLayout.h>
 #include <frc/shuffleboard/ShuffleboardTab.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/SubsystemBase.h>
 #include <networktables/NetworkTableEntry.h>
 
@@ -32,7 +33,7 @@ namespace ShooterHoodConstants {
 class ShooterHood : public frc2::SubsystemBase {
 	private:
 		frc::Servo mHoodActuator;
-		
+
 		double mTargetSetting;
 		double mDegrees;
 
@@ -59,9 +60,11 @@ class ShooterHood : public frc2::SubsystemBase {
 		}
 
 		bool isAtTarget() {
-			if ( getSetting() < 0 ) return ( getSetting() <= mTargetSetting );
-			else return ( getSetting() >= mTargetSetting );
+			if (getSetting() < 0) return (getSetting() <= mTargetSetting);
+			else return (getSetting() >= mTargetSetting);
 		}
 
 		void Periodic() override;
+
+		nt::NetworkTableEntry mShuffleboardTestAngle;
 };

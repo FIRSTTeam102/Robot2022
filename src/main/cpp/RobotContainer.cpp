@@ -43,8 +43,6 @@ void RobotContainer::configureButtonBindings() {
 	mDriverRT.WhenHeld(&mIndexUpCommand);
 	mDriverButtonRB.WhenHeld(&mIndexDownCommand);
 
-	mDriverButtonRMenu.WhenPressed(&mShuffleboardShooter);
-
 	/****** Operator ******/
 	mOperatorButtonA.WhenPressed(&mTarmacLower);
 	mOperatorButtonB.WhenPressed(&mTarmacUpper);

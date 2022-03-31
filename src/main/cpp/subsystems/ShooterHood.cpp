@@ -1,5 +1,7 @@
 #include "subsystems/ShooterHood.h"
 
+#include "commands/ShooterHood/SetHoodAngle.h"
+
 #define M_DEGTORAD 57.2958
 
 ShooterHood::ShooterHood() : mHoodActuator{ShooterHoodConstants::kActuator} {
@@ -12,17 +14,13 @@ ShooterHood::ShooterHood() : mHoodActuator{ShooterHoodConstants::kActuator} {
 	// Shuffleboard
 	frc::ShuffleboardLayout& layout = frc::Shuffleboard::GetTab("Drive").GetLayout("Shooter hood", frc::BuiltInLayouts::kList);
 
-	wpi::StringMap<std::shared_ptr<nt::Value>> angleSliderProperties = {
-		std::make_pair("Min", nt::Value::MakeDouble(ShooterHoodConstants::kMinAngle)),
-		std::make_pair("Max", nt::Value::MakeDouble(ShooterHoodConstants::kMaxAngle)),
-		std::make_pair("Block increment", nt::Value::MakeDouble(0.25))
-	};
-
-	mShuffleboardTargetAngle = layout.Add("Target angle", 0.0)
-		.WithWidget(frc::BuiltInWidgets::kNumberSlider)
-		.WithProperties(angleSliderProperties)
-		.GetEntry();
+	mShuffleboardTargetAngle = layout.Add("Target angle", 0.0).WithWidget(frc::BuiltInWidgets::kNumberSlider).GetEntry();
 	mShuffleboardTargetBool = layout.Add("At target?", false).GetEntry();
+
+	frc::ShuffleboardLayout& testLayout = frc::Shuffleboard::GetTab("Test").GetLayout("Shooter hood", frc::BuiltInLayouts::kList);
+	mShuffleboardTestAngle = testLayout.Add("Test angle", 0.0).GetEntry();
+	frc::SmartDashboard::PutData("Set test angle", new SetHoodAngle(this, &mShuffleboardTestAngle)); // shuffleboard doesn't seem to like commands
+	// testLayout.Add("Set test angle", new SetHoodAngle(this, &mShuffleboardTestAngle)).WithWidget(frc::BuiltInWidgets::kCommand);
 }
 
 void ShooterHood::Periodic() {

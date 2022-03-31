@@ -8,6 +8,7 @@
 #include <frc/simulation/BatterySim.h>
 #include <frc/simulation/FlywheelSim.h>
 #include <frc/simulation/RoboRioSim.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/SubsystemBase.h>
 #include <networktables/NetworkTableEntry.h>
 #include <networktables/NetworkTableValue.h>

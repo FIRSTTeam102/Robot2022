@@ -112,7 +112,7 @@ class RobotContainer {
 		StopShooter mStopShooterCommand{&mShooter};
 		StartShooter mTarmacLowerSpeed{&mShooter, HardcodedShots::kTarmacLowerSpeedRPM};
 		StartShooter mTarmacUpperSpeed{&mShooter, HardcodedShots::kTarmacUpperSpeedRPM};
-		StartShooter mShuffleboardShooter{&mShooter, &mShooter.mShuffleboardTestRPM};
+		// StartShooter mShuffleboardShooter{&mShooter, &mShooter.mShuffleboardTestRPM};
 
 		ShooterHood mShooterHood;
 		IncrementHoodAngle mIncrementHood{2.0, &mShooterHood};

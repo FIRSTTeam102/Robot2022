@@ -2,14 +2,16 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
+#include <networktables/NetworkTableEntry.h>
 
-#include <subsystems/Limelight.h>
-#include <subsystems/ShooterHood.h>
+#include "subsystems/Limelight.h"
+#include "subsystems/ShooterHood.h"
 
 class SetHoodAngle : public frc2::CommandHelper<frc2::CommandBase, SetHoodAngle> {
 	public:
 		SetHoodAngle(double degrees, ShooterHood* pShooterHood);
 		SetHoodAngle(ShooterHood* pShooterHood, Limelight* pLimelight);
+		SetHoodAngle(ShooterHood* pShooterHood, nt::NetworkTableEntry* pNTEntry);
 
 		void Initialize() override;
 
@@ -18,9 +20,11 @@ class SetHoodAngle : public frc2::CommandHelper<frc2::CommandBase, SetHoodAngle>
 		void End(bool interrupted) override;
 
 		bool IsFinished() override;
+
 	private:
 		double mSetting;
 		double mDegrees;
 		ShooterHood* mpShooterHood;
 		Limelight* mpLimelight;
+		nt::NetworkTableEntry* mpNTEntry;
 };

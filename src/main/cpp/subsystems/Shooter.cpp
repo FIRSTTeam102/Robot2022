@@ -1,5 +1,7 @@
 #include "subsystems/Shooter.h"
 
+#include "commands/Shooter/StartShooter.h"
+
 Shooter::Shooter() {
 	SetName("Shooter");
 	SetSubsystem("Shooter");
@@ -53,7 +55,10 @@ Shooter::Shooter() {
 		.WithProperties(boostSliderProperties)
 		.GetEntry();
 
-	mShuffleboardTestRPM = frc::Shuffleboard::GetTab("Test").Add("Set RPM command", 0.0).GetEntry();
+	frc::ShuffleboardLayout& testLayout = frc::Shuffleboard::GetTab("Test").GetLayout("Shooter", frc::BuiltInLayouts::kList);
+	mShuffleboardTestRPM = testLayout.Add("Test RPM", 0.0).GetEntry();
+	frc::SmartDashboard::PutData("Set test RPM", new StartShooter(this, &mShuffleboardTestRPM)); // shuffleboard doesn't seem to like commands
+	// testLayout.Add("Set test RPM", new StartShooter(this, &mShuffleboardTestRPM)).WithWidget(frc::BuiltInWidgets::kCommand);
 }
 
 void Shooter::setShooter(double speed, bool useBoost) {
