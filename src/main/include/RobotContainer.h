@@ -50,8 +50,8 @@ namespace HardcodedShots {
 	constexpr float kTarmacLowerSpeedRPM = 1000;
 	constexpr float kTarmacUpperSpeedRPM = 3000;
 #else
-	constexpr float kTarmacLowerSpeedRPM = 1800; // lower hub
-	constexpr float kTarmacUpperSpeedRPM = 5920; // upper hub
+	constexpr float kTarmacLowerSpeedRPM = 1500; // lower hub
+	constexpr float kTarmacUpperSpeedRPM = 3350; // upper hub
 #endif
 
 	const double kTarmacLowerAngle = 75;

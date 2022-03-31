@@ -20,4 +20,5 @@ class BallIn : public frc2::CommandHelper<frc2::CommandBase, BallIn> {
 	private:
 		Intake* mpIntake;
 		Indexer* mpIndexer;
+		bool mIndexerAlreadyGotBall = false;
 };
