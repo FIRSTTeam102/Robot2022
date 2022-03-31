@@ -14,6 +14,10 @@ class HighClimb : public frc2::CommandHelper<frc2::CommandBase, HighClimb> {
 		bool IsFinished() override;
 		void End(bool interrupted) override;
 
+		bool RunsWhenDisabled() { // keep state after re-enabling
+			return true;
+		}
+
 	private:
 		Climber *mpClimber;
 };

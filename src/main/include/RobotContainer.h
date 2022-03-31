@@ -87,6 +87,7 @@ class RobotContainer {
 
 		cs::UsbCamera mCamera1;
 		cs::UsbCamera mCamera2;
+		cs::MjpegServer mCameraServer;
 
 		frc::SendableChooser<frc2::Command*> mAutoMode;
 
@@ -100,7 +101,7 @@ class RobotContainer {
 
 		Intake mIntake;
 		BallIn mBallInCommand{&mIntake, &mIndexer};
-		BallOut mBallOutCommand{&mIntake, &mIndexer};
+		BallOut mBallOutCommand{&mIntake, &mIndexer, &mShooter};
 		ArmToggle mArmToggleCommand{&mIntake};
 
 		Indexer mIndexer;
@@ -133,7 +134,7 @@ class RobotContainer {
 
 		// frc2::SequentialCommandGroup mLimelightShooterRumble{mLimelightShooter, RumbleController(&mDriverController)};
 
-		ToggleCamera mToggleCamera{&mCamera1, &mCamera2};
+		ToggleCamera mToggleCamera{&mCameraServer, &mCamera1, &mCamera2};
 
 		// Controllers
 		frc::XboxController mDriverController{0};

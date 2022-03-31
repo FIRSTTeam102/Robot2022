@@ -6,11 +6,14 @@
 
 class ToggleCamera : public frc2::CommandHelper<frc2::InstantCommand, ToggleCamera> {
 	public:
-		ToggleCamera(cs::UsbCamera* pCamera1, cs::UsbCamera* pCamera2);
+		ToggleCamera(cs::MjpegServer* pServer, cs::UsbCamera* pCamera1, cs::UsbCamera* pCamera2);
 		void Initialize() override;
-		bool RunsWhenDisabled();
+		bool RunsWhenDisabled() {
+			return true;
+		}
 
 	private:
+		cs::MjpegServer* mpServer;
 		cs::UsbCamera* mpCamera1;
 		cs::UsbCamera* mpCamera2;
 };
