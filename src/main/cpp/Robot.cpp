@@ -5,6 +5,12 @@
 
 void Robot::RobotInit() {
 	mContainer->setInitialStates();
+
+	mCompressor.EnableDigital();
+
+	mShuffleboardPressure = frc::Shuffleboard::GetTab("Drive")
+		.Add("Pneumatics charged", false)
+		.GetEntry();
 }
 
 /**
@@ -15,7 +21,11 @@ void Robot::RobotInit() {
  * <p> This runs after the mode specific periodic functions, but before
  * LiveWindow and SmartDashboard integrated updating.
  */
-void Robot::RobotPeriodic() { frc2::CommandScheduler::GetInstance().Run(); }
+void Robot::RobotPeriodic() { 
+	frc2::CommandScheduler::GetInstance().Run();
+
+	mShuffleboardPressure.SetBoolean(mCompressor.GetPressureSwitchValue());
+}
 
 /**
  * This function is called once each time the robot enters Disabled mode. You
