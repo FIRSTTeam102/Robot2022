@@ -26,5 +26,7 @@ class Robot : public frc::TimedRobot {
 
 		RobotContainer* mContainer = RobotContainer::GetInstance();
 		
-		// frc::Compressor mCompressor{kPneumaticHub, frc::PneumaticsModuleType::REVPH};
+		frc::Compressor mCompressor{kPneumaticHub, frc::PneumaticsModuleType::REVPH};
+
+		nt::NetworkTableEntry mShuffleboardPressure;
 };

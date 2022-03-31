@@ -28,6 +28,7 @@
 #include "commands/RumbleController.h"
 #include "commands/ToggleCamera.h"
 // #include "commands/Shooter/ShootWithRumble.h"
+#include "commands/Limelight/LimelightShooterContinuous.h"
 #include "commands/Shooter/StartShooter.h"
 #include "commands/Shooter/StopShooter.h"
 #include "commands/ShooterHood/IncrementHoodAngle.h"
@@ -127,6 +128,7 @@ class RobotContainer {
 
 		Limelight mLimelight;
 		LimelightShooter mLimelightShooter{&mLimelight, &mShooter, &mShooterHood};
+		LimelightShooterContinuous mLimelightShooterContinous{&mLimelight, &mShooter, &mShooterHood};
 		YawToTarget mYawToTarget{&mLimelight, &mSwerveDrive, &mDriverController};
 
 		// frc2::SequentialCommandGroup mLimelightShooterRumble{mLimelightShooter, RumbleController(&mDriverController)};
