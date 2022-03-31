@@ -64,6 +64,7 @@ frc2::Command* RobotContainer::getAutonomousCommand() {
 }
 
 void RobotContainer::setInitialStates() {
+	mShooter.stopShooter();
 	mClimber.midArmsDown();
 	mClimber.highArmsDown();
 	mIntake.raiseIntakeArm();

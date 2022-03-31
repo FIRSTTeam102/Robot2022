@@ -7,10 +7,11 @@ BallIn::BallIn(Intake* pIntake, Indexer* pIndexer) : mpIntake{pIntake}, mpIndexe
 
 // Called just before this Command runs the first time
 void BallIn::Initialize() {
+	mIndexerAlreadyGotBall = false;
 	mpIntake->mLock = true;
 	mpIntake->startRollers();
 	mpIntake->lowerIntakeArm();
-	mpIndexer->indexUp();
+	if (!mpIndexer->getSwitch()) mpIndexer->indexUp();
 	Lights::setMode(Lights::kIntake);
 }
 
@@ -30,6 +31,7 @@ bool BallIn::IsFinished() {
 
 // Called once after isFinished returns true
 void BallIn::End(bool interrupted) {
+	mIndexerAlreadyGotBall = true;
 	mpIntake->mLock = false;
 	mpIntake->stopRollers();
 	mpIntake->raiseIntakeArm();
