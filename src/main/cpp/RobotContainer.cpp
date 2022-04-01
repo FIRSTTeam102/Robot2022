@@ -3,10 +3,16 @@
 RobotContainer* RobotContainer::mpRobotContainer = NULL;
 
 RobotContainer::RobotContainer() {
+	// Default subsystem commands
 	mSwerveDrive.SetDefaultCommand(std::move(mRunSwerveDrive));
 
+	// Button bindings
 	configureButtonBindings();
 	frc::DriverStation::SilenceJoystickConnectionWarning(true);
+
+	// Data logging
+	frc::DataLogManager::Start();
+	frc::DriverStation::StartDataLog(frc::DataLogManager::GetLog(), false);
 
 	// Auto
 	mAutoMode.SetDefaultOption("2 ball", new MainAutonomous(&mIndexer, &mIntake, &mLimelight, &mShooter, &mShooterHood, &mSwerveDrive));
@@ -68,6 +74,7 @@ frc2::Command* RobotContainer::getAutonomousCommand() {
 }
 
 void RobotContainer::setInitialStates() {
+	// Called when the robot starts, makes sure everything is set as retracted/stopped
 	mShooter.stopShooter();
 	mClimber.midArmsDown();
 	mClimber.highArmsDown();

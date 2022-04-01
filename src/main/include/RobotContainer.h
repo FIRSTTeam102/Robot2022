@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cameraserver/CameraServer.h>
+#include <frc/DataLogManager.h>
 #include <frc/DriverStation.h>
 #include <frc/Joystick.h>
 #include <frc/XboxController.h>
