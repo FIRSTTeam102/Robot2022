@@ -24,13 +24,13 @@ RobotContainer::RobotContainer() {
 
 	// Camera 🥴
 	mCamera1 = frc::CameraServer::StartAutomaticCapture("Intake", 0);
-	mCamera1.SetFPS(30);
+	mCamera1.SetFPS(15);
 	mCamera1.SetResolution(320, 240);
 	mCamera2 = frc::CameraServer::StartAutomaticCapture("Climb", 1);
-	mCamera2.SetFPS(30);
+	mCamera2.SetFPS(15);
 	mCamera2.SetResolution(320, 240);
 	mCameraServer = frc::CameraServer::AddSwitchedCamera("Camera");
-	mCameraServer.SetFPS(30);
+	mCameraServer.SetFPS(15);
 	mCameraServer.SetResolution(320, 240);
 	mCameraServer.SetSource(mCamera1);
 	frc::Shuffleboard::GetTab("Drive")
