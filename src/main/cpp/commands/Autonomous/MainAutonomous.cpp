@@ -12,7 +12,7 @@ MainAutonomous::MainAutonomous(Indexer* pIndexer, Intake* pIntake, Limelight* pL
 		frc2::ParallelDeadlineGroup(frc2::WaitCommand(0.5_s), YawToTarget(mpLM, mpSwerve)),
 		// YawUntilTarget(mpLM, mpSwerve, 0.7)
 		// SetArm(mpIntake, frc::DoubleSolenoid::Value::kReverse),
-		MoveLinearTimed(mpSwerve, 0.75, 0.7_s),
+		MoveLinearTimed(mpSwerve, 0.75, 0.9_s),
 		frc2::ParallelDeadlineGroup(frc2::WaitCommand(1.5_s), YawToTarget(mpLM, mpSwerve)),
 		// frc2::ParallelDeadlineGroup(frc2::WaitCommand(1.0_s), YawToTarget(mpLM, mpSwerve)),
 		// frc2::WaitUntilCommand([this] { return mpLM->Check(); }),

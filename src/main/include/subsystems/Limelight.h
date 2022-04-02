@@ -1,5 +1,6 @@
 #pragma once
 
+#include <frc/DriverStation.h>
 #include <frc/shuffleboard/Shuffleboard.h>
 #include <frc/shuffleboard/ShuffleboardLayout.h>
 #include <frc/shuffleboard/ShuffleboardTab.h>
@@ -12,8 +13,8 @@ namespace LimelightConstants {
 	const double h = 60; // Height of limelight to target
 	const double ay = 29.8; // Angle of limelight to target
 	const double kDistanceError = 23; // Distance error, from edge to center of target
-	const double kP = 0.024691358; // tx multiplier
-	const double kMinCommand = 0.33; // Yaw calculation deritive term
+	const double kP = 0.0185185; // tx multiplier
+	const double kMinCommand = 0.5; // Yaw calculation deritive term
 
 	const double kMaxDistance = 150; // Maximum distance that shooter can shoot from in inches, used by Shuffleboard
 }
