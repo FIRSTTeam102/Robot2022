@@ -33,7 +33,8 @@ double Limelight::calculateShootDistance() {
 }
 
 bool Limelight::Check() {
-	return ( ( -1.0 < tx ) && ( tx < 1.0 ) );
+	// return ( ( -1.0 < tx ) && ( tx < 1.0 ) );
+	return ((-3.0 < tx) && (tx < -2.0)) || ((2.0 < tx) && (tx < 3.0));
 }
 
 void Limelight::Periodic() {
@@ -78,7 +79,7 @@ double Limelight::getShootSpeed() {
 }
 
 double Limelight::getServoAngle() {
-	hoodAngle = -0.17 * d + 92;
+	hoodAngle = -0.16 * d + 92;
 	if (d > 160) hoodAngle = 65;
 	return hoodAngle;
 }

@@ -74,8 +74,8 @@ void SwerveDrive::vectorSwerve(double driveX, double driveY, double turn, double
 	double drivePercent = (1 - turnPercent); // allocate all of the remaining power to drive
 
 	if (frc::DriverStation::IsAutonomous()) { // use hardcoded values for auto for now
-		drivePercent = 0.7;
-		turnPercent = 0.3;
+		drivePercent = 0.5;
+		turnPercent = 0.5;
 	}
 
 	for (int i = 0; i < 4; i++) { // For each wheel:

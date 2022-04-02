@@ -8,9 +8,9 @@ MainAutonomous::MainAutonomous(Indexer* pIndexer, Intake* pIntake, Limelight* pL
 		MoveLinearTimed(mpSwerve, 0.65, 1.5_s),
 		frc2::WaitCommand(0.65_s),
 		SetRollers(mpIntake, MotorDirection::kOff),
-		TurnDegreesGyro(mpSwerve, 0.75, 160),
-		// YawUntilTarget(mpLM, mpSwerve, 0.7),
-		// LM stuff when ready
+		TurnDegreesGyro(mpSwerve, 1.0, 160),
+		frc2::ParallelDeadlineGroup(frc2::WaitCommand(0.5_s), YawToTarget(mpLM, mpSwerve)),
+		// YawUntilTarget(mpLM, mpSwerve, 0.7)
 		// SetArm(mpIntake, frc::DoubleSolenoid::Value::kReverse),
 		MoveLinearTimed(mpSwerve, 0.75, 0.7_s),
 		frc2::ParallelDeadlineGroup(frc2::WaitCommand(1.5_s), YawToTarget(mpLM, mpSwerve)),
