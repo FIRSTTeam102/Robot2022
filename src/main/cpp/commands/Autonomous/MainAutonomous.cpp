@@ -7,8 +7,8 @@ MainAutonomous::MainAutonomous(Indexer* pIndexer, Intake* pIntake, Limelight* pL
 		SetRollers(mpIntake, MotorDirection::kForward),
 		MoveLinearTimed(mpSwerve, 0.65, 1.5_s),
 		frc2::WaitCommand(0.65_s),
-		SetRollers(mpIntake, MotorDirection::kOff),
-		TurnDegreesGyro(mpSwerve, 1.0, 160),
+		// SetRollers(mpIntake, MotorDirection::kOff),
+		TurnDegreesGyro(mpSwerve, 0.95, 150),
 		frc2::ParallelDeadlineGroup(frc2::WaitCommand(0.5_s), YawToTarget(mpLM, mpSwerve)),
 		// YawUntilTarget(mpLM, mpSwerve, 0.7)
 		// SetArm(mpIntake, frc::DoubleSolenoid::Value::kReverse),

@@ -35,7 +35,7 @@ double Limelight::calculateShootDistance() {
 bool Limelight::Check() {
 	// return ( ( -1.0 < tx ) && ( tx < 1.0 ) );
 	if (frc::DriverStation::IsAutonomous()) return ((-2.0 < tx) && (tx < 0.0));
-	else return ((-2.0 < tx) && (tx < -1.0)) || ((1.0 < tx) && (tx < 2.0));
+	else return ((-3.8 < tx) && (tx < -2.8)) || ((2.8 < tx) && (tx < 3.8));
 }
 
 void Limelight::Periodic() {
@@ -64,10 +64,10 @@ void Limelight::Periodic() {
 		// 	// steering_adjust = must be positive
 		// 	steering_adjust = LimelightConstants::kP * tx + LimelightConstants::kMinCommand;
 		// }
-		if (tx < -2.0) { // Target is to the left of the robot, robot is to the right of the target -> robot must turn left
+		if (tx < -3.0) { // Target is to the left of the robot, robot is to the right of the target -> robot must turn left
 			// steering_adjust = must be negative
 			steering_adjust = LimelightConstants::kP * tx - LimelightConstants::kMinCommand;
-		} else if (tx > 2.0) { // Target is to the right of the robot, robot is to the left of the target -> turn right
+		} else if (tx > 3.0) { // Target is to the right of the robot, robot is to the left of the target -> turn right
 			// steering_adjust = must be positive
 			steering_adjust = LimelightConstants::kP * tx + LimelightConstants::kMinCommand;
 		}
@@ -82,8 +82,8 @@ void Limelight::Periodic() {
 }
 
 double Limelight::getShootSpeed() {
-	rpm = -4 * d + 3750;
-	if (d > 100) rpm = 4 * d + 2950;
+	rpm = -4 * d + 3800;
+	if (d > 100) rpm = 4 * d + 2900;
 	return rpm;
 }
 

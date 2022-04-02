@@ -14,7 +14,7 @@ namespace LimelightConstants {
 	const double ay = 29.8; // Angle of limelight to target
 	const double kDistanceError = 23; // Distance error, from edge to center of target
 	const double kP = 0.0185185; // tx multiplier
-	const double kMinCommand = 0.5; // Yaw calculation deritive term
+	const double kMinCommand = 0.55; // Yaw calculation deritive term
 
 	const double kMaxDistance = 150; // Maximum distance that shooter can shoot from in inches, used by Shuffleboard
 }

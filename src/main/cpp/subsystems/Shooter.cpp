@@ -82,7 +82,7 @@ void Shooter::setShooterPercent(double speed) {
 void Shooter::Periodic() {
 	mActualSpeed = mFlywheelFilter.Calculate(velocityToRpm(mMotor.GetSelectedSensorVelocity(0)));
 
-	mShuffleboardReady.SetBoolean(isRunning() && isAtTargetRPM());
+	mShuffleboardReady.SetBoolean(isRunning() && (fabs(mTargetSpeed - mActualSpeed) < 75.0));
 	mShuffleboardActualRPM.SetDouble(mActualSpeed);
 	mShuffleboardActualPercent.SetDouble(getActualPercent());
 	mBoostPercent = mShuffleboardBoost.GetDouble(mBoostPercent);
