@@ -56,10 +56,17 @@ void Limelight::Periodic() {
 
 	if (m_LimelightHasTarget == true) {
 		steering_adjust = 0.0f;
-		if (tx < -1.0) { // Target is to the left of the robot, robot is to the right of the target -> robot must turn left
+		// if (tx < -1.0) { // Target is to the left of the robot, robot is to the right of the target -> robot must turn left
+		// 	// steering_adjust = must be negative
+		// 	steering_adjust = LimelightConstants::kP * tx - LimelightConstants::kMinCommand;
+		// } else if (tx > 1.0) { // Target is to the right of the robot, robot is to the left of the target -> turn right
+		// 	// steering_adjust = must be positive
+		// 	steering_adjust = LimelightConstants::kP * tx + LimelightConstants::kMinCommand;
+		// }
+		if (tx < -3.0) { // Target is to the left of the robot, robot is to the right of the target -> robot must turn left
 			// steering_adjust = must be negative
 			steering_adjust = LimelightConstants::kP * tx - LimelightConstants::kMinCommand;
-		} else if (tx > 1.0) { // Target is to the right of the robot, robot is to the left of the target -> turn right
+		} else if (tx > 3.0) { // Target is to the right of the robot, robot is to the left of the target -> turn right
 			// steering_adjust = must be positive
 			steering_adjust = LimelightConstants::kP * tx + LimelightConstants::kMinCommand;
 		}
@@ -74,7 +81,8 @@ void Limelight::Periodic() {
 }
 
 double Limelight::getShootSpeed() {
-	rpm = 2 * d + 3185;
+	rpm = -4 * d + 3700;
+	if (d > 100) rpm = 4 * d + 2900;
 	return rpm;
 }
 
