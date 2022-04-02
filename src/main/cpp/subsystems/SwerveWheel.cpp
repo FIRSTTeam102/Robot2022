@@ -1,12 +1,19 @@
 #include "subsystems/SwerveWheel.h"
 
-SwerveWheel::SwerveWheel(int drivePort, int turnPort, int encPort, int encOffset) : mDriveMotor{drivePort}, mTurnMotor{turnPort}, mEnc{encPort}, mAngleOffset{encOffset} {
+#include "subsystems/SwerveDrive.h"
+
+SwerveWheel::SwerveWheel(int drivePort, int turnPort, int encPort, int encOffset, double maxSpeed) :
+mDriveMotor{drivePort},
+mTurnMotor{turnPort},
+mEnc{encPort},
+mAngleOffset{encOffset},
+mMaxSpeed{maxSpeed} {
 	SetName("SwerveWheel");
 	SetSubsystem("SwerveWheel");
 	mWheelNum = encPort + 1;
 
 	mDriveMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
-	mTurnMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
+	mTurnMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake); // also see setCalibration(false)
 }
 
 void SwerveWheel::setAngle(double angle) {
@@ -14,11 +21,8 @@ void SwerveWheel::setAngle(double angle) {
 }
 
 void SwerveWheel::setSpeed(double speed) {
-	if (!inverted) {
-		mDriveMotor.Set(TalonSRXControlMode::PercentOutput, speed);
-	} else {
-		mDriveMotor.Set(TalonSRXControlMode::PercentOutput, -speed);
-	}
+	speed *= SwerveDriveConstants::kSlowestSpeed / mMaxSpeed;
+	mDriveMotor.Set(TalonSRXControlMode::PercentOutput, inverted ? -speed : speed);
 }
 
 int SwerveWheel::circScale(int i) {
@@ -27,7 +31,7 @@ int SwerveWheel::circScale(int i) {
 
 // This method will be called once per scheduler run
 void SwerveWheel::Periodic() {
-	// printf("Encoder #%d at %d\n", mWheelNum, mEnc.GetValue()); // for calibration
+	if (mCalibration) return;
 
 	scaledPos = (double)(mEnc.GetValue() - mAngleOffset) * 360.0 / 4096.0;
 	posCurrent = circScale(scaledPos);

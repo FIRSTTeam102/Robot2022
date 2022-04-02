@@ -4,7 +4,11 @@
 #include <frc2/command/CommandScheduler.h>
 
 void Robot::RobotInit() {
-	mContainer->RobotInit();
+	mContainer->setInitialStates();
+
+	mCompressor.EnableDigital();
+
+	mShuffleboardPressure = frc::Shuffleboard::GetTab("Test").Add("Pneumatics charged", false).GetEntry();
 }
 
 /**
@@ -15,7 +19,11 @@ void Robot::RobotInit() {
  * <p> This runs after the mode specific periodic functions, but before
  * LiveWindow and SmartDashboard integrated updating.
  */
-void Robot::RobotPeriodic() { frc2::CommandScheduler::GetInstance().Run(); }
+void Robot::RobotPeriodic() {
+	frc2::CommandScheduler::GetInstance().Run();
+
+	mShuffleboardPressure.SetBoolean(mCompressor.GetPressureSwitchValue());
+}
 
 /**
  * This function is called once each time the robot enters Disabled mode. You
@@ -23,12 +31,10 @@ void Robot::RobotPeriodic() { frc2::CommandScheduler::GetInstance().Run(); }
  * robot is disabled.
  */
 void Robot::DisabledInit() {
-	Lights::GetInstance()->setMode(Lights::Mode::kDisabled);
+	Lights::setMode(Lights::kDisabled);
 
-	mContainer->GetDriverController()->SetRumble(frc::GenericHID::kLeftRumble, 0);
-	mContainer->GetDriverController()->SetRumble(frc::GenericHID::kRightRumble, 0);
-	mContainer->GetOperatorController()->SetRumble(frc::GenericHID::kLeftRumble, 0);
-	mContainer->GetOperatorController()->SetRumble(frc::GenericHID::kRightRumble, 0);
+	mContainer->setDriverRumble(0);
+	mContainer->setOperatorRumble(0);
 }
 
 void Robot::DisabledPeriodic() {}
@@ -38,13 +44,13 @@ void Robot::DisabledPeriodic() {}
  * RobotContainer} class.
  */
 void Robot::AutonomousInit() {
-	mAutonomousCommand = mContainer->GetAutonomousCommand();
+	mAutonomousCommand = mContainer->getAutonomousCommand();
 
 	if (mAutonomousCommand != nullptr) {
 		mAutonomousCommand->Schedule();
 	}
 
-	Lights::GetInstance()->setMode(Lights::Mode::kAuto);
+	Lights::setMode(Lights::kAuto);
 }
 
 void Robot::AutonomousPeriodic() {}
@@ -59,7 +65,7 @@ void Robot::TeleopInit() {
 		mAutonomousCommand = nullptr;
 	}
 
-	Lights::GetInstance()->setMode(Lights::Mode::kDefault);
+	Lights::setMode(Lights::kTeleop);
 }
 
 /**

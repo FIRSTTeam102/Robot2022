@@ -1,5 +1,7 @@
 #include "subsystems/ShooterHood.h"
 
+#include "commands/ShooterHood/SetHoodAngle.h"
+
 #define M_DEGTORAD 57.2958
 
 ShooterHood::ShooterHood() : mHoodActuator{ShooterHoodConstants::kActuator} {
@@ -10,15 +12,21 @@ ShooterHood::ShooterHood() : mHoodActuator{ShooterHoodConstants::kActuator} {
 	mHoodActuator.SetBounds(2.0, 1.8, 1.5, 1.2, 1.0);
 
 	// Shuffleboard
-	frc::ShuffleboardLayout& layout = frc::Shuffleboard::GetTab("Teleop").GetLayout("Shooter hood", frc::BuiltInLayouts::kList);
+	frc::ShuffleboardLayout& layout = frc::Shuffleboard::GetTab("Drive").GetLayout("Shooter hood", frc::BuiltInLayouts::kList);
 
-	mShuffleboardTargetAngle = layout.Add("Target angle", 0.0).GetEntry();
+	mShuffleboardTargetAngle = layout.Add("Target angle", 0.0).WithWidget(frc::BuiltInWidgets::kNumberSlider).GetEntry();
 	mShuffleboardTargetBool = layout.Add("At target?", false).GetEntry();
+
+	frc::ShuffleboardLayout& testLayout = frc::Shuffleboard::GetTab("Test").GetLayout("Shooter hood", frc::BuiltInLayouts::kList);
+	mShuffleboardTestAngle = testLayout.Add("Test angle", 0.0).GetEntry();
+	frc::SmartDashboard::PutData("Set test angle", new SetHoodAngle(this, &mShuffleboardTestAngle)); // shuffleboard doesn't seem to like commands
+	// testLayout.Add("Set test angle", new SetHoodAngle(this, &mShuffleboardTestAngle)).WithWidget(frc::BuiltInWidgets::kCommand);
 }
 
 void ShooterHood::Periodic() {
-	mShuffleboardTargetAngle.SetDouble(mDegrees);
 	mShuffleboardTargetBool.SetBoolean(isAtTarget());
+
+	// setAngle(mShuffleboardTargetAngle.GetDouble(mDegrees));
 }
 
 // Converts an angle to required length for linear actuator to make shooter hood reach that angle
@@ -43,13 +51,17 @@ double ShooterHood::linearLengthToSetting(double length) {
 
 void ShooterHood::setAngle(double degrees) {
 	mDegrees = std::clamp(degrees, ShooterHoodConstants::kMinAngle, ShooterHoodConstants::kMaxAngle);
+
 	double length = degreesToLinearLength(degrees);
 
 	mTargetSetting = linearLengthToSetting(length);
 
 	mHoodActuator.SetSpeed(mTargetSetting);
 
+	if (degrees == mDegrees) return;
+
 	printf("Setting hood angle to %Fdeg, %F length, %F setting\n", mDegrees, length, mTargetSetting);
+	mShuffleboardTargetAngle.SetDouble(mDegrees);
 }
 
 void ShooterHood::incrementAngle(double degreeChange) {

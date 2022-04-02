@@ -1,33 +1,47 @@
 #pragma once
 
+#include <frc/shuffleboard/Shuffleboard.h>
+#include <frc/shuffleboard/ShuffleboardLayout.h>
+#include <frc/shuffleboard/ShuffleboardTab.h>
 #include <frc2/command/SubsystemBase.h>
-#include "networktables/NetworkTable.h"
-#include "networktables/NetworkTableInstance.h"
+#include <networktables/NetworkTable.h>
+#include <networktables/NetworkTableEntry.h>
+#include <networktables/NetworkTableInstance.h>
 
-#include "Constants.h"
+namespace LimelightConstants {
+	const double h = 60; // Height of limelight to target
+	const double ay = 29.8; // Angle of limelight to target
+	const double kDistanceError = 23; // Distance error, from edge to center of target
+	const double kP = 0.0238; // tx multiplier
+	const double kMinCommand = 0.55; // 0.35; // Yaw calculation deritive term
+
+	const double kMaxDistance = 150; // Maximum distance that shooter can shoot from in inches, used by Shuffleboard
+}
+
 class Limelight : public frc2::SubsystemBase {
 	private:
 		bool m_LimelightHasTarget;
 
-		static constexpr double h = 61; // Height of limelight to target
-		static constexpr double ay = 31.4; // Angle of limelight to target
 		double ad; // Angle of robot to target in degrees
 		double ar; // Angle of robot to target in radians
-		static constexpr double de = 20; // Distance error
-		double d; //Distance of robot to targte
+		double d; // Distance of robot to target
 
 		double rpm; // RPM of the shooter
-		double hoodAngle;  // Angle of the hood
+		double hoodAngle; // Angle of the hood
 
 		double tx;
 		double ty;
 		double ta;
-		bool tv;
+		double tv;
 
 		float steering_adjust = 0.0f;
 
-		float Kp;
-		float min_command;
+		nt::NetworkTableEntry mShuffleboardDistance;
+		nt::NetworkTableEntry mShuffleboardPossibleShot;
+		nt::NetworkTableEntry mShuffleboardSuggestedHoodAngle;
+		nt::NetworkTableEntry mShuffleboardSuggestedSpeed;
+		nt::NetworkTableEntry mShuffleboardTx;
+		nt::NetworkTableEntry mShuffleboardTv;
 
 	public:
 		Limelight();

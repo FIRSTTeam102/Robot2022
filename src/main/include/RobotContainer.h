@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cameraserver/CameraServer.h>
+#include <frc/DataLogManager.h>
 #include <frc/DriverStation.h>
 #include <frc/Joystick.h>
 #include <frc/XboxController.h>
@@ -7,29 +9,35 @@
 #include <frc/shuffleboard/ShuffleboardLayout.h>
 #include <frc/shuffleboard/ShuffleboardTab.h>
 #include <frc/smartdashboard/SendableChooser.h>
-#include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/Command.h>
-#include <frc2/command/ParallelRaceGroup.h>
+#include <frc2/command/ParallelCommandGroup.h>
+#include <frc2/command/PrintCommand.h>
+#include <frc2/command/SequentialCommandGroup.h>
 #include <frc2/command/button/Button.h>
 
-#include "commands/AutonomousCommand.h"
-#include "commands/Climber/Climb.h"
+#include "commands/Autonomous/MainAutonomous.h"
+#include "commands/Autonomous/OneBallAuto.h"
+#include "commands/Climber/HighClimb.h"
+#include "commands/Climber/MidClimb.h"
 #include "commands/Indexer/Backward.h"
 #include "commands/Indexer/Forward.h"
 #include "commands/Intake/ArmToggle.h"
 #include "commands/Intake/BallIn.h"
 #include "commands/Intake/BallOut.h"
-#include "commands/Limelight/AimbotParallel.h"
+#include "commands/Limelight/LimelightShooter.h"
 #include "commands/Limelight/YawToTarget.h"
 #include "commands/RumbleController.h"
+#include "commands/ToggleCamera.h"
+// #include "commands/Shooter/ShootWithRumble.h"
+#include "commands/Limelight/LimelightShooterContinuous.h"
 #include "commands/Shooter/StartShooter.h"
 #include "commands/Shooter/StopShooter.h"
 #include "commands/ShooterHood/IncrementHoodAngle.h"
 #include "commands/ShooterHood/SetHoodAngle.h"
-#include "commands/SwerveDrive/FlipDrive.h"
 #include "commands/SwerveDrive/MoveLinearTimed.h"
 #include "commands/SwerveDrive/ResetGyro.h"
 #include "commands/SwerveDrive/RunSwerveDrive.h"
+#include "commands/SwerveDrive/ToggleDriveMode.h"
 #include "commands/SwerveDrive/TurnDegreesGyro.h"
 #include "subsystems/Climber.h"
 #include "subsystems/Indexer.h"
@@ -39,18 +47,97 @@
 #include "subsystems/ShooterHood.h"
 #include "subsystems/SwerveDrive.h"
 
+namespace HardcodedShots {
+#ifdef PRACTICE
+	constexpr float kTarmacLowerSpeedRPM = 1000;
+	constexpr float kTarmacUpperSpeedRPM = 3000;
+#else
+	constexpr float kTarmacLowerSpeedRPM = 1500; // lower hub
+	constexpr float kTarmacUpperSpeedRPM = 3350; // upper hub
+#endif
+
+	const double kTarmacLowerAngle = 75;
+	const double kTarmacUpperAngle = 85;
+}
+
 class RobotContainer {
 	public:
-		frc2::Command* GetAutonomousCommand();
-		static RobotContainer* GetInstance();
-		void RobotInit();
+		static RobotContainer* mpRobotContainer;
+		static RobotContainer* GetInstance() {
+			if (mpRobotContainer == NULL) mpRobotContainer = new RobotContainer();
+			return mpRobotContainer;
+		}
 
-		frc::XboxController* GetDriverController() { return &mDriverController; }
-		frc::XboxController* GetOperatorController() { return &mOperatorController; }
+		frc::XboxController* getDriverController() { return &mDriverController; }
+		frc::XboxController* getOperatorController() { return &mOperatorController; }
+
+		void setDriverRumble(double amount) {
+			mDriverController.SetRumble(frc::GenericHID::kLeftRumble, amount);
+			mDriverController.SetRumble(frc::GenericHID::kRightRumble, amount);
+		}
+		void setOperatorRumble(double amount) {
+			mOperatorController.SetRumble(frc::GenericHID::kLeftRumble, amount);
+			mOperatorController.SetRumble(frc::GenericHID::kRightRumble, amount);
+		}
+
+		frc2::Command* getAutonomousCommand();
+		void setInitialStates();
 
 	private:
 		RobotContainer();
 
+		cs::UsbCamera mCamera1;
+		cs::UsbCamera mCamera2;
+		cs::MjpegServer mCameraServer;
+
+		frc::SendableChooser<frc2::Command*> mAutoMode;
+
+		void configureButtonBindings();
+
+		// Subsystems and commands
+		SwerveDrive mSwerveDrive{&mDriverController};
+		RunSwerveDrive mRunSwerveDrive{&mSwerveDrive};
+		ToggleDriveMode mToggleDriveMode{&mSwerveDrive};
+		ResetGyro mResetGyro{&mSwerveDrive};
+
+		Intake mIntake;
+		BallIn mBallInCommand{&mIntake, &mIndexer};
+		BallOut mBallOutCommand{&mIntake, &mIndexer, &mShooter};
+		ArmToggle mArmToggleCommand{&mIntake};
+
+		Indexer mIndexer;
+		Forward mIndexUpCommand{&mIndexer};
+		Backward mIndexDownCommand{&mIndexer};
+
+		Shooter mShooter;
+		StopShooter mStopShooterCommand{&mShooter};
+		StartShooter mTarmacLowerSpeed{&mShooter, HardcodedShots::kTarmacLowerSpeedRPM};
+		StartShooter mTarmacUpperSpeed{&mShooter, HardcodedShots::kTarmacUpperSpeedRPM};
+		// StartShooter mShuffleboardShooter{&mShooter, &mShooter.mShuffleboardTestRPM};
+
+		ShooterHood mShooterHood;
+		IncrementHoodAngle mIncrementHood{2.0, &mShooterHood};
+		IncrementHoodAngle mDecrementHood{-2.0, &mShooterHood};
+		SetHoodAngle mTarmacLowerAngle{HardcodedShots::kTarmacLowerAngle, &mShooterHood};
+		SetHoodAngle mTarmacUpperAngle{HardcodedShots::kTarmacUpperAngle, &mShooterHood};
+
+		frc2::ParallelCommandGroup mTarmacLower{mTarmacLowerSpeed, mTarmacLowerAngle};
+		frc2::ParallelCommandGroup mTarmacUpper{mTarmacUpperSpeed, mTarmacUpperAngle};
+
+		Climber mClimber;
+		MidClimb mMidClimbCommand{&mClimber};
+		HighClimb mHighClimbCommand{&mClimber};
+
+		Limelight mLimelight;
+		LimelightShooter mLimelightShooter{&mLimelight, &mShooter, &mShooterHood};
+		LimelightShooterContinuous mLimelightShooterContinous{&mLimelight, &mShooter, &mShooterHood};
+		YawToTarget mYawToTarget{&mLimelight, &mSwerveDrive, &mDriverController};
+
+		// frc2::SequentialCommandGroup mLimelightShooterRumble{mLimelightShooter, RumbleController(&mDriverController)};
+
+		ToggleCamera mToggleCamera{&mCameraServer, &mCamera1, &mCamera2};
+
+		// Controllers
 		frc::XboxController mDriverController{0};
 		frc2::Button mDriverButtonA{[&] { return mDriverController.GetAButton(); }};
 		frc2::Button mDriverButtonB{[&] { return mDriverController.GetBButton(); }};
@@ -86,49 +173,4 @@ class RobotContainer {
 		frc2::Button mOperatorRightDPad{[&] { return (mOperatorController.GetPOV() == 90); }};
 		frc2::Button mOperatorDownDPad{[&] { return (mOperatorController.GetPOV() == 180); }};
 		frc2::Button mOperatorLeftDPad{[&] { return (mOperatorController.GetPOV() == 270); }};
-
-		frc::SendableChooser<frc2::Command*> mChooser;
-
-		AutonomousCommand mAutonomousCommand;
-		static RobotContainer* mRobotContainer;
-
-		void ConfigureButtonBindings();
-
-		// Subsystems and commands
-		SwerveDrive mSwerveDrive{&mDriverController};
-		RunSwerveDrive mRunSwerveDrive{&mSwerveDrive};
-		FlipDrive mFlipMode{&mSwerveDrive};
-		ResetGyro mResetGyro{&mSwerveDrive};
-
-		Intake mIntake;
-		BallIn mBallInCommand{&mIntake, &mIndexer};
-		BallOut mBallOutCommand{&mIntake, &mIndexer};
-		ArmToggle mArmToggleCommand{&mIntake};
-
-		Indexer mIndexer;
-		Forward mIndexUpCommand{&mIndexer};
-		Backward mIndexDownCommand{&mIndexer};
-
-		Shooter mShooter;
-		// StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kSlowSpeed};
-		// StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kMedSpeed};
-		// StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kFastSpeed};
-		StartShooter mSlowShooterCommand{&mShooter, ShooterConstants::kRPMSlowSpeed, true};
-		StartShooter mMedShooterCommand{&mShooter, ShooterConstants::kRPMMedSpeed, true};
-		StartShooter mFastShooterCommand{&mShooter, ShooterConstants::kRPMFastSpeed, true};
-		StopShooter mStopShooterCommand{&mShooter};
-
-		ShooterHood mShooterHood;
-		IncrementHoodAngle mIncrementHood{2.0, &mShooterHood};
-		IncrementHoodAngle mDecrementHood{-2.0, &mShooterHood};
-		// SetHoodAngle mHoodUp{26, &mShooterHood};
-		// SetHoodAngle mHoodMid{15, &mShooterHood};
-		// SetHoodAngle mHoodDown{-4, &mShooterHood};
-
-		Climber mClimber{&mDriverController};
-		Climb mClimbCommand{&mClimber};
-
-		Limelight mLimelight;
-		AimbotParallel mLimelightShooterSpeed{&mLimelight, &mShooter, &mShooterHood};
-		YawToTarget mYawToTarget{&mLimelight, &mSwerveDrive};
 };

@@ -1,59 +1,82 @@
 #include "RobotContainer.h"
 
-RobotContainer* RobotContainer::mRobotContainer = NULL;
+RobotContainer* RobotContainer::mpRobotContainer = NULL;
 
-RobotContainer::RobotContainer() : mAutonomousCommand() {
+RobotContainer::RobotContainer() {
+	// Default subsystem commands
 	mSwerveDrive.SetDefaultCommand(std::move(mRunSwerveDrive));
 
-	ConfigureButtonBindings();
-
-	mChooser.SetDefaultOption("Default", new AutonomousCommand());
-	frc::Shuffleboard::GetTab("Autonomous").Add("Mode", &mChooser);
-
+	// Button bindings
+	configureButtonBindings();
 	frc::DriverStation::SilenceJoystickConnectionWarning(true);
+
+	// Data logging
+	frc::DataLogManager::Start();
+	frc::DriverStation::StartDataLog(frc::DataLogManager::GetLog(), false);
+
+	// Auto
+	mAutoMode.SetDefaultOption("2 ball", new MainAutonomous(&mIndexer, &mIntake, &mLimelight, &mShooter, &mShooterHood, &mSwerveDrive));
+	mAutoMode.AddOption("1 ball", new OneBallAuto(&mIndexer, &mShooter, &mShooterHood, &mLimelight, &mSwerveDrive));
+	mAutoMode.AddOption("None", new frc2::PrintCommand("No auto"));
+	frc::Shuffleboard::GetTab("Drive")
+		.Add("Auto mode", mAutoMode)
+		.WithWidget(frc::BuiltInWidgets::kComboBoxChooser);
+
+	// Camera 🥴
+	mCamera1 = frc::CameraServer::StartAutomaticCapture("Intake", 0);
+	mCamera1.SetFPS(15);
+	mCamera1.SetResolution(320, 240);
+	mCamera2 = frc::CameraServer::StartAutomaticCapture("Climb", 1);
+	mCamera2.SetFPS(15);
+	mCamera2.SetResolution(320, 240);
+	mCameraServer = frc::CameraServer::AddSwitchedCamera("Camera");
+	mCameraServer.SetFPS(15);
+	mCameraServer.SetResolution(320, 240);
+	mCameraServer.SetSource(mCamera1);
+	frc::Shuffleboard::GetTab("Drive")
+		.AddCamera("Camera", "Camera", std::vector<std::string>{mCameraServer.GetListenAddress()})
+		.WithWidget(frc::BuiltInWidgets::kCameraStream)
+		.WithSize(5, 4);
 }
 
-RobotContainer* RobotContainer::GetInstance() {
-	if (mRobotContainer == NULL) {
-		mRobotContainer = new RobotContainer();
-	}
-	return (mRobotContainer);
-}
-
-void RobotContainer::ConfigureButtonBindings() {
+void RobotContainer::configureButtonBindings() {
 	/****** Driver ******/
-	mDriverButtonA.WhenPressed(&mFlipMode);
-	// mDriverButtonRMenu.WhenPressed(&mResetGyro);
+	mDriverButtonA.WhenPressed(&mToggleDriveMode);
+	mDriverButtonB.WhenPressed(&mResetGyro);
 
 	mDriverLT.WhenHeld(&mYawToTarget);
 
 	mDriverRT.WhenHeld(&mIndexUpCommand);
 	mDriverButtonRB.WhenHeld(&mIndexDownCommand);
-	
+
 	/****** Operator ******/
-	mOperatorButtonA.WhenPressed(&mSlowShooterCommand);
-	mOperatorButtonB.WhenPressed(&mMedShooterCommand);
-	mOperatorButtonY.WhenPressed(&mFastShooterCommand);
+	mOperatorButtonA.WhenPressed(&mTarmacLower);
+	mOperatorButtonB.WhenPressed(&mTarmacUpper);
+	// mOperatorButtonY.WhenPressed(&mFastShooterCommand);
 	mOperatorButtonX.WhenPressed(&mStopShooterCommand);
 
 	mOperatorLT.WhenHeld(&mBallInCommand);
 	mOperatorButtonLB.WhenHeld(&mBallOutCommand);
 
-	mOperatorRT.WhenPressed(&mLimelightShooterSpeed);
+	mOperatorRT.WhenHeld(&mLimelightShooterContinous);
 
-	mOperatorUpDPad.WhenPressed(&mIncrementHood);
-	mOperatorDownDPad.WhenPressed(&mDecrementHood);
+	// mOperatorUpDPad.WhenPressed(&mIncrementHood);
+	// mOperatorDownDPad.WhenPressed(&mDecrementHood);
+	mOperatorRightDPad.WhenPressed(&mToggleCamera);
 
-	mOperatorButtonLMenu.ToggleWhenPressed(&mClimbCommand);
+	mOperatorButtonLMenu.ToggleWhenPressed(&mMidClimbCommand);
+	mOperatorButtonRMenu.ToggleWhenPressed(&mHighClimbCommand);
 }
 
-frc2::Command* RobotContainer::GetAutonomousCommand() {
+frc2::Command* RobotContainer::getAutonomousCommand() {
 	// The selected command will be run in autonomous
-	return mChooser.GetSelected();
+	return mAutoMode.GetSelected();
 }
 
-void RobotContainer::RobotInit() {
-	// Set initial solenoid states
-	mClimber.armsDown();
+void RobotContainer::setInitialStates() {
+	// Called when the robot starts, makes sure everything is set as retracted/stopped
+	mShooter.stopShooter();
+	mClimber.midArmsDown();
+	mClimber.highArmsDown();
 	mIntake.raiseIntakeArm();
 }

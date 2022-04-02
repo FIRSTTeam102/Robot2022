@@ -3,43 +3,37 @@
 Lights* Lights::mpLightsInstance = NULL;
 
 Lights::Lights() {
-	SetName("Lights");
-	SetSubsystem("Lights");
-
-#ifdef ARDUINO
-	mArduino.EnableTermination();
-	mArduino.Reset();
-
 	switch (frc::DriverStation::GetAlliance()) {
 		case frc::DriverStation::Alliance::kRed:
-			mArduino.Write("r");
-			break;
-
-		case frc::DriverStation::Alliance::kBlue:
-			mArduino.Write("b");
+			mAlliance.Set(1); // red
 			break;
 
 		default:
-			mArduino.Write("r");
+			mAlliance.Set(0); // blue
 	}
-#endif
 }
 
-Lights* Lights::GetInstance() {
-	if (mpLightsInstance == NULL) mpLightsInstance = new Lights();
-	return mpLightsInstance;
+// Example usage: Lights::setMode(LightsMode::kOff);
+void Lights::setMode(Mode _mode) {
+	auto i = GetInstance(); // make sure everything is initialized
+
+	int mode = (int)_mode;
+
+	std::bitset<3> binary(mode); // 3 binary outputs allows 2^3 different modes (8)
+	i->mMode0.Set(binary.test(2)); // 1st output pin needs to be the leftmost (last) bitset value
+	i->mMode1.Set(binary.test(1));
+	i->mMode2.Set(binary.test(0)); // 3rd output pin needs to be the rightmost (first) bitset value
+
+	printf("Set light mode to: %d (%d%d%d)\n", mode, i->mMode0.Get(), i->mMode1.Get(), i->mMode2.Get());
 }
 
-void Lights::Periodic() {
-	// Put code here to be run every loop
-}
-
-// Example usage: Lights::GetInstance()->setMode(LightsMode::kOff);
-void Lights::setMode(Mode mode) {
-	std::string_view buffer = std::to_string(mode);
-
-#ifdef ARDUINO
-	mArduino.Write(buffer);
-#endif
-	printf("Set light mode to: %s\n", buffer.data());
+// Example usage: Lights::setDefault();
+void Lights::setDefault() {
+	if (frc::DriverStation::IsAutonomous()) {
+		setMode(Mode::kAuto);
+	} else if (frc::DriverStation::IsTeleop()) {
+		setMode(Mode::kTeleop);
+	} else {
+		setMode(Mode::kDisabled);
+	}
 }

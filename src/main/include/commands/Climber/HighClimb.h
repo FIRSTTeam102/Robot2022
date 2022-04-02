@@ -6,13 +6,17 @@
 #include "subsystems/Climber.h"
 #include "subsystems/Lights.h"
 
-class Climb : public frc2::CommandHelper<frc2::CommandBase, Climb> {
+class HighClimb : public frc2::CommandHelper<frc2::CommandBase, HighClimb> {
 	public:
-		explicit Climb(Climber *pClimber);
+		explicit HighClimb(Climber *pClimber);
 		void Initialize() override;
 		void Execute() override;
 		bool IsFinished() override;
 		void End(bool interrupted) override;
+
+		bool RunsWhenDisabled() { // keep state after re-enabling
+			return true;
+		}
 
 	private:
 		Climber *mpClimber;

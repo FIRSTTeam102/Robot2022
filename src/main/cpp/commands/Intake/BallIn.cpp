@@ -3,21 +3,25 @@
 BallIn::BallIn(Intake* pIntake, Indexer* pIndexer) : mpIntake{pIntake}, mpIndexer{pIndexer} {
 	SetName("BallIn");
 	AddRequirements(pIntake);
-	AddRequirements(pIndexer);
 }
 
 // Called just before this Command runs the first time
 void BallIn::Initialize() {
+	mIndexerAlreadyGotBall = false;
 	mpIntake->mLock = true;
 	mpIntake->startRollers();
 	mpIntake->lowerIntakeArm();
-	mpIndexer->indexUp();
-	Lights::GetInstance()->setMode(Lights::Mode::kIntake);
+	if (!mpIndexer->getSwitch()) mpIndexer->indexUp();
+	Lights::setMode(Lights::kIntake);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void BallIn::Execute() {
-	if (mpIndexer->getSwitch()) mpIndexer->stopIndexer();
+	if (mpIndexer->getSwitch() && !mIndexerAlreadyGotBall) {
+		printf("switch true\n");
+		mpIndexer->stopIndexer();
+		mIndexerAlreadyGotBall = true;
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -27,9 +31,10 @@ bool BallIn::IsFinished() {
 
 // Called once after isFinished returns true
 void BallIn::End(bool interrupted) {
+	mIndexerAlreadyGotBall = true;
 	mpIntake->mLock = false;
 	mpIntake->stopRollers();
 	mpIntake->raiseIntakeArm();
 	mpIndexer->stopIndexer();
-	Lights::GetInstance()->setMode(Lights::Mode::kDefault);
+	Lights::setDefault();
 }

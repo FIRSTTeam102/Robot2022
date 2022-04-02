@@ -4,7 +4,6 @@
 #include <frc2/command/Command.h>
 #include <frc/Compressor.h>
 
-// #include "Constants.h"
 #include "RobotContainer.h"
 #include "subsystems/Lights.h"
 
@@ -27,5 +26,7 @@ class Robot : public frc::TimedRobot {
 
 		RobotContainer* mContainer = RobotContainer::GetInstance();
 		
-		// frc::Compressor mCompressor{kPneumaticHub, frc::PneumaticsModuleType::REVPH};
+		frc::Compressor mCompressor{kPneumaticHub, frc::PneumaticsModuleType::REVPH};
+
+		nt::NetworkTableEntry mShuffleboardPressure;
 };

@@ -10,13 +10,6 @@ void ResetGyro::Initialize() {
 	mpSwerveDrive->resetGyro();
 }
 
-// Called repeatedly when this Command is scheduled to run
-void ResetGyro::Execute() {}
-
-// Called once the command ends or is interrupted.
-void ResetGyro::End(bool interrupted) {}
-
-// Returns true when the command should end.
-bool ResetGyro::IsFinished() {
+bool ResetGyro::RunsWhenDisabled() {
 	return true;
 }

@@ -1,40 +1,36 @@
 #pragma once
 
+#include <frc/DigitalOutput.h>
 #include <frc/DriverStation.h>
-#include <frc/SerialPort.h>
-#include <frc2/command/SubsystemBase.h>
 
-#include <string>
+#include <bitset>
 
-#include "Constants.h"
-
-// Prevent errors when no Arduino is attached
-// #define ARDUINO
-
-class Lights : public frc2::SubsystemBase {
+class Lights {
 	public:
-		enum Mode {
-			kOff = 0,
-			kDefault = 1,
-			kDisabled = 2,
-			kAuto = 3,
+		enum Mode { // max of 8 modes
+			kDisabled = 0,
+			kTeleop = 1,
+			kAuto = 2,
 			kIntake = 4,
 			kLimelight = 5,
 			kShooting = 6,
-			kClimb = 7,
-			kAlliance = 8,
-			kAllianceFire = 9
+			kClimb = 7
 		};
 
-		static Lights* GetInstance();
-		void Periodic() override;
-		void setMode(Mode mode);
+		static void setMode(Mode mode);
+		static void setDefault();
 
 	private:
 		Lights();
-		static Lights* mpLightsInstance;
 
-#ifdef ARDUINO
-		frc::SerialPort mArduino{9600, frc::SerialPort::kUSB1};
-#endif
+		static Lights* mpLightsInstance;
+		static Lights* GetInstance() {
+			if (mpLightsInstance == NULL) mpLightsInstance = new Lights();
+			return mpLightsInstance;
+		};
+
+		frc::DigitalOutput mMode0{6};
+		frc::DigitalOutput mMode1{7};
+		frc::DigitalOutput mMode2{8};
+		frc::DigitalOutput mAlliance{9};
 };

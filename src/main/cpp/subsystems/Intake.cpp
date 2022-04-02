@@ -20,21 +20,35 @@ void Intake::toggleIntakeArm() {
 	mArmSolenoid.Toggle();
 }
 
+void Intake::setIntakeArm(frc::DoubleSolenoid::Value state) {
+	mArmSolenoid.Set(state);
+}
+
 frc::DoubleSolenoid::Value Intake::getArmState() {
 	return mArmSolenoid.Get();
 }
 
 void Intake::startRollers() {
-	printf("Rollers should be moving\n");
+	// printf("Rollers should be moving\n");
 	mRollerMotor.Set(ControlMode::PercentOutput, IntakeConstants::kRollerSpeed);
+	mState = MotorDirection::kForward;
 }
 
 void Intake::startReverseRollers() {
 	mRollerMotor.Set(ControlMode::PercentOutput, -IntakeConstants::kRollerSpeed);
+	mState = MotorDirection::kReverse;
 }
 
 void Intake::stopRollers() {
 	mRollerMotor.Set(ControlMode::PercentOutput, 0);
+	mState = MotorDirection::kOff;
+}
+
+void Intake::toggleRollerDirection() {
+	if (mState == MotorDirection::kForward)
+		startReverseRollers();
+	else if (mState == MotorDirection::kReverse)
+		startRollers();
 }
 
 void Intake::Periodic() {

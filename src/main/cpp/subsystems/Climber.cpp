@@ -1,54 +1,66 @@
 #include "subsystems/Climber.h"
 
-Climber::Climber(frc::XboxController *pController) : mpController{pController} {
+// Climber::Climber(frc::XboxController *pController) : mpController{pController} {
+Climber::Climber() {
 	SetName("Climber");
 	SetSubsystem("Climber");
 
-	wpi::StringMap<std::shared_ptr<nt::Value>> sensorGridProperties = {
+	/* wpi::StringMap<std::shared_ptr<nt::Value>> sensorGridProperties = {
 		std::make_pair("Number of columns", nt::Value::MakeDouble(2)),
 		std::make_pair("Number of rows", nt::Value::MakeDouble(1))
 	};
 
-	frc::ShuffleboardLayout& sensorGrid = frc::Shuffleboard::GetTab("Teleop")
+	frc::ShuffleboardLayout& sensorGrid = frc::Shuffleboard::GetTab("Drive")
 		.GetLayout("Climb sensors", frc::BuiltInLayouts::kGrid)
 			.WithProperties(sensorGridProperties);
 
 	mShuffleboardSensorLeft = sensorGrid.Add("Left", false).GetEntry();
-	mShuffleboardSensorRight = sensorGrid.Add("Right", false).GetEntry();
+	mShuffleboardSensorRight = sensorGrid.Add("Right", false).GetEntry(); */
 }
 
-void Climber::armsUp() {
-	mClimberSolenoidRight.Set(frc::DoubleSolenoid::kForward);
-	mClimberSolenoidLeft.Set(frc::DoubleSolenoid::kForward);
-	printf("Climber arms raising\n");
+void Climber::midArmsUp() {
+	mMidSolenoid.Set(frc::DoubleSolenoid::kForward);
+	printf("Raising mid climber\n");
 }
 
-void Climber::armsDown() {
-	mClimberSolenoidRight.Set(frc::DoubleSolenoid::kReverse);
-	mClimberSolenoidLeft.Set(frc::DoubleSolenoid::kReverse);
-	printf("Climber arms descending\n");
+void Climber::midArmsDown() {
+	mMidSolenoid.Set(frc::DoubleSolenoid::kReverse);
+	printf("Lowering mid climber\n");
 }
 
-void Climber::toggleArms() {
-	mClimberSolenoidRight.Toggle();
-	mClimberSolenoidLeft.Toggle();
-	printf("Climber arms toggled\n");
+void Climber::midArmsToggle() {
+	mMidSolenoid.Toggle();
+	printf("Toggling mid climber\n");
+}
+
+void Climber::highArmsUp() {
+	mHighSolenoid.Set(frc::DoubleSolenoid::kForward);
+	printf("Raising high climber\n");
+}
+
+void Climber::highArmsDown() {
+	mHighSolenoid.Set(frc::DoubleSolenoid::kReverse);
+	printf("Lowering high climber\n");
+}
+
+void Climber::highArmsToggle() {
+	mHighSolenoid.Toggle();
+	printf("Toggling high climber\n");
 }
 
 void Climber::Periodic() {
 	// Automatically pull up climber just before match ends
-	// if (
-	// 	frc::DriverStation::IsTeleop() // in teleop
-	// 	&& frc::DriverStation::IsFMSAttached() // a real competition
-	// 	&& frc::DriverStation::GetMatchType() != frc::DriverStation::MatchType::kNone
-	// 	&& frc::Timer::GetMatchTime() < 500_ms // less than 0.5 seconds left in the match
-	// ) {
-	// 	printf("Automatically pulling up climber\n");
-	// 	armsDown();
-	// }
+	/* if (
+		frc::DriverStation::IsTeleopEnabled() // in teleop
+		// && frc::DriverStation::IsFMSAttached() // a real competition
+		&& frc::Timer::GetMatchTime() < 500_ms // less than 0.5 seconds left in the match
+	) {
+		printf("Automatically pulling up climber\n");
+		midArmsDown();
+	} */
 
 	// printf("Climber line sensor L%d R%d\n", mLineSensorLeft.Get(), mLineSensorRight.Get());
-	if (
+	/* if (
 		frc::DriverStation::IsTeleopEnabled()
 		&& frc::DriverStation::GetMatchType() != frc::DriverStation::MatchType::kNone
 		&& frc::Timer::GetMatchTime() < 30_s
@@ -71,5 +83,5 @@ void Climber::Periodic() {
 	}
 
 	mShuffleboardSensorLeft.SetBoolean(mLineSensorLeft.Get());
-	mShuffleboardSensorRight.SetBoolean(mLineSensorRight.Get());
+	mShuffleboardSensorRight.SetBoolean(mLineSensorRight.Get()); */
 }
