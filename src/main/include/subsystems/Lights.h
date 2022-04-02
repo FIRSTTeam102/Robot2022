@@ -17,6 +17,7 @@ class Lights {
 			kClimb = 7
 		};
 
+		static void setAlliance();
 		static void setMode(Mode mode);
 		static void setDefault();
 

@@ -2,20 +2,12 @@
 
 Lights* Lights::mpLightsInstance = NULL;
 
-Lights::Lights() {
-	switch (frc::DriverStation::GetAlliance()) {
-		case frc::DriverStation::Alliance::kRed:
-			mAlliance.Set(1); // red
-			break;
-
-		default:
-			mAlliance.Set(0); // blue
-	}
-}
+Lights::Lights() {}
 
 // Example usage: Lights::setMode(LightsMode::kOff);
 void Lights::setMode(Mode _mode) {
 	auto i = GetInstance(); // make sure everything is initialized
+	i->setAlliance();
 
 	int mode = (int)_mode;
 
@@ -35,5 +27,18 @@ void Lights::setDefault() {
 		setMode(Mode::kTeleop);
 	} else {
 		setMode(Mode::kDisabled);
+	}
+}
+
+void Lights::setAlliance() {
+	auto i = GetInstance();
+
+	switch (frc::DriverStation::GetAlliance()) {
+		case frc::DriverStation::Alliance::kRed:
+			i->mAlliance.Set(1); // red
+			break;
+
+		default:
+			i->mAlliance.Set(0); // blue
 	}
 }
