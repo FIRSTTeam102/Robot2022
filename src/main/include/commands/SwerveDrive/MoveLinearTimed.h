@@ -18,6 +18,7 @@ class MoveLinearTimed : public frc2::CommandHelper<frc2::CommandBase, MoveLinear
 		SwerveDrive* mpSwerveDrive;
 		double mSpeed;
 		double mAngle;
+		double mZeroAngle;
 		frc::Timer mTimer;
 		units::second_t mTime;
 };

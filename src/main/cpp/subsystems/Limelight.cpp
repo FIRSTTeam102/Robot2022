@@ -34,7 +34,8 @@ double Limelight::calculateShootDistance() {
 
 bool Limelight::Check() {
 	// return ( ( -1.0 < tx ) && ( tx < 1.0 ) );
-	return ((-3.0 < tx) && (tx < -2.0)) || ((2.0 < tx) && (tx < 3.0));
+	if (frc::DriverStation::IsAutonomous()) return ((-2.0 < tx) && (tx < 0.0));
+	else return ((-3.8 < tx) && (tx < -2.8)) || ((2.8 < tx) && (tx < 3.8));
 }
 
 void Limelight::Periodic() {
@@ -81,7 +82,7 @@ void Limelight::Periodic() {
 }
 
 double Limelight::getShootSpeed() {
-	rpm = -4 * d + 3700;
+	rpm = -4 * d + 3800;
 	if (d > 100) rpm = 4 * d + 2900;
 	return rpm;
 }

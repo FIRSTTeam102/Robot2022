@@ -5,6 +5,7 @@
 
 void Robot::RobotInit() {
 	mContainer->setInitialStates();
+	Lights::setAlliance();
 
 	mCompressor.EnableDigital();
 

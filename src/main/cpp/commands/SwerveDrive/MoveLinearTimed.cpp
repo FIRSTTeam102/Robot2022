@@ -8,11 +8,11 @@ mpSwerveDrive{pSwerveDrive}, mSpeed{speed}, mAngle{angle}, mTime{time} {
 void MoveLinearTimed::Initialize() {
 	mTimer.Start();
 	mpSwerveDrive->setAutoState(true);
-	mpSwerveDrive->resetGyro();
+	mZeroAngle = mpSwerve->getGyroAngle(); // get the angle we started at and use it as 0
 }
 
 void MoveLinearTimed::Execute() {
-	double targetAngle = mAngle - mpSwerveDrive->getGyroAngle();
+	double targetAngle = mAngle - mpSwerveDrive->getGyroAngle(mZeroAngle);
 	mpSwerveDrive->autoDrive(targetAngle, mSpeed);
 }
 
