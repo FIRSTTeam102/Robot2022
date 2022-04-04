@@ -89,6 +89,6 @@ double Limelight::getShootSpeed() {
 
 double Limelight::getServoAngle() {
 	hoodAngle = -0.16 * d + 92;
-	if (d > 160) hoodAngle = 65;
+	if (d > 160) hoodAngle = -0.01 * d + 68;
 	return hoodAngle;
 }
