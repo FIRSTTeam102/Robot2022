@@ -9,13 +9,9 @@
 class YawUntilTarget : public frc2::CommandHelper<frc2::CommandBase, YawUntilTarget> {
 	public:
 		YawUntilTarget(Limelight* pLimelight, SwerveDrive* pSwerveDrive, double speed);
-
 		void Initialize() override;
-
 		void Execute() override;
-
 		void End(bool interrupted) override;
-
 		bool IsFinished() override;
 	
 	private:
@@ -23,4 +19,5 @@ class YawUntilTarget : public frc2::CommandHelper<frc2::CommandBase, YawUntilTar
 		SwerveDrive* mpSwerve;
 
 		double mSpeed;
+		double mZeroAngle;
 };

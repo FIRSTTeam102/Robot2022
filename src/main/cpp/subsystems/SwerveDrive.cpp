@@ -10,7 +10,8 @@ mpController{pController} {
 	SetSubsystem("SwerveDrive");
 	mIsFieldOriented = false;
 	mAutoState = false;
-	mGyro.Calibrate();
+
+	// Gyro gets manually reset when put on the field, 0° is facing towards the opposing alliance
 
 	// Shuffleboard
 	mShuffleboardFieldOriented = frc::Shuffleboard::GetTab("Drive").Add("Field oriented", mIsFieldOriented).GetEntry();
@@ -50,9 +51,8 @@ double SwerveDrive::pythag(double x, double y) {
 }
 
 void SwerveDrive::controllerSwerve() {
-	double offset;
+	double offset = 0.0;
 	if (mIsFieldOriented) offset = getGyroAngle();
-	else offset = 0.0;
 
 	vectorSwerve(
 		fixInput(mpController->GetLeftX()),
@@ -127,7 +127,10 @@ void SwerveDrive::changeOrientation() {
 	mShuffleboardFieldOriented.SetBoolean(mIsFieldOriented);
 }
 
-void SwerveDrive::resetGyro() { mGyro.Reset(); }
+// This should never be called except by user input
+void SwerveDrive::resetGyro() {
+	mGyro.ZeroYaw();
+}
 
 // This method will be called once per scheduler run
 void SwerveDrive::Periodic() {
