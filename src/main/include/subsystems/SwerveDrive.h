@@ -82,9 +82,6 @@ class SwerveDrive : public frc2::SubsystemBase {
 		double getGyroAngle() {
 			return mGyroAngle;
 		}
-		double getGyroAngle(double zeroAngle) { // relative to a fake 0
-			return mGyroAngle - zeroAngle;
-		}
 
 		void setAutoState(bool state) {
 			mAutoState = state;

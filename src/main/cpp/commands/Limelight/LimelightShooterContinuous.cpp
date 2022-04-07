@@ -3,7 +3,7 @@
 LimelightShooterContinuous::LimelightShooterContinuous(Limelight *pLimelight, Shooter *pShooter, ShooterHood *pShooterHood) :
 mpLimelight{pLimelight}, mpShooter{pShooter}, mpShooterHood{pShooterHood} {
 	SetName("LimelightShooterContinuous");
-	AddRequirements({pShooter, pShooterHood});
+	AddRequirements({pLimelight, pShooter, pShooterHood});
 }
 
 void LimelightShooterContinuous::Initialize() {
