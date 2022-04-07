@@ -82,8 +82,8 @@ void Limelight::Periodic() {
 }
 
 double Limelight::getShootSpeed() {
-	rpm = -3.84 * d + 3648;
-	if (d > 90) rpm = 3.84 * d + 2784;
+	rpm = -4.12 * d + 3914;
+	if (d > 90) rpm = 4.12 * d + 2987;
 	return rpm;
 }
 
