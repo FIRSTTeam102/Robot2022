@@ -2,15 +2,24 @@
 
 #include "subsystems/SwerveDrive.h"
 
-SwerveWheel::SwerveWheel(int drivePort, int turnPort, int encPort, int encOffset, double maxSpeed) :
+SwerveWheel::SwerveWheel(int drivePort, int turnPort, int encPort, int encOffset, double maxSpeed, int encPort2) :
 mDriveMotor{drivePort},
 mTurnMotor{turnPort},
-mEnc{encPort},
 mAngleOffset{encOffset},
-mMaxSpeed{maxSpeed} {
+mMaxSpeed{maxSpeed},
+mpEnc{nullptr},
+mpHallEnc{nullptr}
+{
 	SetName("SwerveWheel");
 	SetSubsystem("SwerveWheel");
 	mWheelNum = encPort + 1;
+
+	if (encPort2 != -1) {
+		mpHallEnc = new frc::Encoder(encPort, encPort2, true);
+		mpHallEnc->Reset();
+	} else {
+		mpEnc = new frc::AnalogInput(encPort);
+	}
 
 	mDriveMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
 	mTurnMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake); // also see setCalibration(false)
@@ -33,7 +42,13 @@ int SwerveWheel::circScale(int i) {
 void SwerveWheel::Periodic() {
 	if (mCalibration) return;
 
-	scaledPos = (double)(mEnc.GetValue() - mAngleOffset) * 360.0 / 4096.0;
+	if (mpHallEnc != nullptr) {
+		scaledPos = (double)(mpHallEnc->Get());
+		printf("hall sensor port %d value: %d\n", mWheelNum - 1, scaledPos);
+	} else {
+		scaledPos = (double)(mpEnc->GetValue() - mAngleOffset) * 360.0 / 4096.0;
+	}
+
 	posCurrent = circScale(scaledPos);
 	scaledTarg = circScale(target - posCurrent);
 	if (scaledTarg > 90 && scaledTarg < 270) {

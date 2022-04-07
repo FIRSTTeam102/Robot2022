@@ -30,10 +30,10 @@ namespace SwerveDriveConstants {
 	const int kBLEnc = 3;
 
 	// Calibration Values
-	const int kFLOffset = 606;
-	const int kFROffset = 421;
-	const int kBROffset = 2670;
-	const int kBLOffset = 1158;
+	const int kFLOffset = 591;
+	const int kFROffset = 326;
+	const int kBROffset = 2681;
+	const int kBLOffset = 2106;
 
 	const double kMaxSpeed = 1.00;
 
@@ -128,10 +128,10 @@ class SwerveDrive : public frc2::SubsystemBase {
 
 		nt::NetworkTableEntry mShuffleboardFieldOriented;
 
-		SwerveWheel mWheelFL{SwerveDriveConstants::kFLDrive, SwerveDriveConstants::kFLTurn, SwerveDriveConstants::kFLEnc, SwerveDriveConstants::kFLOffset, SwerveDriveConstants::kFLMaxSpeed};
-		SwerveWheel mWheelFR{SwerveDriveConstants::kFRDrive, SwerveDriveConstants::kFRTurn, SwerveDriveConstants::kFREnc, SwerveDriveConstants::kFROffset, SwerveDriveConstants::kFRMaxSpeed};
-		SwerveWheel mWheelBR{SwerveDriveConstants::kBRDrive, SwerveDriveConstants::kBRTurn, SwerveDriveConstants::kBREnc, SwerveDriveConstants::kBROffset, SwerveDriveConstants::kBRMaxSpeed};
-		SwerveWheel mWheelBL{SwerveDriveConstants::kBLDrive, SwerveDriveConstants::kBLTurn, SwerveDriveConstants::kBLEnc, SwerveDriveConstants::kBLOffset, SwerveDriveConstants::kBLMaxSpeed};
+		SwerveWheel mWheelFL{21, 22, 0, SwerveDriveConstants::kFLOffset, SwerveDriveConstants::kFLMaxSpeed};
+		SwerveWheel mWheelFR{23, 24, 1, SwerveDriveConstants::kFROffset, SwerveDriveConstants::kFRMaxSpeed};
+		SwerveWheel mWheelBR{25, 26, 2, SwerveDriveConstants::kBROffset, SwerveDriveConstants::kBRMaxSpeed};
+		SwerveWheel mWheelBL{27, 28, 3, SwerveDriveConstants::kBLOffset, SwerveDriveConstants::kBLMaxSpeed};
 
 		int targetEncoder[4];
 		float targetSpeed[4], turnMagnitude[4];

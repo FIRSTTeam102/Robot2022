@@ -3,16 +3,17 @@
 #include <ctre/Phoenix.h>
 #include <frc/AnalogInput.h>
 #include <frc2/command/SubsystemBase.h>
+#include <frc/Encoder.h>
 
 class SwerveWheel : public frc2::SubsystemBase {
 	public:
-		SwerveWheel(int drivePort, int turnPort, int encPort, int encOffset, double maxSpeed);
+		SwerveWheel(int drivePort, int turnPort, int encPort, int encOffset, double maxSpeed, int encPort2 = -1);
 
 		void setAngle(double angle);
 		void setSpeed(double speed);
 
 		int getEnc() {
-			return mEnc.GetValue();
+			return (mpHallEnc != nullptr) ? mpEnc->GetValue() : mpHallEnc->Get();
 		}
 		void setCalibration(bool enabled) {
 			mCalibration = enabled;
@@ -29,7 +30,8 @@ class SwerveWheel : public frc2::SubsystemBase {
 	private:
 		TalonSRX mDriveMotor;
 		TalonSRX mTurnMotor;
-		frc::AnalogInput mEnc;
+		frc::AnalogInput* mpEnc;
+		frc::Encoder* mpHallEnc;
 		int circScale(int i);
 		int mWheelNum; // for debugging
 		int mAngleOffset;
