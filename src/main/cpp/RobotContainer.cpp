@@ -22,19 +22,20 @@ RobotContainer::RobotContainer() {
 		.Add("Auto mode", mAutoMode)
 		.WithWidget(frc::BuiltInWidgets::kComboBoxChooser);
 
-	// Camera 🥴
+	// Camera
 	mCamera1 = frc::CameraServer::StartAutomaticCapture("Intake", 0);
 	mCamera1.SetFPS(15);
 	mCamera1.SetResolution(320, 240);
-	mCamera2 = frc::CameraServer::StartAutomaticCapture("Climb", 1);
+	/* mCamera2 = frc::CameraServer::StartAutomaticCapture("Climb", 1);
 	mCamera2.SetFPS(15);
-	mCamera2.SetResolution(320, 240);
+	mCamera2.SetResolution(320, 240); */
 	mCameraServer = frc::CameraServer::AddSwitchedCamera("Camera");
 	mCameraServer.SetFPS(15);
 	mCameraServer.SetResolution(320, 240);
 	mCameraServer.SetSource(mCamera1);
 	frc::Shuffleboard::GetTab("Drive")
 		.AddCamera("Camera", "Camera", std::vector<std::string>{mCameraServer.GetListenAddress()})
+		// .Add("Camera", mCamera1)
 		.WithWidget(frc::BuiltInWidgets::kCameraStream)
 		.WithSize(5, 4);
 }
@@ -62,7 +63,7 @@ void RobotContainer::configureButtonBindings() {
 
 	// mOperatorUpDPad.WhenPressed(&mIncrementHood);
 	// mOperatorDownDPad.WhenPressed(&mDecrementHood);
-	mOperatorRightDPad.WhenPressed(&mToggleCamera);
+	// mOperatorRightDPad.WhenPressed(&mToggleCamera);
 
 	mOperatorButtonLMenu.ToggleWhenPressed(&mMidClimbCommand);
 	mOperatorButtonRMenu.ToggleWhenPressed(&mHighClimbCommand);

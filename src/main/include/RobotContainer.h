@@ -27,7 +27,7 @@
 #include "commands/Limelight/LimelightShooter.h"
 #include "commands/Limelight/YawToTarget.h"
 #include "commands/RumbleController.h"
-#include "commands/ToggleCamera.h"
+// #include "commands/ToggleCamera.h"
 // #include "commands/Shooter/ShootWithRumble.h"
 #include "commands/Limelight/LimelightShooterContinuous.h"
 #include "commands/Shooter/StartShooter.h"
@@ -135,7 +135,7 @@ class RobotContainer {
 
 		// frc2::SequentialCommandGroup mLimelightShooterRumble{mLimelightShooter, RumbleController(&mDriverController)};
 
-		ToggleCamera mToggleCamera{&mCameraServer, &mCamera1, &mCamera2};
+		// ToggleCamera mToggleCamera{&mCameraServer, &mCamera1, &mCamera2};
 
 		// Controllers
 		frc::XboxController mDriverController{0};
