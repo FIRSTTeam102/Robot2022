@@ -30,10 +30,10 @@ namespace SwerveDriveConstants {
 	const int kBLEnc = 3;
 
 	// Calibration Values
-	const int kFLOffset = 579;
-	const int kFROffset = 398;
-	const int kBROffset = 2653;
-	const int kBLOffset = 2131;
+	const int kFLOffset = 570;
+	const int kFROffset = 417;
+	const int kBROffset = 2749;
+	const int kBLOffset = 2067;
 
 	const double kMaxSpeed = 1.00;
 
