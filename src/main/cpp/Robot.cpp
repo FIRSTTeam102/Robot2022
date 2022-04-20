@@ -9,7 +9,7 @@ void Robot::RobotInit() {
 
 	mCompressor.EnableDigital();
 
-	mShuffleboardPressure = frc::Shuffleboard::GetTab("Test").Add("Pneumatics charged", false).GetEntry();
+	mShuffleboardPressure = frc::Shuffleboard::GetTab("Test").Add("Low Pressure", false).GetEntry();
 }
 
 /**
