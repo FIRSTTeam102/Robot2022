@@ -41,6 +41,11 @@ RobotContainer::RobotContainer() {
 }
 
 void RobotContainer::configureButtonBindings() {
+	mUserButton.WhenPressed([&] {
+		printf("user button pressed\n");
+		mLimelight.toggleLight();
+	}, {});
+
 	/****** Driver ******/
 	mDriverButtonA.WhenPressed(&mToggleDriveMode);
 	mDriverButtonB.WhenPressed(&mResetGyro);
@@ -80,4 +85,5 @@ void RobotContainer::setInitialStates() {
 	mClimber.midArmsDown();
 	mClimber.highArmsDown();
 	mIntake.raiseIntakeArm();
+	mLimelight.setLight(true);
 }
