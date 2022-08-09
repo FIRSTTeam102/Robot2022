@@ -38,6 +38,9 @@ RobotContainer::RobotContainer() {
 		// .Add("Camera", mCamera1)
 		.WithWidget(frc::BuiltInWidgets::kCameraStream)
 		.WithSize(5, 4);
+
+	frc::ShuffleboardTab& demoTab = frc::Shuffleboard::GetTab("Demo");
+	mDemoShooterSpeed = demoTab.Add("Demo Shooter Speed", 2000.0).GetEntry();
 }
 
 void RobotContainer::configureButtonBindings() {
@@ -72,6 +75,23 @@ void RobotContainer::configureButtonBindings() {
 
 	mOperatorButtonLMenu.ToggleWhenPressed(&mMidClimbCommand);
 	mOperatorButtonRMenu.ToggleWhenPressed(&mHighClimbCommand);
+
+	/****** Demo ******/
+
+	mDemoButtonA.WhenPressed(&mDemoSpeed);
+	mDemoButtonB.WhenPressed(&mDemoUpperAngle);
+	mDemoButtonY.WhenPressed(&mDemoLowerAngle);
+	mDemoButtonX.WhenPressed(&mStopShooterCommand);
+
+	mDemoLT.WhenHeld(&mBallInCommand);
+	mDemoRT.WhenHeld(&mIndexUpCommand);
+	mDemoButtonLB.ToggleWhenPressed(&mMidClimbCommand);
+	mDemoButtonRB.ToggleWhenPressed(&mHighClimbCommand);
+
+	mDemoButtonLMenu.WhenPressed(&mToggleDriveMode);
+	mDemoButtonRMenu.WhenPressed(&mResetGyro);
+
+	mDemoDownDPad.WhenHeld(&mIndexDownCommand);
 }
 
 frc2::Command* RobotContainer::getAutonomousCommand() {

@@ -59,7 +59,7 @@ namespace SwerveDriveConstants {
 
 class SwerveDrive : public frc2::SubsystemBase {
 	public:
-		SwerveDrive(frc::XboxController* pController);
+		SwerveDrive(frc::XboxController* pController, frc::XboxController* pDemoController);
 
 		double fixInput(double s, bool square = true) {
 			if (square) s = std::copysign(s * s, s);
@@ -124,9 +124,12 @@ class SwerveDrive : public frc2::SubsystemBase {
 		bool mAutoState;
 
 		frc::XboxController* mpController;
+		frc::XboxController* mpDemoController;
 		AHRS mGyro{frc::SPI::Port::kMXP, 110};
 
 		nt::NetworkTableEntry mShuffleboardFieldOriented;
+		nt::NetworkTableEntry mShuffleboardUseDemo;
+		nt::NetworkTableEntry mShuffleboardDemoSpeedScale;
 
 		SwerveWheel mWheelFL{21, 22, 0, SwerveDriveConstants::kFLOffset, SwerveDriveConstants::kFLMaxSpeed};
 		SwerveWheel mWheelFR{23, 24, 1, SwerveDriveConstants::kFROffset, SwerveDriveConstants::kFRMaxSpeed};

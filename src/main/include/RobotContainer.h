@@ -59,6 +59,8 @@ namespace HardcodedShots {
 
 	const double kTarmacLowerAngle = 75;
 	const double kTarmacUpperAngle = 85;
+	const double kDemoLowerAngle = 50;
+	const double kDemoUpperAngle = 75;
 }
 
 class RobotContainer {
@@ -93,10 +95,12 @@ class RobotContainer {
 
 		frc::SendableChooser<frc2::Command*> mAutoMode;
 
+		nt::NetworkTableEntry mDemoShooterSpeed;
+
 		void configureButtonBindings();
 
 		// Subsystems and commands
-		SwerveDrive mSwerveDrive{&mDriverController};
+		SwerveDrive mSwerveDrive{&mDriverController, &mDemoController};
 		RunSwerveDrive mRunSwerveDrive{&mSwerveDrive};
 		ToggleDriveMode mToggleDriveMode{&mSwerveDrive};
 		ResetGyro mResetGyro{&mSwerveDrive};
@@ -114,6 +118,7 @@ class RobotContainer {
 		StopShooter mStopShooterCommand{&mShooter};
 		StartShooter mTarmacLowerSpeed{&mShooter, HardcodedShots::kTarmacLowerSpeedRPM};
 		StartShooter mTarmacUpperSpeed{&mShooter, HardcodedShots::kTarmacUpperSpeedRPM};
+		StartShooter mDemoSpeed{&mShooter, &mDemoShooterSpeed};
 		// StartShooter mShuffleboardShooter{&mShooter, &mShooter.mShuffleboardTestRPM};
 
 		ShooterHood mShooterHood;
@@ -121,6 +126,8 @@ class RobotContainer {
 		IncrementHoodAngle mDecrementHood{-2.0, &mShooterHood};
 		SetHoodAngle mTarmacLowerAngle{HardcodedShots::kTarmacLowerAngle, &mShooterHood};
 		SetHoodAngle mTarmacUpperAngle{HardcodedShots::kTarmacUpperAngle, &mShooterHood};
+		SetHoodAngle mDemoLowerAngle{HardcodedShots::kDemoLowerAngle, &mShooterHood};
+		SetHoodAngle mDemoUpperAngle{HardcodedShots::kDemoUpperAngle, &mShooterHood};
 
 		frc2::ParallelCommandGroup mTarmacLower{mTarmacLowerSpeed, mTarmacLowerAngle};
 		frc2::ParallelCommandGroup mTarmacUpper{mTarmacUpperSpeed, mTarmacUpperAngle};
@@ -175,4 +182,22 @@ class RobotContainer {
 		frc2::Button mOperatorRightDPad{[&] { return (mOperatorController.GetPOV() == 90); }};
 		frc2::Button mOperatorDownDPad{[&] { return (mOperatorController.GetPOV() == 180); }};
 		frc2::Button mOperatorLeftDPad{[&] { return (mOperatorController.GetPOV() == 270); }};
+
+		frc::XboxController mDemoController{2};
+		frc2::Button mDemoButtonA{[&] { return mDemoController.GetAButton(); }};
+		frc2::Button mDemoButtonB{[&] { return mDemoController.GetBButton(); }};
+		frc2::Button mDemoButtonX{[&] { return mDemoController.GetXButton(); }};
+		frc2::Button mDemoButtonY{[&] { return mDemoController.GetYButton(); }};
+		frc2::Button mDemoButtonLB{[&] { return mDemoController.GetLeftBumper(); }};
+		frc2::Button mDemoButtonRB{[&] { return mDemoController.GetRightBumper(); }};
+		frc2::Button mDemoButtonLMenu{[&] { return mDemoController.GetBackButton(); }};
+		frc2::Button mDemoButtonRMenu{[&] { return mDemoController.GetStartButton(); }};
+		frc2::Button mDemoLT{[&] { return mDemoController.GetLeftTriggerAxis() > 0.5; }};
+		frc2::Button mDemoRT{[&] { return mDemoController.GetRightTriggerAxis() > 0.5; }};
+		frc2::Button mDemoButtonLS{[&] { return mDemoController.GetLeftStickButton(); }};
+		frc2::Button mDemoButtonRS{[&] { return mDemoController.GetRightStickButton(); }};
+		frc2::Button mDemoUpDPad{[&] { return (mDemoController.GetPOV() == 0); }};
+		frc2::Button mDemoRightDPad{[&] { return (mDemoController.GetPOV() == 90); }};
+		frc2::Button mDemoDownDPad{[&] { return (mDemoController.GetPOV() == 180); }};
+		frc2::Button mDemoLeftDPad{[&] { return (mDemoController.GetPOV() == 270); }};
 };

@@ -4,8 +4,8 @@
 
 #define M_DEGTORAD 57.2958
 
-SwerveDrive::SwerveDrive(frc::XboxController* pController) :
-mpController{pController} {
+SwerveDrive::SwerveDrive(frc::XboxController* pController, frc::XboxController* pDemoController) :
+mpController{pController}, mpDemoController{pDemoController} {
 	SetName("SwerveDrive");
 	SetSubsystem("SwerveDrive");
 	mIsFieldOriented = false;
@@ -14,6 +14,19 @@ mpController{pController} {
 
 	// Shuffleboard
 	mShuffleboardFieldOriented = frc::Shuffleboard::GetTab("Drive").Add("Field oriented", mIsFieldOriented).GetEntry();
+
+	wpi::StringMap<std::shared_ptr<nt::Value>> demoScaleSliderProps = {
+		std::make_pair("Min", nt::Value::MakeDouble(0.10)),
+		std::make_pair("Max", nt::Value::MakeDouble(1.00)),
+		std::make_pair("Block increment", nt::Value::MakeDouble(0.05))
+	};
+
+	frc::ShuffleboardLayout& demoLayout = frc::Shuffleboard::GetTab("Demo").GetLayout("Drive", frc::BuiltInLayouts::kList);
+	mShuffleboardUseDemo = demoLayout.Add("Use Demo Controller?", false).WithWidget(frc::BuiltInWidgets::kToggleButton).GetEntry();
+	mShuffleboardDemoSpeedScale = demoLayout.AddPersistent("Demo Speed Scale", 1.0)
+		.WithWidget(frc::BuiltInWidgets::kNumberSlider)
+		.WithProperties(demoScaleSliderProps)
+		.GetEntry();
 
 	/* frc::ShuffleboardLayout& calibrationLayout = frc::Shuffleboard::GetTab("Test").GetLayout("Swerve calibrator", frc::BuiltInLayouts::kList);
 	mShuffleboardCalibrationFL = calibrationLayout.Add("FL", SwerveDriveConstants::kFLOffset).GetEntry();
@@ -54,11 +67,23 @@ void SwerveDrive::controllerSwerve() {
 	if (mIsFieldOriented) offset = getGyroAngle();
 	else offset = 0.0;
 
-	vectorSwerve(
-		fixInput(mpController->GetLeftX()),
-		fixInput(-mpController->GetLeftY()),
-		fixInput(mpController->GetRightX()),
-		offset);
+	if (mShuffleboardUseDemo.GetBoolean(false)) {
+		double scalar = mShuffleboardDemoSpeedScale.GetDouble(1.0);
+
+		vectorSwerve(
+			fixInput(mpDemoController->GetLeftX() * scalar),
+			fixInput(-mpDemoController->GetLeftY() * scalar),
+			fixInput(mpDemoController->GetRightX()),
+			offset
+		);
+	}
+	else {
+		vectorSwerve(
+			fixInput(mpController->GetLeftX()),
+			fixInput(-mpController->GetLeftY()),
+			fixInput(mpController->GetRightX()),
+			offset);
+	}
 }
 
 void SwerveDrive::vectorSwerve(double driveX, double driveY, double turn, double offset) {
