@@ -37,6 +37,8 @@ class Limelight : public frc2::SubsystemBase {
 
 		float steering_adjust = 0.0f;
 
+		bool lightOn = true;
+
 		nt::NetworkTableEntry mShuffleboardDistance;
 		nt::NetworkTableEntry mShuffleboardPossibleShot;
 		nt::NetworkTableEntry mShuffleboardSuggestedHoodAngle;
@@ -55,6 +57,18 @@ class Limelight : public frc2::SubsystemBase {
 		bool LimelightHasTarget() { return m_LimelightHasTarget; }
 		bool isClose() { return (ty < 9); }
 		float getRotation() { return steering_adjust; }
+		bool setLight(bool on) {
+			lightOn = on;
+			// https://docs.limelightvision.io/en/latest/networktables_api.html#camera-controls
+			// 0: use pipeline default
+			// 1: force off
+			// 3: force on
+			table->PutNumber("ledMode", on ? 0 : 1);
+		}
+		void toggleLight() {
+			lightOn = !lightOn;
+			setLight(lightOn);
+		}
 
 		std::shared_ptr<nt::NetworkTable> table = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
 

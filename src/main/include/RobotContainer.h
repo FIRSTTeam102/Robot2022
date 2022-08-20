@@ -14,6 +14,7 @@
 #include <frc2/command/PrintCommand.h>
 #include <frc2/command/SequentialCommandGroup.h>
 #include <frc2/command/button/Button.h>
+#include <frc/RobotController.h>
 
 #include "commands/Autonomous/MainAutonomous.h"
 #include "commands/Autonomous/OneBallAuto.h"
@@ -137,6 +138,7 @@ class RobotContainer {
 
 		// ToggleCamera mToggleCamera{&mCameraServer, &mCamera1, &mCamera2};
 
+		frc2::Button mUserButton{[&] { return frc::RobotController::GetUserButton(); }};
 		// Controllers
 		frc::XboxController mDriverController{0};
 		frc2::Button mDriverButtonA{[&] { return mDriverController.GetAButton(); }};
