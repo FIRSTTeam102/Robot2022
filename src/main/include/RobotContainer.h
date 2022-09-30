@@ -59,8 +59,8 @@ namespace HardcodedShots {
 
 	const double kTarmacLowerAngle = 75;
 	const double kTarmacUpperAngle = 85;
-	const double kDemoLowerAngle = 50;
-	const double kDemoUpperAngle = 75;
+	const double kDemoLowerAngle = 71;
+	const double kDemoUpperAngle = 80;
 }
 
 class RobotContainer {

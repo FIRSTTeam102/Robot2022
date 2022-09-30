@@ -77,7 +77,6 @@ void RobotContainer::configureButtonBindings() {
 	mOperatorButtonRMenu.ToggleWhenPressed(&mHighClimbCommand);
 
 	/****** Demo ******/
-
 	mDemoButtonA.WhenPressed(&mDemoSpeed);
 	mDemoButtonB.WhenPressed(&mDemoUpperAngle);
 	mDemoButtonY.WhenPressed(&mDemoLowerAngle);
@@ -85,13 +84,12 @@ void RobotContainer::configureButtonBindings() {
 
 	mDemoLT.WhenHeld(&mBallInCommand);
 	mDemoRT.WhenHeld(&mIndexUpCommand);
-	mDemoButtonLB.ToggleWhenPressed(&mMidClimbCommand);
-	mDemoButtonRB.ToggleWhenPressed(&mHighClimbCommand);
+	mDemoButtonRB.WhenHeld(&mIndexDownCommand);
+	// mDemoButtonLB.ToggleWhenPressed(&mMidClimbCommand);
+	// mDemoButtonRB.ToggleWhenPressed(&mHighClimbCommand);
 
 	mDemoButtonLMenu.WhenPressed(&mToggleDriveMode);
 	mDemoButtonRMenu.WhenPressed(&mResetGyro);
-
-	mDemoDownDPad.WhenHeld(&mIndexDownCommand);
 }
 
 frc2::Command* RobotContainer::getAutonomousCommand() {
