@@ -13,7 +13,7 @@
 #include "subsystems/SwerveWheel.h"
 
 namespace SwerveDriveConstants {
-	// Motor ports
+	// motor ports
 	const int kFLDrive = 21;
 	const int kFLTurn = 22;
 	const int kFRDrive = 23;
@@ -23,23 +23,23 @@ namespace SwerveDriveConstants {
 	const int kBLDrive = 27;
 	const int kBLTurn = 28;
 
-	// Encoder Ports
+	// encoder ports
 	const int kFLEnc = 0;
 	const int kFREnc = 1;
 	const int kBREnc = 2;
 	const int kBLEnc = 3;
 
-	// Calibration Values
-	const int kFLOffset = 594;
-	const int kFROffset = 438;
-	const int kBROffset = 2661;
-	const int kBLOffset = 2246;
+	// turn encoder calibration values
+	const int kFLOffset = 595;
+	const int kFROffset = 425;
+	const int kBROffset = 2673;
+	const int kBLOffset = 2437;
 
 	const double kMaxSpeed = 1.00;
 
 	const double kDeadzone = 0.1;
 
-	// Motor Max Speeds
+	// motor max speeds
 	const double kFLMaxSpeed = 490;
 	const double kFRMaxSpeed = 507;
 	const double kBRMaxSpeed = 494;

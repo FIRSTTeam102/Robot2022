@@ -57,7 +57,7 @@ class Limelight : public frc2::SubsystemBase {
 		bool LimelightHasTarget() { return m_LimelightHasTarget; }
 		bool isClose() { return (ty < 9); }
 		float getRotation() { return steering_adjust; }
-		bool setLight(bool on) {
+		void setLight(bool on) {
 			lightOn = on;
 			// https://docs.limelightvision.io/en/latest/networktables_api.html#camera-controls
 			// 0: use pipeline default

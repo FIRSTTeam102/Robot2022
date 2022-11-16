@@ -32,6 +32,7 @@ RobotContainer::RobotContainer() {
 	mCameraServer = frc::CameraServer::AddSwitchedCamera("Camera");
 	mCameraServer.SetFPS(15);
 	mCameraServer.SetResolution(320, 240);
+	mCameraServer.SetCompression(70);
 	mCameraServer.SetSource(mCamera1);
 	frc::Shuffleboard::GetTab("Drive")
 		.AddCamera("Camera", "Camera", std::vector<std::string>{mCameraServer.GetListenAddress()})
@@ -71,7 +72,7 @@ void RobotContainer::configureButtonBindings() {
 	// mOperatorRightDPad.WhenPressed(&mToggleCamera);
 
 	mOperatorButtonLMenu.ToggleWhenPressed(&mMidClimbCommand);
-	mOperatorButtonRMenu.ToggleWhenPressed(&mHighClimbCommand);
+	// mOperatorButtonRMenu.ToggleWhenPressed(&mHighClimbCommand);
 }
 
 frc2::Command* RobotContainer::getAutonomousCommand() {

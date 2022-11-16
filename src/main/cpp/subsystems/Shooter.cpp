@@ -41,7 +41,7 @@ Shooter::Shooter() {
 	wpi::StringMap<std::shared_ptr<nt::Value>> boostSliderProperties = {
 		std::make_pair("Min", nt::Value::MakeDouble(0.10)),
 		std::make_pair("Max", nt::Value::MakeDouble(1.50)),
-		std::make_pair("Block increment", nt::Value::MakeDouble(0.1))
+		std::make_pair("Block increment", nt::Value::MakeDouble(0.01))
 	};
 
 	frc::ShuffleboardLayout& layout = frc::Shuffleboard::GetTab("Drive").GetLayout("Shooter", frc::BuiltInLayouts::kList);
