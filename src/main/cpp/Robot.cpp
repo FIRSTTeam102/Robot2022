@@ -2,7 +2,6 @@
 
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
-
 void Robot::RobotInit() {
 	mContainer->setInitialStates();
 	Lights::setAlliance();
@@ -38,7 +37,17 @@ void Robot::DisabledInit() {
 	mContainer->setOperatorRumble(0);
 }
 
-void Robot::DisabledPeriodic() {}
+void Robot::DisabledPeriodic() {
+	double voltage = frc::RobotController::GetBatteryVoltage().value();
+
+	if (voltage < 10.5) {
+		for (int i = 0; i < 10; i++) {
+			printf("REPLACE BATTERY | REPLACE BATTERY\n");
+
+			throw std::runtime_error{"INTENTIONAL CRASH | REPLACE BATTERY"};
+		}
+	}
+}
 
 /**
  * This autonomous runs the autonomous command selected by your {@link

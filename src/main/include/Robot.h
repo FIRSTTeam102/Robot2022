@@ -3,6 +3,7 @@
 #include <frc/TimedRobot.h>
 #include <frc2/command/Command.h>
 #include <frc/Compressor.h>
+#include <frc/RobotController.h>
 
 #include "RobotContainer.h"
 #include "subsystems/Lights.h"
